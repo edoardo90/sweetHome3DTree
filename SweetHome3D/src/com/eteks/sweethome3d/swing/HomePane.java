@@ -99,6 +99,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -124,6 +125,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
@@ -242,6 +244,7 @@ public class HomePane extends JRootPane implements HomeView {
   private List<Action>          pluginActions;
   
   private JPanel                jpTreePanel;
+  private JTextArea             txtReachTreeAsciiArt;
   
   /**
    * Creates home view associated with its controller.
@@ -708,14 +711,15 @@ public class HomePane extends JRootPane implements HomeView {
     {
         
          controller.getView();
-         jpTreePanel.setBackground(Color.RED);
          
          List<Wall> walls = new ArrayList<Wall>(home.getWalls());
          List<Room> rooms = new ArrayList<Room>(home.getRooms());
          List<HomePieceOfFurniture> fornitures = new ArrayList<HomePieceOfFurniture>(home.getFurniture());
          
-         ReachableTreeBuillder rt = new ReachableTreeBuillder( walls, rooms, fornitures);        
+         ReachableTreeBuillder rt = new ReachableTreeBuillder( walls, rooms, fornitures); 
+         String asciiArtTree = rt.getAsciiArtTree();
          
+         txtReachTreeAsciiArt.setText(asciiArtTree);
          /* in some way then we will display the tree inside the jPanel  */
          
     }
@@ -2354,11 +2358,17 @@ public class HomePane extends JRootPane implements HomeView {
       //The original code finished here, now We also add a lateral panel in which 
       // will be placed the Reach Tree.
       jpTreePanel = new JPanel();
-      JButton edosb = new JButton("Qua ci sarà l'albero");
+      JButton edosb = new JButton("Here will be located the tree");
       
       edosb.addActionListener(new UpdateTreeButtonListener());
       
+      jpTreePanel.setLayout(new BoxLayout(jpTreePanel, BoxLayout.Y_AXIS));
+      
       jpTreePanel.add(edosb);
+      txtReachTreeAsciiArt = new JTextArea(5, 20);
+      JScrollPane scrollableTextArea = new JScrollPane(txtReachTreeAsciiArt); 
+      txtReachTreeAsciiArt.setEditable(false);
+      jpTreePanel.add(scrollableTextArea);
       
       final JSplitPane mainRich = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
               mainPane, jpTreePanel);

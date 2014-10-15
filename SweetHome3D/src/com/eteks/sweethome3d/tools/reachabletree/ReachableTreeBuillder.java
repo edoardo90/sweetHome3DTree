@@ -41,6 +41,12 @@ public class ReachableTreeBuillder {
     this.walls = walls;
     this.rooms = rooms;
     this.fornitures = fornitures;
+  }
+  
+  
+  public String getAsciiArtTree()
+  {
+    
     Set<RGraphEdge> rgraph = this.makeGraph();
     List<RGraphEdge> rgraphOrd = new ArrayList<RGraphEdge>(rgraph);
     
@@ -56,8 +62,10 @@ public class ReachableTreeBuillder {
     String s = thereachTree.toString();
     s = thereachTree.toStringTree();
     s = s + "";
+    
+    return s;
   }
-
+  
   protected Set<RGraphEdge> makeGraph()
   {
     /*  1) Graph <V, E>  where V are rooms filled with objects and there is an edge between room1 and room2 iif 
@@ -143,9 +151,6 @@ public class ReachableTreeBuillder {
 
   }
 
-
-
-
   private boolean areLinkedRoomsAndDoor(Room r1, Room r2, HomeDoorOrWindow d)
   {
 
@@ -172,9 +177,7 @@ public class ReachableTreeBuillder {
    * @param ev:  entry point of the graph: the node from which the visit begins
    * @param visited: the already visited nodes
    * @return the Reachability Tree
-   */
-  
-  /**
+   *
    *  BT on a node with no neighbours returns a tree with just that node as leaf 
    *  BT on a node with neighbours returns a  tree with that node as root 
    *  and BT applied to all its sons except the ones already visited
@@ -241,16 +244,12 @@ public class ReachableTreeBuillder {
     
   }
 
-  private boolean areEquals(RGraphEdge s, RGraphEdge v) {
+  /*package*/ static boolean areEquals(RGraphEdge s, RGraphEdge v) {
     String n1 =  s.getRoom().getName();
     String n2 =  v.getRoom().getName();
     return n1.equals(n2);
   }
   
-  
-
-
-
 
 
 }
