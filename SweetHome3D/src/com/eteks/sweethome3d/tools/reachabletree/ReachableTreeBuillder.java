@@ -40,7 +40,7 @@ public class ReachableTreeBuillder {
   {
     this.walls = walls;
     this.rooms = rooms;
-    this.fornitures = fornitures;
+    this.fornitures = fornitures ;
   }
   
   
@@ -50,7 +50,12 @@ public class ReachableTreeBuillder {
     Set<RGraphEdge> rgraph = this.makeGraph();
     List<RGraphEdge> rgraphOrd = new ArrayList<RGraphEdge>(rgraph);
     
-    RGraphEdge ev = rgraphOrd.get(0);
+    RGraphEdge ev = null;
+    
+    if(rgraphOrd != null && rgraphOrd.size() > 0)
+         ev = rgraphOrd.get(0);
+    else
+         return "";
     for(RGraphEdge e : rgraphOrd)
     {
       if (e.getRoom().getName().equals("room 1"))

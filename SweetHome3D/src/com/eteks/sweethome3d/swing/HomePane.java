@@ -719,8 +719,17 @@ public class HomePane extends JRootPane implements HomeView {
          ReachableTreeBuillder rt = new ReachableTreeBuillder( walls, rooms, fornitures); 
          String asciiArtTree = rt.getAsciiArtTree();
          
-         txtReachTreeAsciiArt.setText(asciiArtTree);
          /* in some way then we will display the tree inside the jPanel  */
+         txtReachTreeAsciiArt.setText(asciiArtTree);
+         
+         Wall w = new Wall(200f, 200f, 400f, 400f, 100f, 50f);
+         home.addWall(w);
+         
+         for(Wall w1 : home.getWalls())
+         {
+           w1.setXStart( w1.getXStart()  - 100);
+         }
+         
          
     }
     
