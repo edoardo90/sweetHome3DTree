@@ -18,7 +18,7 @@ public class RGraphEdge {
     this.neighbours = new ArrayList<RGraphEdge>();
   }
 
-
+  
 
 
 
@@ -183,12 +183,26 @@ public class RGraphEdge {
   }
 
   public List<HomePieceOfFurniture> getRoomObjects() {
-    return roomObjects;
+    List<HomePieceOfFurniture> lst = new ArrayList<HomePieceOfFurniture>(this.roomObjects);
+    return lst;
   }
 
   public void setRoomObjects(List<HomePieceOfFurniture> roomObjects) {
     this.roomObjects = roomObjects;
   }
+  
+  @Override
+  public RGraphEdge clone()
+  {
+    RGraphEdge rg = new RGraphEdge(this.room.clone());
+    rg.neighbours = this.getNeighbours();
+    rg.roomObjects = this.getRoomObjects();
+    
+    
+    
+    return rg;
+  }
+  
 
   public List<RGraphEdge> getNeighbours() {
     List<RGraphEdge>  neighboursRet = new ArrayList<RGraphEdge>(this.neighbours);

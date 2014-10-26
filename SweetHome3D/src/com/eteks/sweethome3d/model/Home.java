@@ -733,9 +733,11 @@ public class Home implements Serializable, Cloneable {
   public void addRoom(Room room, int index) {
     // Make a copy of the list to avoid conflicts in the list returned by getRooms
     this.rooms = new ArrayList<Room>(this.rooms);
-    this.rooms.add(index, room);
-    room.setLevel(this.selectedLevel);
-    this.roomsChangeSupport.fireCollectionChanged(room, index, CollectionEvent.Type.ADD);
+    
+      this.rooms.add(index, room);
+      room.setLevel(this.selectedLevel);
+      this.roomsChangeSupport.fireCollectionChanged(room, index, CollectionEvent.Type.ADD);
+  
   }
 
   /**
@@ -1479,5 +1481,11 @@ public class Home implements Serializable, Cloneable {
       }
     }
     return subList;
+  }
+
+  // --- !!! ---
+  public void clearRooms() {
+    this.rooms.clear();
+    
   }
 }

@@ -19,5 +19,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="lib" path="/Users/edoardo/Downloads/gs-core-1.2/gs-core-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/edoardo/Downloads/gs-algo-1.2/gs-algo-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/edoardo/Downloads/gs-ui-1.2/gs-ui-1.2.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
