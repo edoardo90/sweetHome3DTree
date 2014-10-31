@@ -5,19 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.IdAlreadyInUseException;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 
 import com.eteks.sweethome3d.tools.reachabletree.RGraphEdge;
+import com.sun.media.SimpleGraphBuilder;
 
 
 public class BuildingToTree {
-  
-  private void x()
-  {
-    Graph g = new SingleGraph("ciao!");
-    
-  }
   
   
   /**
@@ -26,6 +22,7 @@ public class BuildingToTree {
    * @param reachGraph the graph to convert
    * @return the converted graph  with 2 maps to have the corrispondency between nodes
    */
+  @SuppressWarnings("unused")
   private GraphReachMap reachGraphToGraph(List<RGraphEdge> reachGraph)
   {
        
@@ -56,6 +53,13 @@ public class BuildingToTree {
       grm.setReachToGraph(reachToGraph);
       return grm;
   }
+  
+  
+  
+  
+  
+  
+  
   
   
 }

@@ -159,6 +159,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.text.JTextComponent;
 
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.IdAlreadyInUseException;
 import org.graphstream.graph.implementations.SingleGraph;
 
 import com.eteks.sweethome3d.j3d.Ground3D;
@@ -196,8 +197,10 @@ import com.eteks.sweethome3d.plugin.Plugin;
 import com.eteks.sweethome3d.plugin.PluginAction;
 import com.eteks.sweethome3d.plugin.PluginManager;
 import com.eteks.sweethome3d.tools.OperatingSystem;
+import com.eteks.sweethome3d.tools.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.tools.reachabletree.ReachableTreeBuillder;
 import com.eteks.sweethome3d.tools.treetobuilding.GraphDisplayer;
+import com.eteks.sweethome3d.tools.treetobuilding.GraphDisplayer.KindOfGraph;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
@@ -213,6 +216,11 @@ import com.eteks.sweethome3d.viewcontroller.View;
  * @author Emmanuel Puybaret
  */
 public class HomePane extends JRootPane implements HomeView {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 2449408628819834955L;
+
   private enum MenuActionType {FILE_MENU, EDIT_MENU, FURNITURE_MENU, PLAN_MENU, VIEW_3D_MENU, HELP_MENU, 
     OPEN_RECENT_HOME_MENU, ALIGN_OR_DISTRIBUTE_MENU, SORT_HOME_FURNITURE_MENU, DISPLAY_HOME_FURNITURE_PROPERTY_MENU, 
     MODIFY_TEXT_STYLE, GO_TO_POINT_OF_VIEW, SELECT_OBJECT_MENU, TOGGLE_SELECTION_MENU}
@@ -249,12 +257,14 @@ public class HomePane extends JRootPane implements HomeView {
 
   private JPanel                jpTreePanel;
   private JPanel                graphicalGraphPan;
-  private JTextArea             txtReachTreeAsciiArt;
 
   private JTextField            txtAddArch;
   private JTextField            txtAddVertex;
   private Graph                 homeGraph = new SingleGraph("home graph");
-  private GraphDisplayer homeGraphDisplayer;
+  private Graph                 homeTreeGraph  = new SingleGraph("home tree");
+  private GraphDisplayer        homeGraphDisplayer;
+
+  private JTextField            txtAddTreeVertex;
 
   /**
    * Creates home view associated with its controller.
@@ -725,12 +735,10 @@ public class HomePane extends JRootPane implements HomeView {
       List<HomePieceOfFurniture> fornitures = new ArrayList<HomePieceOfFurniture>(home.getFurniture());
 
       ReachableTreeBuillder rt = new ReachableTreeBuillder( walls, rooms, fornitures); 
-      String asciiArtTree = rt.getAsciiArtTree();
-
       /* in some way then we will display the tree inside the jPanel  */
-      txtReachTreeAsciiArt.setText(asciiArtTree);
-      
-      
+      if(false)
+          rt.displayTree();
+
       x(home);
 
     }
@@ -741,12 +749,18 @@ public class HomePane extends JRootPane implements HomeView {
       ExecutorService executorService = Executors.newFixedThreadPool(10);
 
       executorService.execute(new Runnable() {
-        
 
         public void run() {
           if (homeGraphDisplayer == null)
-               homeGraphDisplayer = new GraphDisplayer(homeGraph, home);
-          homeGraphDisplayer.click(true);
+            homeGraphDisplayer =  GraphDisplayer.getDisplayer(homeGraph, home); 
+          try {
+            homeGraphDisplayer.addGraph(KindOfGraph.GRAPH, homeGraph);
+            homeGraphDisplayer.addGraph(KindOfGraph.TREE, homeTreeGraph);
+            homeGraphDisplayer.showAndMonitor(true, KindOfGraph.GRAPH);
+            homeGraphDisplayer.showAndMonitor(true, KindOfGraph.TREE);
+          } catch (NullGraphExcepion ex) {
+            homeGraph  = new SingleGraph("home graph");
+          }
         }    
       });
 
@@ -755,6 +769,70 @@ public class HomePane extends JRootPane implements HomeView {
 
 
   }
+
+  private class AddVertexTreeActionListener implements ActionListener
+  {
+
+    public void actionPerformed(ActionEvent e) {
+      System.out.println(" add vertex tree");
+     
+      String vertexPath = txtAddTreeVertex.getText();
+      String [] nodes = vertexPath.split("\\.");
+      String acc = "";
+      for(int i=0; i< nodes.length; i++)
+      {
+        nodes[i] = acc + nodes[i];
+        acc = nodes[i];
+      }
+      
+      for(int i=0; i< nodes.length; i++)
+      {
+        
+        try{    homeTreeGraph.addNode(nodes[i]); } catch(IdAlreadyInUseException ecc) {}
+        
+        if (i > 0)
+             try {  homeTreeGraph.addEdge(nodes[i] + nodes[i-1], nodes[i-1], nodes[i]); } catch(Exception ecc) {}
+      }
+      
+      
+      
+    }
+
+  }
+
+
+  private class BuildingToTreeAL implements ActionListener
+  {
+    public void actionPerformed(ActionEvent e) {
+      System.out.println("b2t");
+
+    }
+  }
+
+  private class DisplayTreeAL implements ActionListener
+  {
+    public void actionPerformed(ActionEvent e) {
+      System.out.println("disp tree");
+
+    }
+  }
+
+  private class TreeToBuildingAL implements ActionListener
+  {
+    public void actionPerformed(ActionEvent e) {
+      System.out.println("tree to build");
+
+    }
+  }
+
+  private class DisplayGraphAL implements ActionListener
+  {
+    public void actionPerformed(ActionEvent e) {
+      System.out.println("disp graph");
+
+    }
+  }
+
 
   private class AddVertexActionListener implements ActionListener
   {
@@ -767,11 +845,7 @@ public class HomePane extends JRootPane implements HomeView {
       { 
         if (homeGraph.getNode(node) == null)
           homeGraph.addNode(node);
-        
-        if(homeGraphDisplayer != null)
-        {
-          homeGraphDisplayer.updateHome(homeGraph);
-        }
+         
       }
 
     }
@@ -790,7 +864,7 @@ public class HomePane extends JRootPane implements HomeView {
         if(homeGraph.getNode(n1) != null && homeGraph.getNode(n2) != null && homeGraph.getEdge(n1 + n2) == null)
 
         {
-             homeGraph.addEdge(n1 + n2, n1, n2);
+          homeGraph.addEdge(n1 + n2, n1, n2);
         }
       }
     }
@@ -972,6 +1046,7 @@ public class HomePane extends JRootPane implements HomeView {
       }
     }
   };
+
 
 
 
@@ -2438,34 +2513,77 @@ public class HomePane extends JRootPane implements HomeView {
       jpTreePanel.setLayout(new BoxLayout(jpTreePanel, BoxLayout.Y_AXIS));
 
       jpTreePanel.add(edosb);
-      txtReachTreeAsciiArt = new JTextArea(5, 20);
-      JScrollPane scrollableTextArea = new JScrollPane(txtReachTreeAsciiArt); 
-      txtReachTreeAsciiArt.setEditable(false);
-      jpTreePanel.add(scrollableTextArea);
+
+
 
       graphicalGraphPan = new JPanel();
       graphicalGraphPan.setLayout(new BoxLayout(graphicalGraphPan, BoxLayout.Y_AXIS));
       JSplitPane spTextAreaGraph = new  JSplitPane(JSplitPane.VERTICAL_SPLIT,
           jpTreePanel, graphicalGraphPan);
 
-
+      //add arch
       JPanel addArchPanel = new JPanel(new FlowLayout());
-      JButton btnAddArch = new JButton("add arch");
+      JButton btnAddArch = new JButton("add arch to graph");
       txtAddArch = new JTextField("AB");
       addArchPanel.add(txtAddArch);
       addArchPanel.add(btnAddArch);
 
+      //add vertex
       JPanel addVertexPanel = new JPanel(new FlowLayout());
-      JButton btnAddVertex = new JButton("add vertex");
+      JButton btnAddVertex = new JButton("add vertex to graph");
       txtAddVertex = new JTextField("A");
       addVertexPanel.add(txtAddVertex);
       addVertexPanel.add(btnAddVertex);
 
       btnAddArch.addActionListener(new AddArchActionListener() );
       btnAddVertex.addActionListener(new AddVertexActionListener());
-      
+
       graphicalGraphPan.add(addVertexPanel);
       graphicalGraphPan.add(addArchPanel);
+
+
+      JPanel graphicalTreePan = new JPanel();
+     
+      //add vertex to tree
+      JPanel addVertexTreePanel = new JPanel(new FlowLayout());
+      JButton btnAddTreeVertex = new JButton("add vertex path to tree");
+      txtAddTreeVertex = new JTextField("A.B.C.E.G");
+      addVertexTreePanel.add(txtAddTreeVertex);
+      addVertexTreePanel.add(btnAddTreeVertex);
+
+     
+      btnAddTreeVertex.addActionListener(new AddVertexTreeActionListener());
+
+
+      graphicalTreePan.add(addVertexTreePanel);
+
+
+
+      JPanel controlGraphsDisplay = new JPanel();
+      controlGraphsDisplay.setLayout(new FlowLayout());
+
+      JButton buttonDisplayGraph = new JButton("display graph");
+      JButton buttonDisplayTree = new JButton("display tree");
+      JButton buttonTreeToBuilding = new JButton("tree to building");
+      JButton buttonBuildingToTree = new JButton("building to tree");
+
+      buttonBuildingToTree.addActionListener(new BuildingToTreeAL());
+      buttonDisplayTree.addActionListener(new DisplayTreeAL());
+      buttonTreeToBuilding.addActionListener(new TreeToBuildingAL());
+      buttonDisplayGraph.addActionListener(new DisplayGraphAL());
+
+      controlGraphsDisplay.add(buttonDisplayGraph);
+      controlGraphsDisplay.add(buttonDisplayTree);
+
+      JPanel controlGraphsBuild = new JPanel();
+      controlGraphsBuild.setLayout(new FlowLayout());
+
+      controlGraphsBuild.add(buttonTreeToBuilding);
+      controlGraphsBuild.add(buttonBuildingToTree);
+
+      graphicalGraphPan.add(graphicalTreePan);
+      graphicalGraphPan.add(controlGraphsDisplay);
+      graphicalGraphPan.add(controlGraphsBuild);
 
       final JSplitPane mainRich = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
           mainPane, spTextAreaGraph);

@@ -2,8 +2,6 @@ package com.eteks.sweethome3d.tools.reachabletree;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,11 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.eteks.sweethome3d.model.DoorOrWindow;
+import org.graphstream.graph.Graph;
+
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.Wall;
+import com.eteks.sweethome3d.tools.Conversions;
 
 /**
  * This class is used to build the Tree of Reachability
@@ -47,6 +47,18 @@ public class ReachableTreeBuillder {
   public String getAsciiArtTree()
   {
     
+    RGraphEdge threachTree = makeReachTree();
+    if(threachTree == null )
+      return "";
+    String s = threachTree.toString();
+    s = threachTree.toStringTree();
+    s = s + "";
+    
+    return s;
+  }
+  
+  private RGraphEdge makeReachTree()
+  {
     Set<RGraphEdge> rgraph = this.makeGraph();
     List<RGraphEdge> rgraphOrd = new ArrayList<RGraphEdge>(rgraph);
     
@@ -55,7 +67,7 @@ public class ReachableTreeBuillder {
     if(rgraphOrd != null && rgraphOrd.size() > 0)
          ev = rgraphOrd.get(0);
     else
-         return "";
+         return null;
     for(RGraphEdge e : rgraphOrd)
     {
       if (e.getRoom().getName().equals("room 1"))
@@ -64,11 +76,8 @@ public class ReachableTreeBuillder {
     
     
     RGraphEdge thereachTree = BT(ev, null);
-    String s = thereachTree.toString();
-    s = thereachTree.toStringTree();
-    s = s + "";
     
-    return s;
+    return thereachTree;
   }
   
   protected Set<RGraphEdge> makeGraph()
@@ -109,7 +118,6 @@ public class ReachableTreeBuillder {
 
     /* 3) now we have the edges:  rooms filled of objects, we now need the links  */
 
-    Polygon p = new Polygon();
     List<HomeDoorOrWindow> doors = new ArrayList<HomeDoorOrWindow>();
     for (HomePieceOfFurniture hpf : fornitures)
     {
@@ -148,9 +156,6 @@ public class ReachableTreeBuillder {
         }
       }
     }
-
-    String s = graphOfRe.toString();
-    graphOfRe.hashCode();
 
     return graphOfRe;
 
@@ -253,6 +258,13 @@ public class ReachableTreeBuillder {
     String n1 =  s.getRoom().getName();
     String n2 =  v.getRoom().getName();
     return n1.equals(n2);
+  }
+
+
+  public void displayTree() 
+  {
+    RGraphEdge root = this.makeReachTree();
+    Graph g = Conversions.treeToGraph(root);
   }
   
 

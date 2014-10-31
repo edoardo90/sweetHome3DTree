@@ -26,6 +26,7 @@ class GraphicInfoNode implements Comparable<GraphicInfoNode>
   private String baseNodeId;
   private float x, y;
 
+  @SuppressWarnings("unused")
   private Map<String, double []> nodesPositions;
   private boolean isDummy = false;
 

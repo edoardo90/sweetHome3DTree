@@ -2,10 +2,8 @@ package com.eteks.sweethome3d.tools.treetobuilding;
 
 import java.awt.Rectangle;
 
-import com.eteks.sweethome3d.model.DoorOrWindow;
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
 import com.eteks.sweethome3d.model.Room;
-import com.eteks.sweethome3d.tools.treetobuilding.*;
 
 public class Corridor {
   private Room corridorShape;
