@@ -181,9 +181,12 @@ class GraphicInfoNode implements Comparable<GraphicInfoNode>
     int height =  max (neighLeft.size(), neighRigh.size());
     int width =  max (neighAbove.size(), neighDown.size());
 
-    return new Rectangle(Integer.max(1, width),  Integer.max(1,height));
+    return new Rectangle(max(1, width),  max(1,height));
 
   }
+  
+
+  
   public Rectangle getRoomRectangle()
   {
     Rectangle r = this.getRectangle();

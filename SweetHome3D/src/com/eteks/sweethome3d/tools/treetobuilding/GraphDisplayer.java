@@ -21,7 +21,7 @@ import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.tools.Conversions;
 import com.eteks.sweethome3d.tools.reachabletree.NullGraphExcepion;
-import com.sun.beans.util.Cache.Kind;
+
 
 
 public class GraphDisplayer {

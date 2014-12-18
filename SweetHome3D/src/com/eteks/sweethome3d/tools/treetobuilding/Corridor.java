@@ -202,12 +202,18 @@ public class Corridor {
 
   }
 
+  private float max(float a, float b)
+  {
+    return a > b ? a : b;
+  }
+  
+  
   @Override
   public String toString()
   {
 
-    float xMax = Float.max(xNeigh, xInfo);
-    float yMax = Float.max(xNeigh, yInfo);
+    float xMax = max(xNeigh, xInfo);
+    float yMax = max(xNeigh, yInfo);
 
     if(xMax != 0)
     {
