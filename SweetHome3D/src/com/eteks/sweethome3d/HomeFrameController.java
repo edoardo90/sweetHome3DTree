@@ -33,6 +33,9 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
  * Home frame pane controller.
  * @author Emmanuel Puybaret
  */
+
+/** asd ! **/ 
+
 public class HomeFrameController implements Controller {
   private final Home            home;
   private final HomeApplication application;
