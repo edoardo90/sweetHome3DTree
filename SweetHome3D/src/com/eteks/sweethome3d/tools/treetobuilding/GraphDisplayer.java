@@ -3,6 +3,7 @@ package com.eteks.sweethome3d.tools.treetobuilding;
 import static org.graphstream.ui.graphicGraph.GraphPosLengthUtils.nodePosition;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.concurrent.Executors;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.stream.file.FileSourceGEXF.GEXFConstants.NODEAttribute;
 import org.graphstream.ui.swingViewer.Viewer;
 import org.graphstream.ui.swingViewer.ViewerPipe;
 
@@ -199,32 +201,40 @@ public class GraphDisplayer {
     }
   }
 
+  public void updateHomeTreeWay(Graph myGraph)
+  {
+   updateHome(myGraph, false);
+    
+  }
 
 
-  public void updateHome(Graph myGraph) {
-
+ public void updateHomeCoverGraphWay(Graph myGraph) {
+   updateHome(myGraph, true);
+  }
+ 
+  public void updateHome(Graph myGraph, boolean isTree)
+  {
+    
     System.out.println("update home");
 
     //cooridor needs a door
-    HomeDoorOrWindow door = null;
-
-    //TODO : ask sweetHome people how to add door runtime by code
-    for(HomePieceOfFurniture p : home.getFurniture())
-    {
-      if(p instanceof HomeDoorOrWindow)
-      {
-        door = new HomeDoorOrWindow( (HomeDoorOrWindow) p);
-        door = door.clone();
-        break;
-      }
-
-    }
-
+    HomeDoorOrWindow door = getDoor();
 
     Map<String, double []> nodesPositions = Conversions.getAllPositions(myGraph);
-    RoomsAndCorridors rac = buildBuildingFromGraph(myGraph, nodesPositions, door);
+    
+    
+    RoomsAndCorridors rac ;
+    
+    if(! isTree)
+    {
+      rac = buildBuildingFromGraph(myGraph, nodesPositions, door);
+    }
+    else
+    {
+      rac = buildBuildingFromTree(myGraph, nodesPositions, door);
+    }
 
-
+    
     List<Room> rooms = rac.getRooms();
     List<Corridor> corridors = rac.getCorridors();
 
@@ -272,7 +282,77 @@ public class GraphDisplayer {
 
   }
 
+  /*
+   * 
+   *   -------------------------------
+   *   |   C  |   D     | E  | F   | G |
+   *   |______|_________|____|_____|___| 
+   *   |       A        |      B       |
+   */
+  
+  private RoomsAndCorridors buildBuildingFromTree(Graph myGraph, Map<String, double []> nodesPositions,
+                                                  HomeDoorOrWindow door) {
+    
+    List<Corridor> cors  = new ArrayList<Corridor>();
+    List<Room> rooms = new ArrayList<Room>();
+    
+    Node root = myGraph.getNode("A");
+    
+    Iterator<Node> neighboursIt = root.getNeighborNodeIterator();
+    
+    Map<Node, Integer> numberOfDiscMap = new HashMap<Node, Integer>();
+    while(neighboursIt.hasNext())
+    {
+      Node n = neighboursIt.next();
+      numberOfDiscMap.put(n,  numberOfDisc(n));
+    }
+    
+    
+    RoomsAndCorridors rac = new RoomsAndCorridors(cors, rooms);
+    return rac;
+  }
 
+  private int numberOfDisc(Node n)
+  {
+    
+    int nod = 0;
+    Iterator<Node> neighboursIt = n.getNeighborNodeIterator();
+
+    if(neighboursIt.hasNext())
+    {
+      int sum = 0;
+      while(neighboursIt.hasNext())
+      {
+        Node neigh = neighboursIt.next();
+        sum = sum + numberOfDisc(neigh);
+      }
+      
+    }
+    else
+    {
+      nod = 1;
+    }
+    
+    return nod;
+  }
+  
+  private HomeDoorOrWindow getDoor()
+  {
+    HomeDoorOrWindow door = null;
+    //TODO : ask sweetHome people how to add door runtime by code
+    for(HomePieceOfFurniture p : home.getFurniture())
+    {
+      
+      if(p instanceof HomeDoorOrWindow)
+      {
+        door = new HomeDoorOrWindow( (HomeDoorOrWindow) p);
+        door = door.clone();
+        break;
+      }
+
+    }
+    return door;
+  }
 
 
   public  RoomsAndCorridors buildBuildingFromGraph(Graph graph, Map<String, double []> nodesPositions, HomeDoorOrWindow door )

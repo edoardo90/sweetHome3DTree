@@ -34,9 +34,6 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
  * @author Emmanuel Puybaret
  */
 
-/** asd ! **/
-/**  lol ! **/
-
 public class HomeFrameController implements Controller {
   private final Home            home;
   private final HomeApplication application;

@@ -724,27 +724,18 @@ public class HomePane extends JRootPane implements HomeView {
    * Edo's change: onclick-listener for button - it updates the tree of reachability
    * @author edoardo
    */
-  private  class  UpdateTreeButtonListener implements ActionListener
+  private  class  DisplayGraphButtonListener implements ActionListener
   {
 
     public void actionPerformed(ActionEvent e) 
     {
 
-      List<Wall> walls = new ArrayList<Wall>(home.getWalls());
-      List<Room> rooms = new ArrayList<Room>(home.getRooms());
-      List<HomePieceOfFurniture> fornitures = new ArrayList<HomePieceOfFurniture>(home.getFurniture());
-
-      ReachableTreeBuillder rt = new ReachableTreeBuillder( walls, rooms, fornitures); 
-      /* in some way then we will display the tree inside the jPanel  */
-      if(false)
-          rt.displayTree();
-
-      x(home);
+      showGraphWindow(home);
 
     }
 
 
-    private void x(final Home home)
+    private void showGraphWindow(final Home home)
     {
       ExecutorService executorService = Executors.newFixedThreadPool(10);
 
@@ -755,9 +746,7 @@ public class HomePane extends JRootPane implements HomeView {
             homeGraphDisplayer =  GraphDisplayer.getDisplayer(homeGraph, home); 
           try {
             homeGraphDisplayer.addGraph(KindOfGraph.GRAPH, homeGraph);
-            homeGraphDisplayer.addGraph(KindOfGraph.TREE, homeTreeGraph);
             homeGraphDisplayer.showAndMonitor(true, KindOfGraph.GRAPH);
-            homeGraphDisplayer.showAndMonitor(true, KindOfGraph.TREE);
           } catch (NullGraphExcepion ex) {
             homeGraph  = new SingleGraph("home graph");
           }
@@ -805,6 +794,15 @@ public class HomePane extends JRootPane implements HomeView {
   {
     public void actionPerformed(ActionEvent e) {
       System.out.println("b2t");
+      
+      List<Wall> walls = new ArrayList<Wall>(home.getWalls());
+      List<Room> rooms = new ArrayList<Room>(home.getRooms());
+      List<HomePieceOfFurniture> fornitures = new ArrayList<HomePieceOfFurniture>(home.getFurniture());
+
+      ReachableTreeBuillder rt = new ReachableTreeBuillder( walls, rooms, fornitures); 
+      /* in some way then we will display the tree inside the jPanel  */
+      rt.displayTree();
+      
 
     }
   }
@@ -821,7 +819,9 @@ public class HomePane extends JRootPane implements HomeView {
   {
     public void actionPerformed(ActionEvent e) {
       System.out.println("tree to build");
-
+      
+      homeGraphDisplayer.updateHomeTreeWay(homeGraph);
+      
     }
   }
 
@@ -2506,13 +2506,13 @@ public class HomePane extends JRootPane implements HomeView {
       //The original code finished here, now We also add a lateral panel in which 
       // will be placed the Reach Tree.
       jpTreePanel = new JPanel();
-      JButton edosb = new JButton("Here will be located the tree");
+      JButton displayGraphButton = new JButton("Display graph window");
 
-      edosb.addActionListener(new UpdateTreeButtonListener());
+      displayGraphButton.addActionListener(new DisplayGraphButtonListener());
 
       jpTreePanel.setLayout(new BoxLayout(jpTreePanel, BoxLayout.Y_AXIS));
 
-      jpTreePanel.add(edosb);
+      jpTreePanel.add(displayGraphButton);
 
 
 
