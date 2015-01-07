@@ -184,6 +184,7 @@ import com.eteks.sweethome3d.model.InterruptedRecorderException;
 import com.eteks.sweethome3d.model.Label;
 import com.eteks.sweethome3d.model.Level;
 import com.eteks.sweethome3d.model.Library;
+import com.eteks.sweethome3d.model.PieceOfFurniture;
 import com.eteks.sweethome3d.model.RecorderException;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.Selectable;
@@ -308,6 +309,7 @@ public class HomePane extends JRootPane implements HomeView {
     // Change component orientation
     applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
   }
+
 
   /**
    * Create the actions map of this component.
@@ -829,7 +831,21 @@ public class HomePane extends JRootPane implements HomeView {
   {
     public void actionPerformed(ActionEvent e) {
       System.out.println("disp graph");
+      System.out.println(" i dont display graph but insteaad i gonna display a piece of forniture");
+      PieceOfFurniture pof =getUserPreferences()
+          .getFurnitureCatalog()
+          .getCategory(2)               // category e.g. 2
+          .getPieceOfFurniture(1);      // model 1 within the category
 
+          // Now you can display the model within current home
+          HomePieceOfFurniture hpof = new HomePieceOfFurniture(pof);
+
+          // and set locations etc.
+          hpof.setX(300);
+          hpof.setY(700);
+          hpof.setElevation(0);
+          hpof.setAngle(30);
+          home.addPieceOfFurniture(hpof);
     }
   }
 
@@ -890,6 +906,11 @@ public class HomePane extends JRootPane implements HomeView {
       }
     });
   }
+
+  public UserPreferences getUserPreferences() {
+    return this.preferences;
+  }
+
 
   /**
    * Adds a focus change listener to report to controller focus changes.  

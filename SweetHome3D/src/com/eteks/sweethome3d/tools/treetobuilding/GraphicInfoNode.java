@@ -209,12 +209,12 @@ class GraphicInfoNode implements Comparable<GraphicInfoNode>
    
     
     float x2 = x1;
-    float x3 = x1 + (float) (( r.width) * IGRAPH_TO_ROOM_SIZE);
-    float x4 = x3;
+    float x4 = x1 + (float) (( r.width) * IGRAPH_TO_ROOM_SIZE);
+    float x3 = x4;
     
-    float y3 = y1;
+    float y4 = y1;
     float y2 = y1 + (float) (( r.height) * IGRAPH_TO_ROOM_SIZE);
-    float y4 = y2;
+    float y3 = y2;
     
 
     float [][] points = new float [4][2];
@@ -224,10 +224,10 @@ class GraphicInfoNode implements Comparable<GraphicInfoNode>
     points[1][0] = x2;
     points[1][1] = y2;
 
-    points[2][0] = x4;
-    points[2][1] = y4;
-    points[3][0] = x3;
-    points[3][1] = y3;
+    points[2][0] = x3;
+    points[2][1] = y3;
+    points[3][0] = x4;
+    points[3][1] = y4;
     
     
 

@@ -7,9 +7,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
@@ -203,38 +205,38 @@ public class GraphDisplayer {
 
   public void updateHomeTreeWay(Graph myGraph)
   {
-   updateHome(myGraph, false);
-    
+    updateHome(myGraph, true);
+
   }
 
 
- public void updateHomeCoverGraphWay(Graph myGraph) {
-   updateHome(myGraph, true);
+  public void updateHomeCoverGraphWay(Graph myGraph) {
+    updateHome(myGraph, false);
   }
- 
+
   public void updateHome(Graph myGraph, boolean isTree)
   {
-    
-    System.out.println("update home");
+
+    System.out.println(" now  I  update home in beasty way");
 
     //cooridor needs a door
     HomeDoorOrWindow door = getDoor();
 
     Map<String, double []> nodesPositions = Conversions.getAllPositions(myGraph);
-    
-    
+
+
     RoomsAndCorridors rac ;
-    
-    if(! isTree)
-    {
-      rac = buildBuildingFromGraph(myGraph, nodesPositions, door);
-    }
-    else
+
+    if( isTree)
     {
       rac = buildBuildingFromTree(myGraph, nodesPositions, door);
     }
+    else
+    {
+      rac = buildBuildingFromGraph(myGraph, nodesPositions, door);
+    }
 
-    
+
     List<Room> rooms = rac.getRooms();
     List<Corridor> corridors = rac.getCorridors();
 
@@ -289,60 +291,198 @@ public class GraphDisplayer {
    *   |______|_________|____|_____|___| 
    *   |       A        |      B       |
    */
-  
+
   private RoomsAndCorridors buildBuildingFromTree(Graph myGraph, Map<String, double []> nodesPositions,
                                                   HomeDoorOrWindow door) {
-    
+
     List<Corridor> cors  = new ArrayList<Corridor>();
     List<Room> rooms = new ArrayList<Room>();
-    
+
     Node root = myGraph.getNode("A");
+    Map<Node, NodeRoom> weightedTree = getWeightedTree(root);
     
-    Iterator<Node> neighboursIt = root.getNeighborNodeIterator();
-    
-    Map<Node, Integer> numberOfDiscMap = new HashMap<Node, Integer>();
-    while(neighboursIt.hasNext())
+    for( Entry<Node, NodeRoom> nodeAndRoom :  weightedTree.entrySet())
     {
-      Node n = neighboursIt.next();
-      numberOfDiscMap.put(n,  numberOfDisc(n));
+      //create a room starting from NodeRoom information
+      NodeRoom nr = nodeAndRoom.getValue();
+      Room r = getRoomFromNodeRoom(nr); 
+      rooms.add(r);
     }
-    
-    
+
     RoomsAndCorridors rac = new RoomsAndCorridors(cors, rooms);
     return rac;
   }
 
-  private int numberOfDisc(Node n)
-  {
-    
-    int nod = 0;
-    Iterator<Node> neighboursIt = n.getNeighborNodeIterator();
+  private Room getRoomFromNodeRoom(NodeRoom nr) {
 
-    if(neighboursIt.hasNext())
+    int y = nr.level;
+    int width = nr.numberOfDesc;  // should also be function of objects inside...
+    int x = nr.leftDisplacement;
+    int roomHeight = 3;   //should be also function of the number of objects inside...
+    int fatherEnd = nr.fatherFinalEnd;
+    int conversion = 100;
+    /*  +----x--->
+     *  |        2          3
+     *  y
+     *  |
+     *  V        1          4
+     *
+     */
+    
+    float x1 = x * conversion;
+    float y1 = fatherEnd * conversion;
+    
+    float x3 = x1 + width * conversion;
+    float y3 = y1 + roomHeight * conversion;
+
+    float x2 = x1;
+    float y2 = y3;
+
+    float x4 = x3; 
+    float y4 = y1;
+
+    float [][] points = new float [4][2];
+    
+    points[0][0] = x1;
+    points[0][1] = y1;
+    points[1][0] = x2;
+    points[1][1] = y2;
+
+    points[2][0] = x3;
+    points[2][1] = y3;
+    points[3][0] = x4;
+    points[3][1] = y4;
+   
+    Room room = new Room(points);
+    room.setName(nr.id);
+    return room;
+  }
+
+  private Map<Node, NodeRoom> getWeightedTree(Node myTreeRoot)
+  {
+    return this.getWeightedTreeAcc(myTreeRoot, null, 0, 0, 0);
+  }
+  /**
+   * Associate each node with the corresponding room
+   * Each room is as width  as the number of discendent of the corresponding node
+   * 
+   * @param myTreeRoot root node
+   * @param father  father of node
+   * @param level   level
+   * @param fatherLeftDisplacement   propagated because the function recursively fills the map
+   * @param fatherFinalEnd   the same as width
+   * @return a map in which key is the node and value is the associated room
+   */
+  private Map<Node, NodeRoom> getWeightedTreeAcc(Node myTreeRoot, Node father, int level, int fatherLeftDisplacement, int fatherFinalEnd)
+  {
+    Map<Node, NodeRoom> mapDecorTree = new HashMap<Node, GraphDisplayer.NodeRoom>();
+    NodeRoom nr = new NodeRoom();
+    nr.level = level;
+    nr.leftDisplacement = fatherLeftDisplacement;
+    nr.id = myTreeRoot.getId();
+    nr.fatherFinalEnd = fatherFinalEnd;
+    nr.numberOfDesc = this.numberOfDisc(myTreeRoot, father);
+    mapDecorTree.put(myTreeRoot, nr);
+
+    Iterator<Node> neighboursIt = myTreeRoot.getNeighborNodeIterator();
+    int w = 0; // w is the displacement of each son 
+    while(neighboursIt.hasNext())
     {
-      int sum = 0;
-      while(neighboursIt.hasNext())
+      Node neigh = neighboursIt.next();
+      //skip father
+      if(differentNodes(neigh, father))
       {
-        Node neigh = neighboursIt.next();
-        sum = sum + numberOfDisc(neigh);
+        int heightOfRoom = 3;  /* height should consider the number of objcets, but from just the tree we
+                                * don't know the objects contained  */
+        Map<Node, NodeRoom> nodeDecorated = getWeightedTreeAcc(neigh, myTreeRoot, level + 1, w + fatherLeftDisplacement, fatherFinalEnd + heightOfRoom);
+        
+        int numberOfDesc = nodeDecorated.get(neigh).numberOfDesc; //number of discendend of the just added son
+        /**
+         *  A
+         *  C                B
+         *  D     E          F    G   H
+         *  0     1          2    3   4
+         * 
+         * A.x  = 0 + 0
+         * C.x  =  0 + 0
+         * B.x   have to be 2  in order to left space for C that takes 2 cells, thats why we
+         * propagate the left displacement in the recursive call
+         * D.x = 0 + 0   (w = 0, fatherLeftDisplacement = A.x = 0) 
+         * E.x = 0 + 1  (w = 1, fatherLeftDisplacement = A.x = 0) 
+         * F.x = 2      (w = 0, fatherLeftDisplacement = B.x  = 2)
+         * G.x = 3      (w = 1, fatherLeftDisplacement = B.x  = 2)
+         * H.x = 4      (w = 2, fatherLeftDisplacement = B.x  = 2)
+       */
+        for(Entry<Node, NodeRoom> nodeDec : nodeDecorated.entrySet())
+        {
+          mapDecorTree.put(nodeDec.getKey(), nodeDec.getValue());
+        }
+
+        w += numberOfDesc;
       }
-      
+
     }
-    else
+
+    return mapDecorTree;
+  }
+
+  /**
+   * returns 1 for leafs
+   * returns  the number of discendent for inner nodes
+   * @param n node
+   * @param fatherOfN  father
+   * @return the number of discendent of the passed node
+   */
+  private int numberOfDisc(Node n, Node father)
+  {
+
+    Iterator<Node> neighboursIt = n.getNeighborNodeIterator();
+    List<Node> neighBours = new ArrayList<Node>();
+    int sum = 0;
+    while(neighboursIt.hasNext())
     {
-      nod = 1;
+      neighBours.add(neighboursIt.next());
     }
     
-    return nod;
+    //the list comprends the father because we use graph structure also for trees
+    
+    // leaf:   neigh:   Father  ->  1
+    // non-leaf with one desc :   Father, Desc1  ->  1
+    // non-leaf with two desc :    Fath ,  D1, D2  -> 2
+    // non-leaf with three desc :    Fath ,  D1, D2, D3 -> 3
+    
+    //leaf
+    if (neighBours.size() == 1  && ! differentNodes(neighBours.get(0), father))
+    {
+      return 1;
+    }
+    
+    for(Node neigh : neighBours)
+    {
+      //skip the father
+      if( differentNodes(neigh, father))
+      {
+        sum = sum + numberOfDisc(neigh, n);
+      }
+    }
+
+    return sum;
   }
   
+  private boolean differentNodes(Node n1, Node n2)
+  {
+    if (n1 == null || n2 == null)
+      return true;
+    return !  n1.getId().equals(n2.getId());
+  }
+
   private HomeDoorOrWindow getDoor()
   {
     HomeDoorOrWindow door = null;
-    //TODO : ask sweetHome people how to add door runtime by code
+    //TODO : runtime door - pieceofforinuture
     for(HomePieceOfFurniture p : home.getFurniture())
     {
-      
+
       if(p instanceof HomeDoorOrWindow)
       {
         door = new HomeDoorOrWindow( (HomeDoorOrWindow) p);
@@ -354,7 +494,13 @@ public class GraphDisplayer {
     return door;
   }
 
-
+/**
+ * Returns rooms and corridors that are derived from a graph
+ * @param graph
+ * @param nodesPositions
+ * @param door
+ * @return
+ */
   public  RoomsAndCorridors buildBuildingFromGraph(Graph graph, Map<String, double []> nodesPositions, HomeDoorOrWindow door )
   {
     List<Room> rooms = new ArrayList<Room>();
@@ -424,6 +570,21 @@ public class GraphDisplayer {
     myGraph.addEdge("AD", "A", "D");
     myGraph.addEdge("AE", "A", "E");
     myGraph.addEdge("EB", "E", "B");
+  }
+
+  private class NodeRoom
+  {
+    public int fatherFinalEnd;
+    public int level;
+    public int leftDisplacement;
+    public int numberOfDesc;
+    public String id;
+    
+    public String toString ()
+    {
+      return "ID:" + this.id + "nod:" + numberOfDesc;
+    }
+    
   }
 
 
