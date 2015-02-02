@@ -5,18 +5,24 @@ import java.util.List;
 import com.eteks.sweethome3d.model.RectangularRoom;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingGraphPart;
-import com.eteks.sweethome3d.tools.security.ifcSecurity.IfcSecurityExtractor.Rectangle3D;
+import com.eteks.sweethome3d.tools.security.parserobjects.Rectangle3D;
+import com.eteks.sweethome3d.tools.security.parserobjects.Shape3D;
+
 
 public class BuildingRoomNode extends BuildingGraphPart {
   private Room room;
   
   private List<Object> objectsInside;  //TODO: think something more specific :P
   
-  private Rectangle3D roomShape;
+  private Shape3D roomShape;
   
-  public BuildingRoomNode(Rectangle3D roomShape, List<Object> conteinedObjects) {
-    RectangularRoom rr = new RectangularRoom(roomShape);
-    this.setRoom(rr.getRoom());
+  public BuildingRoomNode(Shape3D roomShape, List<Object> conteinedObjects)
+  {
+    
+    Room roomFromShape = roomShape.getRoom();
+    
+    this.setRoom(roomFromShape);
+    
     this.setObjectsInside(conteinedObjects);
   }
 
