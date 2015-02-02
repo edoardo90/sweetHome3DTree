@@ -11,11 +11,8 @@ import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
-import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.stream.file.FileSourceGEXF.GEXFConstants.NODEAttribute;
 import org.graphstream.ui.swingViewer.Viewer;
 import org.graphstream.ui.swingViewer.ViewerPipe;
 

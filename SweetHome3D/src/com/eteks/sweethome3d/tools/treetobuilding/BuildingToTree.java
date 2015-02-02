@@ -5,12 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.graphstream.graph.Graph;
-import org.graphstream.graph.IdAlreadyInUseException;
-import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 
 import com.eteks.sweethome3d.tools.reachabletree.RGraphEdge;
-import com.sun.media.SimpleGraphBuilder;
 
 
 public class BuildingToTree {

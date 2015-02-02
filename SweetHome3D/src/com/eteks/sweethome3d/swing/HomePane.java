@@ -111,6 +111,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -125,7 +126,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
@@ -200,6 +200,9 @@ import com.eteks.sweethome3d.plugin.PluginManager;
 import com.eteks.sweethome3d.tools.OperatingSystem;
 import com.eteks.sweethome3d.tools.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.tools.reachabletree.ReachableTreeBuillder;
+import com.eteks.sweethome3d.tools.security.buildingGraph.BuildingRoomNode;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.tools.security.ifcSecurity.IfcSecurityExtractor;
 import com.eteks.sweethome3d.tools.treetobuilding.GraphDisplayer;
 import com.eteks.sweethome3d.tools.treetobuilding.GraphDisplayer.KindOfGraph;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
@@ -766,7 +769,7 @@ public class HomePane extends JRootPane implements HomeView {
 
     public void actionPerformed(ActionEvent e) {
       System.out.println(" add vertex tree");
-     
+
       String vertexPath = txtAddTreeVertex.getText();
       String [] nodes = vertexPath.split("\\.");
       String acc = "";
@@ -775,18 +778,18 @@ public class HomePane extends JRootPane implements HomeView {
         nodes[i] = acc + nodes[i];
         acc = nodes[i];
       }
-      
+
       for(int i=0; i< nodes.length; i++)
       {
-        
+
         try{    homeTreeGraph.addNode(nodes[i]); } catch(IdAlreadyInUseException ecc) {}
-        
+
         if (i > 0)
-             try {  homeTreeGraph.addEdge(nodes[i] + nodes[i-1], nodes[i-1], nodes[i]); } catch(Exception ecc) {}
+          try {  homeTreeGraph.addEdge(nodes[i] + nodes[i-1], nodes[i-1], nodes[i]); } catch(Exception ecc) {}
       }
-      
-      
-      
+
+
+
     }
 
   }
@@ -796,7 +799,7 @@ public class HomePane extends JRootPane implements HomeView {
   {
     public void actionPerformed(ActionEvent e) {
       System.out.println("b2t");
-      
+
       List<Wall> walls = new ArrayList<Wall>(home.getWalls());
       List<Room> rooms = new ArrayList<Room>(home.getRooms());
       List<HomePieceOfFurniture> fornitures = new ArrayList<HomePieceOfFurniture>(home.getFurniture());
@@ -804,26 +807,65 @@ public class HomePane extends JRootPane implements HomeView {
       ReachableTreeBuillder rt = new ReachableTreeBuillder( walls, rooms, fornitures); 
       /* in some way then we will display the tree inside the jPanel  */
       rt.displayTree();
-      
+
 
     }
   }
 
-  private class DisplayTreeAL implements ActionListener
+  private class AddRoomAL implements ActionListener
   {
     public void actionPerformed(ActionEvent e) {
-      System.out.println("disp tree");
+
+      JFileChooser c = new JFileChooser();
+      int rVal= c.showOpenDialog((Frame)null);
+      // Demonstrate "Open" dialog:
+      if (rVal == JFileChooser.APPROVE_OPTION) {
+
+        String name = (c.getSelectedFile().getAbsolutePath());
+
+        IfcSecurityExtractor ifcSecurityExctractor
+        = new IfcSecurityExtractor(name);
+
+
+        try 
+        {
+
+          BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraphFromFile();
+          List<BuildingRoomNode> roomsInBuilding = securityGraph.getRoomNodeList();
+          for(BuildingRoomNode rib : roomsInBuilding)
+          {
+            Room r = rib.getRoom();
+            home.addRoom(r);
+          }
+
+
+        } catch (Exception ex) {
+          // TODO Auto-generated catch block
+          ex.printStackTrace();
+        }
+
+      }
+      if (rVal == JFileChooser.CANCEL_OPTION) {
+
+      }
+
+
+
 
     }
+
+
+
+
   }
 
   private class TreeToBuildingAL implements ActionListener
   {
     public void actionPerformed(ActionEvent e) {
       System.out.println("tree to build");
-      
+
       homeGraphDisplayer.updateHomeTreeWay(homeGraph);
-      
+
     }
   }
 
@@ -837,15 +879,15 @@ public class HomePane extends JRootPane implements HomeView {
           .getCategory(2)               // category e.g. 2
           .getPieceOfFurniture(1);      // model 1 within the category
 
-          // Now you can display the model within current home
-          HomePieceOfFurniture hpof = new HomePieceOfFurniture(pof);
+      // Now you can display the model within current home
+      HomePieceOfFurniture hpof = new HomePieceOfFurniture(pof);
 
-          // and set locations etc.
-          hpof.setX(300);
-          hpof.setY(700);
-          hpof.setElevation(0);
-          hpof.setAngle(30);
-          home.addPieceOfFurniture(hpof);
+      // and set locations etc.
+      hpof.setX(300);
+      hpof.setY(700);
+      hpof.setElevation(0);
+      hpof.setAngle(30);
+      home.addPieceOfFurniture(hpof);
     }
   }
 
@@ -861,7 +903,7 @@ public class HomePane extends JRootPane implements HomeView {
       { 
         if (homeGraph.getNode(node) == null)
           homeGraph.addNode(node);
-         
+
       }
 
     }
@@ -2564,7 +2606,7 @@ public class HomePane extends JRootPane implements HomeView {
 
 
       JPanel graphicalTreePan = new JPanel();
-     
+
       //add vertex to tree
       JPanel addVertexTreePanel = new JPanel(new FlowLayout());
       JButton btnAddTreeVertex = new JButton("add vertex path to tree");
@@ -2572,7 +2614,7 @@ public class HomePane extends JRootPane implements HomeView {
       addVertexTreePanel.add(txtAddTreeVertex);
       addVertexTreePanel.add(btnAddTreeVertex);
 
-     
+
       btnAddTreeVertex.addActionListener(new AddVertexTreeActionListener());
 
 
@@ -2584,17 +2626,17 @@ public class HomePane extends JRootPane implements HomeView {
       controlGraphsDisplay.setLayout(new FlowLayout());
 
       JButton buttonDisplayGraph = new JButton("display graph");
-      JButton buttonDisplayTree = new JButton("display tree");
+      JButton buttonAddRoom = new JButton("Open Ifc File ");
       JButton buttonTreeToBuilding = new JButton("tree to building");
       JButton buttonBuildingToTree = new JButton("building to tree");
 
       buttonBuildingToTree.addActionListener(new BuildingToTreeAL());
-      buttonDisplayTree.addActionListener(new DisplayTreeAL());
+      buttonAddRoom.addActionListener(new AddRoomAL());
       buttonTreeToBuilding.addActionListener(new TreeToBuildingAL());
       buttonDisplayGraph.addActionListener(new DisplayGraphAL());
 
       controlGraphsDisplay.add(buttonDisplayGraph);
-      controlGraphsDisplay.add(buttonDisplayTree);
+      controlGraphsDisplay.add(buttonAddRoom);
 
       JPanel controlGraphsBuild = new JPanel();
       controlGraphsBuild.setLayout(new FlowLayout());

@@ -21,5 +21,7 @@
 	<classpathentry kind="lib" path="lib/gs-algo-1.2/gs-algo-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/gs-core-1.2/gs-core-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/gs-ui-1.2/gs-ui-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/ifc2x3javatoolbox_2.0.1_20130524.jar"/>
+	<classpathentry kind="lib" path="lib/Jama-1.0.3.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

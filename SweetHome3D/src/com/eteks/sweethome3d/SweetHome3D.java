@@ -63,6 +63,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
+import Jama.Matrix;
+
 import com.eteks.sweethome3d.io.AutoRecoveryManager;
 import com.eteks.sweethome3d.io.FileUserPreferences;
 import com.eteks.sweethome3d.io.HomeFileRecorder;
@@ -197,50 +199,50 @@ public class SweetHome3D extends HomeApplication {
       String applicationFoldersProperty = System.getProperty(APPLICATION_FOLDERS, null);
       File preferencesFolder = preferencesFolderProperty != null
           ? new File(preferencesFolderProperty)
-          : null;
-      File [] applicationFolders;
-      if (applicationFoldersProperty != null) {
-        String [] applicationFoldersProperties = applicationFoldersProperty.split(File.pathSeparator);
-        applicationFolders = new File [applicationFoldersProperties.length];
-        for (int i = 0; i < applicationFolders.length; i++) {
-          applicationFolders [i] = new File(applicationFoldersProperties [i]);
-        }
-      } else {
-        applicationFolders = null;
-      }
-      Executor eventQueueExecutor = new Executor() {
-          public void execute(Runnable command) {
-            EventQueue.invokeLater(command);
-          }
-        };
-      this.userPreferences = new FileUserPreferences(preferencesFolder, applicationFolders, eventQueueExecutor) {
-          @Override
-          public List<Library> getLibraries() {
-            if (pluginManager != null) {
-              List<Library> pluginLibraries = pluginManager.getPluginLibraries();
-              if (!pluginLibraries.isEmpty()) {
-                // Add plug-ins to the list returned by user preferences
-                ArrayList<Library> libraries = new ArrayList<Library>(super.getLibraries());
-                libraries.addAll(pluginLibraries);
-                return Collections.unmodifiableList(libraries);
-              }
+      : null;
+          File [] applicationFolders;
+          if (applicationFoldersProperty != null) {
+            String [] applicationFoldersProperties = applicationFoldersProperty.split(File.pathSeparator);
+            applicationFolders = new File [applicationFoldersProperties.length];
+            for (int i = 0; i < applicationFolders.length; i++) {
+              applicationFolders [i] = new File(applicationFoldersProperties [i]);
             }
-            return super.getLibraries();
+          } else {
+            applicationFolders = null;
           }
-          
-          @Override
-          public void deleteLibraries(List<Library> libraries) throws RecorderException {
-            super.deleteLibraries(libraries);
-            List<Library> plugins = new ArrayList<Library>();
-            for (Library library : libraries) {
-              if (PluginManager.PLUGIN_LIBRARY_TYPE.equals(library.getType())) {
-                plugins.add(library);
-              }
+          Executor eventQueueExecutor = new Executor() {
+            public void execute(Runnable command) {
+              EventQueue.invokeLater(command);
             }
-            pluginManager.deletePlugins(plugins);            
-          }
-        };
-      this.checkUpdatesNeeded = this.userPreferences.isCheckUpdatesEnabled();
+          };
+          this.userPreferences = new FileUserPreferences(preferencesFolder, applicationFolders, eventQueueExecutor) {
+            @Override
+            public List<Library> getLibraries() {
+              if (pluginManager != null) {
+                List<Library> pluginLibraries = pluginManager.getPluginLibraries();
+                if (!pluginLibraries.isEmpty()) {
+                  // Add plug-ins to the list returned by user preferences
+                  ArrayList<Library> libraries = new ArrayList<Library>(super.getLibraries());
+                  libraries.addAll(pluginLibraries);
+                  return Collections.unmodifiableList(libraries);
+                }
+              }
+              return super.getLibraries();
+            }
+
+            @Override
+            public void deleteLibraries(List<Library> libraries) throws RecorderException {
+              super.deleteLibraries(libraries);
+              List<Library> plugins = new ArrayList<Library>();
+              for (Library library : libraries) {
+                if (PluginManager.PLUGIN_LIBRARY_TYPE.equals(library.getType())) {
+                  plugins.add(library);
+                }
+              }
+              pluginManager.deletePlugins(plugins);            
+            }
+          };
+          this.checkUpdatesNeeded = this.userPreferences.isCheckUpdatesEnabled();
     }
     return this.userPreferences;
   }
@@ -301,7 +303,7 @@ public class SweetHome3D extends HomeApplication {
       }
     }
   }
-  
+
   /**
    * Returns the name of this application read from resources.
    */
@@ -353,6 +355,8 @@ public class SweetHome3D extends HomeApplication {
    */
   public static void main(final String [] args) {
     new SweetHome3D().init(args);
+    
+    
   }
 
   /**
@@ -438,10 +442,10 @@ public class SweetHome3D extends HomeApplication {
               }
               // Exit once current events are managed (under Mac OS X, exit is managed by MacOSXConfiguration)
               EventQueue.invokeLater(new Runnable() {
-                  public void run() {
-                    System.exit(0);
-                  }
-                });
+                public void run() {
+                  System.exit(0);
+                }
+              });
             }
             break;
         }
@@ -454,7 +458,7 @@ public class SweetHome3D extends HomeApplication {
     try {
       // Set User Agent to follow statistics on used operating systems 
       System.setProperty("http.agent", getId() + "/" + getVersion()  
-           + " (" + System.getProperty("os.name") + " " + System.getProperty("os.version") + "; " + System.getProperty("os.arch") + "; " + Locale.getDefault() + ")");
+          + " (" + System.getProperty("os.name") + " " + System.getProperty("os.version") + "; " + System.getProperty("os.arch") + "; " + Locale.getDefault() + ")");
     } catch (AccessControlException ex) {
       // Ignore User Agent change
     }
@@ -572,15 +576,15 @@ public class SweetHome3D extends HomeApplication {
       // Add a RenderingErrorObserver to Component3DManager, because offscreen
       // rendering needs to check rendering errors with its own RenderingErrorListener
       Component3DManager.getInstance().setRenderingErrorObserver(new Component3DManager.RenderingErrorObserver() {
-          public void errorOccured(int errorCode, String errorMessage) {
-            System.err.print("Error in Java 3D : " + errorCode + " " + errorMessage);
-            EventQueue.invokeLater(new Runnable() {
-              public void run() {
-                exitAfter3DError();
-              }
-            });
-          }
-        });
+        public void errorOccured(int errorCode, String errorMessage) {
+          System.err.print("Error in Java 3D : " + errorCode + " " + errorMessage);
+          EventQueue.invokeLater(new Runnable() {
+            public void run() {
+              exitAfter3DError();
+            }
+          });
+        }
+      });
     }
   }
 
@@ -674,19 +678,19 @@ public class SweetHome3D extends HomeApplication {
           return;
         }
       }
-      
+
       if (getContentManager().isAcceptable(args [1], ContentManager.ContentType.SWEET_HOME_3D)) {
         // Add a listener to application to recover homes once the one in parameter is open
         addHomesListener(new CollectionListener<Home>() {
-            public void collectionChanged(CollectionEvent<Home> ev) {
-              if (ev.getType() == CollectionEvent.Type.ADD) {
-                removeHomesListener(this);
-                if (autoRecoveryManager != null) {
-                  autoRecoveryManager.openRecoveredHomes();
-                }
+          public void collectionChanged(CollectionEvent<Home> ev) {
+            if (ev.getType() == CollectionEvent.Type.ADD) {
+              removeHomesListener(this);
+              if (autoRecoveryManager != null) {
+                autoRecoveryManager.openRecoveredHomes();
               }
             }
-          });
+          }
+        });
         // Read home file in args [1] if args [0] == "-open" with a dummy controller
         createHomeFrameController(createHome()).getHomeController().open(args [1]);
         checkUpdates();
@@ -781,7 +785,7 @@ public class SweetHome3D extends HomeApplication {
           }
         }
       }
- 
+
       showHomeFrame(home);
     }
   }
@@ -794,15 +798,15 @@ public class SweetHome3D extends HomeApplication {
       this.checkUpdatesNeeded = false;
       // Delay updates checking to let program launch finish
       new Timer(500, new ActionListener() {
-          public void actionPerformed(ActionEvent ev) {
-            ((Timer)ev.getSource()).stop();
-            // Check updates with a dummy controller
-            createHomeFrameController(createHome()).getHomeController().checkUpdates(true);
-          }
-        }).start();
+        public void actionPerformed(ActionEvent ev) {
+          ((Timer)ev.getSource()).stop();
+          // Check updates with a dummy controller
+          createHomeFrameController(createHome()).getHomeController().checkUpdates(true);
+        }
+      }).start();
     }
   }
-  
+
   /**
    * A file content manager that records the last directories for each content
    * in Java preferences.
@@ -810,7 +814,7 @@ public class SweetHome3D extends HomeApplication {
   private static class FileContentManagerWithRecordedLastDirectories extends FileContentManager {
     private static final String LAST_DIRECTORY         = "lastDirectory#";
     private static final String LAST_DEFAULT_DIRECTORY = "lastDefaultDirectory";
-    
+
     private final Class<? extends SweetHome3D> mainClass;
 
     public FileContentManagerWithRecordedLastDirectories(UserPreferences preferences, 
@@ -837,7 +841,7 @@ public class SweetHome3D extends HomeApplication {
       }
       return null;
     }
-    
+
     @Override
     protected void setLastDirectory(ContentType contentType, File directory) {
       // Last directories are not recorded in user preferences since there's no need of portability 
@@ -861,7 +865,7 @@ public class SweetHome3D extends HomeApplication {
       }
     }
   }
-  
+
   /**
    * JNLP <code>ServiceManagerStub</code> implementation for standalone
    * applications run out of Java Web Start. This service manager supports

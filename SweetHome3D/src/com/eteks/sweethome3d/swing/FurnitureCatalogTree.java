@@ -33,7 +33,6 @@ import java.awt.RenderingHints;
 import java.awt.dnd.DnDConstants;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
