@@ -486,7 +486,9 @@ public class GraphDisplayer {
         door = door.clone();
         break;
       }
-
+      
+      
+      
     }
     return door;
   }

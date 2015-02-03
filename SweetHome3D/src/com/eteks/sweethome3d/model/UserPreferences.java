@@ -39,6 +39,8 @@ import java.util.PropertyPermission;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingObjectType;
+
 /**
  * User preferences.
  * @author Emmanuel Puybaret
@@ -65,6 +67,9 @@ public abstract class UserPreferences {
 
   private static final TextStyle DEFAULT_TEXT_STYLE = new TextStyle(18f);
   private static final TextStyle DEFAULT_ROOM_TEXT_STYLE = new TextStyle(24f);
+  
+  private static Map<BuildingObjectType, PieceOfFurniture> pieceOfFornitureForBuilding
+    = new HashMap<BuildingObjectType, PieceOfFurniture>();
 
   static {
     Properties supportedLanguagesProperties = new Properties();
@@ -170,6 +175,18 @@ public abstract class UserPreferences {
     }
   }
 
+  public PieceOfFurniture getPieceOfForniture(BuildingObjectType type)
+  {
+    return UserPreferences.pieceOfFornitureForBuilding.get(type);
+  }
+  
+  public void setFornitureMap(Map<BuildingObjectType, PieceOfFurniture> map)
+  {
+    UserPreferences.pieceOfFornitureForBuilding = map;
+  }
+  
+  
+  
   /**
    * Writes user preferences.
    * @throws RecorderException if user preferences couldn'y be saved.

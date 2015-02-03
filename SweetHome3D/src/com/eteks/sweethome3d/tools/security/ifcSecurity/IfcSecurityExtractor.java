@@ -32,14 +32,27 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
-import Jama.Matrix;
-
+import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
+import com.eteks.sweethome3d.model.FurnitureCategory;
+import com.eteks.sweethome3d.model.HomePieceOfFurniture;
+import com.eteks.sweethome3d.model.PieceOfFurniture;
+import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.tools.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.tools.security.buildingGraph.BuildingRoomNode;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.ActorObject;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.CCTVObject;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.LightObject;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.PCObject;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.PrinterObject;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.UnknownObject;
 import com.eteks.sweethome3d.tools.security.parserobjects.Axis3DNice;
 import com.eteks.sweethome3d.tools.security.parserobjects.Placement3DNice;
 import com.eteks.sweethome3d.tools.security.parserobjects.Rectangle3D;
@@ -50,13 +63,63 @@ public class IfcSecurityExtractor {
   private String ifcFileName;
   private IfcModel ifcModel;
   private List<IfcSpace> ifcSpaces = new ArrayList<IfcSpace>();
+  private final UserPreferences preferences;
 
-  public IfcSecurityExtractor(String ifcFileName)
+  public IfcSecurityExtractor(String ifcFileName, UserPreferences preferences)
   {
     this.ifcFileName = ifcFileName;
+    this.preferences = preferences;
+
+    Map<BuildingObjectType, PieceOfFurniture> map = createFurnitureMap();
+    preferences.setFornitureMap(map);
   }
 
+  private Map<BuildingObjectType, PieceOfFurniture> createFurnitureMap()
+  {
+    Map<BuildingObjectType, PieceOfFurniture> map = new HashMap<BuildingObjectType, PieceOfFurniture>();
+    //TODO: here we could read a txt file...
 
+    List<FurnitureCategory> x= getUserPreferences().getFurnitureCatalog().getCategories();
+
+
+    for(FurnitureCategory category : x )
+    {
+      if(category.getName().equals("Security"))
+      {
+
+        /**
+         *  "Security"  is the name of the library that have to be imported,
+         *  this maybe could be written inside an xml file  or preference file or something
+         *  instead of hard coded
+         *  
+         *  The same is with the objects name
+         */
+
+
+        List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
+        for(PieceOfFurniture piece : catalogObjs)
+        {
+          
+          String pieceName = piece.getName();
+          
+          String cameraName = "Camera";
+          BuildingObjectType ty = BuildingObjectType.valueOf("CCTV");
+          
+          if(pieceName.contains(cameraName))
+          {
+            
+            map.put(ty, piece);
+            
+          }
+          
+        }
+
+      }
+    }    
+
+
+    return map;
+  }
 
   public BuildingSecurityGraph getGraphFromFile() throws Exception
   {
@@ -72,7 +135,7 @@ public class IfcSecurityExtractor {
     ifcModel.readStepFile(stepFile);
 
     Collection<IfcSpace> ifcSpacesColl = ifcModel.getCollection(IfcSpace.class);
-    
+
     this.ifcSpaces.addAll(ifcSpacesColl);
 
 
@@ -151,15 +214,15 @@ public class IfcSecurityExtractor {
       {
         String roomName = space.getLongName().getDecodedValue();
         System.out.println("\n _________________________________\n storey : "
-        + storeyName + "\n room: " + roomName 
-        + " room ID : "  + space.getGlobalId().getDecodedValue());
-        
+            + storeyName + "\n room: " + roomName 
+            + " room ID : "  + space.getGlobalId().getDecodedValue());
+
         //shape and position
         Rectangle3D roomShape = getShapeAndPosition(space);
         System.out.println("room shape: \n" + roomShape);
 
         //containement
-        List<Object> objects = getObjectsOfRoom(space);
+        List<BuildingObjectContained> objects = getObjectsOfRoom(space);
         System.out.println( "contains: " +  objects);
 
 
@@ -192,9 +255,9 @@ public class IfcSecurityExtractor {
   }
 
 
-  private List<Object> getObjectsOfRoom(IfcSpace space) {
+  private List<BuildingObjectContained> getObjectsOfRoom(IfcSpace space) {
 
-    List<Object> conteined = new ArrayList<Object>();
+    List<BuildingObjectContained> contained = new ArrayList<BuildingObjectContained>();
     SET<IfcRelContainedInSpatialStructure> ifcRelContainedInSpatialStructure =  space.getContainsElements_Inverse();
     if(ifcRelContainedInSpatialStructure != null)
     {
@@ -208,15 +271,158 @@ public class IfcSecurityExtractor {
         while(iteratorProductContained.hasNext())
         {
           IfcProduct product = iteratorProductContained.next();
-          conteined.add(product);
+          BuildingObjectContained objectContained = getObectContained(product);
+
+          //TODO: right forniture 
+          if(! (objectContained instanceof UnknownObject))
+            contained.add(objectContained);
+
+
           String productName = product.getName().getDecodedValue();
           System.out.println("\t\t " + productName);
         }
       }
     }
 
-    return conteined;
+    return contained;
   }
+
+  /**
+   * From IFC prodcut (phisical object inside a space) to security element phisical object
+   * we look for:
+   * light, cctv, PC, printer, hvac 
+   * @param product
+   * @return
+   */
+  private BuildingObjectContained getObectContained(IfcProduct product)
+  {
+    String actualName = product.getName().getDecodedValue();
+
+    for(BuildingObjectType objType : BuildingObjectType.values())
+    {
+      List<String> toLookStrings = stringToLookFor(objType);
+      for(String nameToLookFor : toLookStrings)
+      {
+        if(matches(nameToLookFor, actualName))
+        {
+          return getBuildingObjectOfType(objType);
+        }
+      }
+    }
+
+    return new UnknownObject();
+  }
+
+
+  private BuildingObjectContained getBuildingObjectOfType(BuildingObjectType type)
+  {
+    switch(type)
+    {
+      case ACTOR:
+        return new  ActorObject();
+      case CCTV:
+        return new CCTVObject();
+      case LIGHT:
+        return new LightObject();
+      case PC:
+        return new PCObject();
+      case PRINTER:
+        return new PrinterObject();
+    }
+    return null;
+  }
+
+
+
+  private boolean matches(String nameToLookFor, String actualName)
+  {
+    return false; //TODO: do it
+  }
+
+  private List<String> stringToLookFor(BuildingObjectType objectType)
+  {
+    //TODO: in future maybe we can put these in a file?  e.g. xml file
+    List<String> words = new ArrayList<String>();
+    switch(objectType)
+    {
+      case ACTOR:
+      {
+        words.add("actor");  //TODO  remove it ?  useless ?
+      }
+      case CCTV :
+      {
+        words.add("camera");
+        words.add("CCTV");
+      }
+      case LIGHT:
+      {
+        words.add("light");
+        words.add("luminaire");
+        words.add("lamp");
+      }
+      case PC:
+      {
+        words.add("desktop");
+        words.add("computer");
+        words.add("laptop");
+      }
+      case PRINTER:
+      {
+        words.add("printer");
+
+      }
+
+
+    }
+
+    return words;
+  }
+
+  private PieceOfFurniture getPieceOfForniture()
+  {
+
+    PieceOfFurniture pof =getUserPreferences()
+        .getFurnitureCatalog()
+        .getCategory(2)               // category e.g. 2
+        .getPieceOfFurniture(1);      // model 1 within the category
+
+    List<FurnitureCategory> x= getUserPreferences().getFurnitureCatalog().getCategories();
+
+    //TODO: use txt file or something not hard coded
+    for(FurnitureCategory category : x )
+    {
+      if(category.getName().equals("Security"))
+      {
+        List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
+        for(PieceOfFurniture piece : catalogObjs)
+        {
+          System.out.println("available piece : " +  piece.getName() + 
+              "height : " +   piece.getHeight()   +
+              "width  : " + piece.getWidth()      +
+              "depth  :"  +  piece.getDepth()
+              );
+        }
+
+      }
+    }
+
+    // Now you can display the model within current home
+    HomePieceOfFurniture hpof = new HomePieceOfFurniture(pof);
+
+    // and set locations etc.
+    hpof.setX(300);
+    hpof.setY(700);
+    hpof.setElevation(0);
+    hpof.setAngle(30);
+
+    return hpof;
+
+  }
+
+  private UserPreferences getUserPreferences() {
+    return this.preferences;
+  }
+
 
 
   private Rectangle3D getShapeAndPosition(IfcProduct product) 
@@ -225,19 +431,19 @@ public class IfcSecurityExtractor {
     Placement3DNice placementNice = getPlacementFromObject(product);
     Axis3DNice axis3DContainer = placementNice.getAxes();
     Vector3D   absoluteCoordinates = placementNice.getOriginPoint();
-    
-        
+
+
     Rectangle3D shapeLocated = this.getShape(product, axis3DContainer, absoluteCoordinates);
     return shapeLocated;
   }
 
   private Placement3DNice getPlacementFromObject(IfcProduct product)
   {
-   
+
     IfcObjectPlacement placement = product.getObjectPlacement();
     Axis3DNice axis3DContainer ;
     Vector3D   absoluteCoordinates;
-    
+
     Deque<IfcAxis2Placement> axises = new ArrayDeque<IfcAxis2Placement>();
     boolean stillRelativePlacements = true;
     if(placement == null)
@@ -305,7 +511,7 @@ public class IfcSecurityExtractor {
     return new Placement3DNice(axis3DContainer, absoluteCoordinates);
 
   }
-  
+
 
   private Rectangle3D getShape(IfcProduct product, Axis3DNice localPlacementAxis, Vector3D localPlacementAbsoluteCoords) 
   {
@@ -529,7 +735,7 @@ public class IfcSecurityExtractor {
   }
 
 
-  
-  
-  
+
+
+
 }

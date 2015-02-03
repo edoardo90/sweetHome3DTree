@@ -2,21 +2,20 @@ package com.eteks.sweethome3d.tools.security.buildingGraph;
 
 import java.util.List;
 
-import com.eteks.sweethome3d.model.RectangularRoom;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingGraphPart;
-import com.eteks.sweethome3d.tools.security.parserobjects.Rectangle3D;
+import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.tools.security.parserobjects.Shape3D;
 
 
 public class BuildingRoomNode extends BuildingGraphPart {
   private Room room;
   
-  private List<Object> objectsInside;  //TODO: think something more specific :P
+  private List<BuildingObjectContained> objectsInside; 
   
   private Shape3D roomShape;
   
-  public BuildingRoomNode(Shape3D roomShape, List<Object> conteinedObjects)
+  public BuildingRoomNode(Shape3D roomShape, List<BuildingObjectContained> conteinedObjects)
   {
     
     Room roomFromShape = roomShape.getRoom();
@@ -40,11 +39,11 @@ public class BuildingRoomNode extends BuildingGraphPart {
     return "" + roomShape;
   }
 
-  public List<Object> getObjectsInside() {
+  public List<BuildingObjectContained> getObjectsInside() {
     return objectsInside;
   }
 
-  public void setObjectsInside(List<Object> objectsInside) {
+  public void setObjectsInside(List<BuildingObjectContained> objectsInside) {
     this.objectsInside = objectsInside;
   }
   

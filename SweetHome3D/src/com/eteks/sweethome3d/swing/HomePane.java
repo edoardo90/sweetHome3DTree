@@ -824,7 +824,7 @@ public class HomePane extends JRootPane implements HomeView {
         String name = (c.getSelectedFile().getAbsolutePath());
 
         IfcSecurityExtractor ifcSecurityExctractor
-        = new IfcSecurityExtractor(name);
+        = new IfcSecurityExtractor(name, getUserPreferences());
 
 
         try 
@@ -835,6 +835,7 @@ public class HomePane extends JRootPane implements HomeView {
           for(BuildingRoomNode rib : roomsInBuilding)
           {
             Room r = rib.getRoom();
+            
             home.addRoom(r);
           }
 

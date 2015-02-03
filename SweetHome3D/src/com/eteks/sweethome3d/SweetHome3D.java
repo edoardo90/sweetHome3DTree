@@ -63,8 +63,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 
-import Jama.Matrix;
-
 import com.eteks.sweethome3d.io.AutoRecoveryManager;
 import com.eteks.sweethome3d.io.FileUserPreferences;
 import com.eteks.sweethome3d.io.HomeFileRecorder;
@@ -192,6 +190,7 @@ public class SweetHome3D extends HomeApplication {
    */
   @Override
   public UserPreferences getUserPreferences() {
+    
     // Initialize userPreferences lazily
     if (this.userPreferences == null) {
       // Retrieve preferences and application folders
@@ -244,7 +243,9 @@ public class SweetHome3D extends HomeApplication {
           };
           this.checkUpdatesNeeded = this.userPreferences.isCheckUpdatesEnabled();
     }
+    
     return this.userPreferences;
+
   }
 
   /**

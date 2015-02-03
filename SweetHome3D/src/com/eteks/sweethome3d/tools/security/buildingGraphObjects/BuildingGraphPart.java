@@ -1,10 +1,13 @@
 package com.eteks.sweethome3d.tools.security.buildingGraphObjects;
 
+import com.eteks.sweethome3d.tools.security.parserobjects.Vector3D;
+
 public abstract class BuildingGraphPart {
 
 	private String id;
 	private String name;
-
+	private Vector3D position;
+	
 	public String getName() {
 		return name;
 	}
@@ -38,5 +41,13 @@ public abstract class BuildingGraphPart {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
+
+  public Vector3D getPosition() {
+    return position;
+  }
+
+  public void setPosition(Vector3D position) {
+    this.position = position;
+  }	
 }
