@@ -828,11 +828,13 @@ public class HomePane extends JRootPane implements HomeView {
         IfcSecurityExtractor ifcSecurityExctractor
         = new IfcSecurityExtractor(name, getUserPreferences());
 
-
         try 
         {
 
           BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraphFromFile();
+          
+          ifcSecurityExctractor.x();
+
           List<BuildingRoomNode> roomsInBuilding = securityGraph.getRoomNodeList();
           for(BuildingRoomNode rib : roomsInBuilding)
           {
@@ -854,6 +856,7 @@ public class HomePane extends JRootPane implements HomeView {
           
             home.addRoom(r);
           }
+          
 
 
         } catch (Exception ex) {

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-package com.eteks.sweethome3d.junit;
+package com.eteks.sweethome3d.junit.adaptive;
 
 import java.awt.event.InputEvent;
 import java.util.Arrays;
@@ -40,6 +40,7 @@ import abbot.finder.matchers.ClassMatcher;
 import abbot.tester.JComponentTester;
 
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
+import com.eteks.sweethome3d.junit.TestUtilities;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.RecorderException;
 import com.eteks.sweethome3d.model.Room;
@@ -64,7 +65,7 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
  * their management in {@link com.eteks.sweethome3d.viewcontroller.PlanController controller}.
  * @author Emmanuel Puybaret
  */
-public class RoomTest extends ComponentTestFixture {
+public class RoomSIDimensionTest extends ComponentTestFixture {
   public void testRoomCreation() throws ComponentSearchException, 
       NoSuchFieldException, IllegalAccessException {
     // 1. Create a frame that displays a home view 

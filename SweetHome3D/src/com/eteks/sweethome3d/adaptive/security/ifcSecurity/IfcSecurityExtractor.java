@@ -22,6 +22,10 @@ import ifc2x3javatoolbox.ifc2x3tc1.IfcRelDecomposes;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcRelSpaceBoundary;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcRepresentation;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcRepresentationItem;
+import ifc2x3javatoolbox.ifc2x3tc1.IfcSIPrefix;
+import ifc2x3javatoolbox.ifc2x3tc1.IfcSIUnit;
+import ifc2x3javatoolbox.ifc2x3tc1.IfcSIUnitName;
+import ifc2x3javatoolbox.ifc2x3tc1.IfcSIUnitName.IfcSIUnitName_internal;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSpace;
 import ifc2x3javatoolbox.ifc2x3tc1.LIST;
 import ifc2x3javatoolbox.ifc2x3tc1.SET;
@@ -63,14 +67,14 @@ public class IfcSecurityExtractor {
   private String ifcFileName;
   private IfcModel ifcModel;
   private List<IfcSpace> ifcSpaces = new ArrayList<IfcSpace>();
-  private final UserPreferences preferences;
-
+  
   public IfcSecurityExtractor(String ifcFileName, UserPreferences preferences)
   {
     this.ifcFileName = ifcFileName;
-    this.preferences = preferences;
-
-    Map<BuildingObjectType, HomePieceOfFurniture> map = createFurnitureMap();
+    
+    ConfigLoader configLoader = new ConfigLoader(preferences);
+    Map<BuildingObjectType, HomePieceOfFurniture> map =
+            configLoader.createFurnitureMap();
     preferences.setFornitureMap(map);
   }
 
@@ -102,25 +106,26 @@ public class IfcSecurityExtractor {
     return buildingSecurityGraph;
   }
   
-  /**
-   * 
-   * Building Object Type  -> SweetHome3D name
-   * so for instance   
-   * "CCTV"  is associated with Camera
-   * @return
-   */
-  private Map<String, BuildingObjectType> getCatalogNamesFromFile()
+  public void x()
   {
-    Map<String, BuildingObjectType> catalog = new HashMap<String, BuildingObjectType>();
-    catalog.put("Camera surveillance N090211", BuildingObjectType.CCTV);
-    catalog.put ("pc-21", BuildingObjectType.PC);
-    catalog.put("Printer N120614", BuildingObjectType.PRINTER);
-    catalog.put("Torchere N160914", BuildingObjectType.LIGHT);
-    catalog.put("Conditioner LG N240211", BuildingObjectType.HVAC);
-    catalog.put("Man N090512", BuildingObjectType.MAN);
-    catalog.put("Woman N170408", BuildingObjectType.WOMAN);
-    
-    return catalog;
+    Collection<IfcSIUnit> collectionOfUnit = ifcModel.getCollection(IfcSIUnit.class);
+    for(IfcSIUnit unit : collectionOfUnit)
+    {
+      IfcSIPrefix prefix = unit.getPrefix();
+      IfcSIUnitName nameOfUnit = unit.getName();
+      
+      String pr="";
+      if(prefix != null)
+      {
+        pr = "" + prefix.value;
+      }
+      String un="";
+      if(nameOfUnit != null)
+        un = "" + nameOfUnit.value;
+      
+      System.out.println(" PREF:  " + pr +  " UN: " + un);
+      
+    }
   }
   
 
@@ -284,38 +289,18 @@ public class IfcSecurityExtractor {
 
     for(BuildingObjectType objType : BuildingObjectType.values())
     {
-      List<String> toLookStrings = stringToLookFor(objType);
+      List<String> toLookStrings = ConfigLoader.stringToLookFor(objType);
       for(String nameToLookFor : toLookStrings)
       {
         if(matches(nameToLookFor, actualName))
         {
-          return getBuildingObjectOfType(position, objType);
+          return objType.getBuildingObjectOfType(position);
         }
       }
     }
 
     return new UnknownObject(null);
   }
-
-
-  private BuildingObjectContained getBuildingObjectOfType(Vector3D position, BuildingObjectType type)
-  {
-    switch(type)
-    {
-      case ACTOR:
-        return new  ActorObject(position);
-      case CCTV:
-        return new CCTVObject(position);
-      case LIGHT:
-        return new LightObject(position);
-      case PC:
-        return new PCObject(position);
-      case PRINTER:
-        return new PrinterObject(position);
-    }
-    return null;
-  }
-
 
 
   private boolean matches(String nameToLookFor, String actualName)
@@ -325,63 +310,9 @@ public class IfcSecurityExtractor {
     return (upperActual.contains("" + upperLook));
   }
 
-  private List<String> stringToLookFor(BuildingObjectType objectType)
-  {
-    //TODO: in future maybe we can put these in a file?  e.g. txt file
-    //PC, desktop, computer, laptop
-
-    List<String> words = new ArrayList<String>();
-    switch(objectType)
-    {
-      case ACTOR:
-      {
-        words.add("actor");  //TODO  remove it ?  useless ?
-        break;
-      }
-      case CCTV :
-      {
-        words.add("camera");
-        words.add("CCTV");
-        break;
-      }
-      case LIGHT:
-      {
-        words.add("light");
-        words.add("luminaire");
-        words.add("lamp");
-        break;
-      }
-      case PC:
-      {
-        words.add("desktop");
-        words.add("computer");
-        words.add("laptop");
-        break;
-      }
-      case PRINTER:
-      {
-        words.add("printer");
-        break;
-      }
-      case HVAC:
-      {
-        words.add("hvac");
-        words.add("conditioner");
-        words.add("heater");
-        break;
-      }
-      
+  
 
 
-    }
-
-    return words;
-  }
-
-
-  private UserPreferences getUserPreferences() {
-    return this.preferences;
-  }
 
 
 
@@ -650,48 +581,8 @@ public class IfcSecurityExtractor {
 
   }
 
-  private Map<BuildingObjectType, HomePieceOfFurniture> createFurnitureMap()
-  {
-    Map<BuildingObjectType, HomePieceOfFurniture> catalogFurniture =
-        new HashMap<BuildingObjectType, HomePieceOfFurniture>();
-    //TODO: read strings for object name (e.g. camera) from a txt file
-    
+  
 
-    List<FurnitureCategory> categories= getUserPreferences().getFurnitureCatalog().getCategories();
-
-
-    for(FurnitureCategory category : categories )
-    {
-      if(category.getName().equals("Security"))
-      {
-
-        /**
-         *  "Security"  is the name of the library that have to be imported,
-         *  this maybe could be written inside an xml file  or preference file or something
-         *  instead of hard coded
-         *  
-         *  The same is with the objects name
-         */
-
-        List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
-        for(PieceOfFurniture piece : catalogObjs)
-        {
-          HomePieceOfFurniture  hopf = new HomePieceOfFurniture(piece);
-          
-          String pieceName = piece.getName();
-          Map<String, BuildingObjectType> catalog = this.getCatalogNamesFromFile();
-          BuildingObjectType typeOBJ = catalog.get(pieceName);
-          catalogFurniture.put(typeOBJ, hopf);
-        }
-      }
-    }    
-
-
-    return catalogFurniture;
-  }
-
-
-  //TODO? extend IFCAxis2Placement ?
   private  Axis3DNice getAxis3DNice(IfcAxis2Placement3D axis3d)
   {
     if(axis3d == null)
@@ -737,9 +628,6 @@ public class IfcSecurityExtractor {
 
     return new Axis3DNice(x1, x2, x3, y1, y2, y3, z1, z2, z3);
   }
-
-
-
 
 
 }
