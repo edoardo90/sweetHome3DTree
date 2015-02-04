@@ -49,6 +49,7 @@ import java.util.zip.ZipInputStream;
 
 import javax.swing.undo.UndoableEditSupport;
 
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.model.CollectionEvent;
 import com.eteks.sweethome3d.model.CollectionListener;
 import com.eteks.sweethome3d.model.Home;
@@ -56,7 +57,6 @@ import com.eteks.sweethome3d.model.HomeApplication;
 import com.eteks.sweethome3d.model.Library;
 import com.eteks.sweethome3d.model.RecorderException;
 import com.eteks.sweethome3d.model.UserPreferences;
-import com.eteks.sweethome3d.tools.OperatingSystem;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 
 /**

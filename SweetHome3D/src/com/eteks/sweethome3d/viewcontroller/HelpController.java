@@ -47,8 +47,8 @@ import javax.swing.text.html.HTML.Tag;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
+import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.model.UserPreferences;
-import com.eteks.sweethome3d.tools.ResourceURLContent;
 
 /**
  * A MVC controller for Sweet Home 3D help view.

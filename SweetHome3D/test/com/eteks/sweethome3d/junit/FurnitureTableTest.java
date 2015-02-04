@@ -67,6 +67,7 @@ public class FurnitureTableTest extends TestCase {
     // Check the current unit isn't centimeter
     LengthUnit currentUnit = preferences.getLengthUnit();
     assertFalse("Unit is in centimeter", currentUnit == LengthUnit.CENTIMETER);
+    
     // Get furniture catalog
     FurnitureCatalog catalog = preferences.getFurnitureCatalog();
     

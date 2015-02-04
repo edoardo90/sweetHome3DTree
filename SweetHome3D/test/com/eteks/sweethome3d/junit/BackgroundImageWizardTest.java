@@ -35,6 +35,7 @@ import abbot.finder.AWTHierarchy;
 import abbot.finder.ComponentSearchException;
 import abbot.tester.JComponentTester;
 
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.Content;
@@ -46,7 +47,6 @@ import com.eteks.sweethome3d.swing.BackgroundImageWizardStepsPanel;
 import com.eteks.sweethome3d.swing.HomePane;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
 import com.eteks.sweethome3d.swing.WizardPane;
-import com.eteks.sweethome3d.tools.URLContent;
 import com.eteks.sweethome3d.viewcontroller.BackgroundImageWizardController;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.HomeController;

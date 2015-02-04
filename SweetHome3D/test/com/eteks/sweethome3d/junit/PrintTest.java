@@ -45,6 +45,7 @@ import abbot.finder.matchers.ClassMatcher;
 import abbot.tester.JComponentTester;
 import abbot.tester.JFileChooserTester;
 
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.Home;
@@ -56,7 +57,6 @@ import com.eteks.sweethome3d.swing.HomePrintableComponent;
 import com.eteks.sweethome3d.swing.PageSetupPanel;
 import com.eteks.sweethome3d.swing.PrintPreviewPanel;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
-import com.eteks.sweethome3d.tools.OperatingSystem;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.eteks.sweethome3d.viewcontroller.View;

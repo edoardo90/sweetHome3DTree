@@ -44,9 +44,9 @@ import javax.media.j3d.ImageComponent;
 import javax.media.j3d.ImageComponent2D;
 import javax.media.j3d.Texture;
 
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.HomeTexture;
-import com.eteks.sweethome3d.tools.URLContent;
 import com.sun.j3d.utils.image.TextureLoader;
 
 /**

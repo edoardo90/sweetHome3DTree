@@ -56,6 +56,9 @@ import java.util.prefs.Preferences;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.TemporaryURLContent;
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.model.CatalogDoorOrWindow;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.CatalogTexture;
@@ -71,9 +74,6 @@ import com.eteks.sweethome3d.model.TextureImage;
 import com.eteks.sweethome3d.model.TexturesCatalog;
 import com.eteks.sweethome3d.model.TexturesCategory;
 import com.eteks.sweethome3d.model.UserPreferences;
-import com.eteks.sweethome3d.tools.OperatingSystem;
-import com.eteks.sweethome3d.tools.TemporaryURLContent;
-import com.eteks.sweethome3d.tools.URLContent;
 
 /**
  * User preferences initialized from 

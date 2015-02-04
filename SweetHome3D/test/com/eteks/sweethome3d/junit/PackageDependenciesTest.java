@@ -33,7 +33,7 @@ public class PackageDependenciesTest extends TestCase {
     DependencyConstraint constraint = new DependencyConstraint();
     // Sweet Home 3D packages
     JavaPackage sweetHome3DModel = constraint.addPackage("com.eteks.sweethome3d.model");
-    JavaPackage sweetHome3DTools = constraint.addPackage("com.eteks.sweethome3d.tools");
+    JavaPackage sweetHome3DTools = constraint.addPackage("com.eteks.sweethome3d.adaptive");
     JavaPackage sweetHome3DPlugin = constraint.addPackage("com.eteks.sweethome3d.plugin");
     JavaPackage sweetHome3DViewController = constraint.addPackage("com.eteks.sweethome3d.viewcontroller");
     JavaPackage sweetHome3DSwing = constraint.addPackage("com.eteks.sweethome3d.swing");

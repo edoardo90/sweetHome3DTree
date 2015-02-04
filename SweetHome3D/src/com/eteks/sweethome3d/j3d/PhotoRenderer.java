@@ -96,6 +96,7 @@ import org.sunflow.math.Vector3;
 import org.sunflow.system.UI;
 import org.sunflow.system.ui.SilentInterface;
 
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.model.Camera;
 import com.eteks.sweethome3d.model.Compass;
 import com.eteks.sweethome3d.model.Home;
@@ -110,7 +111,6 @@ import com.eteks.sweethome3d.model.ObserverCamera;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.Selectable;
 import com.eteks.sweethome3d.model.Wall;
-import com.eteks.sweethome3d.tools.OperatingSystem;
 import com.eteks.sweethome3d.viewcontroller.Object3DFactory;
 
 /**

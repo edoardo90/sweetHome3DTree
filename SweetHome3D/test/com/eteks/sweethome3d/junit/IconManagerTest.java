@@ -36,9 +36,9 @@ import javax.swing.ImageIcon;
 
 import junit.framework.TestCase;
 
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.swing.IconManager;
-import com.eteks.sweethome3d.tools.URLContent;
 
 /**
  * Tests IconManager class.

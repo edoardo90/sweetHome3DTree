@@ -36,9 +36,9 @@ import java.util.WeakHashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import com.eteks.sweethome3d.adaptive.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.model.Content;
-import com.eteks.sweethome3d.tools.ResourceURLContent;
-import com.eteks.sweethome3d.tools.URLContent;
 
 /**
  * Manager able to store and compute content digest to compare content data faster.  

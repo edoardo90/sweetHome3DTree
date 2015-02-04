@@ -39,6 +39,10 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.TemporaryURLContent;
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.model.CatalogDoorOrWindow;
 import com.eteks.sweethome3d.model.CatalogLight;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
@@ -49,10 +53,6 @@ import com.eteks.sweethome3d.model.Library;
 import com.eteks.sweethome3d.model.LightSource;
 import com.eteks.sweethome3d.model.Sash;
 import com.eteks.sweethome3d.model.UserPreferences;
-import com.eteks.sweethome3d.tools.OperatingSystem;
-import com.eteks.sweethome3d.tools.ResourceURLContent;
-import com.eteks.sweethome3d.tools.TemporaryURLContent;
-import com.eteks.sweethome3d.tools.URLContent;
 
 /**
  * Furniture default catalog read from resources localized in <code>.properties</code> files.

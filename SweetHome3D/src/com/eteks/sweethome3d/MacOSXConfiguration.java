@@ -71,6 +71,7 @@ import com.apple.eawt.ApplicationEvent;
 import com.apple.eawt.FullScreenAdapter;
 import com.apple.eawt.FullScreenListener;
 import com.apple.eawt.FullScreenUtilities;
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.model.CollectionEvent;
 import com.eteks.sweethome3d.model.CollectionListener;
 import com.eteks.sweethome3d.model.Home;
@@ -78,7 +79,6 @@ import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.HomePane;
 import com.eteks.sweethome3d.swing.ResourceAction;
 import com.eteks.sweethome3d.swing.SwingTools;
-import com.eteks.sweethome3d.tools.OperatingSystem;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.sun.j3d.exp.swing.JCanvas3D;
 

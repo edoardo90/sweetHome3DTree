@@ -49,6 +49,7 @@ import abbot.finder.matchers.ClassMatcher;
 import abbot.finder.matchers.WindowMatcher;
 import abbot.tester.JComponentTester;
 
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.io.FileUserPreferences;
 import com.eteks.sweethome3d.model.CatalogTexture;
 import com.eteks.sweethome3d.model.Content;
@@ -65,7 +66,6 @@ import com.eteks.sweethome3d.swing.SwingViewFactory;
 import com.eteks.sweethome3d.swing.TextureChoiceComponent;
 import com.eteks.sweethome3d.swing.WallPanel;
 import com.eteks.sweethome3d.swing.WizardPane;
-import com.eteks.sweethome3d.tools.URLContent;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.eteks.sweethome3d.viewcontroller.ImportedTextureWizardController;

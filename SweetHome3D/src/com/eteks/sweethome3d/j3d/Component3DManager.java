@@ -41,7 +41,7 @@ import javax.media.j3d.View;
 import javax.media.j3d.VirtualUniverse;
 import javax.swing.Timer;
 
-import com.eteks.sweethome3d.tools.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.sun.j3d.utils.universe.SimpleUniverse;
 import com.sun.j3d.utils.universe.Viewer;
 import com.sun.j3d.utils.universe.ViewingPlatform;

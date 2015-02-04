@@ -49,6 +49,7 @@ import abbot.tester.JComponentTester;
 import abbot.tester.JFileChooserTester;
 import abbot.tester.JSliderTester;
 
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.io.HomeFileRecorder;
 import com.eteks.sweethome3d.model.AspectRatio;
@@ -64,7 +65,6 @@ import com.eteks.sweethome3d.swing.PhotoPanel;
 import com.eteks.sweethome3d.swing.PhotoSizeAndQualityPanel;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
 import com.eteks.sweethome3d.swing.VideoPanel;
-import com.eteks.sweethome3d.tools.OperatingSystem;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.eteks.sweethome3d.viewcontroller.View;

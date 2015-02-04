@@ -22,9 +22,9 @@ package com.eteks.sweethome3d.io;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.TextureImage;
-import com.eteks.sweethome3d.tools.ResourceURLContent;
 
 /**
  * A pattern built from resources.

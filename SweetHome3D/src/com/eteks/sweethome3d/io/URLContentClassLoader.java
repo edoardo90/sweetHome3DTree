@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import com.eteks.sweethome3d.tools.URLContent;
+import com.eteks.sweethome3d.adaptive.URLContent;
 
 /**
  * A class loader that gives access to its resources with {@link URLContent URLContent} instances.

@@ -21,7 +21,7 @@ package com.eteks.sweethome3d.io;
 
 import java.net.URL;
 
-import com.eteks.sweethome3d.tools.URLContent;
+import com.eteks.sweethome3d.adaptive.URLContent;
 
 /**
  * An URL content read from a home stream stored in a temporary file.

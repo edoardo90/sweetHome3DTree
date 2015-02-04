@@ -74,7 +74,7 @@
 <li><a href="com/eteks/sweethome3d/model/package-tree.html">com.eteks.sweethome3d.model</a>, </li>
 <li><a href="com/eteks/sweethome3d/plugin/package-tree.html">com.eteks.sweethome3d.plugin</a>, </li>
 <li><a href="com/eteks/sweethome3d/swing/package-tree.html">com.eteks.sweethome3d.swing</a>, </li>
-<li><a href="com/eteks/sweethome3d/tools/package-tree.html">com.eteks.sweethome3d.tools</a>, </li>
+<li><a href="com/eteks/sweethome3d/tools/package-tree.html">com.eteks.sweethome3d.adaptive</a>, </li>
 <li><a href="com/eteks/sweethome3d/viewcontroller/package-tree.html">com.eteks.sweethome3d.viewcontroller</a></li>
 </ul>
 </div>
@@ -135,7 +135,7 @@
 <li type="circle">com.eteks.sweethome3d.model.<a href="com/eteks/sweethome3d/model/CatalogTexture.html" title="class in com.eteks.sweethome3d.model"><span class="strong">CatalogTexture</span></a> (implements com.eteks.sweethome3d.model.<a href="com/eteks/sweethome3d/model/CatalogItem.html" title="interface in com.eteks.sweethome3d.model">CatalogItem</a>, java.lang.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang">Comparable</a>&lt;T&gt;, com.eteks.sweethome3d.model.<a href="com/eteks/sweethome3d/model/TextureImage.html" title="interface in com.eteks.sweethome3d.model">TextureImage</a>)</li>
 <li type="circle">java.lang.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/ClassLoader.html?is-external=true" title="class or interface in java.lang"><span class="strong">ClassLoader</span></a>
 <ul>
-<li type="circle">com.eteks.sweethome3d.tools.<a href="com/eteks/sweethome3d/tools/ExtensionsClassLoader.html" title="class in com.eteks.sweethome3d.tools"><span class="strong">ExtensionsClassLoader</span></a></li>
+<li type="circle">com.eteks.sweethome3d.adaptive.<a href="com/eteks/sweethome3d/tools/ExtensionsClassLoader.html" title="class in com.eteks.sweethome3d.adaptive"><span class="strong">ExtensionsClassLoader</span></a></li>
 </ul>
 </li>
 <li type="circle">com.eteks.sweethome3d.model.<a href="com/eteks/sweethome3d/model/CollectionChangeSupport.html" title="class in com.eteks.sweethome3d.model"><span class="strong">CollectionChangeSupport</span></a>&lt;T&gt;</li>
@@ -348,7 +348,7 @@
 <li type="circle">com.eteks.sweethome3d.viewcontroller.<a href="com/eteks/sweethome3d/viewcontroller/ModelMaterialsController.html" title="class in com.eteks.sweethome3d.viewcontroller"><span class="strong">ModelMaterialsController</span></a> (implements com.eteks.sweethome3d.viewcontroller.<a href="com/eteks/sweethome3d/viewcontroller/Controller.html" title="interface in com.eteks.sweethome3d.viewcontroller">Controller</a>)</li>
 <li type="circle">com.eteks.sweethome3d.j3d.<a href="com/eteks/sweethome3d/j3d/Object3DBranchFactory.html" title="class in com.eteks.sweethome3d.j3d"><span class="strong">Object3DBranchFactory</span></a> (implements com.eteks.sweethome3d.viewcontroller.<a href="com/eteks/sweethome3d/viewcontroller/Object3DFactory.html" title="interface in com.eteks.sweethome3d.viewcontroller">Object3DFactory</a>)</li>
 <li type="circle">com.eteks.sweethome3d.viewcontroller.<a href="com/eteks/sweethome3d/viewcontroller/ObserverCameraController.html" title="class in com.eteks.sweethome3d.viewcontroller"><span class="strong">ObserverCameraController</span></a> (implements com.eteks.sweethome3d.viewcontroller.<a href="com/eteks/sweethome3d/viewcontroller/Controller.html" title="interface in com.eteks.sweethome3d.viewcontroller">Controller</a>)</li>
-<li type="circle">com.eteks.sweethome3d.tools.<a href="com/eteks/sweethome3d/tools/OperatingSystem.html" title="class in com.eteks.sweethome3d.tools"><span class="strong">OperatingSystem</span></a></li>
+<li type="circle">com.eteks.sweethome3d.adaptive.<a href="com/eteks/sweethome3d/tools/OperatingSystem.html" title="class in com.eteks.sweethome3d.adaptive"><span class="strong">OperatingSystem</span></a></li>
 <li type="circle">java.io.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><span class="strong">OutputStream</span></a> (implements java.io.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a>, java.io.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Flushable.html?is-external=true" title="class or interface in java.io">Flushable</a>)
 <ul>
 <li type="circle">java.io.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/FilterOutputStream.html?is-external=true" title="class or interface in java.io"><span class="strong">FilterOutputStream</span></a>
@@ -481,10 +481,10 @@
 </li>
 </ul>
 </li>
-<li type="circle">com.eteks.sweethome3d.tools.<a href="com/eteks/sweethome3d/tools/URLContent.html" title="class in com.eteks.sweethome3d.tools"><span class="strong">URLContent</span></a> (implements com.eteks.sweethome3d.model.<a href="com/eteks/sweethome3d/model/Content.html" title="interface in com.eteks.sweethome3d.model">Content</a>)
+<li type="circle">com.eteks.sweethome3d.adaptive.<a href="com/eteks/sweethome3d/tools/URLContent.html" title="class in com.eteks.sweethome3d.adaptive"><span class="strong">URLContent</span></a> (implements com.eteks.sweethome3d.model.<a href="com/eteks/sweethome3d/model/Content.html" title="interface in com.eteks.sweethome3d.model">Content</a>)
 <ul>
-<li type="circle">com.eteks.sweethome3d.tools.<a href="com/eteks/sweethome3d/tools/ResourceURLContent.html" title="class in com.eteks.sweethome3d.tools"><span class="strong">ResourceURLContent</span></a></li>
-<li type="circle">com.eteks.sweethome3d.tools.<a href="com/eteks/sweethome3d/tools/TemporaryURLContent.html" title="class in com.eteks.sweethome3d.tools"><span class="strong">TemporaryURLContent</span></a></li>
+<li type="circle">com.eteks.sweethome3d.adaptive.<a href="com/eteks/sweethome3d/tools/ResourceURLContent.html" title="class in com.eteks.sweethome3d.adaptive"><span class="strong">ResourceURLContent</span></a></li>
+<li type="circle">com.eteks.sweethome3d.adaptive.<a href="com/eteks/sweethome3d/tools/TemporaryURLContent.html" title="class in com.eteks.sweethome3d.adaptive"><span class="strong">TemporaryURLContent</span></a></li>
 </ul>
 </li>
 <li type="circle">com.eteks.sweethome3d.model.<a href="com/eteks/sweethome3d/model/UserPreferences.html" title="class in com.eteks.sweethome3d.model"><span class="strong">UserPreferences</span></a>

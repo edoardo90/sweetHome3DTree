@@ -37,11 +37,11 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import com.eteks.sweethome3d.adaptive.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.TemporaryURLContent;
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;
-import com.eteks.sweethome3d.tools.ResourceURLContent;
-import com.eteks.sweethome3d.tools.TemporaryURLContent;
-import com.eteks.sweethome3d.tools.URLContent;
 
 /**
  * An <code>OutputStream</code> filter that writes a home in a stream 

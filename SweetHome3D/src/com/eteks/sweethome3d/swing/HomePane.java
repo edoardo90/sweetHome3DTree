@@ -162,6 +162,16 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.IdAlreadyInUseException;
 import org.graphstream.graph.implementations.SingleGraph;
 
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
+import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer;
+import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer.KindOfGraph;
 import com.eteks.sweethome3d.j3d.Ground3D;
 import com.eteks.sweethome3d.j3d.HomePieceOfFurniture3D;
 import com.eteks.sweethome3d.j3d.OBJWriter;
@@ -197,14 +207,6 @@ import com.eteks.sweethome3d.plugin.HomePluginController;
 import com.eteks.sweethome3d.plugin.Plugin;
 import com.eteks.sweethome3d.plugin.PluginAction;
 import com.eteks.sweethome3d.plugin.PluginManager;
-import com.eteks.sweethome3d.tools.OperatingSystem;
-import com.eteks.sweethome3d.tools.reachabletree.NullGraphExcepion;
-import com.eteks.sweethome3d.tools.reachabletree.ReachableTreeBuillder;
-import com.eteks.sweethome3d.tools.security.buildingGraph.BuildingRoomNode;
-import com.eteks.sweethome3d.tools.security.buildingGraphObjects.BuildingSecurityGraph;
-import com.eteks.sweethome3d.tools.security.ifcSecurity.IfcSecurityExtractor;
-import com.eteks.sweethome3d.tools.treetobuilding.GraphDisplayer;
-import com.eteks.sweethome3d.tools.treetobuilding.GraphDisplayer.KindOfGraph;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
@@ -835,7 +837,21 @@ public class HomePane extends JRootPane implements HomeView {
           for(BuildingRoomNode rib : roomsInBuilding)
           {
             Room r = rib.getRoom();
-            
+            List<BuildingObjectContained> objectsInside = rib.getObjectsInside();
+            for(BuildingObjectContained objectContained : objectsInside )
+            {
+               Vector3D objPosition =  objectContained.getPosition();
+               HomePieceOfFurniture hopf = objectContained.getPieceOfForniture(getUserPreferences());
+               
+               hopf.setX((float)objPosition.first);
+               hopf.setY((float)objPosition.second);
+               hopf.setElevation(0);
+               hopf.setAngle(0);
+               
+               home.addPieceOfFurniture(hopf);
+               
+            }
+          
             home.addRoom(r);
           }
 

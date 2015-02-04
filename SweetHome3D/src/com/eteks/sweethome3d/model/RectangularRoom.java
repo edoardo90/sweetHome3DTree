@@ -1,6 +1,6 @@
 package com.eteks.sweethome3d.model;
 
-import com.eteks.sweethome3d.tools.security.parserobjects.Rectangle3D;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 
 
 

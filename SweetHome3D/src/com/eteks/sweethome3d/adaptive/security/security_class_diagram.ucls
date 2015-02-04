@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.8" icons="true" always-add-relationships="false" generalizations="true" realizations="false" 
+  associations="false" dependencies="false" nesting-relationships="false">  
+  <class id="1" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraph/BuildingLinkEdge.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="118" width="178" x="444" y="531"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraph/BuildingRoomNode.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="178" width="194" x="766" y="531"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraph/BuildingLinkWall.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="58" width="169" x="444" y="749"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/ActorObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="78" width="177" x="41" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" 
+    name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph" project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/BuildingSecurityGraph.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="138" width="222" x="484" y="273"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingGraphPart" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/BuildingGraphPart.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="218" width="184" x="239" y="273"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PCObject" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/PCObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="58" width="106" x="1052" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.HVACObject" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/HVACObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="58" width="132" x="279" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.CableObject" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/CableObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="78" width="177" x="451" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.CCTVObject" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/CCTVObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="78" width="177" x="1198" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LightObject" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/LightObject.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="58" width="125" x="1415" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PrinterObject" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/PrinterObject.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="140" x="668" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" 
+    name="com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained" project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/buildingGraphObjects/BuildingObjectContained.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="58" width="240" x="677" y="749"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/ifcSecurity/IfcSecurityExtractor.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="196" width="320" x="1177" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="com.eteks.sweethome3d.adaptive.security.parserobjects.Axis3DNice" 
+    project="SweetHome3D" file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/parserobjects/Axis3DNice.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="118" width="223" x="1844" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D" 
+    project="SweetHome3D" file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/parserobjects/Vector3D.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="218" width="147" x="1580" y="1265"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="com.eteks.sweethome3d.adaptive.security.parserobjects.Placement3DNice" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/parserobjects/Placement3DNice.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="138" width="179" x="1644" y="749"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D" 
+    project="SweetHome3D" file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/parserobjects/Rectangle3D.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="298" width="203" x="1580" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D" 
+    project="SweetHome3D" file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/parserobjects/Shape3D.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="144" x="1012" y="749"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape" 
+    project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/parserobjects/ProfileShape.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="78" width="143" x="848" y="927"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <association id="21">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="22" name="axes">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="23" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <bendpoint x="248" y="531"/>    
+    <bendpoint x="248" y="749"/>    
+    <bendpoint x="248" y="927"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="25" name="position">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="26" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <dependency id="28">    
+    <bendpoint x="1207" y="273"/>    
+    <bendpoint x="1207" y="531"/>    
+    <bendpoint x="1207" y="749"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <association id="29">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="30" name="roomShape">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="31" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <generalization id="33">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <generalization id="34">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <association id="35">    
+    <end type="SOURCE" refId="20" navigable="false">      
+      <attribute id="36" name="points">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="37" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="38">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="39" name="linkEdgeList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="40" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="41">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <dependency id="42">    
+    <bendpoint x="736" y="273"/>    
+    <bendpoint x="735" y="531"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <dependency id="44">    
+    <bendpoint x="1305" y="273"/>    
+    <bendpoint x="1305" y="531"/>    
+    <bendpoint x="1305" y="749"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <association id="45">    
+    <bendpoint x="1813" y="927"/>    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="46" name="originPoint">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="47" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="48">    
+    <bendpoint x="1420" y="273"/>    
+    <bendpoint x="1420" y="531"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <association id="49">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="50" name="pointNorthWest">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="51" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="52">    
+    <bendpoint x="413" y="531"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <dependency id="53">    
+    <bendpoint x="1388" y="273"/>    
+    <bendpoint x="1388" y="531"/>    
+    <bendpoint x="1388" y="749"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <association id="54">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="55" name="roomNodeList">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="56" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="57">    
+    <bendpoint x="208" y="273"/>    
+    <bendpoint x="208" y="531"/>    
+    <bendpoint x="208" y="749"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="58">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <generalization id="59">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="60">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="61" name="pointSouthEast">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="62" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="63">    
+    <bendpoint x="969" y="273"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <association id="64">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="65" name="objectsInside">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="66" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="67">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="68">    
+    <bendpoint x="1186" y="273"/>    
+    <bendpoint x="1186" y="531"/>    
+    <bendpoint x="1186" y="749"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <generalization id="69">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="70">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="71">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="72" name="zVector">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="73" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="75" name="xVector">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="76" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <dependency id="77">    
+    <bendpoint x="1021" y="927"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <dependency id="78">    
+    <bendpoint x="453" y="273"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <generalization id="79">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <association id="80">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="81" name="yVector">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="82" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="false" multiplicity="true"/>  
+  </association>  
+  <generalization id="83">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
+  <dependency id="84">    
+    <bendpoint x="990" y="273"/>    
+    <bendpoint x="990" y="531"/>    
+    <bendpoint x="981" y="749"/>    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <generalization id="85">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="false" multiplicity="false"/>
+</class-diagram>

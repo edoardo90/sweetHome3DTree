@@ -29,7 +29,7 @@ import abbot.finder.BasicFinder;
 import abbot.finder.ComponentSearchException;
 import abbot.finder.Matcher;
 
-import com.eteks.sweethome3d.tools.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.OperatingSystem;
 
 /**
  * Gathers tools used by tests.

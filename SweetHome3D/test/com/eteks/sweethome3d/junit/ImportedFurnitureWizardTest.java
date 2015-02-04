@@ -44,6 +44,7 @@ import abbot.finder.ComponentSearchException;
 import abbot.finder.matchers.ClassMatcher;
 import abbot.tester.JComponentTester;
 
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.io.FileUserPreferences;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.CollectionEvent;
@@ -61,7 +62,6 @@ import com.eteks.sweethome3d.swing.HomePane;
 import com.eteks.sweethome3d.swing.ImportedFurnitureWizardStepsPanel;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
 import com.eteks.sweethome3d.swing.WizardPane;
-import com.eteks.sweethome3d.tools.URLContent;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.eteks.sweethome3d.viewcontroller.ImportedFurnitureWizardController;

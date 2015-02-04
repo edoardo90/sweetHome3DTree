@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import com.eteks.sweethome3d.tools.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 
 /**
  * An action made available to application users through a plugin.

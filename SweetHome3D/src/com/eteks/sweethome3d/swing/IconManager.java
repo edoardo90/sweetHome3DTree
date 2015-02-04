@@ -36,8 +36,8 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
+import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.model.Content;
-import com.eteks.sweethome3d.tools.ResourceURLContent;
 
 /**
  * Singleton managing icons cache.

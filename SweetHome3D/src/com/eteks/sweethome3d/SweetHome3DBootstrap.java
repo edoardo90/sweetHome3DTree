@@ -31,7 +31,7 @@ import java.util.Locale;
 
 import javax.swing.JOptionPane;
 
-import com.eteks.sweethome3d.tools.ExtensionsClassLoader;
+import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
 
 /**
  * This bootstrap class loads Sweet Home 3D application classes from jars in classpath 

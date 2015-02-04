@@ -30,8 +30,8 @@ import javax.media.j3d.Shape3D;
 
 import junit.framework.TestCase;
 
+import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.j3d.ModelManager;
-import com.eteks.sweethome3d.tools.URLContent;
 
 /**
  * Test ModelManager class.
