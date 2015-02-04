@@ -7,7 +7,8 @@ import com.eteks.sweethome3d.model.Room;
 public abstract class Shape3D {
   
   public abstract List<Vector3D> getListOfPoints();
-
+  
+  
   public Room getRoom() {
     
     List<Vector3D> points = this.getListOfPoints();
@@ -24,7 +25,8 @@ public abstract class Shape3D {
     for(int i = 2; i<points.size(); i++)
     {
       Vector3D vect = points.get(i);
-      r.addPoint((float)vect.first, (float)vect.second);
+      
+      r.addPoint((float) ( vect.first), (float)( vect.second));
     }
 
     return r;
@@ -43,5 +45,7 @@ public abstract class Shape3D {
       return "" + getListOfPoints();
     }
   }
+
+  public abstract void scale(float scaleFactor);
   
 }

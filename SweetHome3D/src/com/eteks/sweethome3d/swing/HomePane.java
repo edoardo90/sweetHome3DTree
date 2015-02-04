@@ -850,17 +850,17 @@ public class HomePane extends JRootPane implements HomeView {
                hopf.setElevation(0);
                hopf.setAngle(0);
                
-               home.addPieceOfFurniture(hopf);
+               home.addPieceOfFurniture(hopf);  //TODO:  coordinates
                
             }
           
-            home.addRoom(r);
+            home.addRoom(r);  //TODO:  coordinates
           }
           
 
 
         } catch (Exception ex) {
-          // TODO Auto-generated catch block
+         
           ex.printStackTrace();
         }
 

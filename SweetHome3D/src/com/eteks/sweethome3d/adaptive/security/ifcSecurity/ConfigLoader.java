@@ -50,7 +50,7 @@ public class ConfigLoader {
   
   protected static List<String> stringToLookFor(BuildingObjectType objectType)
   {
-    //TODO: in future maybe we can put these in a file?  e.g. txt file
+    //TODO: conventions file
     //PC, desktop, computer, laptop
 
     List<String> words = new ArrayList<String>();
@@ -58,7 +58,7 @@ public class ConfigLoader {
     {
       case ACTOR:
       {
-        words.add("actor");  //TODO  remove it ?  useless ?
+        words.add("actor");  //TODO  remove "actor"?
         break;
       }
       case CCTV :
@@ -101,7 +101,7 @@ public class ConfigLoader {
   {
     Map<BuildingObjectType, HomePieceOfFurniture> catalogFurniture =
         new HashMap<BuildingObjectType, HomePieceOfFurniture>();
-    //TODO: read strings for object name (e.g. camera) from a txt file
+    //TODO: config file for conventions sweetHome 
     
 
     List<FurnitureCategory> categories= getUserPreferences().getFurnitureCatalog().getCategories();

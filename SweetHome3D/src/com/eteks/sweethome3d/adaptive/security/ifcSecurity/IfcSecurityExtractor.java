@@ -25,7 +25,6 @@ import ifc2x3javatoolbox.ifc2x3tc1.IfcRepresentationItem;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSIPrefix;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSIUnit;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSIUnitName;
-import ifc2x3javatoolbox.ifc2x3tc1.IfcSIUnitName.IfcSIUnitName_internal;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSpace;
 import ifc2x3javatoolbox.ifc2x3tc1.LIST;
 import ifc2x3javatoolbox.ifc2x3tc1.SET;
@@ -36,30 +35,22 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.CCTVObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LightObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PCObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PrinterObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.UnknownObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Axis3DNice;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Placement3DNice;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
-import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
-import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
-import com.eteks.sweethome3d.model.PieceOfFurniture;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 public class IfcSecurityExtractor {
@@ -75,7 +66,7 @@ public class IfcSecurityExtractor {
     ConfigLoader configLoader = new ConfigLoader(preferences);
     Map<BuildingObjectType, HomePieceOfFurniture> map =
             configLoader.createFurnitureMap();
-    preferences.setFornitureMap(map);
+    preferences.setFornitureMap(map); 
   }
 
 
@@ -201,7 +192,9 @@ public class IfcSecurityExtractor {
             + " room ID : "  + idRoom);
 
         //shape and position
-        Rectangle3D roomShape = getShapeAndPosition(space);
+        Shape3D roomShape = getShapeAndPosition(space, 1.1f); 
+        //TODO:  scale according to SI units
+       
         System.out.println("room shape: \n" + roomShape);
 
         //containement
@@ -313,10 +306,13 @@ public class IfcSecurityExtractor {
   
 
 
+  private Shape3D getShapeAndPosition(IfcProduct product)
+  {
+    return getShapeAndPosition(product, 1);
+  }
 
 
-
-  private Rectangle3D getShapeAndPosition(IfcProduct product) 
+  private Shape3D getShapeAndPosition(IfcProduct product, float scaleFactor) 
   {
 
     Placement3DNice placementNice = getPlacementFromObject(product);
@@ -324,7 +320,8 @@ public class IfcSecurityExtractor {
     Vector3D   absoluteCoordinates = placementNice.getOriginPoint();
 
 
-    Rectangle3D shapeLocated = this.getShape(product, axis3DContainer, absoluteCoordinates);
+    Shape3D shapeLocated = this.getShape(product, axis3DContainer, absoluteCoordinates);
+    shapeLocated.scale(scaleFactor);
     return shapeLocated;
   }
   

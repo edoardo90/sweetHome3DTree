@@ -62,4 +62,25 @@ public class Vector3D
   {
     return "[ " +  this.first + ", " + this.second + ", " + this.third  + " ]";
   }
+
+  public void scale(float scaleFactor) {
+    this.first *= scaleFactor;
+    this.second *= scaleFactor;
+    this.third *= scaleFactor;
+    
+  }
+  
+  public Vector3D getScaledVector(float scaleFactor)
+  {
+    return new Vector3D(this.first * scaleFactor, this.second * scaleFactor, this.third * scaleFactor);
+  }
+  
+  @Override
+  public Vector3D clone()
+  {
+    return new Vector3D(first, second, third);
+  }
+  
+  
+  
 }

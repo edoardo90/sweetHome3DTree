@@ -477,6 +477,7 @@ public class GraphDisplayer {
   {
     HomeDoorOrWindow door = null;
     //TODO : runtime door - pieceofforinuture
+    
     for(HomePieceOfFurniture p : home.getFurniture())
     {
 

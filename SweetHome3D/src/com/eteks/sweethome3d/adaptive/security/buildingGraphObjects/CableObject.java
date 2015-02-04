@@ -8,11 +8,11 @@ public class CableObject extends BuildingObjectContained {
  
   public CableObject(Vector3D position) {
     super(position);
-    // TODO Auto-generated constructor stub
+ 
   }
 
   public PieceOfFurniture getPieceOfForniture() {
-    //null means no representation  TODO: put it ?
+    //null means no representation  TODO: how do we graphically represent cables?
     return null;
   }
 

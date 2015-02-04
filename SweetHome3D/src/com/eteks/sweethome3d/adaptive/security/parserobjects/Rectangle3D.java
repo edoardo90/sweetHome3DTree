@@ -11,22 +11,7 @@ public class Rectangle3D extends Shape3D
 
   public Vector3D getPointNorthWest()
   {
-    double x = this.pointNorthWest.first;
-    double y = this.pointNorthWest.second;
-    double z = this.pointNorthWest.third;
-    return new Vector3D(x,y,z);
-  }
-
-
-  public void multiplyEdgesCoordsBy(int i) {
-    this.pointNorthWest.first *= i;
-    this.pointNorthWest.second *= i;
-    this.pointNorthWest.third *= i;
-
-    this.pointSouthEast.first *= i;
-    this.pointSouthEast.second *= i;
-    this.pointSouthEast.third *= i;
-
+    return pointNorthWest.clone();
   }
 
 
@@ -53,10 +38,7 @@ public class Rectangle3D extends Shape3D
 
   public Vector3D getPointSouthEast()
   {
-    double x = this.pointSouthEast.first;
-    double y = this.pointSouthEast.second;
-    double z = this.pointSouthEast.third;
-    return new Vector3D(x,y,z);
+    return this.pointSouthEast.clone();
   }
 
   @Override
@@ -128,12 +110,13 @@ public class Rectangle3D extends Shape3D
   @Override
   public List<Vector3D> getListOfPoints()
   {
+    //get copies of vectors: new 3d vectors
     Vector3D p1 = this.getPointNorthEast();
     Vector3D p2 = this.getPointNorthWest();
     Vector3D p3 = this.getPointSouthWest();
     Vector3D p4 = this.getPointSouthEast();
     List<Vector3D> lst = new ArrayList<Vector3D>();
-
+    
     lst.add(p1);
     lst.add(p2);
     lst.add(p3);
@@ -229,6 +212,13 @@ public class Rectangle3D extends Shape3D
     return acc;
   }
 
+
+  @Override
+  public void scale(float scaleFactor) {
+    this.pointNorthWest.scale(scaleFactor);
+    this.pointSouthEast.scale(scaleFactor);
+    
+  }
 
 
 
