@@ -21,6 +21,12 @@ public class ConfigLoader {
     this.preferences = preferences;
   }
   
+  public ConfigLoader()
+  {
+    preferences = null;
+  }
+  
+  
   private UserPreferences getUserPreferences() {
     return this.preferences;
   }
@@ -34,7 +40,7 @@ public class ConfigLoader {
    * "CCTV"  is associated with Camera
    * @return
    */
-  protected static Map<String, BuildingObjectType> getCatalogNamesFromFile()
+  protected  Map<String, BuildingObjectType> getCatalogNamesFromFile()
   {
     Map<String, BuildingObjectType> catalog = new HashMap<String, BuildingObjectType>();
     catalog.put("Camera surveillance N090211", BuildingObjectType.CCTV);
@@ -48,7 +54,7 @@ public class ConfigLoader {
     return catalog;
   }
   
-  protected static List<String> stringToLookFor(BuildingObjectType objectType)
+  protected  List<String> stringToLookFor(BuildingObjectType objectType)
   {
     //TODO: conventions file
     //PC, desktop, computer, laptop
@@ -122,7 +128,8 @@ public class ConfigLoader {
           HomePieceOfFurniture  hopf = new HomePieceOfFurniture(piece);
           
           String pieceName = piece.getName();
-          Map<String, BuildingObjectType> catalog = ConfigLoader.getCatalogNamesFromFile();
+          ConfigLoader cfg = new ConfigLoader();
+          Map<String, BuildingObjectType> catalog = cfg.getCatalogNamesFromFile();
           BuildingObjectType typeOBJ = catalog.get(pieceName);
           catalogFurniture.put(typeOBJ, hopf);
         }
@@ -132,6 +139,16 @@ public class ConfigLoader {
 
     return catalogFurniture;
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   
 }

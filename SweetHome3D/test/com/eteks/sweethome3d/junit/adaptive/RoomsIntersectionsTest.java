@@ -20,17 +20,7 @@
  */
 package com.eteks.sweethome3d.junit.adaptive;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JRootPane;
-
-import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
-import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
-import com.eteks.sweethome3d.junit.adaptive.FurnitureAddTest.ControllerTest;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.RoomGeoSmart;

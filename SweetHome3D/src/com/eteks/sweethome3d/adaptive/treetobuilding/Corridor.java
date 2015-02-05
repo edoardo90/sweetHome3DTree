@@ -2,7 +2,6 @@ package com.eteks.sweethome3d.adaptive.treetobuilding;
 
 import java.awt.Rectangle;
 
-import com.eteks.sweethome3d.model.HomeDoorOrWindow;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 

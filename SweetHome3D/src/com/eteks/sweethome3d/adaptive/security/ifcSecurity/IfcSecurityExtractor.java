@@ -320,7 +320,8 @@ public class IfcSecurityExtractor {
 
     for(BuildingObjectType objType : BuildingObjectType.values())
     {
-      List<String> toLookStrings = ConfigLoader.stringToLookFor(objType);
+      ConfigLoader cfg = new ConfigLoader();
+      List<String> toLookStrings = cfg.stringToLookFor(objType);
       for(String nameToLookFor : toLookStrings)
       {
         if(matches(nameToLookFor, actualName))

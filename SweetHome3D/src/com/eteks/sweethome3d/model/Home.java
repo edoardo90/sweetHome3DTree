@@ -1515,6 +1515,11 @@ public class Home implements Serializable, Cloneable {
          Vector3D objPosition =  objectContained.getPosition();
          HomePieceOfFurniture hopf = objectContained.getPieceOfForniture(preferences);
          
+         if(hopf == null)
+         {
+           hopf = objectContained.getPieceOfForniture(preferences);
+         }
+         
          hopf.setX((float)objPosition.first);
          hopf.setY((float)objPosition.second);
          hopf.setElevation(0);
