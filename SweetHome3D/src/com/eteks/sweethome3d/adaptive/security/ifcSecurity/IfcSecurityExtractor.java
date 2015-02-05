@@ -86,10 +86,11 @@ public class IfcSecurityExtractor {
     Collection<IfcSpace> ifcSpacesColl = ifcModel.getCollection(IfcSpace.class);
 
     this.ifcSpaces.addAll(ifcSpacesColl);
-
+    
+    float scaleFactor = this.getScaleFactor();
 
     linkEdgeList = this.getLinks();
-    roomNodeList = this.getRooms();
+    roomNodeList = this.getRooms(scaleFactor);
 
     buildingSecurityGraph.setLinkEdgeList(linkEdgeList);
     buildingSecurityGraph.setRoomNodeList(roomNodeList);
@@ -97,9 +98,30 @@ public class IfcSecurityExtractor {
     return buildingSecurityGraph;
   }
   
-  public void x()
+  /**
+   * In sweethome 3d objects are represented with dimensions in cm
+   * so if we recognize that the ifc file have sizes expressed in mm or in m 
+   * we have to scale objects accordingly
+   * 
+   * SwOBJ =  IFC OBJ  *  scaleFactor
+   * 
+   * IFC obj:  500 mm   ->  SW3D obj:  50 cm
+   * so   mm  to  cm    ->  scaleFactor = 0.10
+   * 
+   * IFC obj:    3 m    ->   SW3D obj  300 cm
+   * so   m   to  cm    ->   scaleFactor = 100
+   * 
+   * @return
+   */
+  private float getScaleFactor()
   {
+    //TODO: now are recognized just mm vs m 
+    //maybe we can recognize imperial system as well
+    float scaleF = 100f;
     Collection<IfcSIUnit> collectionOfUnit = ifcModel.getCollection(IfcSIUnit.class);
+    
+    //if the ifc file is expressed in mm  then  both  metre and millimetre units will be present
+    //inside the file
     for(IfcSIUnit unit : collectionOfUnit)
     {
       IfcSIPrefix prefix = unit.getPrefix();
@@ -114,9 +136,15 @@ public class IfcSecurityExtractor {
       if(nameOfUnit != null)
         un = "" + nameOfUnit.value;
       
-      System.out.println(" PREF:  " + pr +  " UN: " + un);
+      System.out.println(" PREF:" + pr +  "UN:" + un);
+      if(pr.equals("MILLI") &&  un.equals("METRE"))
+      {
+        scaleF = 0.10f;
+      }
+      
       
     }
+    return scaleF;
   }
   
 
@@ -171,8 +199,13 @@ public class IfcSecurityExtractor {
 
   }
 
-
   private List<BuildingRoomNode> getRooms()
+  {
+    return getRooms(1f);
+  }
+  
+  
+  private List<BuildingRoomNode> getRooms(float scaleFactor)
   {	
 
     List<BuildingRoomNode> buildingRoomList = new ArrayList<BuildingRoomNode>();
@@ -192,13 +225,13 @@ public class IfcSecurityExtractor {
             + " room ID : "  + idRoom);
 
         //shape and position
-        Shape3D roomShape = getShapeAndPosition(space, 1.1f); 
-        //TODO:  scale according to SI units
+        Shape3D roomShape = getShapeAndPosition(space, scaleFactor); 
+       
        
         System.out.println("room shape: \n" + roomShape);
 
         //containement
-        List<BuildingObjectContained> objects = getObjectsOfRoom(space);
+        List<BuildingObjectContained> objects = getObjectsOfRoom(space, scaleFactor);
         System.out.println( "contains: " +  objects);
 
 
@@ -234,7 +267,7 @@ public class IfcSecurityExtractor {
 
   
 
-  private List<BuildingObjectContained> getObjectsOfRoom(IfcSpace space) {
+  private List<BuildingObjectContained> getObjectsOfRoom(IfcSpace space, float scalePositionFactor) {
 
     List<BuildingObjectContained> contained = new ArrayList<BuildingObjectContained>();
     SET<IfcRelContainedInSpatialStructure> ifcRelContainedInSpatialStructure =  space.getContainsElements_Inverse();
@@ -251,6 +284,9 @@ public class IfcSecurityExtractor {
         {
           IfcProduct furnitureProduct = iteratorProductContained.next();
           Vector3D furniturePosition = getPositionOfProduct(furnitureProduct);
+          
+          //scale to match length unit used in the ifc file
+          furniturePosition.scale(scalePositionFactor);
           BuildingObjectContained singleFurniture = getObectContained( furniturePosition, furnitureProduct);
 
          

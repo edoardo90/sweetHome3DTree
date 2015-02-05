@@ -720,7 +720,15 @@ public class Home implements Serializable, Cloneable {
    * equal to {@link CollectionEvent.Type#ADD ADD}. 
    */
   public void addRoom(Room room) {
-    addRoom(room, this.rooms.size());
+    if(room.getPointCount() <= 1)
+    {
+      throw new IllegalStateException("A room without points can't be added to the home, "
+          + "try to use room.addPoint(x, y) first");
+    }
+    else
+    { 
+       addRoom(room, this.rooms.size());
+    }
   }
 
   /**

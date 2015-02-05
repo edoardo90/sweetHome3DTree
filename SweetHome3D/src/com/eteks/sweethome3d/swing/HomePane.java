@@ -833,8 +833,7 @@ public class HomePane extends JRootPane implements HomeView {
 
           BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraphFromFile();
           
-          ifcSecurityExctractor.x();
-
+          
           List<BuildingRoomNode> roomsInBuilding = securityGraph.getRoomNodeList();
           for(BuildingRoomNode rib : roomsInBuilding)
           {

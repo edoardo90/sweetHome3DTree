@@ -1545,6 +1545,14 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
   protected Rectangle2D getItemBounds(Graphics g, Selectable item) {
     // Add to bounds all the visible items
     float [][] points = item.getPoints();
+    
+    //TODO:room with no points ambiguity !
+    if(points.length < 1)
+      return new Rectangle2D.Float(0, 0, 0, 0);
+    
+    float [] point = points[0];
+    if(point.length < 2)
+      return new Rectangle2D.Float(0, 0, 0, 0);
     Rectangle2D itemBounds = new Rectangle2D.Float(points [0][0], points [0][1], 0, 0);
     for (int i = 1; i < points.length; i++) {
       itemBounds.add(points [i][0], points [i][1]);
@@ -4470,6 +4478,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
    */
   private Shape getShape(float [][] points) {
     GeneralPath path = new GeneralPath();
+      
     path.moveTo(points [0][0], points [0][1]);
     for (int i = 1; i < points.length; i++) {
       path.lineTo(points [i][0], points [i][1]);

@@ -35,24 +35,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+
 /**
  * A room or a polygon in a home plan. 
  * @author Emmanuel Puybaret
  */
 public class Room implements Serializable, Selectable, Elevatable {
- 
+
 
   /**
    * The properties of a room that may change. <code>PropertyChangeListener</code>s added 
    * to a room will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {NAME, NAME_X_OFFSET, NAME_Y_OFFSET, NAME_STYLE, NAME_ANGLE,
-      POINTS, AREA_VISIBLE, AREA_X_OFFSET, AREA_Y_OFFSET, AREA_STYLE, AREA_ANGLE,
-      FLOOR_COLOR, FLOOR_TEXTURE, FLOOR_VISIBLE, FLOOR_SHININESS,
-      CEILING_COLOR, CEILING_TEXTURE, CEILING_VISIBLE, CEILING_SHININESS, LEVEL}
-  
+    POINTS, AREA_VISIBLE, AREA_X_OFFSET, AREA_Y_OFFSET, AREA_STYLE, AREA_ANGLE,
+    FLOOR_COLOR, FLOOR_TEXTURE, FLOOR_VISIBLE, FLOOR_SHININESS,
+    CEILING_COLOR, CEILING_TEXTURE, CEILING_VISIBLE, CEILING_SHININESS, LEVEL}
+
   private static final long serialVersionUID = 1L;
-  
+
   private static final double TWICE_PI = 2 * Math.PI;
 
   private String      name;
@@ -75,7 +77,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   private HomeTexture ceilingTexture;
   private float       ceilingShininess;
   private Level       level;
-  
+
   private transient PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
   private transient Shape shapeCache;
   private transient Float areaCache;
@@ -84,6 +86,8 @@ public class Room implements Serializable, Selectable, Elevatable {
    * Creates a room from its name and the given coordinates.
    */
   public Room(float [][] points) {
+
+
     if (points.length <= 1) {
       throw new IllegalStateException("Room points must containt at least two points");
     }
@@ -94,16 +98,36 @@ public class Room implements Serializable, Selectable, Elevatable {
     this.ceilingVisible = true;
   }
 
-  
+  public Room(List<Vector3D> points)
+  {
+
+    if (points == null || points.size() <= 1) {
+      throw new IllegalStateException("Room points must containt at least two points");
+    }
+
+    float x1 = (float)points.get(0).first;
+    float y1 = (float)points.get(0).second;
+    float x2 = (float)points.get(1).first;
+    float y2 = (float)points.get(1).second;
+
+    this.points = new float [][] {{x1, y1}, {x2, y2}}; 
+    this.areaVisible = true;
+    this.nameYOffset = -40f;
+    this.floorVisible = true;
+    this.ceilingVisible = true;
+
+  }
+
+
   @Override
   public String toString() {
     return this.name == null ?  "Room " + Float.toString(this.areaCache / 10000).substring(0, 1)
-                              :   this.getName();
+        :   this.getName();
   }
 
-  
-  
-  
+
+
+
 
   @Override
   public int hashCode() {
@@ -112,42 +136,42 @@ public class Room implements Serializable, Selectable, Elevatable {
     result = prime * result + Float.floatToIntBits(this.areaAngle);
     result = prime * result + ((this.areaStyle == null)
         ? 0
-        : this.areaStyle.hashCode());
+            : this.areaStyle.hashCode());
     result = prime * result + (this.areaVisible
         ? 1231
-        : 1237);
+            : 1237);
     result = prime * result + Float.floatToIntBits(this.areaXOffset);
     result = prime * result + Float.floatToIntBits(this.areaYOffset);
     result = prime * result + ((this.ceilingColor == null)
         ? 0
-        : this.ceilingColor.hashCode());
+            : this.ceilingColor.hashCode());
     result = prime * result + Float.floatToIntBits(this.ceilingShininess);
     result = prime * result + ((this.ceilingTexture == null)
         ? 0
-        : this.ceilingTexture.hashCode());
+            : this.ceilingTexture.hashCode());
     result = prime * result + (this.ceilingVisible
         ? 1231
-        : 1237);
+            : 1237);
     result = prime * result + ((this.floorColor == null)
         ? 0
-        : this.floorColor.hashCode());
+            : this.floorColor.hashCode());
     result = prime * result + Float.floatToIntBits(this.floorShininess);
     result = prime * result + ((this.floorTexture == null)
         ? 0
-        : this.floorTexture.hashCode());
+            : this.floorTexture.hashCode());
     result = prime * result + (this.floorVisible
         ? 1231
-        : 1237);
+            : 1237);
     result = prime * result + ((this.level == null)
         ? 0
-        : this.level.hashCode());
+            : this.level.hashCode());
     result = prime * result + ((this.name == null)
         ? 0
-        : this.name.hashCode());
+            : this.name.hashCode());
     result = prime * result + Float.floatToIntBits(this.nameAngle);
     result = prime * result + ((this.nameStyle == null)
         ? 0
-        : this.nameStyle.hashCode());
+            : this.nameStyle.hashCode());
     result = prime * result + Float.floatToIntBits(this.nameXOffset);
     result = prime * result + Float.floatToIntBits(this.nameYOffset);
     result = prime * result + Arrays.hashCode(this.points);
@@ -305,7 +329,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.NAME.name(), oldName, name);
     }
   }
-   
+
   /**
    * Returns the distance along x axis applied to room center abscissa 
    * to display room name. 
@@ -313,7 +337,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   public float getNameXOffset() {
     return this.nameXOffset;  
   }
-  
+
   /**
    * Sets the distance along x axis applied to room center abscissa to display room name. 
    * Once this room  is updated, listeners added to this room will receive a change notification.
@@ -325,7 +349,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.NAME_X_OFFSET.name(), oldNameXOffset, nameXOffset);
     }
   }
-  
+
   /**
    * Returns the distance along y axis applied to room center ordinate 
    * to display room name.
@@ -345,7 +369,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.NAME_Y_OFFSET.name(), oldNameYOffset, nameYOffset);
     }
   }
-  
+
   /**
    * Returns the text style used to display room name.
    */
@@ -364,7 +388,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.NAME_STYLE.name(), oldNameStyle, nameStyle);
     }
   }
-  
+
   /**
    * Returns the angle in radians used to display the room name.
    * @since 3.6 
@@ -403,23 +427,24 @@ public class Room implements Serializable, Selectable, Elevatable {
     int [] ypoints = getYPoints( roomPoints, 1);
     return  new Polygon(xpoints, ypoints, this.getPointCount());
   }
-  
+
   public Rectangle getRectangleGrowth(int amount)
   {
-        Polygon p = this.getPolygon();
-        Rectangle r = p.getBounds();
-        r.grow(amount, amount);
-        return r;
+    Polygon p = this.getPolygon();
+    Rectangle r = p.getBounds();
+    r.grow(amount, amount);
+    return r;
   }
-  
+
   public boolean intersectApprox(Room r2, int approxTollerance)
   {
-      Rectangle rr2 = r2.getRectangleGrowth(approxTollerance);
-      Rectangle rr1 = this.getRectangleGrowth(approxTollerance);
-      return rr1.intersects(rr2);
-    
+    Rectangle rr2 = r2.getRectangleGrowth(approxTollerance);
+    Rectangle rr1 = this.getRectangleGrowth(approxTollerance);
+    return rr1.intersects(rr2);
+
+
   }
-  
+
   public Polygon getPolygon1000xBigger()
   {
     float [][] roomPoints = deepCopy(this.points);
@@ -427,7 +452,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     int [] ypoints = getYPoints( roomPoints, 1000);
     return  new Polygon(xpoints, ypoints, this.getPointCount());
   }
-  
+
   private int [] getXPoints(float [][] roomPoints, int multiplier)
   {
 
@@ -456,9 +481,9 @@ public class Room implements Serializable, Selectable, Elevatable {
     }
     return ypoints;
   }
-  
-  
-  
+
+
+
   /**
    * Returns the number of points of the polygon matching this room.
    * @since 2.0 
@@ -503,7 +528,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   public void addPoint(float x, float y) {
     addPoint(x, y, this.points.length);
   }
-  
+
   /**
    * Adds a point at the given <code>index</code>.
    * @throws IndexOutOfBoundsException if <code>index</code> is negative or > <code>getPointCount()</code> 
@@ -513,19 +538,19 @@ public class Room implements Serializable, Selectable, Elevatable {
     if (index < 0 || index > this.points.length) {
       throw new IndexOutOfBoundsException("Invalid index " + index);
     }
-    
+
     float [][] newPoints = new float [this.points.length + 1][];
     System.arraycopy(this.points, 0, newPoints, 0, index);
     newPoints [index] = new float [] {x, y};
     System.arraycopy(this.points, index, newPoints, index + 1, this.points.length - index);
-    
+
     float [][] oldPoints = this.points;
     this.points = newPoints;
     this.shapeCache = null;
     this.areaCache  = null;
     this.propertyChangeSupport.firePropertyChange(Property.POINTS.name(), oldPoints, deepCopy(this.points));
   }
-  
+
   /**
    * Sets the point at the given <code>index</code>.
    * @throws IndexOutOfBoundsException if <code>index</code> is negative or >= <code>getPointCount()</code> 
@@ -546,7 +571,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.POINTS.name(), oldPoints, deepCopy(this.points));
     }
   }
-  
+
   /**
    * Removes the point at the given <code>index</code>.
    * @throws IndexOutOfBoundsException if <code>index</code> is negative or >= <code>getPointCount()</code> 
@@ -558,25 +583,25 @@ public class Room implements Serializable, Selectable, Elevatable {
     } else if (this.points.length <= 1) {
       throw new IllegalStateException("Room points must containt at least one point");
     }
-    
+
     float [][] newPoints = new float [this.points.length - 1][];
     System.arraycopy(this.points, 0, newPoints, 0, index);
     System.arraycopy(this.points, index + 1, newPoints, index, this.points.length - index - 1);
-    
+
     float [][] oldPoints = this.points;
     this.points = newPoints;
     this.shapeCache = null;
     this.areaCache  = null;
     this.propertyChangeSupport.firePropertyChange(Property.POINTS.name(), oldPoints, deepCopy(this.points));
   }
-  
+
   /**
    * Returns whether the area of this room is visible or not. 
    */
   public boolean isAreaVisible() {
     return this.areaVisible;  
   }
-  
+
   /**
    * Sets whether the area of this room is visible or not. Once this room 
    * is updated, listeners added to this room will receive a change notification.
@@ -587,7 +612,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.AREA_VISIBLE.name(), !areaVisible, areaVisible);
     }
   }
-  
+
   /**
    * Returns the distance along x axis applied to room center abscissa 
    * to display room area. 
@@ -595,7 +620,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   public float getAreaXOffset() {
     return this.areaXOffset;  
   }
-  
+
   /**
    * Sets the distance along x axis applied to room center abscissa to display room area. 
    * Once this room  is updated, listeners added to this room will receive a change notification.
@@ -607,7 +632,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.AREA_X_OFFSET.name(), oldAreaXOffset, areaXOffset);
     }
   }
-  
+
   /**
    * Returns the distance along y axis applied to room center ordinate 
    * to display room area.
@@ -627,7 +652,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.AREA_Y_OFFSET.name(), oldAreaYOffset, areaYOffset);
     }
   }
-  
+
   /**
    * Returns the text style used to display room area.
    */
@@ -646,7 +671,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.AREA_STYLE.name(), oldAreaStyle, areaStyle);
     }
   }
-  
+
   /**
    * Returns the angle in radians used to display the room area.
    * @since 3.6 
@@ -682,7 +707,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     }
     return (xMin + xMax) / 2;
   }
-  
+
   /**
    * Returns the ordinate of the center point of this room.
    */
@@ -695,7 +720,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     }
     return (yMin + yMax) / 2;
   }
-  
+
   /**
    * Returns the floor color of this room. 
    */
@@ -744,7 +769,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   public boolean isFloorVisible() {
     return this.floorVisible;  
   }
-  
+
   /**
    * Sets whether the floor of this room is visible or not. Once this room 
    * is updated, listeners added to this room will receive a change notification.
@@ -755,7 +780,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.FLOOR_VISIBLE.name(), !floorVisible, floorVisible);
     }
   }
-  
+
   /**
    * Returns the floor shininess of this room. 
    * @return a value between 0 (matt) and 1 (very shiny)  
@@ -827,7 +852,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   public boolean isCeilingVisible() {
     return this.ceilingVisible;  
   }
-  
+
   /**
    * Sets whether the ceiling of this room is visible or not. Once this room 
    * is updated, listeners added to this room will receive a change notification.
@@ -838,7 +863,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       this.propertyChangeSupport.firePropertyChange(Property.CEILING_VISIBLE.name(), !ceilingVisible, ceilingVisible);
     }
   }
-  
+
   /**
    * Returns the ceiling shininess of this room.
    * @return a value between 0 (matt) and 1 (very shiny)  
@@ -890,7 +915,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   public boolean isAtLevel(Level level) {
     return this.level == level;
   }
-  
+
   /**
    * Returns the area of this room.
    */
@@ -914,7 +939,7 @@ public class Room implements Serializable, Selectable, Elevatable {
               break;
             case PathIterator.SEG_CLOSE :
               float [][] pathPoints = 
-                  currentPathPoints.toArray(new float [currentPathPoints.size()][]);
+              currentPathPoints.toArray(new float [currentPathPoints.size()][]);
               area += Math.abs(getSignedArea(pathPoints));
               currentPathPoints.clear();
               break;
@@ -926,7 +951,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     }
     return this.areaCache;
   }
-  
+
   private float getSignedArea(float areaPoints [][]) {
     // From "Area of a General Polygon" algorithm described in  
     // http://www.davidchandler.com/AreaOfAGeneralPolygon.pdf
@@ -939,21 +964,21 @@ public class Room implements Serializable, Selectable, Elevatable {
     area -= areaPoints [0][1] * areaPoints [areaPoints.length - 1][0];
     return area / 2;
   }
-  
+
   /**
    * Returns <code>true</code> if the points of this room are in clockwise order.
    */
   public boolean isClockwise() {
     return getSignedArea(getPoints()) < 0;
   }
-  
+
   /**
    * Returns <code>true</code> if this room is comprised of only one polygon.
    */
   public boolean isSingular() {
     return new Area(getShape()).isSingular();
   }
-  
+
   /**
    * Returns <code>true</code> if this room intersects
    * with the horizontal rectangle which opposite corners are at points
@@ -964,7 +989,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     rectangle.add(x1, y1);
     return getShape().intersects(rectangle);
   }
-  
+
   /**
    * Returns <code>true</code> if this room contains 
    * the point at (<code>x</code>, <code>y</code>) with a given <code>margin</code>.
@@ -972,7 +997,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   public boolean containsPoint(float x, float y, float margin) {
     return containsShapeAtWithMargin(getShape(), x, y, margin);
   }
-  
+
   /**
    * Returns the index of the point of this room equal to 
    * the point at (<code>x</code>, <code>y</code>) with a given <code>margin</code>.
@@ -986,7 +1011,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     }
     return -1;
   }
-  
+
   /**
    * Returns <code>true</code> if the center point at which is displayed the name 
    * of this room is equal to the point at (<code>x</code>, <code>y</code>) 
@@ -996,7 +1021,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     return Math.abs(x - getXCenter() - getNameXOffset()) <= margin 
         && Math.abs(y - getYCenter() - getNameYOffset()) <= margin;
   }
-  
+
   /**
    * Returns <code>true</code> if the center point at which is displayed the area 
    * of this room is equal to the point at (<code>x</code>, <code>y</code>) 
@@ -1006,7 +1031,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     return Math.abs(x - getXCenter() - getAreaXOffset()) <= margin 
         && Math.abs(y - getYCenter() - getAreaYOffset()) <= margin;
   }
-  
+
   /**
    * Returns <code>true</code> if <code>shape</code> contains 
    * the point at (<code>x</code>, <code>y</code>)
@@ -1050,7 +1075,7 @@ public class Room implements Serializable, Selectable, Elevatable {
       updatePoints(points);
     }
   }
-  
+
   /**
    * Returns a clone of this room.
    */
