@@ -3,12 +3,13 @@ package com.eteks.sweethome3d.adaptive.treetobuilding;
 import java.awt.Rectangle;
 
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
+import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 
 public class Corridor {
   private Room corridorShape;
-  private HomeDoorOrWindow firstDoor;
-  private HomeDoorOrWindow secondDoor;
+  private HomePieceOfFurniture firstDoor;
+  private HomePieceOfFurniture secondDoor;
   private String graphInfoNeighID;
   private String graphicNodeID;
 
@@ -18,7 +19,8 @@ public class Corridor {
   private float xInfo;
   private float yInfo;
 
-  public Corridor(GraphicInfoNode graphInfoNeigh, GraphicInfoNode graphicNode, Direction directionOfNeighbour, HomeDoorOrWindow door)
+  public Corridor(GraphicInfoNode graphInfoNeigh, GraphicInfoNode graphicNode, 
+                  Direction directionOfNeighbour, HomePieceOfFurniture door)
   {
     this.graphicNodeID = graphicNode.getId();
     this.graphInfoNeighID = graphInfoNeigh.getId();
@@ -301,11 +303,11 @@ public class Corridor {
     return true;
   }
 
-  public HomeDoorOrWindow getSecondDoor() {
+  public HomePieceOfFurniture getSecondDoor() {
     return secondDoor;
   }
 
-  public HomeDoorOrWindow getFirstDoor() {
+  public HomePieceOfFurniture getFirstDoor() {
     return firstDoor;
   }
 

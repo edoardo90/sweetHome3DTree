@@ -573,8 +573,7 @@ public class HomeController3D implements Controller {
             }
           }
           
-          float [][] points = room.getPoints();
-          if(points.length > 1) //TODO: room with no points ambiguity!
+          
             for (float [] point : room.getPoints()) {
                  if(point.length >= 2)
                      updateAerialViewBounds(point [0], point [1], minZ, maxZ);

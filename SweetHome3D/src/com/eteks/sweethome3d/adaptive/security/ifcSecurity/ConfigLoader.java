@@ -102,11 +102,7 @@ public class ConfigLoader {
     Map<BuildingObjectType, HomePieceOfFurniture> catalogFurniture =
         new HashMap<BuildingObjectType, HomePieceOfFurniture>();
     //TODO: config file for conventions sweetHome 
-    
-
     List<FurnitureCategory> categories= getUserPreferences().getFurnitureCatalog().getCategories();
-
-
     for(FurnitureCategory category : categories )
     {
       if(category.getName().equals("Security"))

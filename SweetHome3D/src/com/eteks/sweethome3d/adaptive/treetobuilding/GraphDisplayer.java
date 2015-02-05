@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
@@ -18,10 +19,15 @@ import org.graphstream.ui.swingViewer.ViewerPipe;
 
 import com.eteks.sweethome3d.adaptive.Conversions;
 import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
+import com.eteks.sweethome3d.io.DefaultUserPreferences;
+import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
+import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
+import com.eteks.sweethome3d.model.PieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
+import com.eteks.sweethome3d.model.UserPreferences;
 
 
 
@@ -217,7 +223,7 @@ public class GraphDisplayer {
     System.out.println(" now  I  update home in beasty way");
 
     //cooridor needs a door
-    HomeDoorOrWindow door = getDoor();
+    HomePieceOfFurniture door = getDoor();
 
     Map<String, double []> nodesPositions = Conversions.getAllPositions(myGraph);
 
@@ -290,7 +296,7 @@ public class GraphDisplayer {
    */
 
   private RoomsAndCorridors buildBuildingFromTree(Graph myGraph, Map<String, double []> nodesPositions,
-                                                  HomeDoorOrWindow door) {
+                                                  HomePieceOfFurniture door) {
 
     List<Corridor> cors  = new ArrayList<Corridor>();
     List<Room> rooms = new ArrayList<Room>();
@@ -473,24 +479,27 @@ public class GraphDisplayer {
     return !  n1.getId().equals(n2.getId());
   }
 
-  private HomeDoorOrWindow getDoor()
+  private HomePieceOfFurniture getDoor()
   {
-    HomeDoorOrWindow door = null;
-    //TODO : runtime door - pieceofforinuture
-    
-    for(HomePieceOfFurniture p : home.getFurniture())
+    HomePieceOfFurniture door = null;
+    Locale.setDefault(Locale.US);
+    // Read default user preferences
+    UserPreferences preferences = new DefaultUserPreferences();
+    List<FurnitureCategory> categories= preferences.getFurnitureCatalog().getCategories();
+    for(FurnitureCategory category : categories )
     {
-
-      if(p instanceof HomeDoorOrWindow)
+      List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
+      for(PieceOfFurniture piece : catalogObjs)
       {
-        door = new HomeDoorOrWindow( (HomeDoorOrWindow) p);
-        door = door.clone();
-        break;
+                  String pieceName = piece.getName();
+        if(pieceName.equals("Door"))
+        {
+          door = new HomePieceOfFurniture(piece);
+        }
       }
-      
-      
-      
-    }
+    }    
+
+    
     return door;
   }
 
@@ -501,7 +510,8 @@ public class GraphDisplayer {
  * @param door
  * @return
  */
-  public  RoomsAndCorridors buildBuildingFromGraph(Graph graph, Map<String, double []> nodesPositions, HomeDoorOrWindow door )
+  public  RoomsAndCorridors buildBuildingFromGraph(Graph graph, Map<String, double []> nodesPositions,
+                                                   HomePieceOfFurniture door )
   {
     List<Room> rooms = new ArrayList<Room>();
     List<Corridor> corridors = new ArrayList<Corridor>();
@@ -524,7 +534,8 @@ public class GraphDisplayer {
         {
           GraphicInfoNode  graphInfoNeigh = getGraphicInfoNode(neigh.getId(), graph, nodesPositions);
           Direction directionOfNeighbour  = graphicNode.getDirectionOfNeighbour(graphInfoNeigh);
-          Corridor c = new Corridor(graphInfoNeigh, graphicNode, directionOfNeighbour, door);
+          Corridor c = new Corridor
+              (graphInfoNeigh, graphicNode, directionOfNeighbour, door);
           corridors.add(c);
         }
       }

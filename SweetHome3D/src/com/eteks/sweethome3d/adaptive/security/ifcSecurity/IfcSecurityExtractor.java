@@ -87,7 +87,8 @@ public class IfcSecurityExtractor {
 
     this.ifcSpaces.addAll(ifcSpacesColl);
     
-    float scaleFactor = this.getScaleFactor();
+    float scaleFactor ;
+    scaleFactor = this.getScaleFactor();
 
     linkEdgeList = this.getLinks();
     roomNodeList = this.getRooms(scaleFactor);
@@ -99,6 +100,7 @@ public class IfcSecurityExtractor {
   }
   
   /**
+   * <pre>
    * In sweethome 3d objects are represented with dimensions in cm
    * so if we recognize that the ifc file have sizes expressed in mm or in m 
    * we have to scale objects accordingly
@@ -110,10 +112,10 @@ public class IfcSecurityExtractor {
    * 
    * IFC obj:    3 m    ->   SW3D obj  300 cm
    * so   m   to  cm    ->   scaleFactor = 100
-   * 
+   * </pre>
    * @return
    */
-  private float getScaleFactor()
+  protected float getScaleFactor()
   {
     //TODO: now are recognized just mm vs m 
     //maybe we can recognize imperial system as well

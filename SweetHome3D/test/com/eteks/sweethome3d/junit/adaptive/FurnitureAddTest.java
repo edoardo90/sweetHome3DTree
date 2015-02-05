@@ -20,21 +20,23 @@
  */
 package com.eteks.sweethome3d.junit.adaptive;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JRootPane;
 
-import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
-import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import junit.framework.TestCase;
+
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
-import com.eteks.sweethome3d.junit.adaptive.FurnitureAddTest.ControllerTest;
+import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
+import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.model.Home;
+import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.LengthUnit;
+import com.eteks.sweethome3d.model.PieceOfFurniture;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
-import com.eteks.sweethome3d.model.RoomGeoSmart.intersectionAlgorithm;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.FurnitureCatalogTree;
 import com.eteks.sweethome3d.swing.FurnitureTable;
@@ -48,15 +50,14 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
  * Tests home controller.
  * @author Emmanuel Puybaret
  */
-public class RoomsIntersectionsTest extends BasicTest {
-  public ViewFactory          viewFactory;
-  public UserPreferences      preferences;
+public class FurnitureAddTest extends BasicTest {
+  private ViewFactory          viewFactory;
+  private UserPreferences      preferences;
   public  Home                 home;
-  public HomeController       homeController;
-  public FurnitureCatalogTree catalogTree;
-  public FurnitureController  furnitureController;
-  public FurnitureTable       furnitureTable;
-
+  private HomeController       homeController;
+  private FurnitureCatalogTree catalogTree;
+  private FurnitureController  furnitureController;
+  private FurnitureTable       furnitureTable;
 
   @Override
   protected void setUp() {
@@ -76,14 +77,17 @@ public class RoomsIntersectionsTest extends BasicTest {
 
   }
 
+  
   public static class ControllerTest extends HomeController {
     public ControllerTest(Home home, 
                           UserPreferences preferences,
                           ViewFactory viewFactory) {
 
       super(home, preferences, viewFactory);
-      new ViewTest(this).displayView();
-    }
+      new ViewTest(this, home, preferences).displayView();
+
+   }
+
   }
   
   public  static void main(String [] args) {
@@ -93,21 +97,65 @@ public class RoomsIntersectionsTest extends BasicTest {
     Home home = new Home();
     ControllerTest t = new ControllerTest(home, preferences, viewFactory);
     
-    RoomsIntersectionsTest rit = new RoomsIntersectionsTest();
-    rit.doStuffInsideMain(home, preferences);
+    FurnitureAddTest f = new FurnitureAddTest();
+    f.doStuffInsideMain(home, preferences);
     
   }
+
+  
+  public HomePieceOfFurniture getDoor()
+  {
+    HomePieceOfFurniture door = null;
+    Locale.setDefault(Locale.US);
+    // Read default user preferences
+    UserPreferences preferences = new DefaultUserPreferences();
+    List<FurnitureCategory> categories= preferences.getFurnitureCatalog().getCategories();
+    for(FurnitureCategory category : categories )
+    {
+      List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
+      for(PieceOfFurniture piece : catalogObjs)
+      {
+                  String pieceName = piece.getName();
+        if(pieceName.equals("Door"))
+        {
+          door = new HomePieceOfFurniture(piece);
+        }
+      }
+    }    
+    return door;
+  }
+
   
 
-  @Override
-  public void doStuffInsideMain(Home home, UserPreferences preferences) {
-    RoomGeoSmart r1 = getTriangle();
-    RoomGeoSmart r2 = getStrangeShapeCloseButDeatched();
-    home.addRoom(r1);
-    home.addRoom(r2);
-
-    System.out.println( "intersect : " + r1.intersect(r2, intersectionAlgorithm.INNER_POINTS));
-
+  private static class ViewTest extends JRootPane {
+    private Home home;
+    private UserPreferences userPreferences;
     
+    public ViewTest(final HomeController controller, final Home home, final UserPreferences pref) {
+      
+      this.home = home;
+      this.userPreferences = pref;
+      
+      getContentPane().add((JComponent)controller.getView());
+    }
+
+    public void displayView() {
+      JFrame frame = new JFrame("Change language") {
+        {
+          setRootPane(ViewTest.this);
+        }
+      };
+      frame.pack();
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      frame.setVisible(true);
+
+    } 
+    
+  }
+
+  @Override
+  public  void doStuffInsideMain(Home home, UserPreferences preferences){
+      HomePieceOfFurniture door = this.getDoor();
+      home.addPieceOfFurniture(door);
   }
 }

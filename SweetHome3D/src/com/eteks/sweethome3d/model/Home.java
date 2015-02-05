@@ -34,6 +34,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+
 /**
  * The home managed by the application with its furniture and walls.
  * @author Emmanuel Puybaret
@@ -1496,4 +1501,34 @@ public class Home implements Serializable, Cloneable {
     this.rooms.clear();
     
   }
+
+  public void displayGraph(BuildingSecurityGraph securityGraph, UserPreferences preferences) {
+
+    
+    List<BuildingRoomNode> roomsInBuilding = securityGraph.getRoomNodeList();
+    for(BuildingRoomNode rib : roomsInBuilding)
+    {
+      Room r = rib.getRoom();
+      List<BuildingObjectContained> objectsInside = rib.getObjectsInside();
+      for(BuildingObjectContained objectContained : objectsInside )
+      {
+         Vector3D objPosition =  objectContained.getPosition();
+         HomePieceOfFurniture hopf = objectContained.getPieceOfForniture(preferences);
+         
+         hopf.setX((float)objPosition.first);
+         hopf.setY((float)objPosition.second);
+         hopf.setElevation(0);
+         hopf.setAngle(0);
+         
+         this.addPieceOfFurniture(hopf);
+         
+      }
+    
+      this.addRoom(r);  
+    }
+
+    
+  }
+
+
 }

@@ -1546,8 +1546,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
     // Add to bounds all the visible items
     float [][] points = item.getPoints();
     
-    //TODO:room with no points ambiguity !
-    if(points.length < 1)
+     if(points.length < 1)
       return new Rectangle2D.Float(0, 0, 0, 0);
     
     float [] point = points[0];

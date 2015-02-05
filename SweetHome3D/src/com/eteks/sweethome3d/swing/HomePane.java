@@ -832,36 +832,9 @@ public class HomePane extends JRootPane implements HomeView {
         {
 
           BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraphFromFile();
-          
-          
-          List<BuildingRoomNode> roomsInBuilding = securityGraph.getRoomNodeList();
-          for(BuildingRoomNode rib : roomsInBuilding)
-          {
-            Room r = rib.getRoom();
-            List<BuildingObjectContained> objectsInside = rib.getObjectsInside();
-            for(BuildingObjectContained objectContained : objectsInside )
-            {
-               Vector3D objPosition =  objectContained.getPosition();
-               HomePieceOfFurniture hopf = objectContained.getPieceOfForniture(getUserPreferences());
-               
-               hopf.setX((float)objPosition.first);
-               hopf.setY((float)objPosition.second);
-               hopf.setElevation(0);
-               hopf.setAngle(0);
-               
-               home.addPieceOfFurniture(hopf);  //TODO:  coordinates
-               
-            }
-          
-            home.addRoom(r);  //TODO:  coordinates
-          }
-          
+          home.displayGraph(securityGraph, getUserPreferences());          
 
-
-        } catch (Exception ex) {
-         
-          ex.printStackTrace();
-        }
+        } catch (Exception ex) {     }
 
       }
       if (rVal == JFileChooser.CANCEL_OPTION) {
