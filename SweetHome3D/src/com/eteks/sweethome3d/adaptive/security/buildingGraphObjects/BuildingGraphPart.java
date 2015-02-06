@@ -1,12 +1,11 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
-import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
 public abstract class BuildingGraphPart {
 
 	protected String id;
 	protected String name;
-	private final Vector3D position;
+	
 	
 	public String getName() {
 		return name;
@@ -18,9 +17,6 @@ public abstract class BuildingGraphPart {
 	}
 	
 	
-	public  BuildingGraphPart(Vector3D position) {
-            this.position = position;
-        }
 	
 	@Override
 	public int hashCode() {
@@ -46,11 +42,6 @@ public abstract class BuildingGraphPart {
 		return true;
 	}
 
-	
-	
-  public Vector3D getPosition() {
-    return position;
-  }
 
 	
 }

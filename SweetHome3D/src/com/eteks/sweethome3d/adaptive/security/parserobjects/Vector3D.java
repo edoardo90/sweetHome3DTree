@@ -30,6 +30,25 @@ public class Vector3D
         this.third  + vector3d.third);
   }
 
+  public Vector3D getSubVector(Vector3D v2)
+  {
+    return this.getSumVector(v2.getNegated());
+  }
+  
+  public Vector3D getNegated()
+  {
+    return new Vector3D(-this.first,-this.second, -this.third); 
+  }
+  
+  public double getMagnitude()
+  {
+    
+    return Math.sqrt( this.first*this.first + this.second * this.second + this.third *this.third);
+    
+  }
+  
+  
+  
   public Vector3D()
   {
     this(0,0,0);

@@ -1,6 +1,7 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
+package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingGraphPart;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Wall;
@@ -14,7 +15,7 @@ public class WallObject extends BuildingGraphPart {
   
   
   public WallObject(Shape3D shape, Vector3D position, Vector3D startPoint, Vector3D endPoint) {
-    super(position);
+    
     this.shape = shape;
     this.startPoint = startPoint;
     this.endPoint = endPoint;

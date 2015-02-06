@@ -5,7 +5,6 @@ import java.util.List;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingGraphPart;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
-import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 
@@ -17,10 +16,8 @@ public class BuildingRoomNode extends BuildingGraphPart {
   
   private Shape3D roomShape;
   
-  public BuildingRoomNode(String roomName, Vector3D position, Shape3D roomShape, List<BuildingObjectContained> conteinedObjects)
+  public BuildingRoomNode(String roomName, Shape3D roomShape, List<BuildingObjectContained> conteinedObjects)
   {
-    
-    super(position);
     
     Room roomFromShape = roomShape.getRoom();
     this.roomShape = roomShape;

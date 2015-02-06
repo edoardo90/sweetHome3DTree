@@ -20,6 +20,7 @@ import ifc2x3javatoolbox.ifc2x3tc1.IfcRectangleProfileDef;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcRelContainedInSpatialStructure;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcRelDecomposes;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcRelSpaceBoundary;
+import ifc2x3javatoolbox.ifc2x3tc1.IfcRelVoidsElement;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcRepresentation;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcRepresentationItem;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSIPrefix;
@@ -41,11 +42,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.UnknownObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Axis3DNice;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Placement3DNice;
@@ -56,6 +60,7 @@ import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.RoomGeoSmart.intersectionAlgorithm;
 import com.eteks.sweethome3d.model.UserPreferences;
+import com.eteks.sweethome3d.model.Wall;
 
 public class IfcSecurityExtractor {
 
@@ -200,18 +205,37 @@ public class IfcSecurityExtractor {
             if(elementBounding instanceof IfcWall)
             {
               boundingWall = (IfcWall) boundingWall;
-              wallShape = getShapeAndPosition(boundingWall);
+              wallShape = getShapePositioned(boundingWall);
               
             }
             
             if(areIntersected(relatingSpace, spaceToTest, wallShape))
             {
-                BuildingLinkEdge buildingEdge;
-                buildingEdge = getWallOrDoor(elementBounding); 
-                buildingLinkEdgeList.add(buildingEdge);
-    
+                
                 String longNameFirs = spaceToTest.getLongName().getDecodedValue();
                 String longNameSecond = relatingSpace.getLongName().getDecodedValue();
+                
+                RoomGeoSmart smartWallSeenAsRoom = new RoomGeoSmart(wallShape);
+                Rectangle3D rectWall = smartWallSeenAsRoom.getBoundingRect3d();
+                
+                Wall wall = rectWall.getWall();
+                
+                DoorObject door = this.getDoor(elementBounding);
+                
+                BuildingLinkEdge link;
+                if(door != null)
+                {
+                   link =
+                      new BuildinLinkWallWithDoor(wall, door, longNameFirs, longNameSecond);
+                }
+                else
+                {
+                   link = 
+                       new BuildingLinkWall(wall,  longNameFirs, longNameSecond);
+                }
+                
+                buildingLinkEdgeList.add(link);
+    
             }
           }
         }
@@ -223,9 +247,17 @@ public class IfcSecurityExtractor {
   }
 
   
-  private BuildingLinkEdge getWallOrDoor(IfcElement elementBounding) {
-    // TODO Auto-generated method stub
-    return null;
+  private DoorObject getDoor(IfcElement elementBounding) {
+    
+    SET<IfcRelVoidsElement> openings = elementBounding.getHasOpenings_Inverse();
+    if(openings == null)
+      return null;
+    else
+      return new DoorObject();
+    
+    //TODO  shape and position .... ?? maybe next time?
+      
+    
   }
 
   private boolean areIntersected(IfcSpace space1, IfcSpace space2, Shape3D wallShape) throws IllegalStateException {
@@ -246,7 +278,6 @@ public class IfcSecurityExtractor {
     RoomGeoSmart smart2 = brnSpace2.getRoom();
     
     RoomGeoSmart smartWallSeenAsRoom = new RoomGeoSmart(wallShape);
-    
     float borderSize = (float)smartWallSeenAsRoom.getBoundingRect3d().getMinEdge();
     
     smart1 = smart1.getBiggerRoomBordered(borderSize);
@@ -288,7 +319,7 @@ public class IfcSecurityExtractor {
 
 
         BuildingRoomNode buildingRoomNode = new
-            BuildingRoomNode(roomName, null, roomShape, objects);
+            BuildingRoomNode(roomName, roomShape, objects);
         buildingRoomNode.setId(idRoom);
         buildingRoomList.add(buildingRoomNode);
         
@@ -388,7 +419,7 @@ public class IfcSecurityExtractor {
   }
 
   
-  private Shape3D getShapeAndPosition(IfcProduct product)
+  private Shape3D getShapePositioned(IfcProduct product)
   {
     return getShapeAndPosition(product, 1);
   }

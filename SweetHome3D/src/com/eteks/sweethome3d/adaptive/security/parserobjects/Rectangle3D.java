@@ -3,6 +3,8 @@ package com.eteks.sweethome3d.adaptive.security.parserobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eteks.sweethome3d.model.Wall;
+
 
 public class Rectangle3D extends Shape3D
 {
@@ -13,8 +15,89 @@ public class Rectangle3D extends Shape3D
   {
     return pointNorthWest.clone();
   }
+  
+  public Wall getWall()
+  {
+    
+    Vector3D NN = pointNorthWest.getSubVector(getPointNorthEast());
+    Vector3D SN = pointSouthEast.getSumVector(getPointSouthWest());
+    
+    Vector3D longest = NN.getMagnitude() > SN.getMagnitude() ?  NN  : SN;
+    
+    float xStart, yStart, yEnd, xEnd;
+    if(longest == NN)
+    {
+      xStart = this.midXWest();
+      yStart = this.midYWest();
+      
+      xEnd =  this.midXEast();
+      yEnd   = this.midYEast();
+      
+    }
+    else
+    {
+      xStart = this.midXNorth();
+      yStart = this.midYNorth();
+      
+      xEnd = this.midXSouth();
+      yEnd = this.midYSouth();
+      
+    }
+    
+    return new Wall(xStart, yStart, xEnd, yEnd, 40, 200);
+  }
+  
+  private float midY(Vector3D v1, Vector3D v2)
+  {
+    return (float) ( v1.second + v2.second) / 2;
+  }
+  private float midX(Vector3D v1, Vector3D v2)
+  {
+    return (float) ( v1.first + v2.first) / 2;
+  }
+  
+  
+    
+  
+  
+
+  private float midYNorth() {
+    return this.midY(this.getPointNorthEast(), this.getPointNorthWest());
+  }
+
+  private float midYSouth() {
+     return midY(this.getPointSouthEast(), this.getPointSouthWest());
+  }
+
+  private float midXSouth() {
+    return midX(this.getPointSouthEast(), this.getPointSouthWest());
+  }
 
 
+  private float midXNorth() {
+    return this.midX(this.getPointNorthEast(), this.getPointNorthWest());
+  }
+
+  private float midYEast() {
+     return this.midY(this.getPointSouthEast(), this.getPointNorthEast());
+  }
+
+  private float midXEast() {
+   
+    return this.midX(this.getPointNorthEast(), this.getPointSouthEast());
+  }
+
+  private float midYWest() {
+   return this.midY(this.getPointSouthWest(), this.getPointNorthWest());
+  }
+
+  private float midXWest() {
+    return this.midX(this.getPointSouthWest(), this.getPointNorthWest());
+  }
+
+  
+  
+  
   public double getArea() 
   {
     double xDim = Math.abs( this.pointNorthWest.first - this.pointSouthEast.first );
