@@ -53,6 +53,14 @@ public abstract  class BasicTest extends TestCase {
   public FurnitureController  furnitureController;
   public FurnitureTable       furnitureTable;
   
+  protected RoomGeoSmart     triangleRoom;
+  protected RoomGeoSmart     farRectangleRoom;
+  protected RoomGeoSmart     closeRectangleRoom;
+  protected RoomGeoSmart     weirdRoomPointsOnEdge;
+  protected RoomGeoSmart     weirdRoomPointsOutsideEdge;
+  protected RoomGeoSmart     weirdCloseButDetached;
+  
+  
   @Override
   protected void setUp() {
     this.viewFactory = new SwingViewFactory();

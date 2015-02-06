@@ -75,12 +75,4 @@ public class DisplayRoomUnitsSITest extends BasicTest {
   }
   
   
-  
-  
-  
-  
-  
-
-
-
 }

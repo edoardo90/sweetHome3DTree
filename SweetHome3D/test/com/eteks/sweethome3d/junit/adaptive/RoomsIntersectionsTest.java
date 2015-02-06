@@ -64,8 +64,110 @@ public class RoomsIntersectionsTest extends BasicTest {
     this.furnitureTable = 
         (FurnitureTable)furnitureController.getView();
 
+    this.triangleRoom = getTriangle();
+    this.closeRectangleRoom = getRectangleClose();
+    this.farRectangleRoom = getRectangleFar();
+    this.weirdRoomPointsOnEdge = getStrangeShape();
+    this.weirdRoomPointsOutsideEdge = getStrangeShapeOutside();
+    this.weirdCloseButDetached = getStrangeShapeCloseButDeatched();
+    
   }
 
+  /**
+   * check intersections bween rooms  
+   */
+  public void testIntersectionFarInner()
+  {
+
+
+    boolean intes =  this.triangleRoom.intersect
+        (this.farRectangleRoom, intersectionAlgorithm.INNER_POINTS);
+
+    assertFalse("Inner points, triangle and far rect should not meet" , intes);
+
+  }
+
+  public void testTriangleCloseInner()
+  {
+    boolean intes =  this.triangleRoom.intersect
+        (this.closeRectangleRoom, intersectionAlgorithm.INNER_POINTS);
+
+    assertTrue("Inner points, triangle and close rect should  meet" , intes);
+
+  }
+
+
+  public void testIntersectionFarArea()
+  {
+
+    boolean intes =  this.triangleRoom.intersect
+        (this.farRectangleRoom, intersectionAlgorithm.AREA);
+
+    assertFalse("Area, triangle and far rect should not meet" , intes);
+  }
+
+  public void testTriangleCloseArea()
+  {
+    boolean intes =  this.triangleRoom.intersect
+        (this.closeRectangleRoom, intersectionAlgorithm.AREA);
+
+    assertTrue("Area, triangle and close rect should  meet" , intes);
+
+  }
+
+
+  public void testIntersectionCloseStrangeArea()
+  {
+
+    boolean intes =  this.triangleRoom.intersect
+        (this.weirdRoomPointsOnEdge, intersectionAlgorithm.AREA);
+
+    assertTrue("Area, triangle and strange close area should  meet" , intes);
+  }
+
+  public void testIntersectionCloseStrangeInner()
+  {
+
+    boolean intes =  this.triangleRoom.intersect
+        (this.weirdRoomPointsOnEdge, intersectionAlgorithm.INNER_POINTS);
+
+    assertTrue("Area, triangle and strange close area should  meet" , intes);
+  }
+
+  /**
+   * !!!!
+   * Inner point approach is not general enough
+   */
+  /*
+   *   public void testIntersectionCloseStrangeOutsideEdgeInner()
+   *
+   * {
+   *  
+   *  boolean intes =  this.triangleRoom.intersect
+   *          (this.weirdRoomPointsOutsideEdge, intersectionAlgorithm.INNER_POINTS);
+   *  
+   *  assertTrue("Inner, triangle and strange close area with points outside edges should  meet" , intes);
+   * }
+   */
+
+  public void testIntersectionCloseStrangeOutsideEdgeArea()
+  {
+
+    boolean intes =  this.triangleRoom.intersect
+        (this.weirdRoomPointsOutsideEdge, intersectionAlgorithm.AREA);
+
+    assertTrue("Area, triangle and strange close area with points outside edges should  meet" , intes);
+  }
+
+  public void testIntersectionSlightlyOutsideArea()
+  {
+   boolean intes = this.triangleRoom.intersect
+           (this.weirdCloseButDetached, intersectionAlgorithm.AREA);
+   assertFalse("Area, weird room is outside" , intes);
+    
+  }
+  
+  
   public static class ControllerTest extends HomeController {
     public ControllerTest(Home home, 
                           UserPreferences preferences,

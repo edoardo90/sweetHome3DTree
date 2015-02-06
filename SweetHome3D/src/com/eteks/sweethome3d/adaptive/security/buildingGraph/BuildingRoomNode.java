@@ -7,6 +7,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObje
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Room;
+import com.eteks.sweethome3d.model.RoomGeoSmart;
 
 
 public class BuildingRoomNode extends BuildingGraphPart {
@@ -31,11 +32,14 @@ public class BuildingRoomNode extends BuildingGraphPart {
     this.setObjectsInside(conteinedObjects);
   }
 
-  public Room getRoom() {
-    return room.clone();
+  public RoomGeoSmart getRoom() 
+  {
+    Room r = this.getRoom();
+    return new RoomGeoSmart(r);
+  
   }
 
-  public void setBuildingRoomParameters(String buildingRoomID)
+  public void setId(String buildingRoomID)
   {
     this.id = buildingRoomID;
     

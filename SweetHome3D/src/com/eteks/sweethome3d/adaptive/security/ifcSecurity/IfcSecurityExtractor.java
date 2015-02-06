@@ -26,6 +26,7 @@ import ifc2x3javatoolbox.ifc2x3tc1.IfcSIPrefix;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSIUnit;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSIUnitName;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcSpace;
+import ifc2x3javatoolbox.ifc2x3tc1.IfcWall;
 import ifc2x3javatoolbox.ifc2x3tc1.LIST;
 import ifc2x3javatoolbox.ifc2x3tc1.SET;
 import ifc2x3javatoolbox.ifcmodel.IfcModel;
@@ -35,6 +36,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +53,8 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
+import com.eteks.sweethome3d.model.RoomGeoSmart;
+import com.eteks.sweethome3d.model.RoomGeoSmart.intersectionAlgorithm;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 public class IfcSecurityExtractor {
@@ -59,6 +63,7 @@ public class IfcSecurityExtractor {
   private IfcModel ifcModel;
   private List<IfcSpace> ifcSpaces = new ArrayList<IfcSpace>();
   
+  private Map<IfcSpace, BuildingRoomNode> spaceToRoomNoode  = new HashMap<IfcSpace, BuildingRoomNode>();
   protected ConfigLoader configLoader;
   
   public IfcSecurityExtractor(String ifcFileName, UserPreferences preferences)
@@ -175,6 +180,8 @@ public class IfcSecurityExtractor {
       {
         IfcRelSpaceBoundary ifcRelSpaceBound = iterRelSpace.next();
         IfcElement elementBounding = ifcRelSpaceBound.getRelatedBuildingElement(); //e.g. a wall
+        
+        
 
         if(elementBounding != null)
         {
@@ -187,19 +194,24 @@ public class IfcSecurityExtractor {
           {
             IfcRelSpaceBoundary relSpaceBound = iteratorOfSpacesRel.next();
             IfcSpace relatingSpace = relSpaceBound.getRelatingSpace();
-
-            BuildingLinkEdge buildingEdge = new 
-                BuildingLinkEdge(null, relatingSpace.getGlobalId().getDecodedValue(),
-                    spaceToTest.getGlobalId().getDecodedValue());
-
-            if(buildingEdge.makeSense())
+            
+            IfcWall boundingWall = null;
+            Shape3D wallShape = null;
+            if(elementBounding instanceof IfcWall)
             {
-              buildingLinkEdgeList.add(buildingEdge);
-
-              String longNameFirs = spaceToTest.getLongName().getDecodedValue();
-              String longNameSecond = relatingSpace.getLongName().getDecodedValue();
-
-
+              boundingWall = (IfcWall) boundingWall;
+              wallShape = getShapeAndPosition(boundingWall);
+              
+            }
+            
+            if(areIntersected(relatingSpace, spaceToTest, wallShape))
+            {
+                BuildingLinkEdge buildingEdge;
+                buildingEdge = getWallOrDoor(elementBounding); 
+                buildingLinkEdgeList.add(buildingEdge);
+    
+                String longNameFirs = spaceToTest.getLongName().getDecodedValue();
+                String longNameSecond = relatingSpace.getLongName().getDecodedValue();
             }
           }
         }
@@ -210,12 +222,41 @@ public class IfcSecurityExtractor {
 
   }
 
-  private List<BuildingRoomNode> getRooms()
-  {
-    return getRooms(1f);
+  
+  private BuildingLinkEdge getWallOrDoor(IfcElement elementBounding) {
+    // TODO Auto-generated method stub
+    return null;
   }
-  
-  
+
+  private boolean areIntersected(IfcSpace space1, IfcSpace space2, Shape3D wallShape) throws IllegalStateException {
+    
+    BuildingRoomNode brn = this.spaceToRoomNoode.get(space1);
+    if(brn == null)
+    {
+      throw new IllegalStateException("the map spaces to BuildingRoomNode is not well filled");
+    }
+    RoomGeoSmart smart1 = brn.getRoom();
+    
+    
+    BuildingRoomNode brnSpace2 = this.spaceToRoomNoode.get(space2);
+    if(brnSpace2 == null)
+    {
+      throw new IllegalStateException("the map spaces to BuildingRoomNode is not well filled");
+    }
+    RoomGeoSmart smart2 = brnSpace2.getRoom();
+    
+    RoomGeoSmart smartWallSeenAsRoom = new RoomGeoSmart(wallShape);
+    
+    float borderSize = (float)smartWallSeenAsRoom.getBoundingRect3d().getMinEdge();
+    
+    smart1 = smart1.getBiggerRoomBordered(borderSize);
+    smart2 = smart2.getBiggerRoomBordered(borderSize);
+    
+     
+    return smart1.intersect(smart2, intersectionAlgorithm.AREA);
+   
+  }
+
   private List<BuildingRoomNode> getRooms(float scaleFactor)
   {	
 
@@ -248,12 +289,15 @@ public class IfcSecurityExtractor {
 
         BuildingRoomNode buildingRoomNode = new
             BuildingRoomNode(roomName, null, roomShape, objects);
-        buildingRoomNode.setBuildingRoomParameters(idRoom);
+        buildingRoomNode.setId(idRoom);
         buildingRoomList.add(buildingRoomNode);
+        
+        this.spaceToRoomNoode.put(space, buildingRoomNode);
       }
 
     }
-    sanitizeMinDimensions(buildingRoomList);
+    
+    
     return buildingRoomList;
 
   }
@@ -269,14 +313,6 @@ public class IfcSecurityExtractor {
 
   }
 
-
-
-  private void sanitizeMinDimensions(List<BuildingRoomNode> buildingRoomList)
-  {
-
-  }
-
-  
 
   private List<BuildingObjectContained> getObjectsOfRoom(IfcSpace space, float scalePositionFactor) {
 
