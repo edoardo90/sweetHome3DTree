@@ -59,16 +59,25 @@ public class IfcSecurityExtractor {
   private IfcModel ifcModel;
   private List<IfcSpace> ifcSpaces = new ArrayList<IfcSpace>();
   
+  protected ConfigLoader configLoader;
+  
   public IfcSecurityExtractor(String ifcFileName, UserPreferences preferences)
   {
     this.ifcFileName = ifcFileName;
     
-    ConfigLoader configLoader = new ConfigLoader(preferences);
-    Map<BuildingObjectType, HomePieceOfFurniture> map =
-            configLoader.createFurnitureMap();
+    this.configLoader = ConfigLoader.getInstance(preferences); 
+    
+    this.setMapOfLibraryObjects(preferences);
+
+  }
+  
+  protected void setMapOfLibraryObjects(UserPreferences preferences)
+  {
+    Map<BuildingObjectType, HomePieceOfFurniture> map =   configLoader.createFurnitureMap();
+    
     preferences.setFornitureMap(map); 
   }
-
+  
 
   public BuildingSecurityGraph getGraphFromFile() throws Exception
   {
@@ -320,8 +329,8 @@ public class IfcSecurityExtractor {
 
     for(BuildingObjectType objType : BuildingObjectType.values())
     {
-      ConfigLoader cfg = new ConfigLoader();
-      List<String> toLookStrings = cfg.stringToLookFor(objType);
+      
+      List<String> toLookStrings = this.configLoader.stringToLookFor(objType);
       for(String nameToLookFor : toLookStrings)
       {
         if(matches(nameToLookFor, actualName))
@@ -343,8 +352,6 @@ public class IfcSecurityExtractor {
   }
 
   
-
-
   private Shape3D getShapeAndPosition(IfcProduct product)
   {
     return getShapeAndPosition(product, 1);
@@ -665,5 +672,7 @@ public class IfcSecurityExtractor {
     return new Axis3DNice(x1, x2, x3, y1, y2, y3, z1, z2, z3);
   }
 
+  
 
+  
 }

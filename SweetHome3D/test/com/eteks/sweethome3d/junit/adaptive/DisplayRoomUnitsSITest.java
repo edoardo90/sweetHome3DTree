@@ -64,14 +64,13 @@ public class DisplayRoomUnitsSITest extends BasicTest {
     }
 
     BuildingSecurityGraph graph = extractor.getGraphFromFile();
+    
     home.displayGraph(graph, preferences);
     
     IfcSecurityExtractor extractorScaled = new IfcExtractorScale(ifcFileName, preferences, 2f);
 
     BuildingSecurityGraph graphScaled = extractorScaled.getGraphFromFile();
     home.displayGraph(graphScaled, preferences);
-    
-    
     
   }
   

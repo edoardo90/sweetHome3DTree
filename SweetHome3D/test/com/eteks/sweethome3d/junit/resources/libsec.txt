@@ -1,0 +1,8 @@
+Bagno
+Doccia,CCTV
+Gabinetto,PC
+Lavandino,PRINTER
+Lavandino con mobiletto,LIGHT
+Vasca da bagno,HVAC
+Vasca da bagno incassata,MAN
+Woman N170408,WOMAN

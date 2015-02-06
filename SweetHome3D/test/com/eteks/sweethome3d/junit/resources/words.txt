@@ -1,0 +1,6 @@
+ACTOR,actor
+CCTV,camera,CCTV
+LIGHT,light,luminaire,lamp
+PC,desktop,computer,laptop
+PRINTER,printer
+HVAC,hvac,conditioner,heater

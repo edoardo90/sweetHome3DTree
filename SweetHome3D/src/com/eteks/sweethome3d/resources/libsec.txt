@@ -1,0 +1,8 @@
+Security
+Camera surveillance N090211,CCTV
+pc-21,PC
+Printer N120614,PRINTER
+Torchere N160914,LIGHT
+Conditioner LG N240211,HVAC
+Man N090512,MAN
+Woman N170408,WOMAN
