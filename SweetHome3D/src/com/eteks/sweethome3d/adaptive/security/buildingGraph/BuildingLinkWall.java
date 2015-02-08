@@ -15,6 +15,11 @@ public class BuildingLinkWall extends BuildingLinkEdge {
     return wall;
   }
 
+  @Override
+  public String toString()
+  {
+    return firstRoom + "<--" + "Wall ID:" + this.getId() +  "---->" +  secondRoom + "\n";
+  }
 
 
 }

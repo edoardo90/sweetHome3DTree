@@ -13,8 +13,14 @@ public class WallObject extends BuildingGraphPart {
   private Shape3D shape;
   private Wall wall;
   
-  
-  public WallObject(Shape3D shape, Vector3D position, Vector3D startPoint, Vector3D endPoint) {
+  /**
+   * Every point of the shape has to be expressed in cm
+   * @param shape
+   * @param position
+   * @param startPoint
+   * @param endPoint
+   */
+  public WallObject(Shape3D shape, Vector3D startPoint, Vector3D endPoint) {
     
     this.shape = shape;
     this.startPoint = startPoint;

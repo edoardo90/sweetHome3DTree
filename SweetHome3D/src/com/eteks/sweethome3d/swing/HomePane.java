@@ -831,7 +831,7 @@ public class HomePane extends JRootPane implements HomeView {
           BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraphFromFile();
           home.displayGraph(securityGraph, getUserPreferences());          
 
-        } catch (Exception ex) {     }
+        } catch (Exception ex) { ex.printStackTrace();    }
 
       }
       if (rVal == JFileChooser.CANCEL_OPTION) {

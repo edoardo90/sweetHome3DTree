@@ -32,12 +32,18 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.io.DefaultUserPreferences;
 
 /**
  * The home managed by the application with its furniture and walls.
@@ -1508,7 +1514,7 @@ public class Home implements Serializable, Cloneable {
     List<BuildingRoomNode> roomsInBuilding = securityGraph.getRoomNodeList();
     for(BuildingRoomNode rib : roomsInBuilding)
     {
-      Room r = rib.getRoom();
+      Room r = rib.getRoomSmart();
       List<BuildingObjectContained> objectsInside = rib.getObjectsInside();
       for(BuildingObjectContained objectContained : objectsInside )
       {
@@ -1527,9 +1533,68 @@ public class Home implements Serializable, Cloneable {
     
       this.addRoom(r);  
     }
+    
+    List<BuildingLinkEdge> linksInBuilding = securityGraph.getLinkEdgeList();
+    
+    for(BuildingLinkEdge link : linksInBuilding)
+    {
+         if(link instanceof BuildingLinkWall)
+         {
+           BuildingLinkWall linkWithWall = (BuildingLinkWall)link;
+           
+           Wall wall = linkWithWall.getWall();
+           this.addWall(wall);
+           
+           if(linkWithWall instanceof BuildinLinkWallWithDoor)
+           {
+             BuildinLinkWallWithDoor linkDoor = (BuildinLinkWallWithDoor) linkWithWall;
+             DoorObject door =  linkDoor.getDoor();
+             HomePieceOfFurniture doorHopf = this.getDoor();
+             
+             Vector3D position = door.getPosition();
+             float angle = door.getAngle();
+            
+             doorHopf.setX((float)position.first);
+             doorHopf.setY((float)position.second);
+             doorHopf.setAngle(angle);
+             
+             this.addPieceOfFurniture(doorHopf);
+             
+           }
+           
+         }
+    }
+    
 
     
   }
+  
+  private HomePieceOfFurniture getDoor()
+  {
+    HomePieceOfFurniture door = null;
+    Locale.setDefault(Locale.US);
+    // Read default user preferences
+    UserPreferences preferences = new DefaultUserPreferences();
+    List<FurnitureCategory> categories= preferences.getFurnitureCatalog().getCategories();
+    for(FurnitureCategory category : categories )
+    {
+      List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
+      for(PieceOfFurniture piece : catalogObjs)
+      {
+                  String pieceName = piece.getName();
+        if(pieceName.equals("Door"))
+        {
+          door = new HomePieceOfFurniture(piece);
+          
+        }
+      }
+    }    
+
+    
+    return door;
+  }
+  
+  
 
 
 }

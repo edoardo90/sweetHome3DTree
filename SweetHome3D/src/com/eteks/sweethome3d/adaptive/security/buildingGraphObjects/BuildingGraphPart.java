@@ -5,18 +5,7 @@ public abstract class BuildingGraphPart {
 
 	protected String id;
 	protected String name;
-	
-	
-	public String getName() {
-		return name;
-	}
 
-	public String getId()
-	{
-		return this.id;
-	}
-	
-	
 	
 	@Override
 	public int hashCode() {
@@ -41,7 +30,18 @@ public abstract class BuildingGraphPart {
 			return false;
 		return true;
 	}
-
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+  
+  public void setId(String id)
+  {
+    this.id = id;
+  }
+  public String getId() { return this.id; }
 
 	
 }

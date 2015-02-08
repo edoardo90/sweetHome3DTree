@@ -21,7 +21,9 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   @Override
   public String toString()
   {
-    return this.objectType != null ? this.objectType.toString() : "object";
+    return (this.objectType != null ? this.objectType.toString() : "object")  +
+           "ID:" + this.getId();
+           
   }
 
   public Vector3D getPosition() {

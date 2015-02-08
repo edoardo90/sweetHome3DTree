@@ -18,7 +18,11 @@ import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.PieceOfFurniture;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.resources.Res;
-
+/**
+ * This class gather some basic methods for reading parameters from config files
+ * 
+ * @author Edoardo Pasi
+ */
 public class ConfigLoader {
 
   
@@ -196,22 +200,12 @@ public class ConfigLoader {
       String securityCategoryName = this.getSecurityCategoryName();
       if(category.getName().equals(securityCategoryName))
       {
-
-        /**
-         *  "Security"  is the name of the library that have to be imported,
-         *  this maybe could be written inside an xml file  or preference file or something
-         *  instead of hard coded
-         *  
-         *  The same is with the objects name
-         */
-
         List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
         for(PieceOfFurniture piece : catalogObjs)
         {
           HomePieceOfFurniture  hopf = new HomePieceOfFurniture(piece);
 
           String pieceName = piece.getName();
-
           
           BuildingObjectType typeOBJ = catalog.get(pieceName);
           catalogFurniture.put(typeOBJ, hopf);

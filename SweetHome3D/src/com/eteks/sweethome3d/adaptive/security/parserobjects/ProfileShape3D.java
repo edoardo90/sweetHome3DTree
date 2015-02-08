@@ -12,6 +12,12 @@ public class ProfileShape3D extends Shape3D {
     this.points = points;
   }
   
+  public void addPoint(Vector3D point)
+  {
+    this.points.add(point);
+  }
+  
+  
   @Override
   public List<Vector3D> getListOfPoints()
   {

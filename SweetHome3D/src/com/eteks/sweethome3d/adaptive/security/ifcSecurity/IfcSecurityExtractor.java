@@ -8,6 +8,7 @@ import ifc2x3javatoolbox.ifc2x3tc1.IfcCartesianPoint;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcDirection;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcElement;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcExtrudedAreaSolid;
+import ifc2x3javatoolbox.ifc2x3tc1.IfcFeatureElementSubtraction;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcLengthMeasure;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcLocalPlacement;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcObjectDefinition;
@@ -32,6 +33,7 @@ import ifc2x3javatoolbox.ifc2x3tc1.LIST;
 import ifc2x3javatoolbox.ifc2x3tc1.SET;
 import ifc2x3javatoolbox.ifcmodel.IfcModel;
 
+import java.awt.geom.Area;
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -53,12 +55,13 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.UnknownObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Axis3DNice;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Placement3DNice;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
-import com.eteks.sweethome3d.model.RoomGeoSmart.intersectionAlgorithm;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
 
@@ -67,27 +70,27 @@ public class IfcSecurityExtractor {
   private String ifcFileName;
   private IfcModel ifcModel;
   private List<IfcSpace> ifcSpaces = new ArrayList<IfcSpace>();
-  
+
   private Map<IfcSpace, BuildingRoomNode> spaceToRoomNoode  = new HashMap<IfcSpace, BuildingRoomNode>();
   protected ConfigLoader configLoader;
-  
+
   public IfcSecurityExtractor(String ifcFileName, UserPreferences preferences)
   {
     this.ifcFileName = ifcFileName;
-    
+
     this.configLoader = ConfigLoader.getInstance(preferences); 
-    
+
     this.setMapOfLibraryObjects(preferences);
 
   }
-  
+
   protected void setMapOfLibraryObjects(UserPreferences preferences)
   {
     Map<BuildingObjectType, HomePieceOfFurniture> map =   configLoader.createFurnitureMap();
-    
+
     preferences.setFornitureMap(map); 
   }
-  
+
 
   public BuildingSecurityGraph getGraphFromFile() throws Exception
   {
@@ -104,20 +107,24 @@ public class IfcSecurityExtractor {
 
     Collection<IfcSpace> ifcSpacesColl = ifcModel.getCollection(IfcSpace.class);
 
+    if(ifcSpacesColl.size() == 0)
+      throw new IllegalStateException("Please use your Bim software to tag rooms");
+
     this.ifcSpaces.addAll(ifcSpacesColl);
-    
+
     float scaleFactor ;
     scaleFactor = this.getScaleFactor();
 
-    linkEdgeList = this.getLinks();
     roomNodeList = this.getRooms(scaleFactor);
+    linkEdgeList = this.getLinks(scaleFactor);
+
 
     buildingSecurityGraph.setLinkEdgeList(linkEdgeList);
     buildingSecurityGraph.setRoomNodeList(roomNodeList);
 
     return buildingSecurityGraph;
   }
-  
+
   /**
    * <pre>
    * In sweethome 3d objects are represented with dimensions in cm
@@ -140,14 +147,14 @@ public class IfcSecurityExtractor {
     //maybe we can recognize imperial system as well
     float scaleF = 100f;
     Collection<IfcSIUnit> collectionOfUnit = ifcModel.getCollection(IfcSIUnit.class);
-    
+
     //if the ifc file is expressed in mm  then  both  metre and millimetre units will be present
     //inside the file
     for(IfcSIUnit unit : collectionOfUnit)
     {
       IfcSIPrefix prefix = unit.getPrefix();
       IfcSIUnitName nameOfUnit = unit.getName();
-      
+
       String pr="";
       if(prefix != null)
       {
@@ -156,20 +163,20 @@ public class IfcSecurityExtractor {
       String un="";
       if(nameOfUnit != null)
         un = "" + nameOfUnit.value;
-      
+
       System.out.println(" PREF:" + pr +  "UN:" + un);
       if(pr.equals("MILLI") &&  un.equals("METRE"))
       {
         scaleF = 0.10f;
       }
-      
-      
+
+
     }
     return scaleF;
   }
-  
 
-  private List<BuildingLinkEdge> getLinks()
+
+  private List<BuildingLinkEdge> getLinks(float scaleFactor)
   {
     List<BuildingLinkEdge> buildingLinkEdgeList = new ArrayList<BuildingLinkEdge>();
 
@@ -185,8 +192,6 @@ public class IfcSecurityExtractor {
       {
         IfcRelSpaceBoundary ifcRelSpaceBound = iterRelSpace.next();
         IfcElement elementBounding = ifcRelSpaceBound.getRelatedBuildingElement(); //e.g. a wall
-        
-        
 
         if(elementBounding != null)
         {
@@ -199,44 +204,54 @@ public class IfcSecurityExtractor {
           {
             IfcRelSpaceBoundary relSpaceBound = iteratorOfSpacesRel.next();
             IfcSpace relatingSpace = relSpaceBound.getRelatingSpace();
-            
+
             IfcWall boundingWall = null;
             Shape3D wallShape = null;
-            if(elementBounding instanceof IfcWall)
+            if(relatingSpace != spaceToTest && elementBounding instanceof IfcWall)
             {
-              boundingWall = (IfcWall) boundingWall;
-              wallShape = getShapePositioned(boundingWall);
+              boundingWall = (IfcWall) elementBounding;
+              wallShape = getShapeAndPosition(boundingWall, scaleFactor);
+              String wallID = boundingWall.getGlobalId().getDecodedValue();
               
-            }
-            
-            if(areIntersected(relatingSpace, spaceToTest, wallShape))
-            {
-                
+              
+              if(areIntersected(relatingSpace, spaceToTest, wallShape))
+              {
+
                 String longNameFirs = spaceToTest.getLongName().getDecodedValue();
                 String longNameSecond = relatingSpace.getLongName().getDecodedValue();
-                
+
                 RoomGeoSmart smartWallSeenAsRoom = new RoomGeoSmart(wallShape);
-                Rectangle3D rectWall = smartWallSeenAsRoom.getBoundingRect3d();
+                Rectangle3D rectWall = smartWallSeenAsRoom.getBoundingRoomRect3D();
                 
+                float angleOfWall = rectWall.getAngleOfLongsEdges(); //For Door! not for wall
+                //because angle of wall in already "included" in its shape
+
                 Wall wall = rectWall.getWall();
+
+                DoorObject door = this.getDoor(elementBounding, scaleFactor); //door id is setted here if any
                 
-                DoorObject door = this.getDoor(elementBounding);
-                
+
                 BuildingLinkEdge link;
-                if(door != null)
-                {
-                   link =
+                if(door != null){ //wall with door
+                  door.setAngle(angleOfWall);
+                  link =
                       new BuildinLinkWallWithDoor(wall, door, longNameFirs, longNameSecond);
                 }
-                else
-                {
-                   link = 
-                       new BuildingLinkWall(wall,  longNameFirs, longNameSecond);
+                else { //just wall, no door
+                  link = 
+                      new BuildingLinkWall(wall,  longNameFirs, longNameSecond);
+                  link.setId(wallID);
                 }
-                
-                buildingLinkEdgeList.add(link);
-    
+
+               
+                if(!  buildingLinkEdgeList.contains(link))
+                { 
+                  buildingLinkEdgeList.add(link);
+                }
+
+              }
             }
+
           }
         }
       }
@@ -246,48 +261,108 @@ public class IfcSecurityExtractor {
 
   }
 
-  
-  private DoorObject getDoor(IfcElement elementBounding) {
-    
+
+  private DoorObject getDoor(IfcElement elementBounding, float scaleFactor) {
+
     SET<IfcRelVoidsElement> openings = elementBounding.getHasOpenings_Inverse();
+    DoorObject door = new DoorObject();
     if(openings == null)
       return null;
     else
-      return new DoorObject();
-    
-    //TODO  shape and position .... ?? maybe next time?
+    {
+      Iterator<IfcRelVoidsElement> iterOp = openings.iterator();
+      IfcRelVoidsElement voidd = iterOp.next();
+      IfcFeatureElementSubtraction opening = voidd.getRelatedOpeningElement();
       
-    
+      Vector3D position = getPositionOfProduct(opening);
+      
+      String id = voidd.getGlobalId().getDecodedValue();
+      door.setId(id);
+      position.scale(scaleFactor);
+      door.setPosition(position);
+     
+      return door;
+    }
+
+    //TODO  shape and position .... ?? maybe next time?
+
+
   }
 
   private boolean areIntersected(IfcSpace space1, IfcSpace space2, Shape3D wallShape) throws IllegalStateException {
-    
+
     BuildingRoomNode brn = this.spaceToRoomNoode.get(space1);
     if(brn == null)
     {
       throw new IllegalStateException("the map spaces to BuildingRoomNode is not well filled");
     }
-    RoomGeoSmart smart1 = brn.getRoom();
-    
-    
+    RoomGeoSmart smart1 = brn.getRoomSmart();
+
+
     BuildingRoomNode brnSpace2 = this.spaceToRoomNoode.get(space2);
     if(brnSpace2 == null)
     {
       throw new IllegalStateException("the map spaces to BuildingRoomNode is not well filled");
     }
-    RoomGeoSmart smart2 = brnSpace2.getRoom();
-    
+    RoomGeoSmart smart2 = brnSpace2.getRoomSmart();
+
     RoomGeoSmart smartWallSeenAsRoom = new RoomGeoSmart(wallShape);
-    float borderSize = (float)smartWallSeenAsRoom.getBoundingRect3d().getMinEdge();
+  
+    Rectangle3D bb = smartWallSeenAsRoom.getBoundingRoomRect3D();
+    float borderSize = (float)bb.getMinEdge();
+
+    RoomGeoSmart smart1Bigger = smart1.getBiggerRoomBordered(borderSize);
+    RoomGeoSmart smart2Bigger = smart2.getBiggerRoomBordered(borderSize);
+
+    //intersection between 2 rooms
+    boolean instersect = smart1Bigger.instersect(smart2Bigger);
     
-    smart1 = smart1.getBiggerRoomBordered(borderSize);
-    smart2 = smart2.getBiggerRoomBordered(borderSize);
+    smartWallSeenAsRoom.getBiggerRoomBordered(borderSize);
+    boolean isWallSeparating = isTheWallSeparating(smart1, smart2, smartWallSeenAsRoom);
     
-     
-    return smart1.intersect(smart2, intersectionAlgorithm.AREA);
-   
+    
+    return instersect;
+
   }
 
+  /**
+   * <pre>
+   * we consider intersection between room1 and wall,
+   *             intersection between room2 and wall,
+   *             we "draw" a segment linking the 2 centers
+   *             we  look if the middle point falls inside the wall
+   * @param r1
+   * @param r2
+   * @param wall
+   * @return
+   */
+  private boolean isTheWallSeparating(RoomGeoSmart r1, RoomGeoSmart r2, RoomGeoSmart wall)
+  {
+    
+    Area areaOfWall = wall.getAreaShape100Big();
+   
+    Area areaRoom1 = r1.getAreaShape100Big();
+    areaRoom1.intersect(areaOfWall);
+    
+    Area areaRoom2 = r2.getAreaShape100Big();
+    areaRoom2.intersect(areaOfWall);
+    
+    
+    Vector3D centerInters1 = r1.get100BigCentroid();
+    Vector3D centerInters2 = r2.get100BigCentroid();
+    
+    Segment3D center1Center2 = new Segment3D(centerInters1, centerInters2);
+    Vector3D  midPointCenterCenter = center1Center2.getMidPoint();
+    
+    boolean isMidPointInsideWall = areaOfWall.contains
+                                    (midPointCenterCenter.first, midPointCenterCenter.second);
+    
+    return isMidPointInsideWall;
+  }
+  
+  
+  
+  
   private List<BuildingRoomNode> getRooms(float scaleFactor)
   {	
 
@@ -300,7 +375,7 @@ public class IfcSecurityExtractor {
     {
       if(getStoreyName(space).equals(storeyName))
       {
-        
+
         String roomName = space.getLongName().getDecodedValue();
         String idRoom = space.getGlobalId().getDecodedValue();
         System.out.println("\n _________________________________\n storey : "
@@ -309,8 +384,8 @@ public class IfcSecurityExtractor {
 
         //shape and position
         Shape3D roomShape = getShapeAndPosition(space, scaleFactor); 
-       
-       
+
+
         System.out.println("room shape: \n" + roomShape);
 
         //containement
@@ -322,13 +397,13 @@ public class IfcSecurityExtractor {
             BuildingRoomNode(roomName, roomShape, objects);
         buildingRoomNode.setId(idRoom);
         buildingRoomList.add(buildingRoomNode);
-        
+
         this.spaceToRoomNoode.put(space, buildingRoomNode);
       }
 
     }
-    
-    
+
+
     return buildingRoomList;
 
   }
@@ -362,14 +437,16 @@ public class IfcSecurityExtractor {
         {
           IfcProduct furnitureProduct = iteratorProductContained.next();
           Vector3D furniturePosition = getPositionOfProduct(furnitureProduct);
-          
+
           //scale to match length unit used in the ifc file
           furniturePosition.scale(scalePositionFactor);
           BuildingObjectContained singleFurniture = getObectContained( furniturePosition, furnitureProduct);
+          singleFurniture.setId(furnitureProduct.getGlobalId().getDecodedValue());
 
-         
           if(! (singleFurniture instanceof UnknownObject))
+          {
             contained.add(singleFurniture);
+          }
 
 
           String productName = furnitureProduct.getName().getDecodedValue();
@@ -396,7 +473,7 @@ public class IfcSecurityExtractor {
 
     for(BuildingObjectType objType : BuildingObjectType.values())
     {
-      
+
       List<String> toLookStrings = this.configLoader.stringToLookFor(objType);
       for(String nameToLookFor : toLookStrings)
       {
@@ -418,15 +495,13 @@ public class IfcSecurityExtractor {
     return (upperActual.contains("" + upperLook));
   }
 
-  
-  private Shape3D getShapePositioned(IfcProduct product)
-  {
-    return getShapeAndPosition(product, 1);
-  }
 
 
   private Shape3D getShapeAndPosition(IfcProduct product, float scaleFactor) 
   {
+
+    if(product == null)
+      throw new IllegalStateException("passed product is null!");
 
     Placement3DNice placementNice = getPlacementFromObject(product);
     Axis3DNice axis3DContainer = placementNice.getAxes();
@@ -435,14 +510,15 @@ public class IfcSecurityExtractor {
 
     Shape3D shapeLocated = this.getShape(product, axis3DContainer, absoluteCoordinates);
     shapeLocated.scale(scaleFactor);
+    
     return shapeLocated;
   }
-  
+
   private Vector3D getPositionOfProduct(IfcProduct product) {
-      return getPlacementFromObject(product).getOriginPoint();
+    return getPlacementFromObject(product).getOriginPoint();
   }
-  
-  
+
+
 
   private Placement3DNice getPlacementFromObject(IfcProduct product)
   {
@@ -520,101 +596,151 @@ public class IfcSecurityExtractor {
   }
 
 
-  private Rectangle3D getShape(IfcProduct product, Axis3DNice localPlacementAxis, Vector3D localPlacementAbsoluteCoords) 
+  private Shape3D getShape(IfcProduct product, Axis3DNice localPlacementAxis, Vector3D localPlacementAbsoluteCoords) 
   {
     IfcProductRepresentation representation = product.getRepresentation();
-    List<Vector3D> rectanglePoints = new ArrayList<Vector3D>();
+    List<Vector3D> extrudedAreaPoints = new ArrayList<Vector3D>();
 
     if(representation instanceof IfcProductDefinitionShape)
     {
       IfcProductDefinitionShape definitionShape = (IfcProductDefinitionShape) representation;
       LIST<IfcRepresentation> representationList = definitionShape.getRepresentations();
-      IfcRepresentation shapeRepr = representationList.get(0);
-
-      SET<IfcRepresentationItem> items = shapeRepr.getItems();
-      Iterator<IfcRepresentationItem> iter = items.iterator();
-      IfcRepresentationItem representItem = iter.next() ;
-      if(representItem instanceof IfcExtrudedAreaSolid)
-      {
-
-        //area solid  contains  swept area
-
-        IfcExtrudedAreaSolid areaSolid = (IfcExtrudedAreaSolid) representItem; 
-        IfcAxis2Placement3D axisesAndPositionOfExtrudedAreaSolid = areaSolid.getPosition();
-
-        Axis3DNice axisesExtrudedAreaSolidNice = getAxis3DNice(axisesAndPositionOfExtrudedAreaSolid);
-        Vector3D pointOfAreaSolidNice = getPoint3DNice( axisesAndPositionOfExtrudedAreaSolid );
-
-
-        IfcProfileDef sweptArea = areaSolid.getSweptArea();
-
-        if(sweptArea instanceof IfcRectangleProfileDef)
-        {
-          IfcRectangleProfileDef sweptRectangle = (IfcRectangleProfileDef)sweptArea;
-          double xDim = sweptRectangle.getXDim().value;
-          double yDim = sweptRectangle.getYDim().value;
-
-          IfcAxis2Placement2D sweptRectPosition = sweptRectangle.getPosition();
-          Axis3DNice rectangleAxisesNice = this.getAxis3DNice(sweptRectPosition) ;
-
-          LIST<IfcLengthMeasure> c = sweptRectPosition.getLocation().getCoordinates();
-          double xCenter = c.get(0).value;
-          double yCenter = c.get(1).value;
-
-          Vector3D centerPoint = new Vector3D(0, 0, 0);
-          Rectangle3D shapeRoom = new Rectangle3D(centerPoint, xDim, yDim);
-
-          rectanglePoints = shapeRoom.getListOfPoints();
-
-          /*  Each point of the rectangle is expressed in the rectangle profile basis, so for each point
-           *  we have to bring it in the coordinate space of the swept area  (rotation and displacement)
-           *  and then to the coordinate space of the local placement  (again rotation and displacement).
-           *  
-           *  Rotation is provided by axes, while displacement is provided by the origin point
-           *  that is the one obtained by getCoordinates() 
-           *
-           */
-          for(int i = 0; i <rectanglePoints.size(); i++)
-          {
-            Vector3D point = rectanglePoints.remove(i);
-            //point as is in the rectangle world
-
-            Vector3D sweptAffine = rectangleAxisesNice.getDefaultWordCoordinate(point);
-            //rotation: from rectangle profile axis into swept area axis - affine
-
-            Vector3D  sweptOriginated = sweptAffine.getSumVector(new Vector3D(xCenter, yCenter, 0));
-            //displacement: from swept area axis affine  to swept area axis
-
-
-            Vector3D localAffine = axisesExtrudedAreaSolidNice.getDefaultWordCoordinate(sweptOriginated);
-            //rotation :  from swept area into local placement axis - affine
-
-            Vector3D localOriginated = pointOfAreaSolidNice.getSumVector(localAffine);
-            //displacement: from local placement axis affine to local placement axis
-
-            Vector3D globalAffine =
-                localPlacementAxis.
-                getDefaultWordCoordinate(localOriginated); 
-            //rotation: from local placement axis  to global axis - affine
-
-            Vector3D globalOriginated = globalAffine.getSumVector(localPlacementAbsoluteCoords);
-            Vector3D absoluteCoordsRectPoint = new
-                Vector3D(globalOriginated.first,
-                    globalOriginated.second, 
-                    globalOriginated.third);
-
-            rectanglePoints.add(i, absoluteCoordsRectPoint);
-          }
-
-        }
+      Iterator<IfcRepresentation> representationsIterator = representationList.iterator();
+      while(representationsIterator.hasNext() && extrudedAreaPoints.isEmpty())
+      {  
+           IfcRepresentation shapeRepr = representationsIterator.next();
+           extrudedAreaPoints = this.getextrudedAreaPoints(shapeRepr, extrudedAreaPoints,  localPlacementAxis,  localPlacementAbsoluteCoords);
       }
     }
 
-    Rectangle3D rectAbsolutes = new Rectangle3D(rectanglePoints); 
-
-    return rectAbsolutes;
+    Rectangle3D rectAbsolutes= null;
+    try
+    {
+      rectAbsolutes = new Rectangle3D(extrudedAreaPoints); 
+    }
+    catch(IllegalStateException e)
+    {
+      rectAbsolutes = null;
+    }
+    ProfileShape3D shapeAbsolutes = null;
+    if(rectAbsolutes != null)
+    {
+      return rectAbsolutes;
+    }
+    else
+    {
+      shapeAbsolutes = new ProfileShape3D(extrudedAreaPoints);
+      return shapeAbsolutes;
+    }
   }
 
+  private List<Vector3D> getextrudedAreaPoints(IfcRepresentation shapeRepr, List<Vector3D> extrudedAreaPoints,
+      Axis3DNice localPlacementAxis, Vector3D localPlacementAbsoluteCoords)
+  {
+    SET<IfcRepresentationItem> items = shapeRepr.getItems();
+    Iterator<IfcRepresentationItem> iter = items.iterator();
+    IfcRepresentationItem representItem = iter.next() ;
+    if(representItem instanceof IfcExtrudedAreaSolid)
+    {
+         extrudedAreaPoints = 
+             getPointsFromExtrudedArea(extrudedAreaPoints, representItem, localPlacementAxis, localPlacementAbsoluteCoords);
+    }
+
+    return extrudedAreaPoints;
+  }
+  
+  private List<Vector3D>   getPointsFromExtrudedArea(List<Vector3D> extrudedAreaPoints, IfcRepresentationItem representItem,
+      Axis3DNice localPlacementAxis, Vector3D localPlacementAbsoluteCoords)
+  {
+    //area solid  contains  swept area
+
+    IfcExtrudedAreaSolid areaSolid = (IfcExtrudedAreaSolid) representItem; 
+    IfcAxis2Placement3D axisesAndPositionOfExtrudedAreaSolid = areaSolid.getPosition();
+
+    Axis3DNice axisesExtrudedAreaSolidNice = getAxis3DNice(axisesAndPositionOfExtrudedAreaSolid);
+    Vector3D pointOfAreaSolidNice = getPoint3DNice( axisesAndPositionOfExtrudedAreaSolid );
+
+
+    IfcProfileDef sweptArea = areaSolid.getSweptArea();
+
+    if(sweptArea instanceof IfcRectangleProfileDef)
+    {
+      extrudedAreaPoints = getPointsOfRectangularProfile(extrudedAreaPoints, 
+          axisesExtrudedAreaSolidNice, pointOfAreaSolidNice, 
+          sweptArea,
+          localPlacementAbsoluteCoords,
+          localPlacementAxis
+          );
+    }
+
+    return extrudedAreaPoints;
+    
+  }
+  
+  
+  private List<Vector3D> getPointsOfRectangularProfile( List<Vector3D> extrudedAreaPoints, Axis3DNice axisesExtrudedAreaSolidNice , 
+      Vector3D pointOfAreaSolidNice, IfcProfileDef sweptArea, Vector3D localPlacementAbsoluteCoords, Axis3DNice localPlacementAxis )
+  {
+    IfcRectangleProfileDef sweptRectangle = (IfcRectangleProfileDef)sweptArea;
+    double xDim = sweptRectangle.getXDim().value;
+    double yDim = sweptRectangle.getYDim().value;
+
+    IfcAxis2Placement2D sweptRectPosition = sweptRectangle.getPosition();
+    Axis3DNice rectangleAxisesNice = this.getAxis3DNice(sweptRectPosition) ;
+
+    LIST<IfcLengthMeasure> c = sweptRectPosition.getLocation().getCoordinates();
+    double xCenter = c.get(0).value;
+    double yCenter = c.get(1).value;
+
+    Vector3D centerPoint = new Vector3D(0, 0, 0);
+    Rectangle3D shapeRoom = new Rectangle3D(centerPoint, xDim, yDim);
+
+    extrudedAreaPoints = shapeRoom.getListOfPoints();
+
+    /*  Each point of the rectangle is expressed in the rectangle profile basis, so for each point
+     *  we have to bring it in the coordinate space of the swept area  (rotation and displacement)
+     *  and then to the coordinate space of the local placement  (again rotation and displacement).
+     *  
+     *  Rotation is provided by axes, while displacement is provided by the origin point
+     *  that is the one obtained by getCoordinates() 
+     *
+     */
+    for(int i = 0; i <extrudedAreaPoints.size(); i++)
+    {
+      Vector3D point = extrudedAreaPoints.remove(i);
+      //point as is in the rectangle world
+
+      Vector3D sweptAffine = rectangleAxisesNice.getDefaultWordCoordinate(point);
+      //rotation: from rectangle profile axis into swept area axis - affine
+
+      Vector3D  sweptOriginated = sweptAffine.getSumVector(new Vector3D(xCenter, yCenter, 0));
+      //displacement: from swept area axis affine  to swept area axis
+
+
+      Vector3D localAffine = axisesExtrudedAreaSolidNice.getDefaultWordCoordinate(sweptOriginated);
+      //rotation :  from swept area into local placement axis - affine
+
+      Vector3D localOriginated = pointOfAreaSolidNice.getSumVector(localAffine);
+      //displacement: from local placement axis affine to local placement axis
+
+      Vector3D globalAffine =
+          localPlacementAxis.
+          getDefaultWordCoordinate(localOriginated); 
+      //rotation: from local placement axis  to global axis - affine
+
+      Vector3D globalOriginated = globalAffine.getSumVector(localPlacementAbsoluteCoords);
+      Vector3D absoluteCoordsRectPoint = new
+          Vector3D(globalOriginated.first,
+              globalOriginated.second, 
+              globalOriginated.third);
+
+      extrudedAreaPoints.add(i, absoluteCoordsRectPoint);
+    }
+    
+    return extrudedAreaPoints;
+
+  }
+  
 
   /**
    * @param positionOfAreaSolid
@@ -691,7 +817,7 @@ public class IfcSecurityExtractor {
 
   }
 
-  
+
 
   private  Axis3DNice getAxis3DNice(IfcAxis2Placement3D axis3d)
   {
@@ -739,7 +865,7 @@ public class IfcSecurityExtractor {
     return new Axis3DNice(x1, x2, x3, y1, y2, y3, z1, z2, z3);
   }
 
-  
 
-  
+
+
 }

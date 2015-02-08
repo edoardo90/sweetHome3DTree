@@ -10,94 +10,35 @@ public class Rectangle3D extends Shape3D
 {
 
   private Vector3D  pointNorthWest, pointSouthEast;
+  private boolean isARectangle = true;
 
   public Vector3D getPointNorthWest()
   {
     return pointNorthWest.clone();
   }
-  
+
   public Wall getWall()
   {
+    List<Segment3D> shorts = this.getShortEdges();
     
-    Vector3D NN = pointNorthWest.getSubVector(getPointNorthEast());
-    Vector3D SN = pointSouthEast.getSumVector(getPointSouthWest());
+    Segment3D sh1 = shorts.get(0);
+    Segment3D sh2 = shorts.get(1);
     
-    Vector3D longest = NN.getMagnitude() > SN.getMagnitude() ?  NN  : SN;
+    Vector3D mid1 = sh1.getMidPoint();
+    Vector3D mid2 = sh2.getMidPoint();
     
-    float xStart, yStart, yEnd, xEnd;
-    if(longest == NN)
-    {
-      xStart = this.midXWest();
-      yStart = this.midYWest();
-      
-      xEnd =  this.midXEast();
-      yEnd   = this.midYEast();
-      
-    }
-    else
-    {
-      xStart = this.midXNorth();
-      yStart = this.midYNorth();
-      
-      xEnd = this.midXSouth();
-      yEnd = this.midYSouth();
-      
-    }
+    float xStart = (float)mid1.first;
+    float yStart = (float)mid1.second;
+    float xEnd = (float)mid2.first;
+    float yEnd = (float)mid2.second;
     
-    return new Wall(xStart, yStart, xEnd, yEnd, 40, 200);
-  }
-  
-  private float midY(Vector3D v1, Vector3D v2)
-  {
-    return (float) ( v1.second + v2.second) / 2;
-  }
-  private float midX(Vector3D v1, Vector3D v2)
-  {
-    return (float) ( v1.first + v2.first) / 2;
-  }
-  
-  
     
-  
-  
-
-  private float midYNorth() {
-    return this.midY(this.getPointNorthEast(), this.getPointNorthWest());
-  }
-
-  private float midYSouth() {
-     return midY(this.getPointSouthEast(), this.getPointSouthWest());
-  }
-
-  private float midXSouth() {
-    return midX(this.getPointSouthEast(), this.getPointSouthWest());
+    
+    return new Wall(xStart, yStart, xEnd, yEnd, 50, 200);
   }
 
 
-  private float midXNorth() {
-    return this.midX(this.getPointNorthEast(), this.getPointNorthWest());
-  }
 
-  private float midYEast() {
-     return this.midY(this.getPointSouthEast(), this.getPointNorthEast());
-  }
-
-  private float midXEast() {
-   
-    return this.midX(this.getPointNorthEast(), this.getPointSouthEast());
-  }
-
-  private float midYWest() {
-   return this.midY(this.getPointSouthWest(), this.getPointNorthWest());
-  }
-
-  private float midXWest() {
-    return this.midX(this.getPointSouthWest(), this.getPointNorthWest());
-  }
-
-  
-  
-  
   public double getArea() 
   {
     double xDim = Math.abs( this.pointNorthWest.first - this.pointSouthEast.first );
@@ -189,7 +130,73 @@ public class Rectangle3D extends Shape3D
     return new Vector3D(x4, y4, this.pointNorthWest.third);
 
   }
+  
+  public float getAngleOfLongsEdges()
+  {
+    
+   Segment3D longEdge =  this.getLongEdges().get(0);
+    return longEdge.getAngle();
+    
+  }
+  
+  
 
+  public List<Segment3D> getLongEdges()
+  {
+    
+    Segment3D nn1 = new Segment3D(this.getPointNorthWest(), this.getPointNorthEast());
+    Segment3D ns1 = new Segment3D(this.getPointNorthEast(), this.getPointSouthEast());
+    Segment3D nn2 = new Segment3D(this.getPointSouthEast(), this.getPointSouthWest());
+    Segment3D ns2 = new Segment3D(this.getPointSouthWest(), this.getPointNorthWest());
+    
+    double w = nn1.getLength();
+    double h = ns1.getLength();
+    
+    List<Segment3D> lst = new ArrayList<Segment3D>();
+    if(w < h)
+    {
+      lst.add(ns1);
+      lst.add(ns2);
+    }
+    else
+    {
+      lst.add(nn1);
+      lst.add(nn2);
+    }
+    
+    return lst;
+    
+  }
+  
+  
+  
+  public List<Segment3D> getShortEdges()
+  {
+    
+    Segment3D nn1 = new Segment3D(this.getPointNorthWest(), this.getPointNorthEast());
+    Segment3D ns1 = new Segment3D(this.getPointNorthEast(), this.getPointSouthEast());
+    Segment3D nn2 = new Segment3D(this.getPointSouthEast(), this.getPointSouthWest());
+    Segment3D ns2 = new Segment3D(this.getPointSouthWest(), this.getPointNorthWest());
+    
+    double w = nn1.getLength();
+    double h = ns1.getLength();
+    
+    List<Segment3D> lst = new ArrayList<Segment3D>();
+    if(w > h)
+    {
+      lst.add(ns1);
+      lst.add(ns2);
+    }
+    else
+    {
+      lst.add(nn1);
+      lst.add(nn2);
+    }
+    
+    return lst;
+    
+  }
+  
   @Override
   public List<Vector3D> getListOfPoints()
   {
@@ -199,7 +206,7 @@ public class Rectangle3D extends Shape3D
     Vector3D p3 = this.getPointSouthWest();
     Vector3D p4 = this.getPointSouthEast();
     List<Vector3D> lst = new ArrayList<Vector3D>();
-    
+
     lst.add(p1);
     lst.add(p2);
     lst.add(p3);
@@ -232,6 +239,58 @@ public class Rectangle3D extends Shape3D
 
   }
 
+  
+  private double sqr(double x)
+  {
+    return Math.sqrt(Math.abs(x));
+  }
+  private boolean  isRectangle(double x1, double y1,
+                               double x2, double y2,
+                               double x3, double y3,
+                               double x4, double y4)
+  {
+    double cx,cy;
+    double dd1,dd2,dd3,dd4 ;
+
+    cx=(x1+x2+x3+x4)/4;
+    cy=(y1+y2+y3+y4)/4;
+
+    dd1=sqr(cx-x1)+sqr(cy-y1);
+    dd2=sqr(cx-x2)+sqr(cy-y2);
+    dd3=sqr(cx-x3)+sqr(cy-y3);
+    dd4=sqr(cx-x4)+sqr(cy-y4);
+    return ( Math.abs(dd1-dd2) < 10E-06) && (Math.abs(dd1-dd3)<10E-06)
+            && (Math.abs(dd1-dd4)<10e-06);
+  }
+  
+  public boolean isARectangle()
+  {
+    List<Vector3D> list = this.getListOfPoints();
+    
+    if(!this.isARectangle)
+      return false;
+    
+    double x1; double y1;
+    double x2; double y2;
+    double x3; double y3;
+    double x4; double y4;
+    
+    x1 = list.get(0).first;
+    y1 = list.get(0).second;
+    
+    x2 = list.get(1).first;
+    y2 = list.get(1).second;
+    
+    x3 = list.get(2).first;
+    y3 = list.get(2).second;
+    
+    x4 = list.get(3).first;
+    y4 = list.get(3).second;
+    
+    return isRectangle(x1, y1, x2, y2, x3, y3, x4, y4);
+
+  }
+  
 
   public Rectangle3D(List<Vector3D> list)
   {
@@ -239,10 +298,13 @@ public class Rectangle3D extends Shape3D
     {
       this.pointNorthWest = new Vector3D();
       this.pointSouthEast = new Vector3D(1,1,0);
+      this.isARectangle = false;
+      throw new IllegalStateException("not a rectangle!");
+
     }
     else
     {
-
+      
       /*
        * NW    N    NE
        *    
@@ -252,39 +314,47 @@ public class Rectangle3D extends Shape3D
        * 
        */
 
-      double minX = 0, maxY=0;
-      minX = list.get(0).first;
-      maxY = list.get(0).second;
-      for(int i=0;i<4;i++)
-      { 
-        double x = list.get(i).first;
-        double y = list.get(i).second;
-        if(x <= minX)
-          minX = x;
-        if(y >= maxY)
-          maxY = y;
-      }
+       double minX = 0, maxY=0;
+       minX = list.get(0).first;
+       maxY = list.get(0).second;
+       for(int i=0;i<4;i++)
+       { 
+         double x = list.get(i).first;
+         double y = list.get(i).second;
+         if(x <= minX)
+           minX = x;
+         if(y >= maxY)
+           maxY = y;
+       }
 
-      for(int i=0;i<4;i++)
-      {
-        double x = list.get(i).first;
-        double y = list.get(i).second;
+       for(int i=0;i<4;i++)
+       {
+         double x = list.get(i).first;
+         double y = list.get(i).second;
 
-        if(x==minX && y == maxY)
-        {
-          this.pointNorthWest = list.get(i);
-        }
-        if(x!=minX && y!= maxY)
-        {
-          this.pointSouthEast = list.get(i);
-        }
+         if(x==minX && y == maxY)
+         {
+           this.pointNorthWest = list.get(i);
+         }
+         if(x!=minX && y!= maxY)
+         {
+           this.pointSouthEast = list.get(i);
+         }
 
-      }
+       }
 
+       if(! this.isARectangle())
+       {
+         this.isARectangle = false;
+         throw new IllegalStateException("not a rectangle!");
+         
+       }
+
+       
     }
   }
 
-  
+
   private String spacesFor(String s)
   {
     String acc = "";
@@ -300,7 +370,7 @@ public class Rectangle3D extends Shape3D
   public void scale(float scaleFactor) {
     this.pointNorthWest.scale(scaleFactor);
     this.pointSouthEast.scale(scaleFactor);
-    
+
   }
 
 

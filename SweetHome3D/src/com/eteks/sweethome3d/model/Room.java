@@ -101,7 +101,7 @@ public class Room implements Serializable, Selectable, Elevatable {
   public Room(List<Vector3D> points)
   {
 
-    if (points == null || points.size() <= 1) {
+    if (points == null || points.size() < 2) {
       throw new IllegalStateException("Room points must containt at least two points");
     }
 
@@ -111,6 +111,19 @@ public class Room implements Serializable, Selectable, Elevatable {
     float y2 = (float)points.get(1).second;
 
     this.points = new float [][] {{x1, y1}, {x2, y2}}; 
+    
+    if(points.size() > 2)
+    {
+      for(int i=2; i<points.size(); i++)
+      {
+        float x = (float)points.get(i).first;
+        float y = (float)points.get(i).second;
+        this.addPoint(x, y);
+        
+      }
+    }
+    
+    
     this.areaVisible = true;
     this.nameYOffset = -40f;
     this.floorVisible = true;
@@ -452,6 +465,16 @@ public class Room implements Serializable, Selectable, Elevatable {
     int [] ypoints = getYPoints( roomPoints, 1000);
     return  new Polygon(xpoints, ypoints, this.getPointCount());
   }
+  
+  public Polygon getPolygonBigger(int scale)
+  {
+    float [][] roomPoints = deepCopy(this.points);
+    int [] xpoints = getXPoints( roomPoints, scale);
+    int [] ypoints = getYPoints( roomPoints, scale);
+    return  new Polygon(xpoints, ypoints, this.getPointCount());
+  }
+
+  
 
   private int [] getXPoints(float [][] roomPoints, int multiplier)
   {

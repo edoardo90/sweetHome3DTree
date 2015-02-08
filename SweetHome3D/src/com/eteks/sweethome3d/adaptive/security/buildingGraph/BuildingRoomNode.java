@@ -8,7 +8,10 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 
-
+/**
+ * This class represent a room node inside a graph
+ * @author Edoardo Pasi
+ */
 public class BuildingRoomNode extends BuildingGraphPart {
   private Room room;
   
@@ -16,22 +19,31 @@ public class BuildingRoomNode extends BuildingGraphPart {
   
   private Shape3D roomShape;
   
+  /**
+   * 
+   * @param roomName
+   * @param roomShape  the shape of the room, each coordinate should be expressed in cm
+   * @param conteinedObjects
+   */
   public BuildingRoomNode(String roomName, Shape3D roomShape, List<BuildingObjectContained> conteinedObjects)
   {
     
     Room roomFromShape = roomShape.getRoom();
     this.roomShape = roomShape;
-    this.name = roomName;
+    this.setName(roomName);
     
     this.room = roomFromShape;
     this.room.setName(roomName);
     
     this.setObjectsInside(conteinedObjects);
   }
-
-  public RoomGeoSmart getRoom() 
+  /**
+   * room geo smart are more suitable for geometry purposes
+   * @return
+   */
+  public RoomGeoSmart getRoomSmart() 
   {
-    Room r = this.getRoom();
+    Room r = this.roomShape.getRoom();
     return new RoomGeoSmart(r);
   
   }
@@ -46,7 +58,7 @@ public class BuildingRoomNode extends BuildingGraphPart {
   @Override
   public String toString()
   {
-    return "name:" + this.name + "id:" + this.id + "\n shape:" + roomShape + "\n";
+    return "name:" + this.getName() + "id:" + this.id + "\n shape:" + roomShape + "\n";
   }
 
   public List<BuildingObjectContained> getObjectsInside() {
