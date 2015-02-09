@@ -341,7 +341,7 @@ public class IfcSecurityExtractor {
     RoomGeoSmart smart2Bigger = smart2.getBiggerRoomBordered(borderSize);
 
     //intersection between 2 rooms
-    boolean instersect = smart1Bigger.instersect(smart2Bigger);
+    boolean instersect = smart1Bigger.intersect(smart2Bigger);
     
     smartWallSeenAsRoom.getBiggerRoomBordered(borderSize*2);
     //TODO: debug  --- boolean isWallSeparating = isTheWallSeparating(smart1, smart2, smartWallSeenAsRoom);
@@ -351,33 +351,7 @@ public class IfcSecurityExtractor {
 
   }
 
-  /**
-   * <pre>
-   * we consider intersection between room1 and wall,
-   *             intersection between room2 and wall,
-   *             we "draw" a segment linking the 2 centers
-   *             we  look if the middle point falls inside the wall
-   * @param r1
-   * @param r2
-   * @param wall
-   * @return
-   */
-  private boolean isTheWallSeparating(RoomGeoSmart r1, RoomGeoSmart r2, RoomGeoSmart wall)
-  {
-    
-    Area areaOfWall = wall.getAreaShape100Big();
-    
-    Vector3D centerInters1 = r1.getCentroid100Big();
-    Vector3D centerInters2 = r2.getCentroid100Big();
-    
-    Segment3D center1Center2 = new Segment3D(centerInters1, centerInters2);
-    Vector3D  midPointCenterCenter = center1Center2.getMidPoint();
-    
-    boolean isMidPointInsideWall = areaOfWall.contains
-                                    (midPointCenterCenter.first, midPointCenterCenter.second);
-    
-    return isMidPointInsideWall;
-  }
+
   
   
   

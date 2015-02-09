@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
@@ -20,7 +21,11 @@ public class RoomGeoSmart extends Room {
 
   private Polygon polygon100Big = new Polygon();
   private ProfileShape3D polygon100BigShape3D ;
-
+  
+  /**
+   * Points expressed in cm
+   * @param points
+   */
   public RoomGeoSmart(List<Vector3D> points)
   {
     super(points);
@@ -31,6 +36,10 @@ public class RoomGeoSmart extends Room {
     }
   }
 
+  /**
+   * each point of the shape expressed in cm
+   * @param shape3D
+   */
   public RoomGeoSmart(Shape3D shape3D)
   {
     super(shape3D.getListOfPoints());
@@ -41,42 +50,76 @@ public class RoomGeoSmart extends Room {
     }
 
   }
-
+  /**
+   * <pre>
+   * Area derived from a big polygon
+   * a big polygon is one in which every coordinate is expressed in 
+   * deci-millimiter
+   * that means that for instance point A (2 meter, 3 meters) == A (200 cm, 300 cm) 
+   * you make a polygon   with point A (20000, 30000) and then you call
+   * {@link Area} myArea = new Area(myPolygon);
+   * </pre>
+   * @param alreadyBigArea
+   */
   public RoomGeoSmart(Area alreadyBigArea)
   {
     this(areaToPointList(alreadyBigArea));
   }
 
-  public RoomGeoSmart(Polygon polygon)
+  /**
+   * <pre>
+   * a big polygon is needed
+   * a big polygon is one in which every coordinate is expressed in 
+   * deci-millimiter
+   * that means that for instance to make
+   * point A (2 meter, 3 meters) == A (200 cm, 300 cm) 
+   * you make a polygon   with point A (20000, 30000)
+   * </pre>
+   * @param alreadyBigArea
+   */
+  public RoomGeoSmart(Polygon polygonBig100)
   {
-    this(polygonToList(polygon));
+    this(polygonToList(polygonBig100));
   }
-
+  
+  /**
+   * each point is expressed in cm
+   * @param pointCenterOfSmallRoom
+   */
+  public RoomGeoSmart(Vector3D pointCenterOfSmallRoom)
+  {
+     super(getFloatArrayAroundPoint(pointCenterOfSmallRoom));
+  }
+  
+  /**
+   * a plain sweethome room
+   * @param r
+   */
   public RoomGeoSmart(Room r)
   {
     super( r.getPoints());
     this.setName(r.getName());
     this.addAllPoints(r.getPoints());
   }
-
+  /**
+   * <pre>
+   * each point is expressed in cm
+   * float [][]  points = new float[NUMBER_OF_POINTS][2];
+   * for instance:
+   * points[5][0] = x;
+   * points[5][1] = y;
+   * @param points
+   */
   public RoomGeoSmart(float [][] points) {
     super(points);
     this.addAllPoints(points);
   }
 
-  private void addAllPoints(float [][] points)
-  {
-    for(float [] row : points)
-    {
-      float x = row[0];
-      float y = row[1];
-      this.addPointToPolygonAndToShape(x, y);
-    }
-  }
-
-
-
-
+  /**
+   * point expressed in cm
+   * @param x
+   * @param y
+   */
   public void addPointToPolygonAndToShape(float x, float y)
   {
     this.addPointToShape((int) (x * 100), (int)  (y * 100));
@@ -95,7 +138,11 @@ public class RoomGeoSmart extends Room {
       this.polygon100BigShape3D.addPoint(point);
     }
   }
-
+  
+  /**
+   * The returned rectangle has coordinates expressed in cm
+   * @return
+   */
   public Rectangle3D getBoundingRoomRect3D()
   {
     Rectangle2D rect =  this.polygon100Big.getBounds2D();
@@ -110,6 +157,12 @@ public class RoomGeoSmart extends Room {
     return rect3D;
   }
 
+  /**
+   * return a room bigger, the new size is obtained adding borderSize to each point
+   * in x and y towards the outside of the shape
+   * @param borderSize expressed in cm
+   * @return
+   */
   public RoomGeoSmart getBiggerRoomBordered(float borderSize)
   {
     Rectangle2D rect =  this.polygon100Big.getBounds2D();
@@ -143,7 +196,11 @@ public class RoomGeoSmart extends Room {
 
 
 
-
+  /**
+   * almost the same as getBiggerRoomBordered  but the points are multiplied
+   * @param scaleFactor
+   * @return
+   */
   public RoomGeoSmart getBiggerCopyMultiplied(float scaleFactor)
   {
 
@@ -164,19 +221,87 @@ public class RoomGeoSmart extends Room {
     return new RoomGeoSmart(biggerRoom);
 
   }
-
-  public boolean instersect(RoomGeoSmart r2)
+  
+  /**
+   * 
+   * @param r2
+   * @return true iif there is an intersection with other room
+   */
+  public boolean intersect(RoomGeoSmart r2)
   {
     return this.intersect(r2, intersectionAlgorithm.AREA);
   }
+  
+  /**
+   * <pre>
+   * we consider intersection between room1 and wall,
+   *             intersection between room2 and wall,
+   *             we "draw" a segment linking the 2 centers
+   *             we  look if the middle point falls inside the wall
+   * @param r1
+   * @param r2
+   * @param wall
+   * @return
+   */
+  public boolean isTheWallSeparating(RoomGeoSmart r2, RoomGeoSmart wall)
+  {
+    Area a1 = this.getAreaShape100Big();
+    Area a2 = r2.getAreaShape100Big();
+    float borderSize = (float) wall.getBoundingRoomRect3D().getMinEdge();
+    wall = wall.getBiggerRoomBordered(borderSize);
+    Area aw = wall.getAreaShape100Big();
+    
+    Area a1AndWall = (Area) a1.clone();
+    a1AndWall.intersect(aw);
+    
+    Area a2AndWall = (Area) a2.clone();
+    a2AndWall.intersect(aw);
+    
+    //now I have the "chunks" of rooms who are interested in the wall 
+    //if we imagine the wall covered of fresh paint these (a2AndWall, a1AndWall) would be the dirty of paint areas
+    
+    RoomGeoSmart roomInters1 = new RoomGeoSmart(a1AndWall);
+    RoomGeoSmart roomInters2 = new RoomGeoSmart(a2AndWall);
+    
+    Vector3D centroid1 = roomInters1.getCentroidRegular();
+    Vector3D centroid2 = roomInters2.getCentroidRegular();
+    
+    Segment3D linkingCentroids = new Segment3D(centroid1, centroid2);
+    Vector3D  midPointCC = linkingCentroids.getMidPoint();
+    
+    System.out.println(midPointCC);
+    
+    return wall.containsPoint(midPointCC);
+  
+  }
+  
+  /**
+   * Point expressed in cm
+   * @param point
+   * @return
+   */
+  public boolean containsPoint(Vector3D point)
+  {
+    Area myArea = this.getAreaShape100Big();
+    Vector3D pointBig = point.getScaledVector(100);
+    
+    return myArea.contains(pointBig.first, pointBig.second);
+    
+  }
+  
+  
+  private Area getAreaShape100Big() {
+    
+    return new Area(this.polygon100Big);
+  }
 
   /**
-   * AREA IS BETTER!!
+   * 
    * @param r2
    * @param algo
    * @return
    */
-  public boolean intersect(RoomGeoSmart r2, intersectionAlgorithm algo)
+  private boolean intersect(RoomGeoSmart r2, intersectionAlgorithm algo)
   {
 
     Polygon p1 = this.polygon100Big;
@@ -194,6 +319,17 @@ public class RoomGeoSmart extends Room {
 
   }
 
+  private void addAllPoints(float [][] points)
+  {
+    for(float [] row : points)
+    {
+      float x = row[0];
+      float y = row[1];
+      this.addPointToPolygonAndToShape(x, y);
+    }
+  }
+
+  
   private void addPointToShape(int x, int y)
   {
     this.polygon100Big.addPoint(x , y );
@@ -216,12 +352,9 @@ public class RoomGeoSmart extends Room {
     return ! intersectionArea.isEmpty();
 
   }
-
-  public Area getAreaShape100Big()
-  {
-    return new Area(this.polygon100Big);
-  }
-
+  
+  
+  
 
   private boolean pointsIntersect(Polygon p1, Polygon p2)
   {
@@ -241,8 +374,10 @@ public class RoomGeoSmart extends Room {
     return false;
   }
 
-
   @Override
+  /**
+   * representation of points in cm
+   */
   public String toString()
   {
 
@@ -256,7 +391,10 @@ public class RoomGeoSmart extends Room {
 
   }
 
-
+  /**
+   * centroid (x, y)  where x = avg (Xi)  of the shape, same with y
+   * @return  centroid expressed in deci-millimiter
+   */
   public Vector3D getCentroid100Big() 
   {
     double xTot=0, yTot =0;
@@ -270,7 +408,10 @@ public class RoomGeoSmart extends Room {
     yTot = yTot / points.size();
     return new Vector3D(xTot, yTot, 0);
   }
-  
+  /**
+   * centroid (x, y)  where x = avg (Xi)  of the shape, same with y
+   * @return centroid expressed in centimeter
+   */
   public Vector3D getCentroidRegular()
   {
     return this.getCentroid100Big().getScaledVector(0.01f);
@@ -278,46 +419,11 @@ public class RoomGeoSmart extends Room {
 
 
 
-  public enum intersectionAlgorithm
+  private enum intersectionAlgorithm
   {
     INNER_POINTS, AREA
   }
 
-  private static float [][] getPointsFromArea(Area area100Big)
-  {
-    Polygon polygon100Big = getPolygonFromAreaBig(area100Big);
-    return getPointsFromAlreadyBigPolygon(polygon100Big);
-  }
-
-  private static Polygon getPolygonFromAreaBig(Area area100Big) {
-    // TODO do it!
-    return null;
-  }
-
-  private static float [][] getPointsFromAlreadyBigPolygon(Polygon big100Polygon)
-  {
-
-    //first  2 points
-    float xp1 = big100Polygon.xpoints[0];
-    float yp1 = big100Polygon.ypoints[0];
-
-    float xp2 = big100Polygon.xpoints[1];
-    float yp2 = big100Polygon.ypoints[1];
-
-    float [][] pointsStart = new float[][] {{xp1/100, yp1/100}, {xp2/100, yp2/100}};
-
-    Room r1 = new Room(pointsStart);
-
-
-    for(int i=2; i<big100Polygon.xpoints.length; i++)
-    {
-      float x = big100Polygon.xpoints[i];
-      float y = big100Polygon.xpoints[i];
-      r1.addPoint(x/100, y/100);
-    }
-
-    return r1.getPoints();
-  }
 
   private static List<Vector3D>  polygonToList(Polygon polygon)
   {
@@ -403,6 +509,33 @@ public class RoomGeoSmart extends Room {
 
     return intersAreaRoom;
   }
+  
+  
+  
+  
+  private static float [][] getFloatArrayAroundPoint(Vector3D pointCenterOfSmallRoom) {
+    
+    float xc = (float)pointCenterOfSmallRoom.first;
+    float yc = (float)pointCenterOfSmallRoom.second;
+    
+    float x1 = xc - 30;
+    float y1 = yc - 30;
+    
+    float x2 = xc + 30;
+    float y2 = yc - 30;
+
+    float x3 = xc + 30;
+    float y3 = yc + 30;
+    
+    float x4 = xc - 30;
+    float y4 = yc + 30;
+    
+    
+    return new float [][]{{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}};
+  }
+  
+  
+  
 }
 
 

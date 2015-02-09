@@ -104,7 +104,7 @@ public class Vector3D
   {
     double diff = a - b;
     diff = Math.abs(diff);
-    return diff < 10e-06;
+    return diff < 10e-05;
   }
   
   

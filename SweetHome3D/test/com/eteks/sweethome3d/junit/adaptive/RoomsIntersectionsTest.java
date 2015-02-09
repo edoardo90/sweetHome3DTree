@@ -24,7 +24,6 @@ import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
-import com.eteks.sweethome3d.model.RoomGeoSmart.intersectionAlgorithm;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.FurnitureCatalogTree;
 import com.eteks.sweethome3d.swing.FurnitureTable;
@@ -73,35 +72,14 @@ public class RoomsIntersectionsTest extends BasicTest {
     
   }
 
-  /**
-   * check intersections bween rooms  
-   */
-  public void testIntersectionFarInner()
-  {
 
 
-    boolean intes =  this.triangleRoom.intersect
-        (this.farRectangleRoom, intersectionAlgorithm.INNER_POINTS);
-
-    assertFalse("Inner points, triangle and far rect should not meet" , intes);
-
-  }
-
-  public void testTriangleCloseInner()
-  {
-    boolean intes =  this.triangleRoom.intersect
-        (this.closeRectangleRoom, intersectionAlgorithm.INNER_POINTS);
-
-    assertTrue("Inner points, triangle and close rect should  meet" , intes);
-
-  }
 
 
   public void testIntersectionFarArea()
   {
 
-    boolean intes =  this.triangleRoom.intersect
-        (this.farRectangleRoom, intersectionAlgorithm.AREA);
+    boolean intes =  this.triangleRoom.intersect(this.farRectangleRoom);
 
     assertFalse("Area, triangle and far rect should not meet" , intes);
   }
@@ -109,7 +87,7 @@ public class RoomsIntersectionsTest extends BasicTest {
   public void testTriangleCloseArea()
   {
     boolean intes =  this.triangleRoom.intersect
-        (this.closeRectangleRoom, intersectionAlgorithm.AREA);
+        (this.closeRectangleRoom);
 
     assertTrue("Area, triangle and close rect should  meet" , intes);
 
@@ -120,19 +98,12 @@ public class RoomsIntersectionsTest extends BasicTest {
   {
 
     boolean intes =  this.triangleRoom.intersect
-        (this.weirdRoomPointsOnEdge, intersectionAlgorithm.AREA);
+        (this.weirdRoomPointsOnEdge);
 
     assertTrue("Area, triangle and strange close area should  meet" , intes);
   }
 
-  public void testIntersectionCloseStrangeInner()
-  {
 
-    boolean intes =  this.triangleRoom.intersect
-        (this.weirdRoomPointsOnEdge, intersectionAlgorithm.INNER_POINTS);
-
-    assertTrue("Area, triangle and strange close area should  meet" , intes);
-  }
 
   /**
    * !!!!
@@ -154,7 +125,7 @@ public class RoomsIntersectionsTest extends BasicTest {
   {
 
     boolean intes =  this.triangleRoom.intersect
-        (this.weirdRoomPointsOutsideEdge, intersectionAlgorithm.AREA);
+        (this.weirdRoomPointsOutsideEdge);
 
     assertTrue("Area, triangle and strange close area with points outside edges should  meet" , intes);
   }
@@ -162,7 +133,7 @@ public class RoomsIntersectionsTest extends BasicTest {
   public void testIntersectionSlightlyOutsideArea()
   {
    boolean intes = this.triangleRoom.intersect
-           (this.weirdCloseButDetached, intersectionAlgorithm.AREA);
+           (this.weirdCloseButDetached);
    assertFalse("Area, weird room is outside" , intes);
     
   }
@@ -198,8 +169,6 @@ public class RoomsIntersectionsTest extends BasicTest {
     home.addRoom(r1);
     home.addRoom(r2);
 
-    System.out.println( "intersect : " + r1.intersect(r2, intersectionAlgorithm.INNER_POINTS));
-
-    
+        
   }
 }

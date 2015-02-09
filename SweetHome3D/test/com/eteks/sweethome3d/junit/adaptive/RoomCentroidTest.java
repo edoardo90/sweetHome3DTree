@@ -28,12 +28,13 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
-import com.eteks.sweethome3d.model.RoomGeoSmart.intersectionAlgorithm;
+
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.FurnitureCatalogTree;
 import com.eteks.sweethome3d.swing.FurnitureTable;
@@ -59,6 +60,9 @@ public class RoomCentroidTest extends BasicTest {
   private RoomGeoSmart        squareRoom;
   private RoomGeoSmart        rectangularRoom;
   private RoomGeoSmart        rectangularRoomShifted;
+  private RoomGeoSmart        elRoom1;
+  private RoomGeoSmart        elRoom2;
+  private RoomGeoSmart        wallBetweenL;
 
   @Override
   protected void setUp() {
@@ -143,6 +147,8 @@ public class RoomCentroidTest extends BasicTest {
     Vector3D centroidTheoretical = new Vector3D(550, 100, 0);
     Vector3D centroidActual = intersectionAreaRoom.getCentroidRegular();
     
+    System.out.println(centroidActual);
+    
     assertTrue("centroid in wrong position", centroidActual.almostEqual(centroidTheoretical));
     
   }
@@ -164,8 +170,6 @@ public class RoomCentroidTest extends BasicTest {
   
   
   
-  
-  
   protected RoomGeoSmart getSquareRoom() {
     List<Vector3D> lst = new ArrayList<Vector3D>();
 
@@ -176,6 +180,51 @@ public class RoomCentroidTest extends BasicTest {
     
     return new RoomGeoSmart(lst);
   }
+  
+  protected RoomGeoSmart getEl1Room()
+  {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(0, 0, 0));
+    lst.add(new Vector3D(200, 0, 0));
+    lst.add(new Vector3D(200, 500, 0));
+    lst.add(new Vector3D(500, 500, 0));
+    lst.add(new Vector3D(500, 700, 0));
+    lst.add(new Vector3D(0, 700, 0));    
+    
+    return new RoomGeoSmart(lst);
+  }
+  
+  protected RoomGeoSmart getEl2Room()
+  {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    
+    lst.add(new Vector3D(1000, 0, 0));
+    lst.add(new Vector3D(1200, 0, 0));
+    lst.add(new Vector3D(1200, 700, 0));
+    lst.add(new Vector3D(600,  700, 0));
+    lst.add(new Vector3D(600, 500, 0));
+    lst.add(new Vector3D(1000, 500, 0));    
+    
+    return new RoomGeoSmart(lst);
+    
+    
+  }
+  
+  protected RoomGeoSmart getWallBetween() {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    
+    lst.add(new Vector3D(500, 500, 0));
+    lst.add(new Vector3D(600, 500, 0));
+    lst.add(new Vector3D(600, 700, 0));
+    lst.add(new Vector3D(500,  700, 0));
+    
+    return new RoomGeoSmart(lst);
+  } 
+  
+  
   
   public static class ControllerTest extends HomeController {
     public ControllerTest(Home home, 
@@ -207,17 +256,26 @@ public class RoomCentroidTest extends BasicTest {
     
     this.rectangularRoom = getRectangularShortRoom(0,0);
     this.rectangularRoomShifted = getRectangularShortRoom(300, 0);
+    this.elRoom1 = getEl1Room();
+    this.elRoom2 = getEl2Room();
+    this.wallBetweenL = getWallBetween();
+    
     RoomGeoSmart intersectionAreaRoom = this.rectangularRoomShifted.intersectionAreaRoom(this.rectangularRoom);
     
     System.out.println(intersectionAreaRoom);
     
-    home.addRoom(intersectionAreaRoom);
-    home.addRoom(this.rectangularRoomShifted);
-    home.addRoom(this.rectangularRoom);
+    home.addRoom(elRoom1);
+    home.addRoom(elRoom2);
+    home.addRoom(wallBetweenL);
     
+    boolean isw = elRoom1.isTheWallSeparating(elRoom2, wallBetweenL);
+    System.out.println(isw);
     
+  }
+
     
-  } 
+
+
 }
   
   
