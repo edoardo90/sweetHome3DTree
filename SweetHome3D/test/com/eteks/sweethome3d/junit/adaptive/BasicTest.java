@@ -91,6 +91,18 @@ public abstract  class BasicTest extends TestCase {
 
   public abstract void doStuffInsideMain(Home home, UserPreferences preferences);
   
+  protected static boolean almostEqual(double a, double b)
+  {
+    double diff = a - b;
+    diff = Math.abs(diff);
+    return diff < 10e-06;
+  }
+  
+  protected static boolean almostEqual(float a , float b)
+  {
+    return  almostEqual((float)a, (float)b);
+  }
+  
   //triangle
   public  static RoomGeoSmart getTriangle()
   {
@@ -174,6 +186,9 @@ public abstract  class BasicTest extends TestCase {
     
     return new RoomGeoSmart(lst);
   }
+  
+  
+  
   
   
 

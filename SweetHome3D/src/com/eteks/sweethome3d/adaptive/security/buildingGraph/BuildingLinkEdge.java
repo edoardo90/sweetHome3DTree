@@ -27,6 +27,14 @@ public abstract class BuildingLinkEdge extends BuildingGraphPart{
     this.secondRoom = room2;
   }
 
+  public String getFirstRoom()
+  {
+    return this.firstRoom;
+  }
+  public String getSecondRoom()
+  {
+    return this.secondRoom;
+  }
   public boolean makeSense()
   {
     return !  firstRoom.equals(secondRoom);

@@ -1505,12 +1505,10 @@ public class Home implements Serializable, Cloneable {
   // --- !!! ---
   public void clearRooms() {
     this.rooms.clear();
-    
   }
 
   public void displayGraph(BuildingSecurityGraph securityGraph, UserPreferences preferences) {
 
-    
     List<BuildingRoomNode> roomsInBuilding = securityGraph.getRoomNodeList();
     for(BuildingRoomNode rib : roomsInBuilding)
     {
@@ -1520,8 +1518,6 @@ public class Home implements Serializable, Cloneable {
       {
          Vector3D objPosition =  objectContained.getPosition();
          HomePieceOfFurniture hopf = objectContained.getPieceOfForniture(preferences);
-
-         
          hopf.setX((float)objPosition.first);
          hopf.setY((float)objPosition.second);
          hopf.setElevation(0);
@@ -1536,36 +1532,42 @@ public class Home implements Serializable, Cloneable {
     
     List<BuildingLinkEdge> linksInBuilding = securityGraph.getLinkEdgeList();
     
+    List<WallProperties> lstAddedWalls = new ArrayList<Home.WallProperties>();
+    
     for(BuildingLinkEdge link : linksInBuilding)
     {
          if(link instanceof BuildingLinkWall)
          {
            BuildingLinkWall linkWithWall = (BuildingLinkWall)link;
-           
            Wall wall = linkWithWall.getWall();
-           this.addWall(wall);
+           WallProperties wp = new WallProperties(wall);
+           
+           if(! lstAddedWalls.contains(wp))
+           { 
+                lstAddedWalls.add(wp);
+                this.addWall(wall);
+           }
            
            if(linkWithWall instanceof BuildinLinkWallWithDoor)
            {
              BuildinLinkWallWithDoor linkDoor = (BuildinLinkWallWithDoor) linkWithWall;
              DoorObject door =  linkDoor.getDoor();
              HomePieceOfFurniture doorHopf = this.getDoor();
-             
              Vector3D position = door.getPosition();
              float angle = door.getAngle();
-            
              doorHopf.setX((float)position.first);
              doorHopf.setY((float)position.second);
              doorHopf.setAngle(angle);
-             
              this.addPieceOfFurniture(doorHopf);
-             
            }
-           
          }
     }
     
-
+    List<Wall> otherWalls = securityGraph.getNotLinkingWalls();
+    for(Wall wall : otherWalls)
+    {
+      this.addWall(wall);
+    }
     
   }
   
@@ -1594,7 +1596,80 @@ public class Home implements Serializable, Cloneable {
     return door;
   }
   
-  
+  private class WallProperties
+  {
+    
+    @Override
+    public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + getOuterType().hashCode();
+      result = prime * result + Float.floatToIntBits(this.height);
+      result = prime * result + Float.floatToIntBits(this.thickness);
+      result = prime * result + Float.floatToIntBits(this.xend);
+      result = prime * result + Float.floatToIntBits(this.xstart);
+      result = prime * result + Float.floatToIntBits(this.yend);
+      result = prime * result + Float.floatToIntBits(this.ystart);
+      return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj == null)
+        return false;
+      if (getClass() != obj.getClass())
+        return false;
+      WallProperties other = (WallProperties)obj;
+      if (!getOuterType().equals(other.getOuterType()))
+        return false;
+      if (Float.floatToIntBits(this.height) != Float.floatToIntBits(other.height))
+        return false;
+      if (Float.floatToIntBits(this.thickness) != Float.floatToIntBits(other.thickness))
+        return false;
+      if (Float.floatToIntBits(this.xend) != Float.floatToIntBits(other.xend))
+        return false;
+      if (Float.floatToIntBits(this.xstart) != Float.floatToIntBits(other.xstart))
+        return false;
+      if (Float.floatToIntBits(this.yend) != Float.floatToIntBits(other.yend))
+        return false;
+      if (Float.floatToIntBits(this.ystart) != Float.floatToIntBits(other.ystart))
+        return false;
+      return true;
+    }
+
+    float xstart, ystart, xend, yend, thickness, height;
+    
+    public WallProperties(float xstart, float ystart, float xend, float yend, float thickness, float height)
+    {
+      this.xstart = xstart;
+      this.xend = xend;
+      this.ystart = ystart;
+      this.yend = yend;
+      this.thickness = thickness;
+      this.height = height;
+    }
+    
+    public WallProperties(Wall w)
+    {
+     
+      this.xstart = w.getXStart();
+      this.xend = w.getXEnd();
+      this.ystart = w.getYStart();
+      this.yend = w.getYEnd();
+      this.thickness = w.getThickness();
+      this.height = w.getHeight();
+      
+    }
+
+    private Home getOuterType() {
+      return Home.this;
+    }
+    
+    
+    
+  }
 
 
 }

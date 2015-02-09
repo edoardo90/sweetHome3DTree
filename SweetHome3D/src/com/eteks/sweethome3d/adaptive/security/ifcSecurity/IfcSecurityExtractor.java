@@ -70,7 +70,8 @@ public class IfcSecurityExtractor {
   private String ifcFileName;
   private IfcModel ifcModel;
   private List<IfcSpace> ifcSpaces = new ArrayList<IfcSpace>();
-
+  private List<String>   addedWalls = new ArrayList<String>();
+  
   private Map<IfcSpace, BuildingRoomNode> spaceToRoomNoode  = new HashMap<IfcSpace, BuildingRoomNode>();
   protected ConfigLoader configLoader;
 
@@ -98,7 +99,8 @@ public class IfcSecurityExtractor {
 
     List<BuildingLinkEdge> linkEdgeList;
     List<BuildingRoomNode> roomNodeList;
-
+    List<Wall>  notLinkingWalls;
+    
     ifcModel = new IfcModel();
 
     File stepFile = new File(this.ifcFileName);
@@ -117,12 +119,33 @@ public class IfcSecurityExtractor {
 
     roomNodeList = this.getRooms(scaleFactor);
     linkEdgeList = this.getLinks(scaleFactor);
-
+    notLinkingWalls = this.getAllOtherWalls(scaleFactor);
 
     buildingSecurityGraph.setLinkEdgeList(linkEdgeList);
     buildingSecurityGraph.setRoomNodeList(roomNodeList);
+    buildingSecurityGraph.setNotLinkingWalls(notLinkingWalls);
 
     return buildingSecurityGraph;
+  }
+
+  private List<Wall> getAllOtherWalls(float scaleFactor) {
+    List<Wall> walls = new ArrayList<Wall>();
+    Collection<IfcWall> ifcWallsColl = ifcModel.getCollection(IfcWall.class);
+    
+    for(IfcWall ifcWall : ifcWallsColl)
+    {
+      String wallId =  ifcWall.getGlobalId().getDecodedValue();
+      
+      if(! this.addedWalls.contains(wallId))
+      {
+        Shape3D wallShape = getShapeAndPosition(ifcWall, scaleFactor);
+        RoomGeoSmart smartWallSeenAsRoom = new RoomGeoSmart(wallShape);
+        Rectangle3D rectWall = smartWallSeenAsRoom.getBoundingRoomRect3D();
+        Wall wall = rectWall.getWall();
+        walls.add(wall);
+      }
+    }
+    return walls;
   }
 
   /**
@@ -164,7 +187,6 @@ public class IfcSecurityExtractor {
       if(nameOfUnit != null)
         un = "" + nameOfUnit.value;
 
-      System.out.println(" PREF:" + pr +  "UN:" + un);
       if(pr.equals("MILLI") &&  un.equals("METRE"))
       {
         scaleF = 0.10f;
@@ -227,6 +249,8 @@ public class IfcSecurityExtractor {
                 //because angle of wall in already "included" in its shape
 
                 Wall wall = rectWall.getWall();
+                if(!this.addedWalls.contains(wallID))
+                    this.addedWalls.add(wallID);
 
                 DoorObject door = this.getDoor(elementBounding, scaleFactor); //door id is setted here if any
                 
@@ -257,6 +281,8 @@ public class IfcSecurityExtractor {
       }
     }
 
+    System.out.println(buildingLinkEdgeList);
+    
     return buildingLinkEdgeList;
 
   }
@@ -317,11 +343,11 @@ public class IfcSecurityExtractor {
     //intersection between 2 rooms
     boolean instersect = smart1Bigger.instersect(smart2Bigger);
     
-    smartWallSeenAsRoom.getBiggerRoomBordered(borderSize);
-    boolean isWallSeparating = isTheWallSeparating(smart1, smart2, smartWallSeenAsRoom);
+    smartWallSeenAsRoom.getBiggerRoomBordered(borderSize*2);
+    //TODO: debug  --- boolean isWallSeparating = isTheWallSeparating(smart1, smart2, smartWallSeenAsRoom);
     
     
-    return instersect;
+    return instersect ;
 
   }
 
@@ -340,16 +366,9 @@ public class IfcSecurityExtractor {
   {
     
     Area areaOfWall = wall.getAreaShape100Big();
-   
-    Area areaRoom1 = r1.getAreaShape100Big();
-    areaRoom1.intersect(areaOfWall);
     
-    Area areaRoom2 = r2.getAreaShape100Big();
-    areaRoom2.intersect(areaOfWall);
-    
-    
-    Vector3D centerInters1 = r1.get100BigCentroid();
-    Vector3D centerInters2 = r2.get100BigCentroid();
+    Vector3D centerInters1 = r1.getCentroid100Big();
+    Vector3D centerInters2 = r2.getCentroid100Big();
     
     Segment3D center1Center2 = new Segment3D(centerInters1, centerInters2);
     Vector3D  midPointCenterCenter = center1Center2.getMidPoint();
@@ -375,27 +394,20 @@ public class IfcSecurityExtractor {
     {
       if(getStoreyName(space).equals(storeyName))
       {
-
         String roomName = space.getLongName().getDecodedValue();
         String idRoom = space.getGlobalId().getDecodedValue();
-        System.out.println("\n _________________________________\n storey : "
-            + storeyName + "\n room: " + roomName 
-            + " room ID : "  + idRoom);
-
+        
         //shape and position
         Shape3D roomShape = getShapeAndPosition(space, scaleFactor); 
 
 
-        System.out.println("room shape: \n" + roomShape);
-
         //containement
         List<BuildingObjectContained> objects = getObjectsOfRoom(space, scaleFactor);
-        System.out.println( "contains: " +  objects);
-
 
         BuildingRoomNode buildingRoomNode = new
             BuildingRoomNode(roomName, roomShape, objects);
         buildingRoomNode.setId(idRoom);
+        
         buildingRoomList.add(buildingRoomNode);
 
         this.spaceToRoomNoode.put(space, buildingRoomNode);
@@ -450,7 +462,7 @@ public class IfcSecurityExtractor {
 
 
           String productName = furnitureProduct.getName().getDecodedValue();
-          System.out.println("\t\t " + productName);
+          
         }
       }
     }

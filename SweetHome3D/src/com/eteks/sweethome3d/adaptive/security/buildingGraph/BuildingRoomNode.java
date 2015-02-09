@@ -44,6 +44,7 @@ public class BuildingRoomNode extends BuildingGraphPart {
   public RoomGeoSmart getRoomSmart() 
   {
     Room r = this.roomShape.getRoom();
+    r.setName(this.room.getName());
     return new RoomGeoSmart(r);
   
   }

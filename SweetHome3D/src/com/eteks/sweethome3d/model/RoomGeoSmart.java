@@ -6,6 +6,7 @@ import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape3D;
@@ -40,17 +41,21 @@ public class RoomGeoSmart extends Room {
     }
 
   }
-  
+
   public RoomGeoSmart(Area alreadyBigArea)
   {
-    super(getPointsFromArea(alreadyBigArea));
-    
-    
+    this(areaToPointList(alreadyBigArea));
   }
-  
+
+  public RoomGeoSmart(Polygon polygon)
+  {
+    this(polygonToList(polygon));
+  }
+
   public RoomGeoSmart(Room r)
   {
     super( r.getPoints());
+    this.setName(r.getName());
     this.addAllPoints(r.getPoints());
   }
 
@@ -69,18 +74,21 @@ public class RoomGeoSmart extends Room {
     }
   }
 
+
+
+
   public void addPointToPolygonAndToShape(float x, float y)
   {
     this.addPointToShape((int) (x * 100), (int)  (y * 100));
-    
-    Vector3D point = new Vector3D(x*100, x*100, 0);
-    
+
+    Vector3D point = new Vector3D(x*100, y*100, 0);
+
     if(this.polygon100BigShape3D == null)
     {
       List<Vector3D> points = new ArrayList<Vector3D>();
       points.add(point);
       polygon100BigShape3D = new ProfileShape3D(points);
-     
+
     }
     else
     {
@@ -107,7 +115,7 @@ public class RoomGeoSmart extends Room {
     Rectangle2D rect =  this.polygon100Big.getBounds2D();
     double xc = rect.getCenterX()/100;
     double yc = rect.getCenterY()/100;
-   
+
     float[][] points = this.getPoints();
     for(float[] row : points)
     {
@@ -127,15 +135,15 @@ public class RoomGeoSmart extends Room {
       row[1] = yp;
     }
 
-    
+
     RoomGeoSmart roomBigger = new RoomGeoSmart(points);
     return roomBigger;
 
   }
 
-  
-  
-  
+
+
+
   public RoomGeoSmart getBiggerCopyMultiplied(float scaleFactor)
   {
 
@@ -168,7 +176,7 @@ public class RoomGeoSmart extends Room {
    * @param algo
    * @return
    */
-   public boolean intersect(RoomGeoSmart r2, intersectionAlgorithm algo)
+  public boolean intersect(RoomGeoSmart r2, intersectionAlgorithm algo)
   {
 
     Polygon p1 = this.polygon100Big;
@@ -186,147 +194,219 @@ public class RoomGeoSmart extends Room {
 
   }
 
-   private void addPointToShape(int x, int y)
-   {
-     this.polygon100Big.addPoint(x , y );
-     
-   }
-   /**
-    * true iif intersection exists
-    * @param p1
-    * @param p2
-    * @return
-    */
-   private boolean areaIntersect(Polygon p1, Polygon p2)
-   {
-     Area a1 = new Area(p1);
-     Area a2 = new Area(p2);
+  private void addPointToShape(int x, int y)
+  {
+    this.polygon100Big.addPoint(x , y );
 
-     Area intersectionArea = (Area)a1.clone();
+  }
+  /**
+   * true iif intersection exists
+   * @param p1
+   * @param p2
+   * @return
+   */
+  private boolean areaIntersect(Polygon p1, Polygon p2)
+  {
+    Area a1 = new Area(p1);
+    Area a2 = new Area(p2);
 
-     intersectionArea.intersect(a2);
-     return ! intersectionArea.isEmpty();
+    Area intersectionArea = (Area)a1.clone();
 
-   }
-   
-   public Area getAreaShape100Big()
-   {
-     return new Area(this.polygon100Big);
-   }
-   
+    intersectionArea.intersect(a2);
+    return ! intersectionArea.isEmpty();
 
-   private boolean pointsIntersect(Polygon p1, Polygon p2)
-   {
-     Point p;
-     for(int i = 0; i < p2.npoints;i++)
-     {
-       p = new Point(p2.xpoints[i],p2.ypoints[i]);
-       if(p1.contains(p))
-         return true;
-     }
-     for(int i = 0; i < p1.npoints;i++)
-     {
-       p = new Point(p1.xpoints[i],p1.ypoints[i]);
-       if(p2.contains(p))
-         return true;
-     }
-     return false;
-   }
-   
-   
-   @Override
-   public String toString()
-   {
-     
-     String s = "";
-     float [][] points = this.getPoints();
-     for(int i=0;i<points.length; i++)
-     {
-       s = s + "(" + points[i][0] + ", " + points[i][1] + ")"   + "\n";
-     }
-     return s;
-     
-   }
-   
-   
-   public Vector3D get100BigCentroid() 
-   {
-     double xTot=0, yTot =0;
-     List<Vector3D> points = this.polygon100BigShape3D.getListOfPoints();
-     for(Vector3D point : points)
-     {
-       xTot+= point.first;
-       yTot+=point.second;
-     }
-     xTot = xTot / points.size();
-     yTot = yTot / points.size();
-     return new Vector3D(xTot, yTot, 0);
-   }
-   
-   
-   
+  }
 
-   public enum intersectionAlgorithm
-   {
-     INNER_POINTS, AREA
-   }
+  public Area getAreaShape100Big()
+  {
+    return new Area(this.polygon100Big);
+  }
 
-   private static float [][] getPointsFromArea(Area area100Big)
-   {
-     Polygon polygon100Big = getPolygonFromAreaBig(area100Big);
-     return getPointsFromAlreadyBigPolygon(polygon100Big);
-   }
-   
-   private static float [][] getPointsFromAlreadyBigPolygon(Polygon big100Polygon)
-   {
 
-     //first  2 points
-     float xp1 = big100Polygon.xpoints[0];
-     float yp1 = big100Polygon.ypoints[0];
-     
-     float xp2 = big100Polygon.xpoints[1];
-     float yp2 = big100Polygon.ypoints[1];
-     
-     float [][] pointsStart = new float[][] {{xp1/100, yp1/100}, {xp2/100, yp2/100}};
-     
-     Room r1 = new Room(pointsStart);
-    
-     
-     for(int i=2; i<big100Polygon.xpoints.length; i++)
-     {
-       float x = big100Polygon.xpoints[i];
-       float y = big100Polygon.xpoints[i];
-       r1.addPoint(x/100, y/100);
-     }
-     
-     return r1.getPoints();
-   }
-   
- private static Polygon getPolygonFromAreaBig(Area area100Big)
- {
-   
-   Polygon mask_tmp = new Polygon();
-   
-   PathIterator path = area100Big.getPathIterator(null);
-    while (!path.isDone()) 
+  private boolean pointsIntersect(Polygon p1, Polygon p2)
+  {
+    Point p;
+    for(int i = 0; i < p2.npoints;i++)
     {
-        toPolygon(path, mask_tmp);
-        path.next();
+      p = new Point(p2.xpoints[i],p2.ypoints[i]);
+      if(p1.contains(p))
+        return true;
     }
-    
-   return mask_tmp;
- } 
+    for(int i = 0; i < p1.npoints;i++)
+    {
+      p = new Point(p1.xpoints[i],p1.ypoints[i]);
+      if(p2.contains(p))
+        return true;
+    }
+    return false;
+  }
 
- private static void toPolygon(PathIterator p_path, Polygon mask_tmp) 
- {
-      double[] point = new double[2];
-      if(p_path.currentSegment(point) != PathIterator.SEG_CLOSE)
+
+  @Override
+  public String toString()
+  {
+
+    String s = "";
+    float [][] points = this.getPoints();
+    for(int i=0;i<points.length; i++)
+    {
+      s = s + "(" + points[i][0] + ", " + points[i][1] + ")"   + "\n";
+    }
+    return s;
+
+  }
+
+
+  public Vector3D getCentroid100Big() 
+  {
+    double xTot=0, yTot =0;
+    List<Vector3D> points = this.polygon100BigShape3D.getListOfPoints();
+    for(Vector3D point : points)
+    {
+      xTot+= point.first;
+      yTot+=point.second;
+    }
+    xTot = xTot / points.size();
+    yTot = yTot / points.size();
+    return new Vector3D(xTot, yTot, 0);
+  }
+  
+  public Vector3D getCentroidRegular()
+  {
+    return this.getCentroid100Big().getScaledVector(0.01f);
+  }
+
+
+
+  public enum intersectionAlgorithm
+  {
+    INNER_POINTS, AREA
+  }
+
+  private static float [][] getPointsFromArea(Area area100Big)
+  {
+    Polygon polygon100Big = getPolygonFromAreaBig(area100Big);
+    return getPointsFromAlreadyBigPolygon(polygon100Big);
+  }
+
+  private static Polygon getPolygonFromAreaBig(Area area100Big) {
+    // TODO do it!
+    return null;
+  }
+
+  private static float [][] getPointsFromAlreadyBigPolygon(Polygon big100Polygon)
+  {
+
+    //first  2 points
+    float xp1 = big100Polygon.xpoints[0];
+    float yp1 = big100Polygon.ypoints[0];
+
+    float xp2 = big100Polygon.xpoints[1];
+    float yp2 = big100Polygon.ypoints[1];
+
+    float [][] pointsStart = new float[][] {{xp1/100, yp1/100}, {xp2/100, yp2/100}};
+
+    Room r1 = new Room(pointsStart);
+
+
+    for(int i=2; i<big100Polygon.xpoints.length; i++)
+    {
+      float x = big100Polygon.xpoints[i];
+      float y = big100Polygon.xpoints[i];
+      r1.addPoint(x/100, y/100);
+    }
+
+    return r1.getPoints();
+  }
+
+  private static List<Vector3D>  polygonToList(Polygon polygon)
+  {
+    int index = 0;
+    PathIterator clockIter = polygon.getPathIterator(null);
+    List<Vector3D> points = new ArrayList<Vector3D>();
+    while(!clockIter.isDone() && index < polygon.npoints) {
+      float[] coords = new float[2];
+      clockIter.currentSegment(coords);
+      double x = coords[0];
+      double y = coords[1];
+      Vector3D point = new Vector3D(x, y, 0);
+      points.add(point);
+      clockIter.next();
+      index++;
+    }
+    return points;
+  }
+
+  private static  List<Vector3D> areaToPointList(Area alreadyBigArea) {
+    PathIterator pi = alreadyBigArea.getPathIterator(null);
+    List<Vector3D> points = new ArrayList<Vector3D>();
+    while (pi.isDone() == false) {
+      Vector3D point = describeCurrentSegment(pi);
+      if(point != null)
       {
-             mask_tmp.addPoint((int) point[0], (int) point[1]);
+        points.add(point);
+        point.scale(0.01f);
       }
+      pi.next();
+    }
 
- }
+    Vector3D head = points.remove(0);
 
+    Collections.reverse(points);
 
+    points.add(0, head);
 
+    return points;
+  }
+
+  private  static Vector3D describeCurrentSegment(PathIterator pi) {
+    double[] coordinates = new double[6];
+    double x, y;
+    int type = pi.currentSegment(coordinates);
+    switch (type) {
+      case PathIterator.SEG_MOVETO:
+
+        x = coordinates[0];
+        y = coordinates[1];
+        return new Vector3D(x, y, 0);
+
+      case PathIterator.SEG_LINETO:
+
+        x = coordinates[0];
+        y = coordinates[1];
+        return new Vector3D(x, y, 0);
+      case PathIterator.SEG_QUADTO:
+
+        break;
+      case PathIterator.SEG_CUBICTO:
+
+        break;
+      case PathIterator.SEG_CLOSE:
+        break;
+      default:
+        break;
+    }
+    return null;
+  }
+
+  public RoomGeoSmart intersectionAreaRoom(RoomGeoSmart room2) {
+
+    Polygon p1 = this.polygon100Big;
+    Polygon p2 = room2.polygon100Big; 
+
+    Area a1 = new Area(p1);
+    Area a2 = new Area(p2); 
+
+    a1.intersect(a2);
+
+    RoomGeoSmart intersAreaRoom = new RoomGeoSmart(a1);
+
+    return intersAreaRoom;
+  }
 }
+
+
+
+
+
+

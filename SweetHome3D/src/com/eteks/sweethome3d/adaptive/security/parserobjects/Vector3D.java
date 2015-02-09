@@ -99,6 +99,21 @@ public class Vector3D
   {
     return new Vector3D(first, second, third);
   }
+
+  private static boolean almostEqual(double a, double b)
+  {
+    double diff = a - b;
+    diff = Math.abs(diff);
+    return diff < 10e-06;
+  }
+  
+  
+  public boolean almostEqual(Vector3D v2) {
+    
+    return almostEqual(this.first, v2.first) &&
+           almostEqual(this.second, v2.second)  &&
+           almostEqual(this.third, v2.third) ;
+  }
   
   
   

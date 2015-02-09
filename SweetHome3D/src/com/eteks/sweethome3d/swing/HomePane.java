@@ -158,13 +158,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.JTextComponent;
 
+import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.IdAlreadyInUseException;
+import org.graphstream.graph.implementations.MultiGraph;
+import org.graphstream.graph.implementations.MultiNode;
 import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.spriteManager.Sprite;
+import org.graphstream.ui.spriteManager.SpriteManager;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer;
@@ -263,7 +269,7 @@ public class HomePane extends JRootPane implements HomeView {
 
   private JTextField            txtAddArch;
   private JTextField            txtAddVertex;
-  private Graph                 homeGraph = new SingleGraph("home graph");
+  private Graph                 homeGraph = new MultiGraph("home graph");
   private Graph                 homeTreeGraph  = new SingleGraph("home tree");
   private GraphDisplayer        homeGraphDisplayer;
 
@@ -829,13 +835,14 @@ public class HomePane extends JRootPane implements HomeView {
         {
 
           BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraphFromFile();
-          home.displayGraph(securityGraph, getUserPreferences());          
+          home.displayGraph(securityGraph, getUserPreferences());
+          populateGraph(securityGraph);
 
         } catch (Exception ex) { ex.printStackTrace();    }
 
       }
       if (rVal == JFileChooser.CANCEL_OPTION) {
-
+        populateGraph();
       }
 
 
@@ -843,11 +850,67 @@ public class HomePane extends JRootPane implements HomeView {
 
     }
 
-
+    private void populateGraph(BuildingSecurityGraph securityGraph) {
+      
+      if(securityGraph == null)
+      {
+        this.toyExample();
+      }
+      else
+      {
+         List<BuildingLinkEdge> links = securityGraph.getLinkEdgeList();
+         
+         for(BuildingLinkEdge link :  links)
+         {
+            String room1 = link.getFirstRoom();
+            String room2 = link.getSecondRoom();
+            String idLink = link.getId();
+            
+            this.addEdgeToGraph(idLink, room1, room2);
+            
+         }
+        
+        
+      }      
+    }
+    private void populateGraph() {
+      this.populateGraph(null);
+      
+    }
+    
+    private void addEdgeToGraph(String edgeId, String n1, String n2)
+    {
+      this.addNodeToGraph(n1);
+      this.addNodeToGraph(n2);
+      if(homeGraph.getEdge(edgeId)== null)
+        homeGraph.addEdge(edgeId, n1, n2);
+    }
+    
+    private void addNodeToGraph(String nodeId)
+    {
+      if(homeGraph.getNode(nodeId)== null)
+        homeGraph.addNode(nodeId);
+    }
+    
+    
+    private void toyExample(){
+      MultiNode A=homeGraph.addNode("A");
+      MultiNode B=homeGraph.addNode("B");
+      
+      homeGraph.addEdge("AB1","A","B");
+      homeGraph.addEdge("AB2","A","B");
+      
+      SpriteManager sman = new SpriteManager(homeGraph);
+      Sprite s = sman.addSprite("S1");
+      s.attachToEdge("AB1");
+    }
 
 
   }
 
+  
+  
+  
   private class TreeToBuildingAL implements ActionListener
   {
     public void actionPerformed(ActionEvent e) {
@@ -862,21 +925,6 @@ public class HomePane extends JRootPane implements HomeView {
   {
     public void actionPerformed(ActionEvent e) {
       System.out.println("disp graph");
-      System.out.println(" i dont display graph but insteaad i gonna display a piece of forniture");
-      PieceOfFurniture pof =getUserPreferences()
-          .getFurnitureCatalog()
-          .getCategory(2)               // category e.g. 2
-          .getPieceOfFurniture(1);      // model 1 within the category
-
-      // Now you can display the model within current home
-      HomePieceOfFurniture hpof = new HomePieceOfFurniture(pof);
-
-      // and set locations etc.
-      hpof.setX(300);
-      hpof.setY(700);
-      hpof.setElevation(0);
-      hpof.setAngle(30);
-      home.addPieceOfFurniture(hpof);
     }
   }
 
