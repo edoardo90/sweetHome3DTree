@@ -87,12 +87,12 @@ public class Room implements Serializable, Selectable, Elevatable {
    */
   public Room(float [][] points) {
 
-
+    
     if (points.length <= 1) {
       throw new IllegalStateException("Room points must containt at least two points");
     }
     this.points = deepCopy(points);
-    this.areaVisible = true;
+    this.areaVisible = false; //TODO: put back true?  debug purpose!
     this.nameYOffset = -40f;
     this.floorVisible = true;
     this.ceilingVisible = true;
@@ -124,7 +124,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     }
     
     
-    this.areaVisible = true;
+    this.areaVisible = false;
     this.nameYOffset = -40f;
     this.floorVisible = true;
     this.ceilingVisible = true;

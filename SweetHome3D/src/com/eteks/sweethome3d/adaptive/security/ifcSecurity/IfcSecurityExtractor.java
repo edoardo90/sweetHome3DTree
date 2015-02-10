@@ -144,7 +144,7 @@ public class IfcSecurityExtractor {
       if(! this.addedWalls.contains(wallId))
       {
         Shape3D wallShape = getShapeAndPosition(ifcWall, scaleFactor);
-        RoomGeoSmart smartWallSeenAsRoom = new RoomGeoSmart(wallShape);
+        RoomGeoSmart smartWallSeenAsRoom = new RoomGeoSmart(wallShape); //puts points in shape3d and polygon
         Rectangle3D rectWall = smartWallSeenAsRoom.getBoundingRoomRect3D();
         Wall wall = rectWall.getWall();
         walls.add(wall);

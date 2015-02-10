@@ -10,11 +10,72 @@ public class Rectangle3D extends Shape3D
 {
 
   private Vector3D  pointNorthWest, pointSouthEast;
+  
+  private Vector3D  pointNorthEast = null, pointSouthWest = null;
+  
   private boolean isARectangle = true;
+
+  /* 
+   *  <---x_DIM---------->   
+   *  1------------------2    ^
+   *  |                  |    |            ^
+   *  |         O        |  Y_DIM          |
+   *  |                  |    |            y
+   *  4------------------3    v            |---x-->
+   */
+  public Vector3D getPointNorthEast()
+  {
+  
+    double x1, y1, x2, x3, y2, y3, x4, y4;
+  
+    x1 = this.pointNorthWest.first;
+    y1 = this.pointNorthWest.second;
+  
+    x3 = this.pointSouthEast.first;
+    y3 = this.pointSouthEast.second;
+  
+    x2 = x3;
+    y2 = y1;
+  
+    x4= x1;
+    y4 = y3;
+    if(this.pointNorthEast == null)
+      return new Vector3D(x2, y2, this.pointNorthWest.third);
+    else
+      return this.pointNorthEast;
+  }
 
   public Vector3D getPointNorthWest()
   {
     return pointNorthWest.clone();
+  }
+
+  public Vector3D getPointSouthWest()
+  {
+  
+    double x1, y1, x2, x3, y2, y3, x4, y4;
+  
+    x1 = this.pointNorthWest.first;
+    y1 = this.pointNorthWest.second;
+  
+    x3 = this.pointSouthEast.first;
+    y3 = this.pointSouthEast.second;
+  
+    x2 = x3;
+    y2 = y1;
+  
+    x4= x1;
+    y4 = y3;
+  
+    if(this.pointSouthWest == null)
+      return new Vector3D(x4, y4, this.pointNorthWest.third);
+    else
+      return this.pointSouthWest;
+  }
+
+  public Vector3D getPointSouthEast()
+  {
+    return this.pointSouthEast.clone();
   }
 
   public Wall getWall()
@@ -60,11 +121,6 @@ public class Rectangle3D extends Shape3D
 
   private double min(double x, double y)  {     return x<y? x : y;   }
 
-  public Vector3D getPointSouthEast()
-  {
-    return this.pointSouthEast.clone();
-  }
-
   @Override
   public String toString()
   {
@@ -81,56 +137,6 @@ public class Rectangle3D extends Shape3D
   }
 
 
-  /* 
-   *  <---x_DIM---------->   
-   *  1------------------2    ^
-   *  |                  |    |            ^
-   *  |         O        |  Y_DIM          |
-   *  |                  |    |            y
-   *  4------------------3    v            |---x-->
-   */
-  public Vector3D getPointNorthEast()
-  {
-
-    double x1, y1, x2, x3, y2, y3, x4, y4;
-
-    x1 = this.pointNorthWest.first;
-    y1 = this.pointNorthWest.second;
-
-    x3 = this.pointSouthEast.first;
-    y3 = this.pointSouthEast.second;
-
-    x2 = x3;
-    y2 = y1;
-
-    x4= x1;
-    y4 = y3;
-
-    return new Vector3D(x2, y2, this.pointNorthWest.third);
-
-  }
-
-  public Vector3D getPointSouthWest()
-  {
-
-    double x1, y1, x2, x3, y2, y3, x4, y4;
-
-    x1 = this.pointNorthWest.first;
-    y1 = this.pointNorthWest.second;
-
-    x3 = this.pointSouthEast.first;
-    y3 = this.pointSouthEast.second;
-
-    x2 = x3;
-    y2 = y1;
-
-    x4= x1;
-    y4 = y3;
-
-    return new Vector3D(x4, y4, this.pointNorthWest.third);
-
-  }
-  
   public float getAngleOfLongsEdges()
   {
     
@@ -166,15 +172,19 @@ public class Rectangle3D extends Shape3D
     
     Vector3D directedBaseVector = farLong.getTail().getSubVector(closeLong.getTail());
     
-    double deltaX = startingPoint.first - directedBaseVector.first;
-    double deltaY =  startingPoint.second - directedBaseVector.second ;
+    double deltaX = startingPoint.first ;
+    double deltaY =  startingPoint.second ;
     
-    directedBaseVector.first += deltaX;
-    directedBaseVector.second += deltaY;
+    double minEdge = this.getMinEdge();
     
-    Vector3D perpVect = directedBaseVector.getNewModule(this.getMinEdge() + minDistanceLong + 30 );
+    Vector3D directedLonger = directedBaseVector.getNewModule(minEdge + minDistanceLong + 30 );
     
-    return perpVect;
+    directedLonger.first += deltaX;
+    directedLonger.second += deltaY;        
+    
+    Vector3D perpVect = directedLonger;
+    
+    return directedLonger;
   }
   
 
@@ -236,6 +246,9 @@ public class Rectangle3D extends Shape3D
   }
   
   @Override
+  /**
+   * counterclock
+   */
   public List<Vector3D> getListOfPoints()
   {
     //get copies of vectors: new 3d vectors
@@ -334,6 +347,13 @@ public class Rectangle3D extends Shape3D
 
   }
   
+  public Rectangle3D(Vector3D nE, Vector3D nW, Vector3D sW, Vector3D sE)
+  {
+    this.pointNorthWest = nW;
+    this.pointSouthEast = sE;
+    this.pointNorthEast = nE;
+    this.pointSouthWest = sW;
+  }
 
   public Rectangle3D(List<Vector3D> list)
   {
@@ -413,6 +433,14 @@ public class Rectangle3D extends Shape3D
   public void scale(float scaleFactor) {
     this.pointNorthWest.scale(scaleFactor);
     this.pointSouthEast.scale(scaleFactor);
+    if(this.pointNorthEast != null)
+    {
+      this.pointNorthEast.scale(scaleFactor);
+    }
+    if(this.pointSouthWest != null)
+    {
+      this.pointSouthWest.scale(scaleFactor);
+    }
 
   }
 

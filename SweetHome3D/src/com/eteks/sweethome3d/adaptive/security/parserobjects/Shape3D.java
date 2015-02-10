@@ -6,6 +6,10 @@ import com.eteks.sweethome3d.model.Room;
 
 public abstract class Shape3D {
   
+  /**
+   * Counter-clockwise points
+   * @return
+   */
   public abstract List<Vector3D> getListOfPoints();
   
   

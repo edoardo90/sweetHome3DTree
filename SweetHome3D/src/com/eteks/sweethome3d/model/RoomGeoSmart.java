@@ -29,6 +29,7 @@ public class RoomGeoSmart extends Room {
   public RoomGeoSmart(List<Vector3D> points)
   {
     super(points);
+    
     for(Vector3D point : points)
     {
       this.addPointToPolygonAndToShape((float)point.first, 
@@ -89,8 +90,18 @@ public class RoomGeoSmart extends Room {
   public RoomGeoSmart(Vector3D pointCenterOfSmallRoom)
   {
      super(getFloatArrayAroundPoint(pointCenterOfSmallRoom));
+     
   }
   
+  public RoomGeoSmart(Segment3D seg1) {
+     super(getFloatArrayAroundSegment(seg1));
+     
+  }
+  
+  
+  
+
+
   /**
    * a plain sweethome room
    * @param r
@@ -114,6 +125,8 @@ public class RoomGeoSmart extends Room {
     super(points);
     this.addAllPoints(points);
   }
+
+
 
   /**
    * point expressed in cm
@@ -146,6 +159,11 @@ public class RoomGeoSmart extends Room {
    */
   public Rectangle3D getBoundingRoomRect3D()
   {
+      return getRectangleFromPoints();
+  }
+  
+  private Rectangle3D getBoundingBox()
+  {
     Rectangle2D rect =  this.polygon100Big.getBounds2D();
     double xc = rect.getCenterX();
     double yc = rect.getCenterY();
@@ -155,8 +173,31 @@ public class RoomGeoSmart extends Room {
 
     Rectangle3D rect3D = new Rectangle3D(new Vector3D(xc/100, yc/100, 0), 
         width/100, height/100);
+    
     return rect3D;
   }
+  
+  private Rectangle3D getRectangleFromPoints()
+  {
+    List<Vector3D> points = this.polygon100BigShape3D.getListOfPoints();
+    if(points != null  && points.size() == 4)
+    {
+      Vector3D  nE, nW, sW, sE;
+      nE = points.get(0);
+      nW = points.get(1);
+      sW = points.get(2);
+      sE = points.get(3);
+      Rectangle3D rect = new Rectangle3D(nE.clone(), nW.clone(), sW.clone(), sE.clone());
+      rect.scale(0.01f);
+      return rect;
+    }
+    return this.getBoundingBox();
+  }
+  
+  
+  
+  
+  
   /**
    * return a room bigger, the new size is obtained adding borderSize to each point
    * in x and y towards the outside of the shape
@@ -274,6 +315,8 @@ public class RoomGeoSmart extends Room {
     return wall.containsPoint(midPointCC);
   
   }
+  
+  
   
   /**
    * Point expressed in cm
@@ -510,6 +553,24 @@ public class RoomGeoSmart extends Room {
     return intersAreaRoom;
   }
   
+  private static float [][] getFloatArrayAroundSegment(Segment3D seg1)
+  {
+    float x1 = (float) seg1.getRow().first + 5;
+    float y1 = (float) seg1.getRow().second;
+    
+    
+    float x2 = x1 - 10;
+    float y2 = y1 ;
+
+    float x3 = x2;
+    float y3 = (float)seg1.getTail().second;
+    
+    float x4 = x3 + 10;
+    float y4 = y3;
+    
+    
+    return new float [][]{{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}};
+  }
   
   
   
@@ -518,17 +579,17 @@ public class RoomGeoSmart extends Room {
     float xc = (float)pointCenterOfSmallRoom.first;
     float yc = (float)pointCenterOfSmallRoom.second;
     
-    float x1 = xc - 30;
-    float y1 = yc - 30;
+    float x1 = xc - 10;
+    float y1 = yc - 10;
     
-    float x2 = xc + 30;
-    float y2 = yc - 30;
+    float x2 = xc + 10;
+    float y2 = yc - 10;
 
-    float x3 = xc + 30;
-    float y3 = yc + 30;
+    float x3 = xc + 10;
+    float y3 = yc + 10;
     
-    float x4 = xc - 30;
-    float y4 = yc + 30;
+    float x4 = xc - 10;
+    float y4 = yc + 10;
     
     
     return new float [][]{{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}};
