@@ -21,10 +21,7 @@
 package com.eteks.sweethome3d.junit.adaptive;
 
 import java.awt.Polygon;
-import java.awt.Shape;
 import java.awt.geom.Area;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,6 +62,8 @@ public class RoomCentroidTest extends BasicTest {
   private RoomGeoSmart        wallBetweenL;
   private RoomGeoSmart        squareBelowL1;
   private RoomGeoSmart         wallBetweenL1Square;
+  private RoomGeoSmart wallAside;
+  private RoomGeoSmart rectangularRoomShiftedDown;
 
   @Override
   protected void setUp() {
@@ -92,6 +91,15 @@ public class RoomCentroidTest extends BasicTest {
     this.squareRoom = getSquareRoom();
     this.rectangularRoom = getRectangularShortRoom(0,0);
     this.rectangularRoomShifted = getRectangularShortRoom(300, 0);
+    
+    this.elRoom1 = getEl1Room();
+    this.elRoom2 = getEl2Room();
+    this.wallBetweenL = getWallBetween();
+    this.squareBelowL1 = getroomBelowL1();
+    this.wallBetweenL1Square = getWallL1SQ();
+    
+    this.rectangularRoomShiftedDown = getRectangularShortRoom(0, 800);
+    this.wallAside = getWallAside();
     
   }
 
@@ -156,6 +164,16 @@ public class RoomCentroidTest extends BasicTest {
   }
   
   
+  public void testSeparatingWall()
+  {
+    boolean wallBwL12 = elRoom1.isTheWallSeparating( elRoom2,       wallBetweenL);
+    assertTrue("wall is indeed separating", wallBwL12);
+    boolean isw2 =     elRoom1.isTheWallSeparating(squareBelowL1, wallBetweenL1Square);
+    assertTrue("wall is indeed separating", isw2);
+    
+    boolean iswsep = this.isTheWallSeparating(rectangularRoom, rectangularRoomShiftedDown, wallAside, home);
+    assertFalse("wall is aside, not separating", iswsep);
+  }
   
   
 
@@ -244,7 +262,18 @@ public class RoomCentroidTest extends BasicTest {
     lst.add(new Vector3D(300, 700, 0));  
     
     return new RoomGeoSmart(lst);
-  }  
+  }
+  
+  private RoomGeoSmart getWallAside() {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(900, 1000, 0)); 
+    lst.add(new Vector3D(800, 1000, 0));
+    lst.add(new Vector3D(800,  0, 0));
+    lst.add(new Vector3D(900, 0, 0));  
+    
+    return new RoomGeoSmart(lst);
+  }
 
   
   public static class ControllerTest extends HomeController {
@@ -269,7 +298,7 @@ public class RoomCentroidTest extends BasicTest {
     
   }
   
-  private boolean isTheWallSeparating(RoomGeoSmart r1 , RoomGeoSmart r2, RoomGeoSmart wall, Home home)
+  public boolean isTheWallSeparating(RoomGeoSmart r1 , RoomGeoSmart r2, RoomGeoSmart wall, Home home)
   {
     Area a1 = new Area( r1.getPolygonBigger(100)); //getAreaShape100Big
     Area a2 = new Area( r2.getPolygonBigger(100));
@@ -327,7 +356,6 @@ public class RoomCentroidTest extends BasicTest {
     
     boolean confirmIn = a1AndWall.contains(rowOfPerpendicularSegm2.first * 100, rowOfPerpendicularSegm2.second*100);
     
-   
     
     home.addRoom(seg1Room);
     home.addRoom(seg2Room);
@@ -342,6 +370,8 @@ public class RoomCentroidTest extends BasicTest {
   
   
   
+    
+  
   
   
 
@@ -349,33 +379,36 @@ public class RoomCentroidTest extends BasicTest {
   public void doStuffInsideMain(Home home, UserPreferences preferences) {
     
     this.rectangularRoom = getRectangularShortRoom(0,0);
-    this.rectangularRoomShifted = getRectangularShortRoom(300, 0);
+    this.rectangularRoomShiftedDown = getRectangularShortRoom(0, 800);
     this.elRoom1 = getEl1Room();
     this.elRoom2 = getEl2Room();
     this.wallBetweenL = getWallBetween();
     this.squareBelowL1 = getroomBelowL1();
     this.wallBetweenL1Square = getWallL1SQ();
+    this.wallAside = getWallAside();
+    
+    
+    home.addRoom(rectangularRoom);
+    home.addRoom(rectangularRoomShifted);
     
     RoomGeoSmart intersectionAreaRoom = this.rectangularRoomShifted.intersectionAreaRoom(this.rectangularRoom);
-    
     System.out.println(intersectionAreaRoom);
-    
-    home.addRoom(elRoom1);
-//    home.addRoom(elRoom2);
-//    home.addRoom(wallBetweenL);
-    home.addRoom(squareBelowL1);
-    home.addRoom(wallBetweenL1Square);
+
     
     float borderSize = (float) wallBetweenL.getBoundingRoomRect3D().getMinEdge();
     RoomGeoSmart biggerW = wallBetweenL.getBiggerRoomBordered(borderSize/2);
     
     
-    boolean isw = this.isTheWallSeparating(elRoom1, elRoom2, wallBetweenL, home);
+    boolean isw = elRoom1.isTheWallSeparating( elRoom2, wallBetweenL);
     System.out.println(isw); //ok!
     
     
-    boolean isw2 = this.isTheWallSeparating(squareBelowL1, elRoom1, wallBetweenL1Square, home);
-    System.out.println(isw2);
+    boolean isw2 = elRoom1.isTheWallSeparating( elRoom1, wallBetweenL1Square);
+    System.out.println(isw2); //ok!
+    
+    
+    boolean iswsep = this.isTheWallSeparating(rectangularRoom, rectangularRoomShiftedDown, wallAside, home);
+    System.out.println(iswsep);
 
     
   }

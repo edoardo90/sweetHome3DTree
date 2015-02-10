@@ -21,7 +21,7 @@ public class RoomGeoSmart extends Room {
 
   private Polygon polygon100Big = new Polygon();
   private ProfileShape3D polygon100BigShape3D ;
-  
+
   /**
    * Points expressed in cm
    * @param points
@@ -29,7 +29,7 @@ public class RoomGeoSmart extends Room {
   public RoomGeoSmart(List<Vector3D> points)
   {
     super(points);
-    
+
     for(Vector3D point : points)
     {
       this.addPointToPolygonAndToShape((float)point.first, 
@@ -82,24 +82,24 @@ public class RoomGeoSmart extends Room {
   {
     this(polygonToList(polygonBig100));
   }
-  
+
   /**
    * each point is expressed in cm
    * @param pointCenterOfSmallRoom
    */
   public RoomGeoSmart(Vector3D pointCenterOfSmallRoom)
   {
-     super(getFloatArrayAroundPoint(pointCenterOfSmallRoom));
-     
+    super(getFloatArrayAroundPoint(pointCenterOfSmallRoom));
+
   }
-  
+
   public RoomGeoSmart(Segment3D seg1) {
-     super(getFloatArrayAroundSegment(seg1));
-     
+    super(getFloatArrayAroundSegment(seg1));
+
   }
-  
-  
-  
+
+
+
 
 
   /**
@@ -151,7 +151,7 @@ public class RoomGeoSmart extends Room {
       this.polygon100BigShape3D.addPoint(point);
     }
   }
-  
+
   /**
    * The returned rectangle has coordinates expressed in cm
    * 
@@ -159,9 +159,9 @@ public class RoomGeoSmart extends Room {
    */
   public Rectangle3D getBoundingRoomRect3D()
   {
-      return getRectangleFromPoints();
+    return getRectangleFromPoints();
   }
-  
+
   private Rectangle3D getBoundingBox()
   {
     Rectangle2D rect =  this.polygon100Big.getBounds2D();
@@ -173,10 +173,10 @@ public class RoomGeoSmart extends Room {
 
     Rectangle3D rect3D = new Rectangle3D(new Vector3D(xc/100, yc/100, 0), 
         width/100, height/100);
-    
+
     return rect3D;
   }
-  
+
   private Rectangle3D getRectangleFromPoints()
   {
     List<Vector3D> points = this.polygon100BigShape3D.getListOfPoints();
@@ -193,11 +193,11 @@ public class RoomGeoSmart extends Room {
     }
     return this.getBoundingBox();
   }
-  
-  
-  
-  
-  
+
+
+
+
+
   /**
    * return a room bigger, the new size is obtained adding borderSize to each point
    * in x and y towards the outside of the shape
@@ -262,7 +262,7 @@ public class RoomGeoSmart extends Room {
     return new RoomGeoSmart(biggerRoom);
 
   }
-  
+
   /**
    * 
    * @param r2
@@ -272,52 +272,9 @@ public class RoomGeoSmart extends Room {
   {
     return this.intersect(r2, intersectionAlgorithm.AREA);
   }
-  
-  /**
-   * <pre>
-   * we consider intersection between room1 and wall,
-   *             intersection between room2 and wall,
-   *             we "draw" a segment linking the 2 centers
-   *             we  look if the middle point falls inside the wall
-   * @param r1
-   * @param r2
-   * @param wall
-   * @return
-   */
-  public boolean isTheWallSeparating(RoomGeoSmart r2, RoomGeoSmart wall)
-  {
-    Area a1 = this.getAreaShape100Big();
-    Area a2 = r2.getAreaShape100Big();
-    float borderSize = (float) wall.getBoundingRoomRect3D().getMinEdge();
-    wall = wall.getBiggerRoomBordered(borderSize);
-    Area aw = wall.getAreaShape100Big();
-    
-    Area a1AndWall = (Area) a1.clone();
-    a1AndWall.intersect(aw);
-    
-    Area a2AndWall = (Area) a2.clone();
-    a2AndWall.intersect(aw);
-    
-    //now I have the "chunks" of rooms who are interested in the wall 
-    //if we imagine the wall covered of fresh paint these (a2AndWall, a1AndWall) would be the dirty of paint areas
-    
-    RoomGeoSmart roomInters1 = new RoomGeoSmart(a1AndWall);
-    RoomGeoSmart roomInters2 = new RoomGeoSmart(a2AndWall);
-    
-    Vector3D centroid1 = roomInters1.getCentroidRegular();
-    Vector3D centroid2 = roomInters2.getCentroidRegular();
-    
-    Segment3D linkingCentroids = new Segment3D(centroid1, centroid2);
-    Vector3D  midPointCC = linkingCentroids.getMidPoint();
-    
-    System.out.println(midPointCC);
-    
-    return wall.containsPoint(midPointCC);
-  
-  }
-  
-  
-  
+
+
+
   /**
    * Point expressed in cm
    * @param point
@@ -327,14 +284,14 @@ public class RoomGeoSmart extends Room {
   {
     Area myArea = this.getAreaShape100Big();
     Vector3D pointBig = point.getScaledVector(100);
-    
+
     return myArea.contains(pointBig.first, pointBig.second);
-    
+
   }
-  
-  
+
+
   private Area getAreaShape100Big() {
-    
+
     return new Area(this.polygon100Big);
   }
 
@@ -372,7 +329,7 @@ public class RoomGeoSmart extends Room {
     }
   }
 
-  
+
   private void addPointToShape(int x, int y)
   {
     this.polygon100Big.addPoint(x , y );
@@ -395,9 +352,9 @@ public class RoomGeoSmart extends Room {
     return ! intersectionArea.isEmpty();
 
   }
-  
-  
-  
+
+
+
 
   private boolean pointsIntersect(Polygon p1, Polygon p2)
   {
@@ -547,56 +504,99 @@ public class RoomGeoSmart extends Room {
     Area a2 = new Area(p2); 
 
     a1.intersect(a2);
-
-    RoomGeoSmart intersAreaRoom = new RoomGeoSmart(a1);
-
-    return intersAreaRoom;
+    if(! a1.isEmpty())
+    {
+      RoomGeoSmart intersAreaRoom = new RoomGeoSmart(a1);
+      return intersAreaRoom;
+    }
+    else
+    {
+      return null;
+    }
   }
-  
+
   private static float [][] getFloatArrayAroundSegment(Segment3D seg1)
   {
     float x1 = (float) seg1.getRow().first + 5;
     float y1 = (float) seg1.getRow().second;
-    
-    
+
+
     float x2 = x1 - 10;
     float y2 = y1 ;
 
     float x3 = x2;
     float y3 = (float)seg1.getTail().second;
-    
+
     float x4 = x3 + 10;
     float y4 = y3;
-    
-    
+
+
     return new float [][]{{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}};
   }
-  
-  
-  
+
+
+
   private static float [][] getFloatArrayAroundPoint(Vector3D pointCenterOfSmallRoom) {
-    
+
     float xc = (float)pointCenterOfSmallRoom.first;
     float yc = (float)pointCenterOfSmallRoom.second;
-    
+
     float x1 = xc - 10;
     float y1 = yc - 10;
-    
+
     float x2 = xc + 10;
     float y2 = yc - 10;
 
     float x3 = xc + 10;
     float y3 = yc + 10;
-    
+
     float x4 = xc - 10;
     float y4 = yc + 10;
-    
-    
+
+
     return new float [][]{{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}};
   }
-  
-  
-  
+
+  public boolean isTheWallSeparating( RoomGeoSmart r2, RoomGeoSmart wall) {
+    {
+      Area a1 = new Area( this.getPolygonBigger(100)); //getAreaShape100Big
+      Area a2 = new Area( r2.getPolygonBigger(100));
+      Rectangle3D rectBounds = wall.getBoundingRoomRect3D();
+      float borderSize = (float) rectBounds.getMinEdge();
+      RoomGeoSmart  borderedWall = wall.getBiggerRoomBordered(borderSize);
+
+      Area aw = new Area (borderedWall.getPolygonBigger(100));
+
+      Area a1AndWall = (Area) a1.clone();
+      a1AndWall.intersect(aw);
+
+      Area a2AndWall = (Area) a2.clone();
+      a2AndWall.intersect(aw);
+
+      //now I have the "chunks" of rooms who are interested in the wall 
+      //if we imagine the wall covered of fresh paint these (a2AndWall, a1AndWall) would be the dirty of paint areas
+
+      RoomGeoSmart roomInters1 = new RoomGeoSmart(a1AndWall);
+      RoomGeoSmart roomInters2 = new RoomGeoSmart(a2AndWall);
+
+
+      Vector3D centroid1 = roomInters1.getCentroidRegular();
+      Vector3D centroid2 = roomInters2.getCentroidRegular();
+
+      Rectangle3D rectWall = wall.getBoundingRoomRect3D();
+      Vector3D rowOfPerpendicularSegm1 = rectWall.perpendicularVectorTowardsInside(centroid1);
+      Vector3D rowOfPerpendicularSegm2 = rectWall.perpendicularVectorTowardsInside(centroid2);
+
+      boolean r1Towardsr2 = a2.contains(rowOfPerpendicularSegm1.first * 100, rowOfPerpendicularSegm1.second *100);
+      boolean r2Towardsr1 =      a1.contains(rowOfPerpendicularSegm2.first * 100, rowOfPerpendicularSegm2.second*100);
+      return  r2Towardsr1 || r1Towardsr2;
+
+    }
+
+  }
+
+
+
 }
 
 

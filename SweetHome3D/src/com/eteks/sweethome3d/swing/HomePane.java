@@ -158,19 +158,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.JTextComponent;
 
-import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.IdAlreadyInUseException;
 import org.graphstream.graph.implementations.MultiGraph;
-import org.graphstream.graph.implementations.MultiNode;
 import org.graphstream.graph.implementations.SingleGraph;
-import org.graphstream.ui.spriteManager.Sprite;
-import org.graphstream.ui.spriteManager.SpriteManager;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.ifcSecurity.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
@@ -198,7 +193,6 @@ import com.eteks.sweethome3d.model.InterruptedRecorderException;
 import com.eteks.sweethome3d.model.Label;
 import com.eteks.sweethome3d.model.Level;
 import com.eteks.sweethome3d.model.Library;
-import com.eteks.sweethome3d.model.PieceOfFurniture;
 import com.eteks.sweethome3d.model.RecorderException;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.Selectable;

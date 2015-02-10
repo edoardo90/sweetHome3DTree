@@ -7,7 +7,6 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.graph.implementations.MultiNode;
-import org.graphstream.ui.graphicGraph.stylesheet.StyleConstants.Units;
 import org.graphstream.ui.spriteManager.Sprite;
 import org.graphstream.ui.spriteManager.SpriteManager;
 
@@ -15,7 +14,6 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWith
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer.KindOfGraph;
 
 
 public class GraphClean {

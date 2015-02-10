@@ -36,7 +36,6 @@ import ifc2x3javatoolbox.ifc2x3tc1.LIST;
 import ifc2x3javatoolbox.ifc2x3tc1.SET;
 import ifc2x3javatoolbox.ifcmodel.IfcModel;
 
-import java.awt.geom.Area;
 import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -62,7 +61,6 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Axis3DNice;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Placement3DNice;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
-import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -397,12 +395,12 @@ public class IfcSecurityExtractor {
 
     //intersection between 2 rooms
     boolean instersect = smart1Bigger.intersect(smart2Bigger);
+    
+    boolean isWallSeparating =
+            smart1.isTheWallSeparating(smart2, smartWallSeenAsRoom);
 
-    smartWallSeenAsRoom.getBiggerRoomBordered(borderSize*2);
-    //TODO: debug  --- boolean isWallSeparating = isTheWallSeparating(smart1, smart2, smartWallSeenAsRoom);
 
-
-    return instersect ;
+    return instersect && isWallSeparating ;
 
   }
 
@@ -488,10 +486,6 @@ public class IfcSecurityExtractor {
           {
             contained.add(singleFurniture);
           }
-
-
-          String productName = furnitureProduct.getName().getDecodedValue();
-
         }
       }
     }

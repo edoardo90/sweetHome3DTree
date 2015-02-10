@@ -1,13 +1,7 @@
 package com.eteks.sweethome3d.junit.adaptive;
 
-import java.io.File;
-import java.net.URI;
-import java.net.URL;
-
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
-import com.eteks.sweethome3d.junit.OBJWriterTest;
 import com.eteks.sweethome3d.junit.adaptive.FurnitureAddTest.ControllerTest;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.LengthUnit;
