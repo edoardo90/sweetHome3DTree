@@ -141,6 +141,7 @@ public class RoomGeoSmart extends Room {
   
   /**
    * The returned rectangle has coordinates expressed in cm
+   * 
    * @return
    */
   public Rectangle3D getBoundingRoomRect3D()
@@ -156,7 +157,6 @@ public class RoomGeoSmart extends Room {
         width/100, height/100);
     return rect3D;
   }
-
   /**
    * return a room bigger, the new size is obtained adding borderSize to each point
    * in x and y towards the outside of the shape

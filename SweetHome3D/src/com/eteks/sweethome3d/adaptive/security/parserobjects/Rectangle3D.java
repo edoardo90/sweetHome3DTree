@@ -262,7 +262,12 @@ public class Rectangle3D extends Shape3D
    *  |                  |    |            y
    *  4------------------3    v            |---x-->
    */
-
+  /**
+   * The rectangle created in this way just stores information about the shape, none about the location!
+   * @param center
+   * @param xDim
+   * @param yDim
+   */
   public Rectangle3D(Vector3D center, double xDim, double yDim)
   {
     double x1, y1, z1 = center.third,   x3,y3,z3 = center.third;
