@@ -31,7 +31,7 @@ public class GraphTest extends BasicTest {
     try
     {
       BuildingSecurityGraph  securityGraph = 
-          super.openIfcAndReadIt(home, preferences, "4 rooms with objects and door.ifc");
+          super.openIfcAndReadIt(home, preferences, "5 rooms with objects.ifc");
       
       GraphClean gc = new GraphClean(securityGraph);
       gc.populateGraph();

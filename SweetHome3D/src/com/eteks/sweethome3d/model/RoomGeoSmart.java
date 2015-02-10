@@ -408,6 +408,11 @@ public class RoomGeoSmart extends Room {
     yTot = yTot / points.size();
     return new Vector3D(xTot, yTot, 0);
   }
+  
+  
+
+  
+  
   /**
    * centroid (x, y)  where x = avg (Xi)  of the shape, same with y
    * @return centroid expressed in centimeter
@@ -424,7 +429,11 @@ public class RoomGeoSmart extends Room {
     INNER_POINTS, AREA
   }
 
-
+  /**
+   * returned points are in the same unit that the ones in polygon
+   * @param polygon
+   * @return
+   */
   private static List<Vector3D>  polygonToList(Polygon polygon)
   {
     int index = 0;
@@ -557,7 +566,7 @@ public class RoomGeoSmart extends Room {
     return new float [][]{{x1, y1}, {x2, y2}, {x3, y3}, {x4, y4}};
   }
 
-  public boolean isTheWallSeparating( RoomGeoSmart r2, RoomGeoSmart wall) {
+  public boolean isTheWallSeparating( RoomGeoSmart r2, RoomGeoSmart wall) 
     {
       Area a1 = new Area( this.getPolygonBigger(100)); //getAreaShape100Big
       Area a2 = new Area( r2.getPolygonBigger(100));
@@ -582,22 +591,45 @@ public class RoomGeoSmart extends Room {
 
       Vector3D centroid1 = roomInters1.getCentroidRegular();
       Vector3D centroid2 = roomInters2.getCentroidRegular();
-
+      
       Rectangle3D rectWall = wall.getBoundingRoomRect3D();
-      Vector3D rowOfPerpendicularSegm1 = rectWall.perpendicularVectorTowardsInside(centroid1);
-      Vector3D rowOfPerpendicularSegm2 = rectWall.perpendicularVectorTowardsInside(centroid2);
-
-      boolean r1Towardsr2 = a2.contains(rowOfPerpendicularSegm1.first * 100, rowOfPerpendicularSegm1.second *100);
+      
+      RoomGeoSmart a1AndWallRoom = new RoomGeoSmart(a1AndWall);
+      RoomGeoSmart a2AndWallRoom = new RoomGeoSmart(a2AndWall);
+      List<Vector3D> bigPointsR1 = RoomGeoSmart.polygonToList(a1AndWallRoom.polygon100Big);
+      List<Vector3D> bigPointsR2 = RoomGeoSmart.polygonToList(a2AndWallRoom.polygon100Big);
+      
+      bigPointsR1.addAll(bigPointsR2);
+      boolean crossInside = isInside(centroid1, rectWall, a1, a2);
+      for(Vector3D point : bigPointsR1)
+      {
+        crossInside = crossInside ||  isInside(point.getScaledVector(0.01), rectWall, a1, a2);
+      }
+      
+      return crossInside;
+    }
+  
+  
+    private boolean isInside(Vector3D point, Rectangle3D rectWall, Area a1, Area a2)
+    {
+      
+      Vector3D rowOfPerpendicularSegm1 = rectWall.perpendicularVectorTowardsInside(point);
+      Vector3D rowOfPerpendicularSegm2 = rectWall.perpendicularVectorTowardsInside(point);
+      
+      boolean r1Towardsr2 =      a2.contains(rowOfPerpendicularSegm1.first * 100, rowOfPerpendicularSegm1.second *100);
       boolean r2Towardsr1 =      a1.contains(rowOfPerpendicularSegm2.first * 100, rowOfPerpendicularSegm2.second*100);
       return  r2Towardsr1 || r1Towardsr2;
 
     }
+    
+ 
+    
+    
 
   }
 
 
 
-}
 
 
 
