@@ -172,6 +172,7 @@ import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.ifcSecurity.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer;
 import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer.KindOfGraph;
@@ -836,13 +837,14 @@ public class HomePane extends JRootPane implements HomeView {
 
           BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraphFromFile();
           home.displayGraph(securityGraph, getUserPreferences());
-          populateGraph(securityGraph);
+          GraphClean gc = new GraphClean(securityGraph);
+          
 
         } catch (Exception ex) { ex.printStackTrace();    }
 
       }
       if (rVal == JFileChooser.CANCEL_OPTION) {
-        populateGraph();
+        
       }
 
 
@@ -850,62 +852,7 @@ public class HomePane extends JRootPane implements HomeView {
 
     }
 
-    private void populateGraph(BuildingSecurityGraph securityGraph) {
-      
-      if(securityGraph == null)
-      {
-        this.toyExample();
-      }
-      else
-      {
-         List<BuildingLinkEdge> links = securityGraph.getLinkEdgeList();
-         
-         for(BuildingLinkEdge link :  links)
-         {
-            String room1 = link.getFirstRoom();
-            String room2 = link.getSecondRoom();
-            String idLink = link.getId();
-            
-            this.addEdgeToGraph(idLink, room1, room2);
-            
-         }
-        
-        
-      }      
-    }
-    private void populateGraph() {
-      this.populateGraph(null);
-      
-    }
     
-    private void addEdgeToGraph(String edgeId, String n1, String n2)
-    {
-      this.addNodeToGraph(n1);
-      this.addNodeToGraph(n2);
-      if(homeGraph.getEdge(edgeId)== null)
-        homeGraph.addEdge(edgeId, n1, n2);
-    }
-    
-    private void addNodeToGraph(String nodeId)
-    {
-      if(homeGraph.getNode(nodeId)== null)
-        homeGraph.addNode(nodeId);
-    }
-    
-    
-    private void toyExample(){
-      MultiNode A=homeGraph.addNode("A");
-      MultiNode B=homeGraph.addNode("B");
-      
-      homeGraph.addEdge("AB1","A","B");
-      homeGraph.addEdge("AB2","A","B");
-      
-      SpriteManager sman = new SpriteManager(homeGraph);
-      Sprite s = sman.addSprite("S1");
-      s.attachToEdge("AB1");
-    }
-
-
   }
 
   

@@ -139,6 +139,43 @@ public class Rectangle3D extends Shape3D
     
   }
   
+  public Vector3D perpendicularVectorTowardsInside(Vector3D startingPoint)
+  {
+    List<Segment3D>  longs = getLongEdges();
+    Segment3D long1 = longs.get(0);
+    Segment3D long2 = longs.get(1);
+    
+    double d1 = long1.getDistanceFromPoint(startingPoint);
+    double d2 = long2.getDistanceFromPoint(startingPoint);
+    
+    double maxDistanceLong = d1 > d2 ? d1 : d2;
+    double minDistanceLong = d1 < d2 ? d1 : d2;
+    
+    Segment3D farLong, closeLong;
+    
+    if(d1 > d2)
+    {
+      farLong = long1;
+      closeLong = long2;
+    }
+    else
+    {
+      farLong = long2;
+      closeLong = long1;
+    }
+    
+    Vector3D directedBaseVector = farLong.getTail().getSubVector(closeLong.getTail());
+    
+    double deltaX = startingPoint.first - directedBaseVector.first;
+    double deltaY =  startingPoint.second - directedBaseVector.second ;
+    
+    directedBaseVector.first += deltaX;
+    directedBaseVector.second += deltaY;
+    
+    Vector3D perpVect = directedBaseVector.getNewModule(this.getMinEdge() + minDistanceLong + 30 );
+    
+    return perpVect;
+  }
   
 
   public List<Segment3D> getLongEdges()
@@ -146,8 +183,9 @@ public class Rectangle3D extends Shape3D
     
     Segment3D nn1 = new Segment3D(this.getPointNorthWest(), this.getPointNorthEast());
     Segment3D ns1 = new Segment3D(this.getPointNorthEast(), this.getPointSouthEast());
-    Segment3D nn2 = new Segment3D(this.getPointSouthEast(), this.getPointSouthWest());
-    Segment3D ns2 = new Segment3D(this.getPointSouthWest(), this.getPointNorthWest());
+    Segment3D ns2 = new Segment3D(this.getPointNorthWest(), this.getPointSouthWest() );
+    Segment3D nn2 = new Segment3D(this.getPointSouthWest(), this.getPointSouthEast());
+    
     
     double w = nn1.getLength();
     double h = ns1.getLength();
@@ -175,8 +213,8 @@ public class Rectangle3D extends Shape3D
     
     Segment3D nn1 = new Segment3D(this.getPointNorthWest(), this.getPointNorthEast());
     Segment3D ns1 = new Segment3D(this.getPointNorthEast(), this.getPointSouthEast());
-    Segment3D nn2 = new Segment3D(this.getPointSouthEast(), this.getPointSouthWest());
-    Segment3D ns2 = new Segment3D(this.getPointSouthWest(), this.getPointNorthWest());
+    Segment3D ns2 = new Segment3D(this.getPointNorthWest(), this.getPointSouthWest() );
+    Segment3D nn2 = new Segment3D(this.getPointSouthWest(), this.getPointSouthEast());
     
     double w = nn1.getLength();
     double h = ns1.getLength();

@@ -20,14 +20,20 @@
  */
 package com.eteks.sweethome3d.junit.adaptive;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
+import com.eteks.sweethome3d.junit.OBJWriterTest;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
@@ -90,6 +96,44 @@ public abstract  class BasicTest extends TestCase {
   }
 
   public abstract void doStuffInsideMain(Home home, UserPreferences preferences);
+  
+  public BuildingSecurityGraph openIfcAndReadIt(Home home, UserPreferences preferences, String name ) throws Exception
+  {
+    String ifcFileName = "";
+    Class<OBJWriterTest> classe =OBJWriterTest.class;
+    URL url = classe.getResource("resources/ifcfiles/" + name);
+    URI uri = url.toURI();
+    File file = new File(uri);
+    ifcFileName = file.getAbsolutePath();
+
+    
+    IfcSecurityExtractor extractor= null;
+    
+    try{
+      extractor = new IfcExtractorScale(ifcFileName, preferences, 1f);
+    }
+    catch(Exception e)
+    {
+      System.out.println(e.getStackTrace());
+    }
+
+    BuildingSecurityGraph graph = extractor.getGraphFromFile();
+    
+    
+    IfcSecurityExtractor extractorScaled = new IfcExtractorScale(ifcFileName, preferences, 2f);
+
+    BuildingSecurityGraph graphScaled = extractorScaled.getGraphFromFile();
+    return graphScaled;
+    
+  }
+  
+  public BuildingSecurityGraph openIfcAndReadIt(Home home, UserPreferences preferences ) throws Exception
+  {
+    return this.openIfcAndReadIt(home, preferences, "5 rooms with objects.ifc");
+  }
+
+  
+  
   
   protected static boolean almostEqual(double a, double b)
   {

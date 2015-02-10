@@ -1,5 +1,7 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
@@ -16,6 +18,14 @@ public class BuildingSecurityGraph {
   private List<BuildingRoomNode> roomNodeList;
   private List<Wall> notLinkingWalls ;
   public List<BuildingLinkEdge> getLinkEdgeList() {
+    
+    Collections.sort(this.linkEdgeList, new Comparator<BuildingLinkEdge>() {
+
+      public int compare(BuildingLinkEdge o1, BuildingLinkEdge o2) {
+          return o1.toString().compareTo(o2.toString());
+      }
+    });
+    
     return linkEdgeList;
   }
   public void setLinkEdgeList(List<BuildingLinkEdge> linkEdgeList) {
@@ -28,6 +38,8 @@ public class BuildingSecurityGraph {
     this.roomNodeList = roomNodeList;
   }
   public List<Wall> getNotLinkingWalls() {
+    
+    
     return notLinkingWalls;
   }
   public void setNotLinkingWalls(List<Wall> notLinkingWalls) {

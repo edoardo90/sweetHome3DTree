@@ -30,9 +30,27 @@ public class Vector3D
         this.third  + vector3d.third);
   }
 
+  /**
+   * Vector subtraction
+   * @param v2
+   * @return  this + (- v2 )
+   */
   public Vector3D getSubVector(Vector3D v2)
   {
     return this.getSumVector(v2.getNegated());
+  }
+  
+  public Vector3D getVersor()
+  {
+    double invMagnitude = 1 / this.getMagnitude();
+    return this.getScaledVector(invMagnitude);
+  }
+  
+  public Vector3D getNewModule(double newMagnitude)
+  {
+    Vector3D unit = this.getVersor();
+    unit.scale(newMagnitude);
+    return unit;
   }
   
   public Vector3D getNegated()
@@ -83,16 +101,29 @@ public class Vector3D
   }
 
   public void scale(float scaleFactor) {
+    this.scale((double)scaleFactor);
+  }
+  
+  public void scale(double scaleFactor) {
     this.first *= scaleFactor;
     this.second *= scaleFactor;
     this.third *= scaleFactor;
     
   }
   
+  
   public Vector3D getScaledVector(float scaleFactor)
   {
     return new Vector3D(this.first * scaleFactor, this.second * scaleFactor, this.third * scaleFactor);
   }
+  
+  public Vector3D getScaledVector(double scaleFactor)
+  {
+    return new Vector3D(this.first * scaleFactor, this.second * scaleFactor, this.third * scaleFactor);
+  }
+  
+  
+  
   
   @Override
   public Vector3D clone()

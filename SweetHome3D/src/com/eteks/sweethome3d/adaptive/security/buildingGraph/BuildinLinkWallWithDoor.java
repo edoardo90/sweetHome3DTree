@@ -29,7 +29,14 @@ public class BuildinLinkWallWithDoor extends BuildingLinkWall {
   @Override
   public String toString()
   {
-    return this.firstRoom + "<--- " + "Doord ID: " + this.getId() + " --->" +  this.secondRoom + "\n";
+    if(this.firstRoom.compareTo(this.secondRoom)<0)
+    {
+      return this.firstRoom + "<--- " + "Doord ID: " + this.getId() + " --->" +  this.secondRoom + "\n";
+    }
+    else
+    {
+      return this.secondRoom + "<--- " + "Doord ID: " + this.getId() + " --->" +  this.firstRoom + "\n";
+    }
   }
 
   public DoorObject getDoor() {

@@ -8,6 +8,8 @@ public class DoorObject extends BuildingGraphPart {
   private Vector3D position;
   private float angle;
   
+  private String idRoom1, idRoom2;
+  
   public Vector3D getPosition() {
     return position;
   }
@@ -22,6 +24,22 @@ public class DoorObject extends BuildingGraphPart {
 
   public void setAngle(float angle) {
     this.angle = angle;
+  }
+
+  public String getIdRoom2() {
+    return idRoom2;
+  }
+
+  public void setIdRoom2(String idRoom2) {
+    this.idRoom2 = idRoom2;
+  }
+
+  public String getIdRoom1() {
+    return idRoom1;
+  }
+
+  public void setIdRoom1(String idRoom1) {
+    this.idRoom1 = idRoom1;
   }
 
  
