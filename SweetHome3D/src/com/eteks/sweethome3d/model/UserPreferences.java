@@ -177,7 +177,8 @@ public abstract class UserPreferences {
 
   public HomePieceOfFurniture getPieceOfForniture(BuildingObjectType type)
   {
-    return UserPreferences.pieceOfFornitureForBuilding.get(type);
+    HomePieceOfFurniture o = UserPreferences.pieceOfFornitureForBuilding.get(type);
+    return o.clone();
   }
   
   public void setFornitureMap(Map<BuildingObjectType, HomePieceOfFurniture> map)

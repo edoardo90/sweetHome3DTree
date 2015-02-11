@@ -475,11 +475,15 @@ public class IfcSecurityExtractor {
         while(iteratorProductContained.hasNext())
         {
           IfcProduct furnitureProduct = iteratorProductContained.next();
+          
+          String furnName = furnitureProduct.getName().getDecodedValue();
+          furnName = furnName;
           Vector3D furniturePosition = getPositionOfProduct(furnitureProduct);
 
           //scale to match length unit used in the ifc file
           furniturePosition.scale(scalePositionFactor);
           BuildingObjectContained singleFurniture = getObectContained( furniturePosition, furnitureProduct);
+
           singleFurniture.setId(furnitureProduct.getGlobalId().getDecodedValue());
 
           if(! (singleFurniture instanceof UnknownObject))

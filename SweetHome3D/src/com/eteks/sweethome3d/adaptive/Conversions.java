@@ -11,7 +11,7 @@ import org.graphstream.graph.IdAlreadyInUseException;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 
-import com.eteks.sweethome3d.adaptive.reachabletree.RGraphEdge;
+import com.eteks.sweethome3d.adaptive.reachabletree.SecurityGraphEdge;
 
 public class Conversions {
   
@@ -87,7 +87,7 @@ public class Conversions {
     return nodesPositions;
    }
    
-   private static Graph treeToGraph(RGraphEdge root, Graph graph)
+   private static Graph treeToGraph(SecurityGraphEdge root, Graph graph)
    {
      if(root == null || graph == null)
        return null;
@@ -96,7 +96,7 @@ public class Conversions {
      
      String name = root.toStringShallow();
      try  {         graph.addNode(name);   }   catch (IdAlreadyInUseException e)    {     }
-     List<RGraphEdge> sons = root.getNeighbours();
+     List<SecurityGraphEdge> sons = root.getNeighbours();
      
      //if root is a LEAF:
      if (sons == null || sons.size() == 0)
@@ -105,7 +105,7 @@ public class Conversions {
      }
      else
      {
-       for(RGraphEdge rge : sons)
+       for(SecurityGraphEdge rge : sons)
        {
          String nameSon = rge.toStringShallow();
          
@@ -122,7 +122,7 @@ public class Conversions {
      
    }
    
-   public static Graph treeToGraph(RGraphEdge root)
+   public static Graph treeToGraph(SecurityGraphEdge root)
    {
      
      Graph g  = new SingleGraph(root.toStringShallow());

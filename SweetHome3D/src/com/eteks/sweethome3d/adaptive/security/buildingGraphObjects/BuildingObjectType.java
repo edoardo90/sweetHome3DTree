@@ -19,6 +19,8 @@ public enum BuildingObjectType {
         return new PCObject(position);
       case PRINTER:
         return new PrinterObject(position);
+      case HVAC:
+         return new HVACObject(position);
       default:
         break;
     }

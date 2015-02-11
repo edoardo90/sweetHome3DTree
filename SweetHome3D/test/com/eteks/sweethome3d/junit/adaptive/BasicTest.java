@@ -82,8 +82,6 @@ public abstract  class BasicTest extends TestCase {
         homeController.getFurnitureController();
     this.furnitureTable = 
         (FurnitureTable)furnitureController.getView();
-
-
   }
 
   public  static void main(String [] args) {
@@ -92,10 +90,11 @@ public abstract  class BasicTest extends TestCase {
     preferences.setUnit(LengthUnit.METER);
     Home home = new Home();
     ControllerTest t = new ControllerTest(home, preferences, viewFactory);
-  
+    
   }
 
   public abstract void doStuffInsideMain(Home home, UserPreferences preferences);
+
   
   public BuildingSecurityGraph openIfcAndReadIt(Home home, UserPreferences preferences, String name ) throws Exception
   {

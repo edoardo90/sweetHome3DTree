@@ -53,7 +53,7 @@ public class WallObject extends BuildingGraphPart {
   
   private float getThickness()
   {
-    return 50;
+    return 20;
   }
   
   @Override

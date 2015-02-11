@@ -6,17 +6,17 @@ import java.util.Map;
 
 import org.graphstream.graph.Graph;
 
-import com.eteks.sweethome3d.adaptive.reachabletree.RGraphEdge;
+import com.eteks.sweethome3d.adaptive.reachabletree.SecurityGraphEdge;
 
 public class GraphReachMap {
-  private Map<String, RGraphEdge> graphToReach = new HashMap<String, RGraphEdge>();
-  private Map<RGraphEdge, String> reachToGraph = new HashMap<RGraphEdge, String>();
+  private Map<String, SecurityGraphEdge> graphToReach = new HashMap<String, SecurityGraphEdge>();
+  private Map<SecurityGraphEdge, String> reachToGraph = new HashMap<SecurityGraphEdge, String>();
   private Graph graph;
-  private List<RGraphEdge> reachGraph;
-  public Map<String, RGraphEdge> getGraphToReach() {
+  private List<SecurityGraphEdge> reachGraph;
+  public Map<String, SecurityGraphEdge> getGraphToReach() {
     return graphToReach;
   }
-  public void setGraphToReach(Map<String, RGraphEdge> graphToReach) {
+  public void setGraphToReach(Map<String, SecurityGraphEdge> graphToReach) {
     this.graphToReach = graphToReach;
   }
   public Graph getGraph() {
@@ -25,16 +25,16 @@ public class GraphReachMap {
   public void setGraph(Graph graph) {
     this.graph = graph;
   }
-  public Map<RGraphEdge, String> getReachToGraph() {
+  public Map<SecurityGraphEdge, String> getReachToGraph() {
     return reachToGraph;
   }
-  public void setReachToGraph(Map<RGraphEdge, String> reachToGraph) {
+  public void setReachToGraph(Map<SecurityGraphEdge, String> reachToGraph) {
     this.reachToGraph = reachToGraph;
   }
-  public List<RGraphEdge> getReachGraph() {
+  public List<SecurityGraphEdge> getReachGraph() {
     return reachGraph;
   }
-  public void setReachGraph(List<RGraphEdge> reachGraph) {
+  public void setReachGraph(List<SecurityGraphEdge> reachGraph) {
     this.reachGraph = reachGraph;
   }
 

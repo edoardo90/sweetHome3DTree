@@ -95,7 +95,7 @@ public class Rectangle3D extends Shape3D
     
     
     
-    return new Wall(xStart, yStart, xEnd, yEnd, 50, 200);
+    return new Wall(xStart, yStart, xEnd, yEnd, 20, 200);
   }
 
 

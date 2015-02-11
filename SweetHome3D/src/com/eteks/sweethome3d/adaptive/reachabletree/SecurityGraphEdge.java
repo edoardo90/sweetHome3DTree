@@ -6,16 +6,16 @@ import java.util.List;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 
-public class RGraphEdge {
+public class SecurityGraphEdge {
   private Room room;
   private List<HomePieceOfFurniture> roomObjects;
-  private List<RGraphEdge> neighbours;
+  private List<SecurityGraphEdge> neighbours;
 
-  public RGraphEdge(Room r)
+  public SecurityGraphEdge(Room r)
   {
     this.setRoom(r);
     this.roomObjects = new ArrayList<HomePieceOfFurniture>();
-    this.neighbours = new ArrayList<RGraphEdge>();
+    this.neighbours = new ArrayList<SecurityGraphEdge>();
   }
 
   
@@ -48,7 +48,7 @@ public class RGraphEdge {
 
   }
 
-  private String toStringTreeAcc(int level, RGraphEdge tree, String acc)
+  private String toStringTreeAcc(int level, SecurityGraphEdge tree, String acc)
   {
       if (tree.getNeighbours() == null || tree.getNeighbours().size() == 0)
         return times("\t", level) + tree.toString();
@@ -56,7 +56,7 @@ public class RGraphEdge {
       String a = "";
       
       
-      for (RGraphEdge son : tree.getNeighbours())
+      for (SecurityGraphEdge son : tree.getNeighbours())
       {
         a =  a + times("\t", level) + "\n" +
              times("\t", level)  + tree.toStringShallow() + 
@@ -93,10 +93,10 @@ public class RGraphEdge {
    * @param prohibited:  used as accumulator, for recursive call
    * @return  true if the graph is a tree, false otherwise
    */
-  private boolean itsATreeAcc(RGraphEdge graph, List<RGraphEdge> prohibited)
+  private boolean itsATreeAcc(SecurityGraphEdge graph, List<SecurityGraphEdge> prohibited)
   {
 
-    List<RGraphEdge> prohibitedUpd = new ArrayList<RGraphEdge>();;
+    List<SecurityGraphEdge> prohibitedUpd = new ArrayList<SecurityGraphEdge>();;
     /* NULL leaf  */
     if (graph == null)
       return true;
@@ -113,18 +113,18 @@ public class RGraphEdge {
       prohibitedUpd.addAll(prohibited);
     prohibitedUpd.add(graph);
 
-    List<RGraphEdge> sons = new ArrayList<RGraphEdge>(graph.getNeighbours());
+    List<SecurityGraphEdge> sons = new ArrayList<SecurityGraphEdge>(graph.getNeighbours());
 
 
     /* None of the direct sons should be one of the prohibited nodes  */
-    for(RGraphEdge s : sons)
+    for(SecurityGraphEdge s : sons)
     {
       if (containsRoomBasedEqual(s, prohibitedUpd) )
         return false;
     }
 
     /*  recursive call */
-    for(RGraphEdge s : sons)
+    for(SecurityGraphEdge s : sons)
     {
       if ( !  itsATreeAcc(s, prohibitedUpd))
       {
@@ -137,19 +137,19 @@ public class RGraphEdge {
     return true;
   }
 
-  private boolean isAtree(RGraphEdge graph)
+  private boolean isAtree(SecurityGraphEdge graph)
   {
     return itsATreeAcc(graph, null);
   }
 
-  public boolean containsRoomBasedEqual(RGraphEdge graph, List<RGraphEdge> prohibited)
+  public boolean containsRoomBasedEqual(SecurityGraphEdge graph, List<SecurityGraphEdge> prohibited)
   {
     if(prohibited == null || prohibited.size() == 0 )
       return false;
     if (graph == null )
       return false;
 
-    for(RGraphEdge proibNode : prohibited )
+    for(SecurityGraphEdge proibNode : prohibited )
     {
       if (ReachableTreeBuillder.areEquals(graph, proibNode))
         return true;
@@ -159,7 +159,7 @@ public class RGraphEdge {
   }
 
 
-  public String rowedList(List<RGraphEdge> neighbours)
+  public String rowedList(List<SecurityGraphEdge> neighbours)
   {
 
     String accumString = ""; 
@@ -192,9 +192,9 @@ public class RGraphEdge {
   }
   
   @Override
-  public RGraphEdge clone()
+  public SecurityGraphEdge clone()
   {
-    RGraphEdge rg = new RGraphEdge(this.room.clone());
+    SecurityGraphEdge rg = new SecurityGraphEdge(this.room.clone());
     rg.neighbours = this.getNeighbours();
     rg.roomObjects = this.getRoomObjects();
     
@@ -204,12 +204,12 @@ public class RGraphEdge {
   }
   
 
-  public List<RGraphEdge> getNeighbours() {
-    List<RGraphEdge>  neighboursRet = new ArrayList<RGraphEdge>(this.neighbours);
+  public List<SecurityGraphEdge> getNeighbours() {
+    List<SecurityGraphEdge>  neighboursRet = new ArrayList<SecurityGraphEdge>(this.neighbours);
     return neighboursRet;
   }
 
-  public void addNeighbour (RGraphEdge neighbour)
+  public void addNeighbour (SecurityGraphEdge neighbour)
   {
     this.neighbours.add(neighbour);
   }
@@ -219,7 +219,7 @@ public class RGraphEdge {
     this.roomObjects.add(p);
   }
 
-  public void setNeighbours(List<RGraphEdge> neighbours) {
+  public void setNeighbours(List<SecurityGraphEdge> neighbours) {
     this.neighbours = neighbours;
   }
 }

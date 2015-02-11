@@ -47,7 +47,7 @@ public class ReachableTreeBuillder {
   public String getAsciiArtTree()
   {
     
-    RGraphEdge threachTree = makeReachTree();
+    SecurityGraphEdge threachTree = makeReachTree();
     if(threachTree == null )
       return "";
     String s = threachTree.toString();
@@ -57,44 +57,53 @@ public class ReachableTreeBuillder {
     return s;
   }
   
-  private RGraphEdge makeReachTree()
+  private SecurityGraphEdge makeReachTree()
   {
-    Set<RGraphEdge> rgraph = this.makeGraph();
-    List<RGraphEdge> rgraphOrd = new ArrayList<RGraphEdge>(rgraph);
+    Set<SecurityGraphEdge> buildingGraph;
+    buildingGraph = this.makeGraph();
+    List<SecurityGraphEdge> rgraphOrd = new ArrayList<SecurityGraphEdge>(buildingGraph);
     
-    RGraphEdge ev = null;
+    SecurityGraphEdge ev = null;
     
     if(rgraphOrd != null && rgraphOrd.size() > 0)
          ev = rgraphOrd.get(0);
     else
          return null;
-    for(RGraphEdge e : rgraphOrd)
+    for(SecurityGraphEdge e : rgraphOrd)
     {
       if (e.getRoom().getName().equals("room 1"))
         ev = e;
     }
     
     
-    RGraphEdge thereachTree = BT(ev, null);
+    SecurityGraphEdge thereachTree = BT(ev, null);
     
     return thereachTree;
   }
   
-  protected Set<RGraphEdge> makeGraph()
+  /**
+   * <pre>
+   *   1) Graph <V, E>  where V are rooms filled with objects
+   *       and there is an edge between room1 and room2 iif 
+   *       they are linked by a door
+   *  
+   *
+   *  2)  Each node of the graph is a room with all its objects  
+   *      if a  forniture is inside the room
+   *      we put it inside the graphEdge 
+   *  
+   *  </pre>
+   **/
+   
+  protected Set<SecurityGraphEdge> makeGraph()
   {
-    /*  1) Graph <V, E>  where V are rooms filled with objects and there is an edge between room1 and room2 iif 
-     *      they are linked by a door
-     */
+    Map<Room, SecurityGraphEdge> graphRooms = new HashMap<Room, SecurityGraphEdge>();
 
-    /*  2)  Each node of the graph is a room with all its objects  
-     *      if a  forniture is inside the room we put it inside the graphEdge */
-    Map<Room, RGraphEdge> graphRooms = new HashMap<Room, RGraphEdge>();
-
-    List<RGraphEdge>   graphRoomsList = new ArrayList<RGraphEdge>();
+    List<SecurityGraphEdge>   graphRoomsList = new ArrayList<SecurityGraphEdge>();
 
     for (Room r : rooms)
     {
-      RGraphEdge roomToFull = new RGraphEdge(r);
+      SecurityGraphEdge roomToFill = new SecurityGraphEdge(r);
 
 
       for(HomePieceOfFurniture pieceOfForn : fornitures)
@@ -107,12 +116,12 @@ public class ReachableTreeBuillder {
 
         if (isFornitureInsideRoom)
         {
-          roomToFull.addPieceOfForniture(pieceOfForn);
+          roomToFill.addPieceOfForniture(pieceOfForn);
         }
       }
 
-      graphRoomsList.add(roomToFull);
-      graphRooms.put(r, roomToFull);
+      graphRoomsList.add(roomToFill);
+      graphRooms.put(r, roomToFill);
 
     }
 
@@ -127,7 +136,7 @@ public class ReachableTreeBuillder {
 
     // iterate on all the rooms and then intersect the bounding rectangles
     // if the (increased) bounding rect intersect, then we check wether there is a door
-    Set<RGraphEdge> graphOfRe = new HashSet<RGraphEdge>();
+    Set<SecurityGraphEdge> graphOfRe = new HashSet<SecurityGraphEdge>();
     for (int i=0; i< rooms.size(); i++)
     {
       for (int j=i+1; j< rooms.size(); j++)
@@ -143,8 +152,8 @@ public class ReachableTreeBuillder {
             {
               // there is a link bw the E with r1 and the E with r2
               //graphRooms.
-              RGraphEdge e1 = graphRooms.get(r1);
-              RGraphEdge e2 = graphRooms.get(r2);
+              SecurityGraphEdge e1 = graphRooms.get(r1);
+              SecurityGraphEdge e2 = graphRooms.get(r2);
               e1.addNeighbour(e2);
               e2.addNeighbour(e1);
               
@@ -193,14 +202,14 @@ public class ReachableTreeBuillder {
    *  and BT applied to all its sons except the ones already visited
    */
   
-  protected RGraphEdge BT(RGraphEdge ev, Set<RGraphEdge> visited)
+  protected SecurityGraphEdge BT(SecurityGraphEdge ev, Set<SecurityGraphEdge> visited)
   {
     
-       RGraphEdge tree = new RGraphEdge(ev.getRoom());
+       SecurityGraphEdge tree = new SecurityGraphEdge(ev.getRoom());
        
        // 1) get the neighbours
        
-       List<RGraphEdge> sons = ev.getNeighbours();
+       List<SecurityGraphEdge> sons = ev.getNeighbours();
        
        // 2) if there are no neighbours the functions returns
        
@@ -216,19 +225,19 @@ public class ReachableTreeBuillder {
            return tree;
        
        //4) we update the visited with the current node
-       Set<RGraphEdge> visitedUpdated;
+       Set<SecurityGraphEdge> visitedUpdated;
        if (visited != null)
-            visitedUpdated = new HashSet<RGraphEdge>(visited);
+            visitedUpdated = new HashSet<SecurityGraphEdge>(visited);
        else
-            visitedUpdated = new HashSet<RGraphEdge>();
+            visitedUpdated = new HashSet<SecurityGraphEdge>();
        visitedUpdated.add(tree);  
        
        
        //5) we recursively apply the functions to all the sons
        
-       List<RGraphEdge>  sonsUpdated = new ArrayList<RGraphEdge>();
+       List<SecurityGraphEdge>  sonsUpdated = new ArrayList<SecurityGraphEdge>();
        
-       for (RGraphEdge son : sons)
+       for (SecurityGraphEdge son : sons)
        {
           sonsUpdated.add(BT(son, visitedUpdated));
        }
@@ -239,22 +248,22 @@ public class ReachableTreeBuillder {
     
   }
 
-  private void removeSameRooms(List<RGraphEdge> sons, Set<RGraphEdge> visited) {
+  private void removeSameRooms(List<SecurityGraphEdge> sons, Set<SecurityGraphEdge> visited) {
         if (sons == null)
           return;
         if (sons.size() == 0)
           return;
         if (visited == null || visited.size() == 0)
           return;
-        List<RGraphEdge> sons1 = new ArrayList<RGraphEdge>(sons);
-        for (RGraphEdge v : visited)
-           for (RGraphEdge s : sons1)
+        List<SecurityGraphEdge> sons1 = new ArrayList<SecurityGraphEdge>(sons);
+        for (SecurityGraphEdge v : visited)
+           for (SecurityGraphEdge s : sons1)
              if (areEquals(s, v))
                   sons.remove(s);
     
   }
 
-  /*package*/ static boolean areEquals(RGraphEdge s, RGraphEdge v) {
+  /*package*/ static boolean areEquals(SecurityGraphEdge s, SecurityGraphEdge v) {
     String n1 =  s.getRoom().getName();
     String n2 =  v.getRoom().getName();
     return n1.equals(n2);
@@ -263,7 +272,7 @@ public class ReachableTreeBuillder {
 
   public void displayTree() 
   {
-    RGraphEdge root = this.makeReachTree();
+    SecurityGraphEdge root = this.makeReachTree();
     Graph g = Conversions.treeToGraph(root);
   }
   
