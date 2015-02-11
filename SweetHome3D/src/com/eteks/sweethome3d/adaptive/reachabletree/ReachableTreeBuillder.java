@@ -127,11 +127,11 @@ public class ReachableTreeBuillder {
 
     /* 3) now we have the edges:  rooms filled of objects, we now need the links  */
 
-    List<HomeDoorOrWindow> doors = new ArrayList<HomeDoorOrWindow>();
+    List<HomePieceOfFurniture> doors = new ArrayList<HomePieceOfFurniture>();
     for (HomePieceOfFurniture hpf : fornitures)
     {
-      if (hpf instanceof HomeDoorOrWindow)
-        doors.add(  (HomeDoorOrWindow) hpf);
+      if (hpf.isDoorOrWindow())
+        doors.add( hpf);
     }
 
     // iterate on all the rooms and then intersect the bounding rectangles
@@ -142,10 +142,10 @@ public class ReachableTreeBuillder {
       for (int j=i+1; j< rooms.size(); j++)
       {
         Room r1 = rooms.get(i), r2 = rooms.get(j);
-        if (r1 != r2 &&  r1.intersectApprox(r2, 10))
+        if (r1 != r2 &&  r1.intersectApprox(r2, 50))
         {
 
-          for (HomeDoorOrWindow d : doors )
+          for (HomePieceOfFurniture d : doors )
           {
             boolean areRoomsLinkedByDoor = areLinkedRoomsAndDoor(r1, r2, d);
             if ( areRoomsLinkedByDoor)
@@ -170,7 +170,7 @@ public class ReachableTreeBuillder {
 
   }
 
-  private boolean areLinkedRoomsAndDoor(Room r1, Room r2, HomeDoorOrWindow d)
+  private boolean areLinkedRoomsAndDoor(Room r1, Room r2, HomePieceOfFurniture d)
   {
 
     Polygon pol1 = r1.getPolygon();
@@ -178,7 +178,7 @@ public class ReachableTreeBuillder {
 
     float xc = d.getX();
     float yc = d.getY();
-    float edge = d.getDepth() * 1.5f ;
+    float edge = d.getDepth() * 5f ;
     float upx = xc - edge / 2;
     float upy = yc - edge / 2;
 

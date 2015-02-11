@@ -381,7 +381,7 @@ public class RoomGeoSmart extends Room {
   public String toString()
   {
 
-    String s = "";
+    String s = "" + this.getName() != null ? this.getName() : "";
     float [][] points = this.getPoints();
     for(int i=0;i<points.length; i++)
     {
