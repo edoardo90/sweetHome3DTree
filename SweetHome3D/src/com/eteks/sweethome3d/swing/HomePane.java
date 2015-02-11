@@ -166,7 +166,7 @@ import org.graphstream.graph.implementations.SingleGraph;
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.ifcSecurity.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer;

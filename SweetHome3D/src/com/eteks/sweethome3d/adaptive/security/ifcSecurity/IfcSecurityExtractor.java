@@ -52,9 +52,9 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWith
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.UnknownObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Axis3DNice;
@@ -98,7 +98,7 @@ public class IfcSecurityExtractor {
 
   public BuildingSecurityGraph getGraphFromFile() throws Exception
   {
-    BuildingSecurityGraph buildingSecurityGraph = new BuildingSecurityGraph();
+    BuildingSecurityGraph buildingSecurityGraph = BuildingSecurityGraph.getInstance();
 
     List<BuildingLinkEdge> linkEdgeList;
     List<BuildingRoomNode> roomNodeList;

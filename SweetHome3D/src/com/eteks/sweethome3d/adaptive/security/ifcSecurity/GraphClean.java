@@ -13,7 +13,7 @@ import org.graphstream.ui.spriteManager.SpriteManager;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 
 
 public class GraphClean {

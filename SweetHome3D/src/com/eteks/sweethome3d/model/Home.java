@@ -39,8 +39,8 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWith
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;

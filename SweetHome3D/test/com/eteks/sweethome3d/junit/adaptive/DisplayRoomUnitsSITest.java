@@ -1,6 +1,6 @@
 package com.eteks.sweethome3d.junit.adaptive;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.FurnitureAddTest.ControllerTest;
 import com.eteks.sweethome3d.model.Home;

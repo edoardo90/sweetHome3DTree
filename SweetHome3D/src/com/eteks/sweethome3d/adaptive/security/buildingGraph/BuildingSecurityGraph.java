@@ -1,11 +1,9 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
+package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.model.Wall;
 
 /**
@@ -17,6 +15,26 @@ public class BuildingSecurityGraph {
   private List<BuildingLinkEdge> linkEdgeList;
   private List<BuildingRoomNode> roomNodeList;
   private List<Wall> notLinkingWalls ;
+  private static BuildingSecurityGraph instance = null;
+  
+  public static BuildingSecurityGraph getInstance()
+  {
+    if (BuildingSecurityGraph.instance == null)
+    {
+      BuildingSecurityGraph.instance = new BuildingSecurityGraph();
+      return BuildingSecurityGraph.instance;
+    }
+    else
+    {
+      return BuildingSecurityGraph.instance;
+    }
+  }
+  
+  private BuildingSecurityGraph()
+  {
+    
+  }
+  
   public List<BuildingLinkEdge> getLinkEdgeList() {
     
     Collections.sort(this.linkEdgeList, new Comparator<BuildingLinkEdge>() {

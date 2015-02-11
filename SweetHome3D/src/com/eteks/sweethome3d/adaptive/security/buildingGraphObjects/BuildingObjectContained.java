@@ -13,6 +13,11 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     this.setPosition(position);
   }
  
+  /**
+   * The 3D representation of the object wrapped inside the SweetHome HomePiece object
+   * @param preferences
+   * @return
+   */
   public  HomePieceOfFurniture getPieceOfForniture(UserPreferences preferences)
   {
     return preferences.getPieceOfForniture(objectType);
