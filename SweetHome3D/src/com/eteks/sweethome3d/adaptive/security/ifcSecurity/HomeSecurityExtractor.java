@@ -16,6 +16,8 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.SessionIdentifierGenerator;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
@@ -79,7 +81,10 @@ public class HomeSecurityExtractor extends SecurityExtractor {
       List<BuildingObjectContained> objectsInside = new ArrayList<BuildingObjectContained>();
       BuildingRoomNode brn = new BuildingRoomNode(rg.getName(), 
           rg.getShape(), objectsInside);  
-
+      
+      brn.setId(r.getId());
+      securityGraph.putBuildingRoom(new IdRoom(r.getId()), brn);
+      
       for(HomePieceOfFurniture pieceOfForn : fornitures)
       {
         Point fornitPoint = new Point((int)pieceOfForn.getX() * 1000 , (int)pieceOfForn.getY() * 1000);
@@ -100,7 +105,9 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           BuildingObjectContained objCont = typeObj.getBuildingObjectOfType(position);
           objCont.setId(pieceOfForn.getId());
           
-          brn.setId(r.getId());
+          securityGraph.putObjectCont(new IdObject(pieceOfForn.getId()), objCont);
+          securityGraph.putObjectRoom(new IdObject(pieceOfForn.getId()), brn);
+          
           brn.addObjectContained(objCont);
         }
       }

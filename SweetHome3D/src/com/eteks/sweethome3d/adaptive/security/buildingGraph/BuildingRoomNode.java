@@ -75,5 +75,10 @@ public class BuildingRoomNode extends BuildingGraphPart {
   public void setObjectsInside(List<BuildingObjectContained> objectsInside) {
     this.objectsInside = objectsInside;
   }
+
+  public void removeObject(BuildingObjectContained objectCont) {
+   this.objectsInside.remove(objectCont);
+    
+  }
   
 }

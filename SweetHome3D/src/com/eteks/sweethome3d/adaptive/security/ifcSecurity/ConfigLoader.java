@@ -114,8 +114,8 @@ public class ConfigLoader {
 
     Map<String, BuildingObjectType> catalog = new HashMap<String, BuildingObjectType>();
     Map<BuildingObjectType, String> catalogBack = new HashMap<BuildingObjectType, String>();
-
-    List<String> fileCont = getfileContent(this.sweetHomeLibraryObjects.getAbsolutePath());
+    int pippo=32;
+    List<String> fileCont =  getfileContent(this.sweetHomeLibraryObjects.getAbsolutePath());
     String categoryName = fileCont.get(0);
     for(int i = 1; i<fileCont.size(); i++)
     {
@@ -148,6 +148,8 @@ public class ConfigLoader {
   protected List<String> getfileContent(String filePath)
   {
     List<String> cachedCont = this.fileContentCache.get(filePath);
+    if(cachedCont != null)
+      return cachedCont;
     if(cachedCont == null)
     {
 
@@ -165,10 +167,11 @@ public class ConfigLoader {
       catch(Exception e)
       {}
 
-      this.fileContentCache.put(filePath, cachedCont); 
+      this.fileContentCache.put(filePath, fileCont);
+      return fileCont;
     }
 
-    return this.fileContentCache.get(fileContentCache);
+    return null;
 
   }
 

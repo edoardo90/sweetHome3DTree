@@ -325,6 +325,7 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
       this.y = this.depth / 2;
       
       this.id = SessionIdentifierGenerator.getInstance().nextSessionId();
+      this.id = this.id + "__" +  this.name;
       System.out.println("created pof :" + this.name);
       
     }

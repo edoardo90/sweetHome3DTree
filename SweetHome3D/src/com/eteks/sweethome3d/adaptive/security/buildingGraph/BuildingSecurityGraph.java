@@ -1,27 +1,33 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.Wall;
 
 /**
  * Data Structure used to represent the graph associated to the building
- * @author 
+ * @author Edoardo Pasi
  */
 public class BuildingSecurityGraph {
     
-  private List<BuildingLinkEdge> linkEdgeList;
-  private List<BuildingRoomNode> roomNodeList;
-  private List<Wall> notLinkingWalls ;
-  private List<CyberLinkEdge> cyberLinkEdgeList;
+  private List<BuildingLinkEdge> linkEdgeList = new ArrayList<BuildingLinkEdge>();
+  private List<BuildingRoomNode> roomNodeList = new ArrayList<BuildingRoomNode>();
+  private List<Wall> notLinkingWalls = new ArrayList<Wall>();
+  private List<CyberLinkEdge> cyberLinkEdgeList = new ArrayList<CyberLinkEdge>();
+  
+  private Map<IdRoom, BuildingRoomNode>  buildingRooms = new HashMap<IdRoom, BuildingRoomNode>();
+  private Map<IdObject, BuildingRoomNode>  objectsRoomLocation = new HashMap<IdObject, BuildingRoomNode>();
+  private Map<IdObject, BuildingObjectContained> objectsContained = new HashMap<IdObject, BuildingObjectContained>();
+  
   private static BuildingSecurityGraph instance = null;
-  private Map<String, BuildingRoomNode>  objectsInRooms = new HashMap<String, BuildingRoomNode>();
-  
-  
   
   public static BuildingSecurityGraph getInstance()
   {
@@ -89,13 +95,66 @@ public class BuildingSecurityGraph {
     
   }
   
-  
-  private void moveObject(String idObject, String idRoom)
+  /**
+   * 
+   * @param idObject:  the object to move
+   * @param idRoom:  the room in which move it
+   * Updates the map of rooms and objects
+   * Updates the room object
+   */
+  public void moveObject(String idObject, String idRoomDestination)
   {
+    BuildingRoomNode broomDestination = this.buildingRooms.get(new IdRoom(idRoomDestination));
+    BuildingRoomNode  broomSource = this.objectsRoomLocation.get(new IdObject(idObject));
+    BuildingObjectContained objectCont = this.objectsContained.get(new IdObject(idObject));
+    
+    broomDestination.addObjectContained(objectCont);
+    broomSource.removeObject(objectCont);
+  
+  }
+  
+  public void putObjectCont(IdObject idObj, BuildingObjectContained cont)
+  {
+    this.objectsContained.put(idObj, cont);
+  }
+  
+  public void putObjectRoom(IdObject idObj, BuildingRoomNode room)
+  {
+    this.objectsRoomLocation.put(idObj, room);
+  }
+  
+  public void putBuildingRoom(IdRoom idRoom, BuildingRoomNode room)
+  {
+    this.buildingRooms.put(idRoom, room);
+  }
+  
+  
+  @Override
+  public String toString()
+  {
+    String s = "";
+    for(BuildingRoomNode roomNode : this.roomNodeList )
+    {
+      s = s + "ROOM: \n" + roomNode;
+      for(BuildingObjectContained bojc : roomNode.getObjectsInside())
+      {
+        s = s + "\n\t" + bojc;
+      }
+      s = s + "\n";
+    }
+    
+    s = s + " LINKS : \n";
+    
+    for(BuildingLinkEdge link : this.getLinkEdgeList())
+    {
+      s = s + link + "\n";
+    }
+    
+    
+    return s;
     
   }
   
   
   
-
 }

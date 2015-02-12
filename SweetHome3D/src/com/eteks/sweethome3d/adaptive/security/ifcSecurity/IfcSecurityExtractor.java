@@ -43,15 +43,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
+import java.util.Map;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
@@ -62,19 +65,23 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
-import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
 
 public class IfcSecurityExtractor extends SecurityExtractor{
-
-
+  
+  protected Map<IfcSpace, BuildingRoomNode> spaceToRoomNoode  = new HashMap<IfcSpace, BuildingRoomNode>();
+  protected List<IfcSpace> ifcSpaces = new ArrayList<IfcSpace>();
+  
+  protected String ifcFileName;
+  protected IfcModel ifcModel;
+  protected List<String>   addedWalls = new ArrayList<String>();
+  
+  
   public IfcSecurityExtractor(String ifcFileName, UserPreferences preferences) {
     super( preferences);
     this.ifcFileName = ifcFileName;
-
-   
   }
 
   public BuildingSecurityGraph getGraph() throws Exception
@@ -404,6 +411,7 @@ public class IfcSecurityExtractor extends SecurityExtractor{
       {
         String roomName = space.getLongName().getDecodedValue();
         String idRoom = space.getGlobalId().getDecodedValue();
+        idRoom = idRoom + "__" + roomName;
 
         //shape and position
         Shape3D roomShape = getShapeAndPosition(space, scaleFactor); 
@@ -411,11 +419,17 @@ public class IfcSecurityExtractor extends SecurityExtractor{
 
         //containement
         List<BuildingObjectContained> objects = getObjectsOfRoom(space, scaleFactor);
-
+        
         BuildingRoomNode buildingRoomNode = new
             BuildingRoomNode(roomName, roomShape, objects);
         buildingRoomNode.setId(idRoom);
-
+        securityGraph.putBuildingRoom(new IdRoom(idRoom), buildingRoomNode);
+        
+        for(BuildingObjectContained objCont : objects)
+        {
+          securityGraph.putObjectRoom(new IdObject(objCont.getId()), buildingRoomNode);
+        }
+        
         buildingRoomList.add(buildingRoomNode);
 
         this.spaceToRoomNoode.put(space, buildingRoomNode);
@@ -458,15 +472,19 @@ public class IfcSecurityExtractor extends SecurityExtractor{
           IfcProduct furnitureProduct = iteratorProductContained.next();
           
           String furnName = furnitureProduct.getName().getDecodedValue();
-          furnName = furnName;
+          
           Vector3D furniturePosition = getPositionOfProduct(furnitureProduct);
 
           //scale to match length unit used in the ifc file
           furniturePosition.scale(scalePositionFactor);
           BuildingObjectContained singleFurniture = getObectContained( furniturePosition, furnitureProduct);
 
-          singleFurniture.setId(furnitureProduct.getGlobalId().getDecodedValue());
-
+          String furnitId = furnitureProduct.getGlobalId().getDecodedValue();
+          furnitId = furnitId + "__" + furnName;
+          singleFurniture.setId(furnitId);
+          
+          securityGraph.putObjectCont(new IdObject(furnitId), singleFurniture);
+          
           if(! (singleFurniture instanceof UnknownObject))
           {
             contained.add(singleFurniture);

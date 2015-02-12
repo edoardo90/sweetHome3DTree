@@ -99,7 +99,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     this.nameYOffset = -40f;
     this.floorVisible = true;
     this.ceilingVisible = true;
-    this.id = SessionIdentifierGenerator.getInstance().nextSessionId();
+    this.id = SessionIdentifierGenerator.getInstance().nextSessionId()  + "__" + this.name;
   }
 
   public Room(List<Vector3D> points)
@@ -132,7 +132,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     this.nameYOffset = -40f;
     this.floorVisible = true;
     this.ceilingVisible = true;
-    this.id = SessionIdentifierGenerator.getInstance().nextSessionId();
+    this.id = SessionIdentifierGenerator.getInstance().nextSessionId()  + "__" + this.name;
 
   }
 

@@ -12,7 +12,6 @@ import java.util.Set;
 import org.graphstream.graph.Graph;
 
 import com.eteks.sweethome3d.adaptive.Conversions;
-import com.eteks.sweethome3d.model.HomeDoorOrWindow;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.Wall;
