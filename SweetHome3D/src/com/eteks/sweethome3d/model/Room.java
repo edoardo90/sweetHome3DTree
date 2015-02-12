@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.SessionIdentifierGenerator;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
 /**
@@ -77,6 +78,9 @@ public class Room implements Serializable, Selectable, Elevatable {
   private HomeTexture ceilingTexture;
   private float       ceilingShininess;
   private Level       level;
+  
+  private String      id;
+  
 
   private transient PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
   private transient Shape shapeCache;
@@ -86,7 +90,6 @@ public class Room implements Serializable, Selectable, Elevatable {
    * Creates a room from its name and the given coordinates.
    */
   public Room(float [][] points) {
-
     
     if (points.length <= 1) {
       throw new IllegalStateException("Room points must containt at least two points");
@@ -96,6 +99,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     this.nameYOffset = -40f;
     this.floorVisible = true;
     this.ceilingVisible = true;
+    this.id = SessionIdentifierGenerator.getInstance().nextSessionId();
   }
 
   public Room(List<Vector3D> points)
@@ -128,6 +132,7 @@ public class Room implements Serializable, Selectable, Elevatable {
     this.nameYOffset = -40f;
     this.floorVisible = true;
     this.ceilingVisible = true;
+    this.id = SessionIdentifierGenerator.getInstance().nextSessionId();
 
   }
 
@@ -454,8 +459,6 @@ public class Room implements Serializable, Selectable, Elevatable {
     Rectangle rr2 = r2.getRectangleGrowth(approxTollerance);
     Rectangle rr1 = this.getRectangleGrowth(approxTollerance);
     return rr1.intersects(rr2);
-
-
   }
 
   public Polygon getPolygon1000xBigger()
@@ -1113,4 +1116,14 @@ public class Room implements Serializable, Selectable, Elevatable {
       throw new IllegalStateException("Super class isn't cloneable"); 
     }
   }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+
 }

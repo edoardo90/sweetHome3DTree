@@ -37,6 +37,12 @@ public class BuildingRoomNode extends BuildingGraphPart {
     
     this.setObjectsInside(conteinedObjects);
   }
+  
+  public void addObjectContained(BuildingObjectContained objectCont)
+  {
+    this.objectsInside.add(objectCont);
+  }
+  
   /**
    * room geo smart are more suitable for geometry purposes
    * @return

@@ -188,7 +188,7 @@ public class IconManager {
                  getIcon(this.errorIconContent, height, null),
                  getIcon(this.waitIconContent, height, null));
       }
-      // Store the icon in icons map
+      // Store the icon in icons buildingTypeToHomePiece
       contentIcons.put(height, icon);
     }
     return icon;    

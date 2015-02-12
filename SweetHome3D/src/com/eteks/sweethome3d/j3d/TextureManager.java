@@ -422,7 +422,7 @@ public class TextureManager {
   }
 
   /**
-   * Texture used to compare textures images and ensure texture uniqueness in textures map.
+   * Texture used to compare textures images and ensure texture uniqueness in textures buildingTypeToHomePiece.
    * Image bits of the texture are stored in a weak reference to avoid grabbing memory uselessly.
    */
   private static class ComparableTexture {

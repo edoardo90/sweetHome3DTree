@@ -583,7 +583,7 @@ public class PlanComponentWithFurnitureTest extends ComponentTestFixture {
       this.homeController = new HomeController(home, preferences, viewFactory);
       JComponent homeView = (JComponent)this.homeController.getView();
       ActionMap actions = homeView.getActionMap();
-      // Create buttons from HomePane actions map
+      // Create buttons from HomePane actions buildingTypeToHomePiece
       this.selectButton = new JToggleButton(actions.get(HomePane.ActionType.SELECT));
       this.createWallsButton = new JToggleButton(actions.get(HomePane.ActionType.CREATE_WALLS));
       this.createDimensionsButton = new JToggleButton(actions.get(HomePane.ActionType.CREATE_DIMENSION_LINES));

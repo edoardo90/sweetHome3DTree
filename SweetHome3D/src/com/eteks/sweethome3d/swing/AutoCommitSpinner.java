@@ -77,7 +77,7 @@ public class AutoCommitSpinner extends JSpinner {
                 // Add a listener to spinner text field that keeps track when the user typed a character
                 final KeyAdapter keyListener = new KeyAdapter() {
                     public void keyTyped(KeyEvent ev) {
-                      // keyTyped isn't called for UP and DOWN keys of text field input map
+                      // keyTyped isn't called for UP and DOWN keys of text field input buildingTypeToHomePiece
                       keepFocusedTextUnchanged = true;
                     };
                   };

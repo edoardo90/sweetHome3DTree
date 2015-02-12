@@ -419,7 +419,7 @@ public class HelpPane extends JRootPane implements HelpView {
    */
   private void installKeyboardActions() {
     ActionMap actions = getActionMap();      
-    // As no menu is created for this pane, change its input map to ensure accelerators work
+    // As no menu is created for this pane, change its input buildingTypeToHomePiece to ensure accelerators work
     InputMap inputMap = getInputMap(WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     inputMap.put((KeyStroke)actions.get(ActionType.SHOW_PREVIOUS).getValue(Action.ACCELERATOR_KEY), 
         ActionType.SHOW_PREVIOUS);

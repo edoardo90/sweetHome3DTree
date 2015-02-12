@@ -25,7 +25,7 @@ import com.eteks.sweethome3d.resources.Res;
  */
 public class ConfigLoader {
 
-  
+
 
   private final UserPreferences preferences;
   private File sweetHomeLibraryObjects;
@@ -34,7 +34,10 @@ public class ConfigLoader {
   private String securityCategoryName = "Security";
 
   private static ConfigLoader instance = null;
-  
+  protected SecurityNameAndMap namesConventionsSweetHome;
+
+  private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>(); 
+
   public static ConfigLoader getInstance(UserPreferences preferences)
   {
 
@@ -49,13 +52,13 @@ public class ConfigLoader {
     }
   }
 
-  
+
   protected ConfigLoader(UserPreferences preferences)
   {
     this.preferences = preferences;
     this.sweetHomeLibraryObjects = this.readSweetHomeLibraryObj();
     this.ifcWordsToLookFor = this.readWordsToLook();
-    
+
   }
 
 
@@ -68,7 +71,7 @@ public class ConfigLoader {
   }
 
   private  File readSweetHomeLibraryObj() {
-    
+
     return getFileFromName("" + getSweetLibFileName());
   }
 
@@ -101,16 +104,17 @@ public class ConfigLoader {
 
   /**
    * 
-   * Building Object Type  -> SweetHome3D name
+   * SweetHome3D name -> Building Object Type 
    * so for instance   
-   * "CCTV"  is associated with Camera
+   * Camera surveillance N090211  is associated with CCTV
    * @return
    */
   protected SecurityNameAndMap getCatalogNamesFromFile()
   {
 
     Map<String, BuildingObjectType> catalog = new HashMap<String, BuildingObjectType>();
-    
+    Map<BuildingObjectType, String> catalogBack = new HashMap<BuildingObjectType, String>();
+
     List<String> fileCont = getfileContent(this.sweetHomeLibraryObjects.getAbsolutePath());
     String categoryName = fileCont.get(0);
     for(int i = 1; i<fileCont.size(); i++)
@@ -121,52 +125,63 @@ public class ConfigLoader {
       String objectType = coupleObjectNameType[1];
       BuildingObjectType buildingObjType = BuildingObjectType.valueOf(objectType);
       catalog.put(objectName, buildingObjType);
-      
+      catalogBack.put(buildingObjType, objectName);
+
     }
-    
+
     SecurityNameAndMap snm = new SecurityNameAndMap();
     snm.catalog = catalog;
+    snm.catalogBack = catalogBack;
     snm.securityCategoryName = categoryName;
     return snm;
   }
-  
+
   public class SecurityNameAndMap
   {
     public Map<String, BuildingObjectType> catalog;
+    public Map<BuildingObjectType, String> catalogBack;
     public String securityCategoryName;
-    
+
   }
-  
+
 
   protected List<String> getfileContent(String filePath)
   {
-    List<String> fileCont = new ArrayList<String>();
-    BufferedReader br= null;
-    try {
-      br = new BufferedReader(new FileReader(filePath));
-      String line;
-      while ((line = br.readLine()) != null) {
-        // process the line.
-        fileCont.add(line);
+    List<String> cachedCont = this.fileContentCache.get(filePath);
+    if(cachedCont == null)
+    {
+
+      List<String> fileCont = new ArrayList<String>();
+      BufferedReader br= null;
+      try {
+        br = new BufferedReader(new FileReader(filePath));
+        String line;
+        while ((line = br.readLine()) != null) {
+          // process the line.
+          fileCont.add(line);
+        }
+        br.close();
       }
-      br.close();
+      catch(Exception e)
+      {}
+
+      this.fileContentCache.put(filePath, cachedCont); 
     }
-    catch(Exception e)
-    {}
-    
-     return fileCont; 
+
+    return this.fileContentCache.get(fileContentCache);
+
   }
 
 
   protected  List<String> stringToLookFor(BuildingObjectType objectType)
   {
-    
+
     List<String> words = new ArrayList<String>();
 
     List<String> content = this.getfileContent(this.ifcWordsToLookFor.getAbsolutePath());
     for(String line : content)
     {
-      
+
       String [] parts = line.split(",");
       String object = parts[0];
       BuildingObjectType type = BuildingObjectType.valueOf(object);
@@ -177,24 +192,24 @@ public class ConfigLoader {
           words.add(parts[i]);
         }
       }
-      
+
     }
-    
+
     return words;
-    
+
   }
 
-  public Map<BuildingObjectType, HomePieceOfFurniture> createFurnitureMap()
+  public Map<BuildingObjectType, HomePieceOfFurniture> createTypeToFurnitureMap()
   {
     Map<BuildingObjectType, HomePieceOfFurniture> catalogFurniture =
         new HashMap<BuildingObjectType, HomePieceOfFurniture>();
-     
+
     List<FurnitureCategory> categories= getUserPreferences().getFurnitureCatalog().getCategories();
-    
-    SecurityNameAndMap snm = this.getCatalogNamesFromFile();
-    Map<String, BuildingObjectType> catalog = snm.catalog;
-    securityCategoryName = snm.securityCategoryName;
-    
+
+    namesConventionsSweetHome = this.getCatalogNamesFromFile();
+    Map<String, BuildingObjectType> catalog = namesConventionsSweetHome.catalog;
+    securityCategoryName = namesConventionsSweetHome.securityCategoryName;
+
     for(FurnitureCategory category : categories )
     {
       String securityCategoryName = this.getSecurityCategoryName();
@@ -206,7 +221,7 @@ public class ConfigLoader {
           HomePieceOfFurniture  hopf = new HomePieceOfFurniture(piece);
 
           String pieceName = piece.getName();
-          
+
           BuildingObjectType typeOBJ = catalog.get(pieceName);
           catalogFurniture.put(typeOBJ, hopf);
         }
@@ -218,7 +233,7 @@ public class ConfigLoader {
   }
 
   private String getSecurityCategoryName() {
-   
+
     return this.securityCategoryName;
   }
 

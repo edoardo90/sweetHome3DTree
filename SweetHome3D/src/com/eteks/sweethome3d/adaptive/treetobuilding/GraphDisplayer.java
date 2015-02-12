@@ -372,9 +372,9 @@ public class GraphDisplayer {
    * @param myTreeRoot root node
    * @param father  father of node
    * @param level   level
-   * @param fatherLeftDisplacement   propagated because the function recursively fills the map
+   * @param fatherLeftDisplacement   propagated because the function recursively fills the buildingTypeToHomePiece
    * @param fatherFinalEnd   the same as width
-   * @return a map in which key is the node and value is the associated room
+   * @return a buildingTypeToHomePiece in which key is the node and value is the associated room
    */
   private Map<Node, NodeRoom> getWeightedTreeAcc(Node myTreeRoot, Node father, int level, int fatherLeftDisplacement, int fatherFinalEnd)
   {

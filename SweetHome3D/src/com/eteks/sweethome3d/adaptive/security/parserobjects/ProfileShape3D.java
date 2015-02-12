@@ -40,5 +40,16 @@ public class ProfileShape3D extends Shape3D {
     
   }
   
+  public ProfileShape3D clone()
+  {
+    List<Vector3D> cloneList = new ArrayList<Vector3D>();
+    for(Vector3D point : this.points)
+    {
+      cloneList.add(point.clone());
+    }
+    return new ProfileShape3D(cloneList);
+  }
+  
+  
   
 }

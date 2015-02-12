@@ -43,10 +43,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
@@ -68,35 +67,17 @@ import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
 
-public class IfcSecurityExtractor {
+public class IfcSecurityExtractor extends SecurityExtractor{
 
-  private String ifcFileName;
-  private IfcModel ifcModel;
-  private List<IfcSpace> ifcSpaces = new ArrayList<IfcSpace>();
-  private List<String>   addedWalls = new ArrayList<String>();
 
-  private Map<IfcSpace, BuildingRoomNode> spaceToRoomNoode  = new HashMap<IfcSpace, BuildingRoomNode>();
-  protected ConfigLoader configLoader;
-
-  public IfcSecurityExtractor(String ifcFileName, UserPreferences preferences)
-  {
+  public IfcSecurityExtractor(String ifcFileName, UserPreferences preferences) {
+    super( preferences);
     this.ifcFileName = ifcFileName;
 
-    this.configLoader = ConfigLoader.getInstance(preferences); 
-
-    this.setMapOfLibraryObjects(preferences);
-
+   
   }
 
-  protected void setMapOfLibraryObjects(UserPreferences preferences)
-  {
-    Map<BuildingObjectType, HomePieceOfFurniture> map =   configLoader.createFurnitureMap();
-
-    preferences.setFornitureMap(map); 
-  }
-
-
-  public BuildingSecurityGraph getGraphFromFile() throws Exception
+  public BuildingSecurityGraph getGraph() throws Exception
   {
     BuildingSecurityGraph buildingSecurityGraph = BuildingSecurityGraph.getInstance();
 
@@ -373,7 +354,7 @@ public class IfcSecurityExtractor {
     BuildingRoomNode brn = this.spaceToRoomNoode.get(space1);
     if(brn == null)
     {
-      throw new IllegalStateException("the map spaces to BuildingRoomNode is not well filled");
+      throw new IllegalStateException("the buildingTypeToHomePiece spaces to BuildingRoomNode is not well filled");
     }
     RoomGeoSmart smart1 = brn.getRoomSmart();
 
@@ -381,7 +362,7 @@ public class IfcSecurityExtractor {
     BuildingRoomNode brnSpace2 = this.spaceToRoomNoode.get(space2);
     if(brnSpace2 == null)
     {
-      throw new IllegalStateException("the map spaces to BuildingRoomNode is not well filled");
+      throw new IllegalStateException("the buildingTypeToHomePiece spaces to BuildingRoomNode is not well filled");
     }
     RoomGeoSmart smart2 = brnSpace2.getRoomSmart();
 

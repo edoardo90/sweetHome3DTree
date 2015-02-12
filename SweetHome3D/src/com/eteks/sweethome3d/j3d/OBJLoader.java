@@ -1616,7 +1616,7 @@ public class OBJLoader extends LoaderBase implements Loader {
   }
 
   /**
-   * Parses a map of appearances parsed from the given stream. 
+   * Parses a buildingTypeToHomePiece of appearances parsed from the given stream. 
    */
   private static Map<String, Appearance> parseMaterialStream(Reader reader, 
                                                              URL baseUrl, 

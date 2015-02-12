@@ -2,7 +2,9 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.eteks.sweethome3d.model.Wall;
 
@@ -15,7 +17,11 @@ public class BuildingSecurityGraph {
   private List<BuildingLinkEdge> linkEdgeList;
   private List<BuildingRoomNode> roomNodeList;
   private List<Wall> notLinkingWalls ;
+  private List<CyberLinkEdge> cyberLinkEdgeList;
   private static BuildingSecurityGraph instance = null;
+  private Map<String, BuildingRoomNode>  objectsInRooms = new HashMap<String, BuildingRoomNode>();
+  
+  
   
   public static BuildingSecurityGraph getInstance()
   {
@@ -63,6 +69,32 @@ public class BuildingSecurityGraph {
   public void setNotLinkingWalls(List<Wall> notLinkingWalls) {
     this.notLinkingWalls = notLinkingWalls;
   }
+
+  public List<CyberLinkEdge> getCyberLinkEdgeList() {
+    return cyberLinkEdgeList;
+  }
+
+  public void setCyberLinkEdgeList(List<CyberLinkEdge> cyberLinkEdgeList) {
+    this.cyberLinkEdgeList = cyberLinkEdgeList;
+  }
+  
+  
+  public void clearAll()
+  {
+    
+    this.linkEdgeList.clear();
+    this.roomNodeList.clear();
+    this.notLinkingWalls.clear();
+    this.cyberLinkEdgeList.clear();
+    
+  }
+  
+  
+  private void moveObject(String idObject, String idRoom)
+  {
+    
+  }
+  
   
   
 

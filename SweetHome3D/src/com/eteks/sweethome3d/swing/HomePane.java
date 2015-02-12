@@ -315,7 +315,7 @@ public class HomePane extends JRootPane implements HomeView {
 
 
   /**
-   * Create the actions map of this component.
+   * Create the actions buildingTypeToHomePiece of this component.
    */
   private void createActions(Home home,
                              UserPreferences preferences, 
@@ -536,7 +536,7 @@ public class HomePane extends JRootPane implements HomeView {
 
   /**
    * Returns a new <code>ControllerAction</code> object that calls on <code>controller</code> a given
-   * <code>method</code> with its <code>parameters</code>. This action is added to the action map of this component.
+   * <code>method</code> with its <code>parameters</code>. This action is added to the action buildingTypeToHomePiece of this component.
    */
   private Action createAction(ActionType actionType,
                               UserPreferences preferences,                            
@@ -596,7 +596,7 @@ public class HomePane extends JRootPane implements HomeView {
   }
 
   /**
-   * Create the actions map used to create menus of this component.
+   * Create the actions buildingTypeToHomePiece used to create menus of this component.
    */
   private void createMenuActions(UserPreferences preferences, 
                                  HomeController controller) {
@@ -618,7 +618,7 @@ public class HomePane extends JRootPane implements HomeView {
   }
 
   /**
-   * Creates a <code>ResourceAction</code> object stored in menu action map.
+   * Creates a <code>ResourceAction</code> object stored in menu action buildingTypeToHomePiece.
    */
   private void createMenuAction(UserPreferences preferences, 
                                 MenuActionType action) {
@@ -829,7 +829,7 @@ public class HomePane extends JRootPane implements HomeView {
         try 
         {
 
-          BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraphFromFile();
+          BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraph();
           home.displayGraph(securityGraph, getUserPreferences());
           GraphClean gc = new GraphClean(securityGraph);
           
@@ -3512,7 +3512,7 @@ public class HomePane extends JRootPane implements HomeView {
       }
     });
 
-    // Copy action map and input map to enable shortcuts in the window
+    // Copy action buildingTypeToHomePiece and input buildingTypeToHomePiece to enable shortcuts in the window
     ActionMap actionMap = getActionMap();
     separateDialog.getRootPane().setActionMap(actionMap);
     InputMap inputMap = separateDialog.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);

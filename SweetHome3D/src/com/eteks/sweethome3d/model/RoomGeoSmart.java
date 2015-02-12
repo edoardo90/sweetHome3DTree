@@ -194,8 +194,16 @@ public class RoomGeoSmart extends Room {
     return this.getBoundingBox();
   }
 
-
-
+  /**
+   * points in cm
+   * @return
+   */
+  public Shape3D getShape()
+  {
+    ProfileShape3D sh3d = this.polygon100BigShape3D.clone();
+    sh3d.scale(0.01f);
+    return sh3d;
+  }
 
 
   /**

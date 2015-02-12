@@ -163,7 +163,7 @@ public final class ViewerHelper {
           String activateCameraSwitchKeyParameter = applet.getParameter(ACTIVATE_CAMERA_SWITCH_KEY_PARAMETER);
           if (activateCameraSwitchKeyParameter == null
               || "true".equalsIgnoreCase(activateCameraSwitchKeyParameter)) {
-            // Add tab key to input map to change camera
+            // Add tab key to input buildingTypeToHomePiece to change camera
             InputMap inputMap = homeComponent3D.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
             inputMap.put(KeyStroke.getKeyStroke("SPACE"), "changeCamera");
             ActionMap actionMap = homeComponent3D.getActionMap();

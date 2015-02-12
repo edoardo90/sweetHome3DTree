@@ -274,10 +274,10 @@ public class ContentDigestManager {
         // Sort entries to ensure the files of multi part content are always listed 
         // in the same order whatever its source
         Collections.sort(zipUrlEntries);
-        // Store retrieved entries in the map with a URL key  
+        // Store retrieved entries in the buildingTypeToHomePiece with a URL key  
         this.zipUrlEntriesCache.put(zipUrl, zipUrlEntries);
-        // Store URL in a map with keys that will be referenced as long as they are needed in the program
-        // This second map allows to use a weak hash map for zipUrlEntriesCache that will be cleaned
+        // Store URL in a buildingTypeToHomePiece with keys that will be referenced as long as they are needed in the program
+        // This second buildingTypeToHomePiece allows to use a weak hash buildingTypeToHomePiece for zipUrlEntriesCache that will be cleaned
         // only once all the URLContent objects sharing a same URL are not used anymore 
         this.zipUrlsCache.put(urlContent, zipUrl);
         return zipUrlEntries;

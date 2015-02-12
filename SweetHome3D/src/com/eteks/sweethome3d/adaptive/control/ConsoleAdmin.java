@@ -15,8 +15,15 @@ public interface ConsoleAdmin {
   
   public void moveObject(String idObject, Vector3D coordinates);
   
+  public void destroyObject(String idObject);
+  
   public void changeObjectLife(String idObject, LifeStatus status);
   
   public void addFileToPeriferical(String idObject, FileObject file);
+  
+  public void destroyFile(String idFile);
+  
+  public void createLink(String idObject1, String idObject2);
+  
   
 }

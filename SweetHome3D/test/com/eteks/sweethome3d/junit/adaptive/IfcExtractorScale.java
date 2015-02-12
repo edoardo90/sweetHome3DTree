@@ -25,7 +25,7 @@ public class IfcExtractorScale extends IfcSecurityExtractor{
     
     super.configLoader = ConfigFileTest.getInstance(preferences);
     
-    Map<BuildingObjectType, HomePieceOfFurniture> map =   configLoader.createFurnitureMap();
+    Map<BuildingObjectType, HomePieceOfFurniture> map =   configLoader.createTypeToFurnitureMap();
     
     preferences.setFornitureMap(map); 
   }

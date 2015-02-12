@@ -38,12 +38,17 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.SessionIdentifierGenerator;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+
 /**
  * A piece of furniture in {@linkplain Home home}.
  * @author Emmanuel Puybaret
  */
 public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Selectable, Elevatable {
   private static final long serialVersionUID = 1L;
+  
+  private String id;
   
   private static final double TWICE_PI = 2 * Math.PI;
   
@@ -318,6 +323,10 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
       this.visible = true;
       this.x = this.width / 2;
       this.y = this.depth / 2;
+      
+      this.id = SessionIdentifierGenerator.getInstance().nextSessionId();
+      System.out.println("created pof :" + this.name);
+      
     }
   }
 
@@ -897,6 +906,12 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
     return this.x;
   }
 
+  public Vector3D getPosition()
+  {
+    return new Vector3D((double)this.getX(), (double)this.getY(),0);
+  }
+  
+  
   /**
    * Sets the abscissa of the center of this piece. Once this piece is updated, 
    * listeners added to this piece will receive a change notification.
@@ -905,8 +920,10 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
     if (x != this.x) {
       float oldX = this.x;
       this.x = x;
+      System.out.println("new X : " +  x + " old x :"  + oldX);
       this.shapeCache = null;
       this.propertyChangeSupport.firePropertyChange(Property.X.name(), oldX, x);
+      
     }
   }
   
@@ -1220,5 +1237,13 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
    */
   public static Comparator<HomePieceOfFurniture> getFurnitureComparator(SortableProperty property) {
     return SORTABLE_PROPERTY_COMPARATORS.get(property);    
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 }

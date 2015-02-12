@@ -333,7 +333,7 @@ public class FileContentManager implements ContentManager {
     this.pluginFileExtension = preferences.getLocalizedString(FileContentManager.class, "pluginExtension");
     this.lastDirectories = new HashMap<ContentManager.ContentType, File>();
     
-    // Fill file filters map
+    // Fill file filters buildingTypeToHomePiece
     this.fileFilters = new HashMap<ContentType, FileFilter[]>();
     this.fileFilters.put(ContentType.MODEL, MODEL_FILTERS);
     this.fileFilters.put(ContentType.IMAGE, IMAGE_FILTERS);
@@ -434,7 +434,7 @@ public class FileContentManager implements ContentManager {
         }
       });
 
-    // Fill file default extension map
+    // Fill file default extension buildingTypeToHomePiece
     this.fileExtensions = new HashMap<ContentType, String []>();
     this.fileExtensions.put(ContentType.SWEET_HOME_3D,     new String [] {sweetHome3DFileExtension});
     this.fileExtensions.put(ContentType.LANGUAGE_LIBRARY,  new String [] {languageLibraryFileExtension});

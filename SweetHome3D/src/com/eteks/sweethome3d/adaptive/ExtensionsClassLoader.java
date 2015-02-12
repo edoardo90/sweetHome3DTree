@@ -194,7 +194,7 @@ public class ExtensionsClassLoader extends ClassLoader {
               // Add tmp file to extension jars list
               extensionJars.add(new JarFile(cachedFile.toString(), false));
             } else if (extensionJarOrDllFile.endsWith(dllSuffix)) {
-              // Add tmp file to extension DLLs map
+              // Add tmp file to extension DLLs buildingTypeToHomePiece
               this.extensionDlls.put(libraryName, cachedFile.toString());
             }
             continue;
@@ -215,7 +215,7 @@ public class ExtensionsClassLoader extends ClassLoader {
         } else if (extensionJarOrDllFile.endsWith(dllSuffix)) {
           // Copy DLL to a tmp file
           String extensionDll = copyInputStreamToTmpFile(input, dllSuffix);
-          // Add tmp file to extension DLLs map
+          // Add tmp file to extension DLLs buildingTypeToHomePiece
           this.extensionDlls.put(libraryName, extensionDll);
         }          
       } catch (IOException ex) {

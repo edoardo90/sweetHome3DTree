@@ -116,12 +116,12 @@ public abstract  class BasicTest extends TestCase {
       System.out.println(e.getStackTrace());
     }
 
-    BuildingSecurityGraph graph = extractor.getGraphFromFile();
+    BuildingSecurityGraph graph = extractor.getGraph();
     
     
     IfcSecurityExtractor extractorScaled = new IfcExtractorScale(ifcFileName, preferences, 2f);
 
-    BuildingSecurityGraph graphScaled = extractorScaled.getGraphFromFile();
+    BuildingSecurityGraph graphScaled = extractorScaled.getGraph();
     return graphScaled;
     
   }
