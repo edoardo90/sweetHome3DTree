@@ -3,7 +3,7 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
 public enum BuildingObjectType {
-  ACTOR, CCTV, LIGHT, PC, PRINTER, HVAC, MAN, WOMAN;
+  ACTOR, CCTV, LIGHT, PC, PRINTER, HVAC, MAN, WOMAN, UNKNOWN_OBJECT;
   
   public  BuildingObjectContained getBuildingObjectOfType(Vector3D position)
   {
@@ -21,6 +21,8 @@ public enum BuildingObjectType {
         return new PrinterObject(position);
       case HVAC:
          return new HVACObject(position);
+      case UNKNOWN_OBJECT:
+         return new UnknownObject(position);
       default:
         break;
     }

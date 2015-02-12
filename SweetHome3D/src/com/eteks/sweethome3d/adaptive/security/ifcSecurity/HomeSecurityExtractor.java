@@ -21,6 +21,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
+import com.eteks.sweethome3d.adaptive.security.ifcSecurity.ConfigLoader.SecurityNameAndMap;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -28,6 +29,7 @@ import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
+import com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.NamespaceVersion;
 
 public class HomeSecurityExtractor extends SecurityExtractor {
 
@@ -100,7 +102,19 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           roomToFill.addPieceOfForniture(pieceOfForn);
          
           ConfigLoader cfg = ConfigLoader.getInstance(preferences);
-          BuildingObjectType typeObj = cfg.namesConventionsSweetHome.catalog.get(pieceOfForn.getName());
+          SecurityNameAndMap namesConv = cfg.namesConventionsSweetHome;
+          Map<String, BuildingObjectType> catalog = namesConv.catalog;
+          String name = pieceOfForn.getName();
+          BuildingObjectType typeObj = catalog.get(name);
+          if(typeObj == null)
+          {
+            typeObj = BuildingObjectType.UNKNOWN_OBJECT;
+          }
+          if(typeObj == null)
+          {
+            int pippo=0;
+            pippo++;
+          }
           
           BuildingObjectContained objCont = typeObj.getBuildingObjectOfType(position);
           objCont.setId(pieceOfForn.getId());

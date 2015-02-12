@@ -168,6 +168,7 @@ import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.ifcSecurity.GraphClean;
+import com.eteks.sweethome3d.adaptive.security.ifcSecurity.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer;
 import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer.KindOfGraph;
@@ -839,6 +840,16 @@ public class HomePane extends JRootPane implements HomeView {
       }
       if (rVal == JFileChooser.CANCEL_OPTION) {
         
+        BuildingSecurityGraph bsg;
+        HomeSecurityExtractor extr = new HomeSecurityExtractor(home, preferences);
+        try{
+          bsg = extr.getGraph();
+          int pippo=0;
+          pippo++;
+        }
+        catch(Exception exxx) {
+          exxx.printStackTrace();
+        }
       }
 
 
