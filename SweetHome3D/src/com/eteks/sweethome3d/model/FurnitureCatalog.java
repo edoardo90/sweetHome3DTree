@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Furniture catalog.
+ * Furniture sweetCatalogToType.
  * @author Emmanuel Puybaret
  */
 public class FurnitureCatalog {
@@ -41,7 +41,7 @@ public class FurnitureCatalog {
   }
 
   /**
-   * Returns the count of categories in this catalog.
+   * Returns the count of categories in this sweetCatalogToType.
    */
   public int getCategoriesCount() {
     return this.categories.size();
@@ -55,22 +55,22 @@ public class FurnitureCatalog {
   }
 
   /**
-   * Adds the furniture <code>listener</code> in parameter to this catalog.
+   * Adds the furniture <code>listener</code> in parameter to this sweetCatalogToType.
    */
   public void addFurnitureListener(CollectionListener<CatalogPieceOfFurniture> listener) {
     this.furnitureChangeSupport.addCollectionListener(listener);
   }
 
   /**
-   * Removes the furniture <code>listener</code> in parameter from this catalog.
+   * Removes the furniture <code>listener</code> in parameter from this sweetCatalogToType.
    */
   public void removeFurnitureListener(CollectionListener<CatalogPieceOfFurniture> listener) {
     this.furnitureChangeSupport.removeCollectionListener(listener);
   }
 
   /**
-   * Adds <code>piece</code> of a given <code>category</code> to this catalog.
-   * Once the <code>piece</code> is added, furniture listeners added to this catalog will receive a
+   * Adds <code>piece</code> of a given <code>category</code> to this sweetCatalogToType.
+   * Once the <code>piece</code> is added, furniture listeners added to this sweetCatalogToType will receive a
    * {@link CollectionListener#collectionChanged(CollectionEvent) collectionChanged}
    * notification.
    * @param category the category of the piece.
@@ -93,9 +93,9 @@ public class FurnitureCatalog {
   }
 
   /**
-   * Deletes the <code>piece</code> from this catalog.
-   * If then piece category is empty, it will be removed from the categories of this catalog. 
-   * Once the <code>piece</code> is deleted, furniture listeners added to this catalog will receive a
+   * Deletes the <code>piece</code> from this sweetCatalogToType.
+   * If then piece category is empty, it will be removed from the categories of this sweetCatalogToType. 
+   * Once the <code>piece</code> is deleted, furniture listeners added to this sweetCatalogToType will receive a
    * {@link CollectionListener#collectionChanged(CollectionEvent) collectionChanged}
    * notification.
    * @param piece a piece of furniture in that category.
@@ -119,6 +119,6 @@ public class FurnitureCatalog {
       }
     }
 
-    throw new IllegalArgumentException("catalog doesn't contain piece " + piece.getName());
+    throw new IllegalArgumentException("sweetCatalogToType doesn't contain piece " + piece.getName());
   }
 }

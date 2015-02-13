@@ -42,12 +42,12 @@ import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.swing.FurnitureCatalogTree;
 
 /**
- * Tests furniture catalog tree component.
+ * Tests furniture sweetCatalogToType tree component.
  * @author Emmanuel Puybaret
  */
 public class CatalogTreeTest extends TestCase {
   public void testCatalogTreeCreation() {
-    // 1. Create a furniture catalog read from English locale resources
+    // 1. Create a furniture sweetCatalogToType read from English locale resources
     Locale.setDefault(Locale.US);
     FurnitureCatalog catalog = new DefaultFurnitureCatalog();
 
@@ -60,7 +60,7 @@ public class CatalogTreeTest extends TestCase {
     CatalogPieceOfFurniture firstPiece = categoryFurniture.get(0); 
     String firstPieceEnglishName = firstPiece.getName();
     
-    // 2. Read the furniture catalog from French locale resources
+    // 2. Read the furniture sweetCatalogToType from French locale resources
     Locale.setDefault(Locale.FRENCH);
     catalog = new DefaultFurnitureCatalog();
     // Get the french names of the first category and its first piece of furniture
@@ -74,7 +74,7 @@ public class CatalogTreeTest extends TestCase {
     assertFalse("Same name for first piece",
         firstPieceEnglishName.equals(firstPieceFrenchName)); 
 
-    // 3. Create a tree from default catalog
+    // 3. Create a tree from default sweetCatalogToType
     JTree tree = new FurnitureCatalogTree(catalog);
 
     // Check root isn't visible and root handles are showed
@@ -127,7 +127,7 @@ public class CatalogTreeTest extends TestCase {
   }
   
   public static void main(String [] args) {
-    // Create a furniture tree from the default locale catalog
+    // Create a furniture tree from the default locale sweetCatalogToType
     FurnitureCatalogTree tree = new FurnitureCatalogTree(new DefaultFurnitureCatalog());
     JFrame frame = new JFrame("Catalog Tree Test");
     frame.add(new JScrollPane(tree));

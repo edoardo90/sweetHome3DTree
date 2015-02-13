@@ -50,7 +50,7 @@ public class FurnitureCatalogTransferHandler extends VisualTransferHandler {
   private final FurnitureController        furnitureController;
   
   /**
-   * Creates a handler able to transfer catalog selected furniture.
+   * Creates a handler able to transfer sweetCatalogToType selected furniture.
    */
   public FurnitureCatalogTransferHandler(ContentManager contentManager,
                                          FurnitureCatalogController catalogController,
@@ -99,7 +99,7 @@ public class FurnitureCatalogTransferHandler extends VisualTransferHandler {
   
   /**
    * Returns a {@link HomeTransferableList transferable object}
-   * that contains a copy of the selected furniture in catalog. 
+   * that contains a copy of the selected furniture in sweetCatalogToType. 
    */
   @Override
   protected Transferable createTransferable(JComponent source) {
@@ -127,7 +127,7 @@ public class FurnitureCatalogTransferHandler extends VisualTransferHandler {
   }
 
   /**
-   * Add to catalog the furniture contained in <code>transferable</code>.
+   * Add to sweetCatalogToType the furniture contained in <code>transferable</code>.
    */
   @Override
   public boolean importData(JComponent destination, Transferable transferable) {

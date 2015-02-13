@@ -627,9 +627,9 @@ public class AppletApplication extends HomeApplication {
     // Initialize userPreferences lazily
     if (this.userPreferences == null) {
       URL codeBase = this.applet.getCodeBase();
-      final String furnitureCatalogURLs = getAppletParameter(this.applet, FURNITURE_CATALOG_URLS_PARAMETER, "catalog.zip");
+      final String furnitureCatalogURLs = getAppletParameter(this.applet, FURNITURE_CATALOG_URLS_PARAMETER, "sweetCatalogToType.zip");
       final String furnitureResourcesUrlBase = getAppletParameter(this.applet, FURNITURE_RESOURCES_URL_BASE_PARAMETER, null);
-      final String texturesCatalogURLs = getAppletParameter(this.applet, TEXTURES_CATALOG_URLS_PARAMETER, "catalog.zip");
+      final String texturesCatalogURLs = getAppletParameter(this.applet, TEXTURES_CATALOG_URLS_PARAMETER, "sweetCatalogToType.zip");
       final String texturesResourcesUrlBase = getAppletParameter(this.applet, TEXTURES_RESOURCES_URL_BASE_PARAMETER, null);
       final String readPreferencesURL = getAppletParameter(this.applet, READ_PREFERENCES_URL_PARAMETER, "");    
       final String writePreferencesURL = getAppletParameter(this.applet, WRITE_PREFERENCES_URL_PARAMETER, "");    

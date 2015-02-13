@@ -208,7 +208,7 @@ public class AppletUserPreferences extends UserPreferences {
     }
     setLanguage(properties.getProperty(LANGUAGE, userLanguage));    
 
-    // Read default furniture and textures catalog
+    // Read default furniture and textures sweetCatalogToType
     setFurnitureCatalog(new FurnitureCatalog());
     setTexturesCatalog(new TexturesCatalog());
     updateDefaultCatalogs();
@@ -216,7 +216,7 @@ public class AppletUserPreferences extends UserPreferences {
     DefaultUserPreferences defaultPreferences = new DefaultUserPreferences();
     defaultPreferences.setLanguage(getLanguage());
     
-    // Fill default patterns catalog 
+    // Fill default patterns sweetCatalogToType 
     PatternsCatalog patternsCatalog = defaultPreferences.getPatternsCatalog();
     setPatternsCatalog(patternsCatalog);
 
@@ -317,7 +317,7 @@ public class AppletUserPreferences extends UserPreferences {
    * Reloads furniture and textures default catalogs.
    */
   private void updateDefaultCatalogs() {
-    // Delete default pieces of current furniture catalog          
+    // Delete default pieces of current furniture sweetCatalogToType          
     final FurnitureCatalog furnitureCatalog = getFurnitureCatalog();
     for (FurnitureCategory category : furnitureCatalog.getCategories()) {
       for (CatalogPieceOfFurniture piece : category.getFurniture()) {
@@ -343,7 +343,7 @@ public class AppletUserPreferences extends UserPreferences {
         }
       });
 
-    // Delete default textures of current textures catalog          
+    // Delete default textures of current textures sweetCatalogToType          
     final TexturesCatalog texturesCatalog = getTexturesCatalog();
     for (TexturesCategory category : texturesCatalog.getCategories()) {
       for (CatalogTexture texture : category.getTextures()) {

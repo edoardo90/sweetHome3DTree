@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.ifcSecurity;
+package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 
 import ifc2x3javatoolbox.ifc2x3tc1.DOUBLE;
 import ifc2x3javatoolbox.ifc2x3tc1.IfcAxis2Placement;
@@ -507,7 +507,7 @@ public class IfcSecurityExtractor extends SecurityExtractor{
    */
   private BuildingObjectContained getObectContained(Vector3D position, IfcProduct product)
   {
-    String actualName = product.getName().getDecodedValue();
+    String actualName = product.getName().getDecodedValue(); /** IFC name of the product **/
 
     for(BuildingObjectType objType : BuildingObjectType.values())
     {

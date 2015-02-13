@@ -48,7 +48,7 @@ public class DefaultUserPreferences extends UserPreferences {
   
   /**
    * Creates default user preferences read from resource files.
-   * @param readCatalogs          if <code>false</code> furniture and texture catalog won't be read
+   * @param readCatalogs          if <code>false</code> furniture and texture sweetCatalogToType won't be read
    * @param localizedPreferences  preferences used to read localized resource files
    */
   DefaultUserPreferences(boolean readCatalogs,
@@ -58,15 +58,15 @@ public class DefaultUserPreferences extends UserPreferences {
     } else {
       setLanguage(localizedPreferences.getLanguage());
     }
-    // Read default furniture catalog
+    // Read default furniture sweetCatalogToType
     setFurnitureCatalog(readCatalogs 
         ? new DefaultFurnitureCatalog(localizedPreferences, (File)null) 
         : new FurnitureCatalog());
-    // Read default textures catalog
+    // Read default textures sweetCatalogToType
     setTexturesCatalog(readCatalogs 
         ? new DefaultTexturesCatalog(localizedPreferences, (File)null)
         : new TexturesCatalog());
-    // Build default patterns catalog
+    // Build default patterns sweetCatalogToType
     List<TextureImage> patterns = new ArrayList<TextureImage>();
     patterns.add(new DefaultPatternTexture("foreground"));
     patterns.add(new DefaultPatternTexture("reversedHatchUp"));

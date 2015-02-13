@@ -93,7 +93,7 @@ public class PlanComponentWithFurnitureTest extends ComponentTestFixture {
 
     // 3. Use SELECTION mode
     tester.click(frame.selectButton);
-    // Select the first piece in catalog tree
+    // Select the first piece in sweetCatalogToType tree
     JTree catalogTree = (JTree)
         frame.homeController.getFurnitureCatalogController().getView();
     catalogTree.expandRow(0); 

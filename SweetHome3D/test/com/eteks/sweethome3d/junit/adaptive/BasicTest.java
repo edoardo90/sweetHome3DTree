@@ -29,15 +29,19 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.OBJWriterTest;
+import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
+import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.model.Home;
+import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.UserPreferences;
+import com.eteks.sweethome3d.model.Wall;
 import com.eteks.sweethome3d.swing.FurnitureCatalogTree;
 import com.eteks.sweethome3d.swing.FurnitureTable;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
@@ -65,6 +69,30 @@ public abstract  class BasicTest extends TestCase {
   protected RoomGeoSmart     weirdRoomPointsOnEdge;
   protected RoomGeoSmart     weirdRoomPointsOutsideEdge;
   protected RoomGeoSmart     weirdCloseButDetached;
+  protected RoomGeoSmart     squareRoom;
+  protected RoomGeoSmart     rectangularRoom;
+  protected RoomGeoSmart        rectangularRoomShifted;
+  protected RoomGeoSmart     rectangularRoomShiftedDown;
+  
+  protected RoomGeoSmart        elRoom1;
+  protected RoomGeoSmart        elRoom2;
+  protected RoomGeoSmart        wallBetweenL;
+  protected RoomGeoSmart        squareBelowL1;
+  protected RoomGeoSmart         wallBetweenL1Square;
+  protected RoomGeoSmart wallAside;
+  
+  
+  protected RoomGeoSmart cubbyRoom;
+  protected RoomGeoSmart diningRoom;
+  
+  protected RoomGeoSmart kitchen;
+  protected RoomGeoSmart livingRoom;
+  
+  protected Wall w1;
+  protected Wall w2;
+  protected Wall w3;
+  protected Wall w4;
+  protected Wall w5;
   
   
   @Override
@@ -82,7 +110,82 @@ public abstract  class BasicTest extends TestCase {
         homeController.getFurnitureController();
     this.furnitureTable = 
         (FurnitureTable)furnitureController.getView();
+    
+    this.rectangularRoom = getRectangularShortRoom(0,0);
+    this.rectangularRoomShiftedDown = getRectangularShortRoom(0, 800);
+    this.rectangularRoomShifted = getRectangularShortRoom(1000, 0);
+    
+    this.squareRoom = getSquareRoom();
+    
+    this.rectangularRoom = getRectangularShortRoom(0,0);
+    this.elRoom1 = getEl1Room();
+    this.elRoom2 = getEl2Room();
+    this.wallBetweenL = getWallBetween();
+    this.squareBelowL1 = getroomBelowL1();
+    this.wallBetweenL1Square = getWallL1SQ();
+    this.wallAside = getWallAside();
+   
+    this.kitchen = getSquareRoom(100, 100).getBiggerCopyMultiplied(3);
+    this.kitchen.move(-300, -80);
+    this.kitchen.setId("kitchen");
+    this.kitchen.setName("kitchen");
+    
+    this.livingRoom = getRectangularShortRoom(240, 0);
+    this.livingRoom.setId("livingRoom");
+    this.livingRoom.setName("livingRoom");
+    
+    this.cubbyRoom = getSquareRoom();
+    this.cubbyRoom.setName("cubbyRoom");
+    this.cubbyRoom.setId("cubbyRoom");
+    
+    this.diningRoom = getSquareRoom();
+    this.diningRoom = this.diningRoom.getBiggerCopyMultiplied(3);
+    this.diningRoom.move(600, 200);
+    this.diningRoom.setId("diningRoom");
+    this.diningRoom.setName("diningRoom");
+    
+    
+    
   }
+  
+  protected void prepareHome(Home home, UserPreferences preferences)
+  {
+    
+    w1 = new Wall(220,    0,   220,   200,  30,  200);
+    w2 = new Wall(0,      0,   1200,  0,    30,  200);
+    w3 = new Wall(0,    220,   1200,  220,  30,  200);
+    w4 = new Wall(600,  220,   600,   800,  30,  200);
+    w5 = new Wall(1200, 220,   1200,  800,  30,  200);
+
+    
+    home.addRoom(this.livingRoom);
+    home.addRoom(this.kitchen);
+    home.addRoom(this.cubbyRoom);
+    home.addRoom(this.diningRoom);
+    home.addWall(w1);
+    home.addWall(w2);
+    home.addWall(w3);
+    home.addWall(w4);
+    home.addWall(w5);
+    
+    HomePieceOfFurniture hopf = getHomePiece(preferences, 1, 4, "washing", 100, 60);
+    home.addPieceOfFurniture(hopf);
+
+  }
+  
+  protected HomePieceOfFurniture getHomePiece(UserPreferences preferences, int categ, int item, String id, int x, int y)
+  {
+    FurnitureCategory cat =  preferences.getFurnitureCatalog().getCategories().get(categ);
+    List<CatalogPieceOfFurniture> furnitures = cat.getFurniture();
+    
+    HomePieceOfFurniture hopf = new HomePieceOfFurniture(furnitures.get(item));
+    hopf.setX(x);
+    hopf.setY(y);
+    hopf.setId(id);
+    return hopf;
+  }
+
+
 
   protected RoomGeoSmart getRectangularShortRoom(int dx, int dy) {
     List<Vector3D> lst = new ArrayList<Vector3D>();
@@ -98,15 +201,21 @@ public abstract  class BasicTest extends TestCase {
   
   
   protected RoomGeoSmart getSquareRoom() {
+    return this.getSquareRoom(0, 0);
+  }
+  
+  protected RoomGeoSmart getSquareRoom(int dx, int dy) {
+    
     List<Vector3D> lst = new ArrayList<Vector3D>();
 
-    lst.add(new Vector3D(0, 0, 0));
-    lst.add(new Vector3D(200, 0, 0));
-    lst.add(new Vector3D(200, 200, 0));
-    lst.add(new Vector3D(0, 200, 0));
+    lst.add(new Vector3D(0   + dx, 0   +  dy, 0));
+    lst.add(new Vector3D(200 + dx, 0   +  dy, 0));
+    lst.add(new Vector3D(200 + dx, 200 +  dy, 0));
+    lst.add(new Vector3D(0   + dx, 200 +  dy, 0));
     
     return new RoomGeoSmart(lst);
   }
+  
   
   protected RoomGeoSmart getEl1Room()
   {

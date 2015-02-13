@@ -87,12 +87,12 @@ public class TransferHandlerTest extends ComponentTestFixture {
     showWindow(frame);
     final JComponentTester tester = new JComponentTester();
     tester.waitForIdle();
-    // Check catalog tree has default focus
+    // Check sweetCatalogToType tree has default focus
     assertTrue("Tree doesn't have the focus", catalogTree.isFocusOwner());
     // Check Cut, Copy, Paste and Delete actions are disable
     assertActionsEnabled(controller, false, false, false, false);
     
-    // 2. Select the first piece of furniture in catalog
+    // 2. Select the first piece of furniture in sweetCatalogToType
     tester.invokeAndWait(new Runnable() {
       public void run() {
         catalogTree.expandRow(0); 

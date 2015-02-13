@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.ifcSecurity;
+package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,6 +27,7 @@ public class ConfigLoader {
 
 
 
+  protected SecurityNameAndMap namesConventionsSweetHome;
   private final UserPreferences preferences;
   private File sweetHomeLibraryObjects;
   private File ifcWordsToLookFor;
@@ -34,9 +35,46 @@ public class ConfigLoader {
   private String securityCategoryName = "Security";
 
   private static ConfigLoader instance = null;
-  protected SecurityNameAndMap namesConventionsSweetHome;
-
   private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>(); 
+  
+  /**
+   * Map that stores the graphical representation associated to each {@link BuildingObjectType}
+   * 
+   * @return
+   */
+  public Map<BuildingObjectType, HomePieceOfFurniture> createTypeToFurnitureMap()
+  {
+    Map<BuildingObjectType, HomePieceOfFurniture> catalogFurniture =
+        new HashMap<BuildingObjectType, HomePieceOfFurniture>();
+  
+    List<FurnitureCategory> categories= getUserPreferences().getFurnitureCatalog().getCategories();
+  
+    namesConventionsSweetHome = this.getCatalogNamesFromFile();
+    Map<String, BuildingObjectType> catalog = namesConventionsSweetHome.sweetCatalogToType;
+    securityCategoryName = namesConventionsSweetHome.securityCategoryName;
+  
+    for(FurnitureCategory category : categories )
+    {
+      String securityCategoryName = this.getSecurityCategoryName();
+      if(category.getName().equals(securityCategoryName))
+      {
+        List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
+        for(PieceOfFurniture piece : catalogObjs)
+        {
+          HomePieceOfFurniture  hopf = new HomePieceOfFurniture(piece);
+  
+          String pieceName = piece.getName();
+  
+          BuildingObjectType typeOBJ = catalog.get(pieceName);
+          catalogFurniture.put(typeOBJ, hopf);
+        }
+      }
+    }    
+  
+  
+    return catalogFurniture;
+  }
+
 
   public static ConfigLoader getInstance(UserPreferences preferences)
   {
@@ -52,6 +90,19 @@ public class ConfigLoader {
     }
   }
 
+  /***
+   * es.  CCTV -> Camera surveillance N090211
+   * @param type
+   * @return
+   */
+  public String getSweetHomeNameForType(BuildingObjectType type)
+  {
+    return this.namesConventionsSweetHome.TypeToSweetName.get(type);
+  }
+  
+  
+  
+  
 
   protected ConfigLoader(UserPreferences preferences)
   {
@@ -61,19 +112,6 @@ public class ConfigLoader {
 
   }
 
-
-  private UserPreferences getUserPreferences() {
-    return this.preferences;
-  }
-
-  private  File readWordsToLook() {
-    return getFileFromName("" + getReadWordsToLookFileName());
-  }
-
-  private  File readSweetHomeLibraryObj() {
-
-    return getFileFromName("" + getSweetLibFileName());
-  }
 
   protected File getFileFromName(String name)
   {
@@ -103,7 +141,7 @@ public class ConfigLoader {
 
 
   /**
-   * 
+   * Return {@link SecurityNameAndMap} that wraps maps of conversions
    * SweetHome3D name -> Building Object Type 
    * so for instance   
    * Camera surveillance N090211  is associated with CCTV
@@ -114,12 +152,12 @@ public class ConfigLoader {
 
     Map<String, BuildingObjectType> catalog = new HashMap<String, BuildingObjectType>();
     Map<BuildingObjectType, String> catalogBack = new HashMap<BuildingObjectType, String>();
-    int pippo=32;
-    List<String> fileCont =  getfileContent(this.sweetHomeLibraryObjects.getAbsolutePath());
-    String categoryName = fileCont.get(0);
-    for(int i = 1; i<fileCont.size(); i++)
+    
+    List<String> fileSweetToType =  getfileContent(this.sweetHomeLibraryObjects.getAbsolutePath());
+    String categoryName = fileSweetToType.get(0);
+    for(int i = 1; i<fileSweetToType.size(); i++)
     {
-      String line = fileCont.get(i);
+      String line = fileSweetToType.get(i);
       String[] coupleObjectNameType = line.split(",");
       String objectName = coupleObjectNameType[0];
       String objectType = coupleObjectNameType[1];
@@ -130,16 +168,16 @@ public class ConfigLoader {
     }
 
     SecurityNameAndMap snm = new SecurityNameAndMap();
-    snm.catalog = catalog;
-    snm.catalogBack = catalogBack;
+    snm.sweetCatalogToType = catalog;
+    snm.TypeToSweetName = catalogBack;
     snm.securityCategoryName = categoryName;
     return snm;
   }
 
   public class SecurityNameAndMap
   {
-    public Map<String, BuildingObjectType> catalog;
-    public Map<BuildingObjectType, String> catalogBack;
+    public Map<String, BuildingObjectType> sweetCatalogToType;
+    public Map<BuildingObjectType, String> TypeToSweetName;
     public String securityCategoryName;
 
   }
@@ -175,7 +213,14 @@ public class ConfigLoader {
 
   }
 
-
+  /**
+   * <pre>
+   * Building Object Type -> IFC possible Names 
+   * CCTV ->  camera, CCTV, videocamera, surevelliance
+   * </pre>
+   * @param objectType
+   * @return
+   */
   protected  List<String> stringToLookFor(BuildingObjectType objectType)
   {
 
@@ -202,38 +247,21 @@ public class ConfigLoader {
 
   }
 
-  public Map<BuildingObjectType, HomePieceOfFurniture> createTypeToFurnitureMap()
-  {
-    Map<BuildingObjectType, HomePieceOfFurniture> catalogFurniture =
-        new HashMap<BuildingObjectType, HomePieceOfFurniture>();
-
-    List<FurnitureCategory> categories= getUserPreferences().getFurnitureCatalog().getCategories();
-
-    namesConventionsSweetHome = this.getCatalogNamesFromFile();
-    Map<String, BuildingObjectType> catalog = namesConventionsSweetHome.catalog;
-    securityCategoryName = namesConventionsSweetHome.securityCategoryName;
-
-    for(FurnitureCategory category : categories )
-    {
-      String securityCategoryName = this.getSecurityCategoryName();
-      if(category.getName().equals(securityCategoryName))
-      {
-        List<CatalogPieceOfFurniture> catalogObjs = category.getFurniture();
-        for(PieceOfFurniture piece : catalogObjs)
-        {
-          HomePieceOfFurniture  hopf = new HomePieceOfFurniture(piece);
-
-          String pieceName = piece.getName();
-
-          BuildingObjectType typeOBJ = catalog.get(pieceName);
-          catalogFurniture.put(typeOBJ, hopf);
-        }
-      }
-    }    
-
-
-    return catalogFurniture;
+  private UserPreferences getUserPreferences() {
+    return this.preferences;
   }
+
+
+  private  File readWordsToLook() {
+    return getFileFromName("" + getReadWordsToLookFileName());
+  }
+
+
+  private  File readSweetHomeLibraryObj() {
+  
+    return getFileFromName("" + getSweetLibFileName());
+  }
+
 
   private String getSecurityCategoryName() {
 

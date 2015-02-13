@@ -22,7 +22,7 @@ package com.eteks.sweethome3d.model;
 import java.math.BigDecimal;
 
 /**
- * A door or a window of the catalog.
+ * A door or a window of the sweetCatalogToType.
  * @author Emmanuel Puybaret
  * @since  1.7
  */
@@ -33,7 +33,7 @@ public class CatalogDoorOrWindow extends CatalogPieceOfFurniture implements Door
   private final String  cutOutShape;
 
   /**
-   * Creates an unmodifiable catalog door or window of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType door or window of the default sweetCatalogToType.
    * @param id    the id of the new door or window, or <code>null</code>
    * @param name  the name of the new door or window
    * @param description the description of the new door or window 
@@ -64,7 +64,7 @@ public class CatalogDoorOrWindow extends CatalogPieceOfFurniture implements Door
   }
          
   /**
-   * Creates an unmodifiable catalog door or window of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType door or window of the default sweetCatalogToType.
    * @param id    the id of the new door or window, or <code>null</code>
    * @param name  the name of the new door or window
    * @param description the description of the new door or window 
@@ -99,7 +99,7 @@ public class CatalogDoorOrWindow extends CatalogPieceOfFurniture implements Door
   }
          
   /**
-   * Creates an unmodifiable catalog door or window of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType door or window of the default sweetCatalogToType.
    * @param id    the id of the new door or window, or <code>null</code>
    * @param name  the name of the new door or window
    * @param description the description of the new door or window 
@@ -138,7 +138,7 @@ public class CatalogDoorOrWindow extends CatalogPieceOfFurniture implements Door
   }
          
   /**
-   * Creates an unmodifiable catalog door or window of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType door or window of the default sweetCatalogToType.
    * @param id    the id of the new door or window, or <code>null</code>
    * @param name  the name of the new door or window
    * @param description the description of the new door or window 
@@ -178,7 +178,7 @@ public class CatalogDoorOrWindow extends CatalogPieceOfFurniture implements Door
   }
          
   /**
-   * Creates an unmodifiable catalog door or window of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType door or window of the default sweetCatalogToType.
    * @param id    the id of the new door or window, or <code>null</code>
    * @param name  the name of the new door or window
    * @param description the description of the new door or window 
@@ -224,7 +224,7 @@ public class CatalogDoorOrWindow extends CatalogPieceOfFurniture implements Door
   }
          
   /**
-   * Creates an unmodifiable catalog door or window of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType door or window of the default sweetCatalogToType.
    * @param id    the id of the new door or window, or <code>null</code>
    * @param name  the name of the new door or window
    * @param description the description of the new door or window 
@@ -271,7 +271,7 @@ public class CatalogDoorOrWindow extends CatalogPieceOfFurniture implements Door
   }
          
   /**
-   * Creates an unmodifiable catalog door or window of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType door or window of the default sweetCatalogToType.
    * @param id    the id of the new door or window, or <code>null</code>
    * @param name  the name of the new door or window
    * @param description the description of the new door or window 
@@ -323,7 +323,7 @@ public class CatalogDoorOrWindow extends CatalogPieceOfFurniture implements Door
   }
          
   /**
-   * Creates a modifiable catalog door or window with all its values.
+   * Creates a modifiable sweetCatalogToType door or window with all its values.
    * @param name  the name of the new door or window
    * @param icon content of the icon of the new door or window
    * @param model content of the 3D model of the new door or window

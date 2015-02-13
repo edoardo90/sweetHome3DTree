@@ -169,7 +169,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
 
   /**
    * Displays a dialog that let user choose whether he wants to delete 
-   * the selected texture from catalog or not.
+   * the selected texture from sweetCatalogToType or not.
    * @return <code>true</code> if user confirmed to delete.
    */
   public boolean confirmDeleteSelectedCatalogTexture() {
@@ -524,8 +524,8 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
     
     /**
      * Catalog listener that updates textures list each time a texture
-     * is deleted or added in textures catalog. This listener is bound to this component
-     * with a weak reference to avoid strong link between catalog and this component.  
+     * is deleted or added in textures sweetCatalogToType. This listener is bound to this component
+     * with a weak reference to avoid strong link between sweetCatalogToType and this component.  
      */
     private static class TexturesCatalogListener implements CollectionListener<CatalogTexture> {
       private WeakReference<TexturePanel> texturePanel;
@@ -535,7 +535,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
       }
       
       public void collectionChanged(final CollectionEvent<CatalogTexture> ev) {
-        // If controller was garbage collected, remove this listener from catalog
+        // If controller was garbage collected, remove this listener from sweetCatalogToType
         final TexturePanel texturePanel = this.texturePanel.get();
         if (texturePanel == null) {
           ((TexturesCatalog)ev.getSource()).removeTexturesListener(this);
@@ -891,7 +891,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
     }
     
     /**
-     * List model adaptor to CatalogTexture instances of catalog.  
+     * List model adaptor to CatalogTexture instances of sweetCatalogToType.  
      */
     private static class TexturesCatalogListModel extends AbstractListModel {
       private TexturesCatalog        catalog;
@@ -946,7 +946,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
 
       /**
        * Catalog textures listener bound to this list model with a weak reference to avoid
-       * strong link between catalog and this list.  
+       * strong link between sweetCatalogToType and this list.  
        */
       private static class TexturesCatalogListener implements CollectionListener<CatalogTexture> {
         private WeakReference<TexturesCatalogListModel>  listModel;
@@ -956,7 +956,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
         }
         
         public void collectionChanged(CollectionEvent<CatalogTexture> ev) {
-          // If catalog list model was garbage collected, remove this listener from catalog
+          // If sweetCatalogToType list model was garbage collected, remove this listener from sweetCatalogToType
           TexturesCatalogListModel listModel = this.listModel.get();
           TexturesCatalog catalog = (TexturesCatalog)ev.getSource();
           if (listModel == null) {

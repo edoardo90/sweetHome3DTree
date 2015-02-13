@@ -35,7 +35,7 @@ import com.eteks.sweethome3d.model.SelectionListener;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 /**
- * A MVC controller for the furniture catalog.
+ * A MVC controller for the furniture sweetCatalogToType.
  * @author Emmanuel Puybaret
  */
 public class FurnitureCatalogController implements Controller {
@@ -49,8 +49,8 @@ public class FurnitureCatalogController implements Controller {
 
 
   /**
-   * Creates a controller of the furniture catalog view.
-   * @param catalog the furniture catalog of the application
+   * Creates a controller of the furniture sweetCatalogToType view.
+   * @param sweetCatalogToType the furniture sweetCatalogToType of the application
    * @param viewFactory a factory able to create the furniture view managed by this controller
    */
   public FurnitureCatalogController(FurnitureCatalog catalog,
@@ -59,8 +59,8 @@ public class FurnitureCatalogController implements Controller {
   }
 
   /**
-   * Creates a controller of the furniture catalog view.
-   * @param catalog the furniture catalog of the application
+   * Creates a controller of the furniture sweetCatalogToType view.
+   * @param sweetCatalogToType the furniture sweetCatalogToType of the application
    * @param preferences application user preferences
    * @param viewFactory a factory able to create the furniture view managed by this controller
    * @param contentManager content manager for furniture import
@@ -84,7 +84,7 @@ public class FurnitureCatalogController implements Controller {
   }
 
   /**
-   * Furniture catalog listener that deselects a piece removed from catalog.  
+   * Furniture sweetCatalogToType listener that deselects a piece removed from sweetCatalogToType.  
    */
   private static class FurnitureCatalogChangeListener implements CollectionListener<CatalogPieceOfFurniture> {
     private WeakReference<FurnitureCatalogController> furnitureCatalogController;
@@ -94,7 +94,7 @@ public class FurnitureCatalogController implements Controller {
     }
     
     public void collectionChanged(CollectionEvent<CatalogPieceOfFurniture> ev) {
-      // If controller was garbage collected, remove this listener from catalog
+      // If controller was garbage collected, remove this listener from sweetCatalogToType
       final FurnitureCatalogController controller = this.furnitureCatalogController.get();
       if (controller == null) {
         ((FurnitureCatalog)ev.getSource()).removeFurnitureListener(this);
@@ -105,7 +105,7 @@ public class FurnitureCatalogController implements Controller {
   }
 
   /**
-   * Preferences listener that reset view when furniture catalog view should change.  
+   * Preferences listener that reset view when furniture sweetCatalogToType view should change.  
    */
   private static class FurnitureCatalogViewChangeListener implements PropertyChangeListener {
     private WeakReference<FurnitureCatalogController> controller;
@@ -154,14 +154,14 @@ public class FurnitureCatalogController implements Controller {
   }
   
   /**
-   * Returns an unmodifiable list of the selected furniture in catalog.
+   * Returns an unmodifiable list of the selected furniture in sweetCatalogToType.
    */
   public List<CatalogPieceOfFurniture> getSelectedFurniture() {
     return Collections.unmodifiableList(this.selectedFurniture);
   }
   
   /**
-   * Updates the selected furniture in catalog and notifies listeners selection change.
+   * Updates the selected furniture in sweetCatalogToType and notifies listeners selection change.
    */
   public void setSelectedFurniture(List<CatalogPieceOfFurniture> selectedFurniture) {
     this.selectedFurniture = new ArrayList<CatalogPieceOfFurniture>(selectedFurniture);
@@ -210,7 +210,7 @@ public class FurnitureCatalogController implements Controller {
   }
 
   /**
-   * Listener that keeps track of the furniture added to catalog.
+   * Listener that keeps track of the furniture added to sweetCatalogToType.
    */
   private class AddedFurnitureSelector implements CollectionListener<CatalogPieceOfFurniture> {
     private List<CatalogPieceOfFurniture> addedFurniture = new ArrayList<CatalogPieceOfFurniture>();
@@ -229,7 +229,7 @@ public class FurnitureCatalogController implements Controller {
   }
 
   /**
-   * Displays the wizard that helps to import furniture to catalog. 
+   * Displays the wizard that helps to import furniture to sweetCatalogToType. 
    */
   public void importFurniture() {
     if (this.preferences != null) {
@@ -243,7 +243,7 @@ public class FurnitureCatalogController implements Controller {
   }
 
   /**
-   * Displays the wizard that helps to import furniture to catalog. 
+   * Displays the wizard that helps to import furniture to sweetCatalogToType. 
    */
   private void importFurniture(String modelName) {
     if (this.preferences != null) {
@@ -253,7 +253,7 @@ public class FurnitureCatalogController implements Controller {
   }
 
   /**
-   * Deletes selected catalog furniture. 
+   * Deletes selected sweetCatalogToType furniture. 
    */
   public void deleteSelection() {
     for (CatalogPieceOfFurniture piece : this.selectedFurniture) {
@@ -264,7 +264,7 @@ public class FurnitureCatalogController implements Controller {
   }
 
   /**
-   * Adds dropped files to catalog.
+   * Adds dropped files to sweetCatalogToType.
    */
   public void dropFiles(List<String> importableModels) {
     AddedFurnitureSelector addedFurnitureListener = new AddedFurnitureSelector();

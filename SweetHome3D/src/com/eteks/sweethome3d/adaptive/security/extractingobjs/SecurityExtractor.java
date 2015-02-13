@@ -1,8 +1,10 @@
-package com.eteks.sweethome3d.adaptive.security.ifcSecurity;
+package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 
 import java.util.Map;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.UserPreferences;
@@ -21,7 +23,12 @@ public abstract class SecurityExtractor {
     this.setMapOfLibraryObjects(preferences);
     this.preferences = preferences;
   }
-
+  
+  /**
+   * Create a map from object type to homePieceOfFurniture, this map is used by the objects
+   * This is used by objects of the class {@link BuildingObjectContained} to call getPieceOfForniture
+   * @param preferences
+   */
   protected void setMapOfLibraryObjects(UserPreferences preferences)
   {
     Map<BuildingObjectType, HomePieceOfFurniture> map =   configLoader.createTypeToFurnitureMap();

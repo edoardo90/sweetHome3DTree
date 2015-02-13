@@ -5,6 +5,12 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 public enum BuildingObjectType {
   ACTOR, CCTV, LIGHT, PC, PRINTER, HVAC, MAN, WOMAN, UNKNOWN_OBJECT;
   
+  /**
+   * 
+   * @param position
+   * @return <pre>  An Appropriate object that stores the type and the position
+   *       e.g   ActorObject(position)  ==>   Actor (  (200, 500),  TYPE.ACTOR) )  </pre>
+   */
   public  BuildingObjectContained getBuildingObjectOfType(Vector3D position)
   {
     switch(this)

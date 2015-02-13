@@ -5,7 +5,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import com.eteks.sweethome3d.adaptive.security.ifcSecurity.ConfigLoader;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.junit.resources.ResTest;
 import com.eteks.sweethome3d.model.UserPreferences;
 

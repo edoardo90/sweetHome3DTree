@@ -92,7 +92,7 @@ public class ImportedFurnitureWizardController extends WizardController
   private final ViewFactory viewFactory;
   
   /**
-   * Creates a controller that edits a new catalog piece of furniture.
+   * Creates a controller that edits a new sweetCatalogToType piece of furniture.
    */
   public ImportedFurnitureWizardController(UserPreferences preferences,
                                            ViewFactory    viewFactory,
@@ -101,7 +101,7 @@ public class ImportedFurnitureWizardController extends WizardController
   }
   
   /**
-   * Creates a controller that edits a new catalog piece of furniture with a given 
+   * Creates a controller that edits a new sweetCatalogToType piece of furniture with a given 
    * <code>modelName</code>.
    */
   public ImportedFurnitureWizardController(String modelName,
@@ -181,7 +181,7 @@ public class ImportedFurnitureWizardController extends WizardController
   }
 
   /**
-   * Imports piece in catalog and/or home and posts an undoable operation.
+   * Imports piece in sweetCatalogToType and/or home and posts an undoable operation.
    */
   @Override
   public void finish() {
@@ -204,12 +204,12 @@ public class ImportedFurnitureWizardController extends WizardController
       // Add new piece to home
       addPieceOfFurniture(this.furnitureController.createHomePieceOfFurniture(newPiece));
     }
-    // Remove the edited piece from catalog
+    // Remove the edited piece from sweetCatalogToType
     FurnitureCatalog catalog = this.preferences.getFurnitureCatalog();
     if (this.piece != null) {
       catalog.delete(this.piece);
     }
-    // If a category exists, add new piece to catalog
+    // If a category exists, add new piece to sweetCatalogToType
     if (this.category != null) {
       catalog.add(this.category, newPiece);
     }

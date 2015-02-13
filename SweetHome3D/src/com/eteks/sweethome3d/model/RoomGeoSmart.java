@@ -342,6 +342,10 @@ public class RoomGeoSmart extends Room {
 
   private void addPointToShape(int x, int y)
   {
+    if(this.polygon100Big == null)
+    {
+      this.polygon100Big = new Polygon();
+    }
     this.polygon100Big.addPoint(x , y );
 
   }
@@ -523,6 +527,16 @@ public class RoomGeoSmart extends Room {
     return null;
   }
 
+  @Override
+  public void move(float dx, float dy)
+  {
+    super.move(dx, dy);
+    this.polygon100Big = null;
+    this.polygon100BigShape3D = null;
+    
+    this.addAllPoints(super.getPoints());
+  }
+  
   public RoomGeoSmart intersectionAreaRoom(RoomGeoSmart room2) {
 
     Polygon p1 = this.polygon100Big;
@@ -563,6 +577,7 @@ public class RoomGeoSmart extends Room {
   }
 
 
+  
 
   private static float [][] getFloatArrayAroundPoint(Vector3D pointCenterOfSmallRoom) {
 

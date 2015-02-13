@@ -23,7 +23,7 @@ import java.util.EventObject;
 import java.util.List;
 
 /**
- * Type of event notified when selection changes in home or furniture catalog.
+ * Type of event notified when selection changes in home or furniture sweetCatalogToType.
  * @author Emmanuel Puybaret
  */
 public class SelectionEvent extends EventObject {

@@ -215,35 +215,35 @@ public abstract class UserPreferences {
   }
 
   /**
-   * Returns the furniture catalog.
+   * Returns the furniture sweetCatalogToType.
    */
   public FurnitureCatalog getFurnitureCatalog() {
     return this.furnitureCatalog;
   }
 
   /**
-   * Sets furniture catalog.
+   * Sets furniture sweetCatalogToType.
    */
   protected void setFurnitureCatalog(FurnitureCatalog catalog) {
     this.furnitureCatalog = catalog;
   }
 
   /**
-   * Returns the textures catalog.
+   * Returns the textures sweetCatalogToType.
    */
   public TexturesCatalog getTexturesCatalog() {
     return this.texturesCatalog;
   }
 
   /**
-   * Sets textures catalog.
+   * Sets textures sweetCatalogToType.
    */
   protected void setTexturesCatalog(TexturesCatalog catalog) {
     this.texturesCatalog = catalog;
   }
 
   /**
-   * Returns the patterns catalog available to fill plan areas. 
+   * Returns the patterns sweetCatalogToType available to fill plan areas. 
    */
   public PatternsCatalog getPatternsCatalog() {
     return this.patternsCatalog;
@@ -501,7 +501,7 @@ public abstract class UserPreferences {
   }
     
   /**
-   * Returns <code>true</code> if the furniture catalog should be viewed in a tree.
+   * Returns <code>true</code> if the furniture sweetCatalogToType should be viewed in a tree.
    * @since 2.3
    */
   public boolean isFurnitureCatalogViewedInTree() {
@@ -509,7 +509,7 @@ public abstract class UserPreferences {
   }
   
   /**
-   * Sets whether the furniture catalog should be viewed in a tree or a different way.
+   * Sets whether the furniture sweetCatalogToType should be viewed in a tree or a different way.
    * @since 2.3
    */
   public void setFurnitureCatalogViewedInTree(boolean furnitureCatalogViewedInTree) {
@@ -1035,7 +1035,7 @@ public abstract class UserPreferences {
   public abstract boolean languageLibraryExists(String languageLibraryLocation) throws RecorderException;
 
   /**
-   * Adds <code>furnitureLibraryName</code> to furniture catalog  
+   * Adds <code>furnitureLibraryName</code> to furniture sweetCatalogToType  
    * to make the furniture it contains available.
    * @param furnitureLibraryLocation  the location where the library can be found. 
    */
@@ -1048,7 +1048,7 @@ public abstract class UserPreferences {
   public abstract boolean furnitureLibraryExists(String furnitureLibraryLocation) throws RecorderException;
 
   /**
-   * Adds the textures library at the given location to textures catalog  
+   * Adds the textures library at the given location to textures sweetCatalogToType  
    * to make the textures it contains available.
    * @param texturesLibraryLocation  the location where the library can be found.
    * @since 2.3 

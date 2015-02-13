@@ -356,7 +356,7 @@ public class HomeController implements Controller {
   }
 
   /**
-   * Returns the furniture catalog controller managed by this controller.
+   * Returns the furniture sweetCatalogToType controller managed by this controller.
    */
   public FurnitureCatalogController getFurnitureCatalogController() {
     // Create sub controller lazily only once it's needed
@@ -439,8 +439,8 @@ public class HomeController implements Controller {
   }
 
   /**
-   * Super class of catalog listeners that writes preferences each time a piece of furniture or a texture
-   * is deleted or added in furniture or textures catalog.
+   * Super class of sweetCatalogToType listeners that writes preferences each time a piece of furniture or a texture
+   * is deleted or added in furniture or textures sweetCatalogToType.
    */
   private abstract static class UserPreferencesChangeListener {
     // Stores the currently writing preferences 
@@ -449,7 +449,7 @@ public class HomeController implements Controller {
     public void writePreferences(final HomeController controller) {
       if (!writingPreferences.contains(controller.preferences)) {
         writingPreferences.add(controller.preferences);
-        // Write preferences later once all catalog modifications are notified 
+        // Write preferences later once all sweetCatalogToType modifications are notified 
         controller.getView().invokeLater(new Runnable() {
             public void run() {
               try {
@@ -466,9 +466,9 @@ public class HomeController implements Controller {
   }
 
   /**
-   * Furniture catalog listener that writes preferences each time a piece of furniture 
-   * is deleted or added in furniture catalog. This listener is bound to this controller 
-   * with a weak reference to avoid strong link between catalog and this controller.  
+   * Furniture sweetCatalogToType listener that writes preferences each time a piece of furniture 
+   * is deleted or added in furniture sweetCatalogToType. This listener is bound to this controller 
+   * with a weak reference to avoid strong link between sweetCatalogToType and this controller.  
    */
   private static class FurnitureCatalogChangeListener extends UserPreferencesChangeListener 
                                                       implements CollectionListener<CatalogPieceOfFurniture> {
@@ -479,7 +479,7 @@ public class HomeController implements Controller {
     }
     
     public void collectionChanged(CollectionEvent<CatalogPieceOfFurniture> ev) {
-      // If controller was garbage collected, remove this listener from catalog
+      // If controller was garbage collected, remove this listener from sweetCatalogToType
       final HomeController controller = this.homeController.get();
       if (controller == null) {
         ((FurnitureCatalog)ev.getSource()).removeFurnitureListener(this);
@@ -490,9 +490,9 @@ public class HomeController implements Controller {
   }
 
   /**
-   * Textures catalog listener that writes preferences each time a texture 
-   * is deleted or added in textures catalog. This listener is bound to this controller 
-   * with a weak reference to avoid strong link between catalog and this controller.  
+   * Textures sweetCatalogToType listener that writes preferences each time a texture 
+   * is deleted or added in textures sweetCatalogToType. This listener is bound to this controller 
+   * with a weak reference to avoid strong link between sweetCatalogToType and this controller.  
    */
   private static class TexturesCatalogChangeListener extends UserPreferencesChangeListener
                                                      implements CollectionListener<CatalogTexture> { 
@@ -503,7 +503,7 @@ public class HomeController implements Controller {
     }
     
     public void collectionChanged(CollectionEvent<CatalogTexture> ev) {
-      // If controller was garbage collected, remove this listener from catalog
+      // If controller was garbage collected, remove this listener from sweetCatalogToType
       final HomeController controller = this.homeController.get();
       if (controller == null) {
         ((TexturesCatalog)ev.getSource()).removeTexturesListener(this);
@@ -516,7 +516,7 @@ public class HomeController implements Controller {
   /**
    * Properties listener that writes preferences each time the value of one of its properties changes. 
    * This listener is bound to this controller with a weak reference to avoid strong link 
-   * between catalog and this controller.  
+   * between sweetCatalogToType and this controller.  
    */
   private static class UserPreferencesPropertiesChangeListener extends UserPreferencesChangeListener
                                                                implements PropertyChangeListener { 
@@ -527,7 +527,7 @@ public class HomeController implements Controller {
     }
     
     public void propertyChange(PropertyChangeEvent ev) {
-      // If controller was garbage collected, remove this listener from catalog
+      // If controller was garbage collected, remove this listener from sweetCatalogToType
       final HomeController controller = this.homeController.get();
       if (controller == null) {
         ((UserPreferences)ev.getSource()).removePropertyChangeListener(
@@ -539,7 +539,7 @@ public class HomeController implements Controller {
   }
 
   /**
-   * Adds a selection listener to catalog that enables / disables Add Furniture action.
+   * Adds a selection listener to sweetCatalogToType that enables / disables Add Furniture action.
    */
   private void addCatalogSelectionListener() {
     getFurnitureCatalogController().addSelectionListener(new SelectionListener() {
@@ -690,13 +690,13 @@ public class HomeController implements Controller {
   
   /**
    * Enables or disables action bound to selection. 
-   * This method will be called when selection in plan or in catalog changes and when 
+   * This method will be called when selection in plan or in sweetCatalogToType changes and when 
    * focused component or modification state in plan changes. 
    */
   protected void enableActionsBoundToSelection() {
     boolean modificationState = getPlanController().isModificationState();
     
-    // Search if catalog selection contains at least one piece
+    // Search if sweetCatalogToType selection contains at least one piece
     List<CatalogPieceOfFurniture> catalogSelectedItems = 
         getFurnitureCatalogController().getSelectedFurniture();    
     boolean catalogSelectionContainsFurniture = !catalogSelectedItems.isEmpty();
@@ -781,7 +781,7 @@ public class HomeController implements Controller {
       view.setEnabled(HomeView.ActionType.DELETE, false);
       for (CatalogPieceOfFurniture piece : catalogSelectedItems) {
         if (piece.isModifiable()) {
-          // Only modifiable catalog furniture may be deleted
+          // Only modifiable sweetCatalogToType furniture may be deleted
           view.setEnabled(HomeView.ActionType.DELETE, true);
           break;
         }
@@ -1075,7 +1075,7 @@ public class HomeController implements Controller {
   }
   
   /**
-   * Adds the selected furniture in catalog to home and selects it.  
+   * Adds the selected furniture in sweetCatalogToType to home and selects it.  
    */
   public void addHomeFurniture() {
     // Use automatically selection mode  
@@ -1147,7 +1147,7 @@ public class HomeController implements Controller {
   }
 
   /**
-   * Imports furniture to the catalog or home depending on the focused view.  
+   * Imports furniture to the sweetCatalogToType or home depending on the focused view.  
    */
   public void importFurniture() {
     // Always use selection mode after an import furniture operation
@@ -1190,7 +1190,7 @@ public class HomeController implements Controller {
   }
 
   /**
-   * Imports a texture to the texture catalog.  
+   * Imports a texture to the texture sweetCatalogToType.  
    * @since 4.0
    */
   public void importTexture() {

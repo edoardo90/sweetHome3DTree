@@ -251,9 +251,9 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
     assertEquals("Wrong default name",  
         contentManager.getPresentationName(testedModelName.toString(), ContentManager.ContentType.MODEL),
         nameTextField.getText());
-    // Check Add to catalog check box isn't selected and category combo box 
+    // Check Add to sweetCatalogToType check box isn't selected and category combo box 
     // is disabled when furniture is imported in home
-    assertFalse("Add to catalog check box is selected", addToCatalogCheckBox.isSelected());
+    assertFalse("Add to sweetCatalogToType check box is selected", addToCatalogCheckBox.isSelected());
     assertFalse("Category combo box isn't disabled", categoryComboBox.isEnabled());
     // Check default category is first category  
     final FurnitureCategory firstCategory = preferences.getFurnitureCatalog().getCategories().get(0);
@@ -266,7 +266,7 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
       });
     // Check next button is disabled 
     assertFalse("Next button isn't disabled", nextFinishOptionButton.isEnabled());
-    // Select Add to catalog check box
+    // Select Add to sweetCatalogToType check box
     tester.invokeAndWait(new Runnable() {
         public void run() {
           addToCatalogCheckBox.setSelected(true);
@@ -368,14 +368,14 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
         }
       });
     
-    // 10. Check the matching new catalog piece of furniture was created
+    // 10. Check the matching new sweetCatalogToType piece of furniture was created
     List<CatalogPieceOfFurniture> selectedCatalogFurniture = 
         controller.getFurnitureCatalogController().getSelectedFurniture();
-    assertEquals("Wrong selected furniture count in catalog", 0, selectedCatalogFurniture.size());
-    assertEquals("Incorrect count of created catalog piece", 1, addedCatalogFurniture.size());    
+    assertEquals("Wrong selected furniture count in sweetCatalogToType", 0, selectedCatalogFurniture.size());
+    assertEquals("Incorrect count of created sweetCatalogToType piece", 1, addedCatalogFurniture.size());    
     CatalogPieceOfFurniture catalogPiece = addedCatalogFurniture.get(0);
-    assertEquals("Wrong catalog piece name", pieceTestName, catalogPiece.getName());
-    assertEquals("Wrong catalog piece category name", categoryTestName, catalogPiece.getCategory().getName());
+    assertEquals("Wrong sweetCatalogToType piece name", pieceTestName, catalogPiece.getName());
+    assertEquals("Wrong sweetCatalogToType piece category name", categoryTestName, catalogPiece.getCategory().getName());
     assertTrue("Catalog doesn't contain new piece", 
         preferences.getFurnitureCatalog().getCategories().contains(catalogPiece.getCategory()));
     TestUtilities.assertEqualsWithinEpsilon("Incorrect width", newWidth, catalogPiece.getWidth(), 1E-3f);
@@ -384,7 +384,7 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
     TestUtilities.assertEqualsWithinEpsilon("Incorrect elevation", 10, catalogPiece.getElevation(), 1E-3f);
     assertFalse("Catalog piece is movable", catalogPiece.isMovable());
     assertTrue("Catalog piece isn't a door or window", catalogPiece.isDoorOrWindow());
-    assertEquals("Wrong catalog piece color", null, catalogPiece.getColor());
+    assertEquals("Wrong sweetCatalogToType piece color", null, catalogPiece.getColor());
     assertTrue("Catalog piece isn't modifiable", catalogPiece.isModifiable());
     
     // Check a new home piece of furniture was created and it's the selected piece in home
@@ -398,9 +398,9 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
     tester.focus(catalogView);        
     // Check plan view has focus
     assertTrue("Catalog tree doesn't have the focus", catalogView.isFocusOwner());
-    // Select the piece added to catalog
+    // Select the piece added to sweetCatalogToType
     controller.getFurnitureCatalogController().setSelectedFurniture(addedCatalogFurniture);
-    // Delete new catalog piece of furniture
+    // Delete new sweetCatalogToType piece of furniture
     final Action deleteAction = homeView.getActionMap().get(HomePane.ActionType.DELETE);
     assertTrue("Delete action isn't enable", deleteAction.isEnabled());
     tester.invokeLater(new Runnable() { 
@@ -427,8 +427,8 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
     // Check selection is empty
     selectedCatalogFurniture = controller.getFurnitureCatalogController().getSelectedFurniture();
     assertTrue("Catalog selected furniture isn't empty", selectedCatalogFurniture.isEmpty());
-    // Check catalog doesn't contain the new piece
-    assertFalse("Piece is still in catalog", 
+    // Check sweetCatalogToType doesn't contain the new piece
+    assertFalse("Piece is still in sweetCatalogToType", 
         preferences.getFurnitureCatalog().getCategories().contains(catalogPiece.getCategory()));
     // Check home piece of furniture is still in home and selected
     assertTrue("Home piece isn't in home", home.getFurniture().contains(homePiece));

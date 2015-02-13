@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * A catalog of texture images used as patterns to fill plan areas.
+ * A sweetCatalogToType of texture images used as patterns to fill plan areas.
  * @author Emmanuel Puybaret
  * @since  2.0
  */
@@ -32,7 +32,7 @@ public class PatternsCatalog {
   private List<TextureImage> patterns;
   
   /**
-   * Creates a patterns catalog.
+   * Creates a patterns sweetCatalogToType.
    */
   public PatternsCatalog(List<TextureImage> patterns) {
     this.patterns = new ArrayList<TextureImage>(patterns);

@@ -178,7 +178,7 @@ public interface HomeView extends View {
 
   /**
    * Displays a dialog that let user choose whether he wants to delete 
-   * the selected furniture from catalog or not.
+   * the selected furniture from sweetCatalogToType or not.
    * @return <code>true</code> if user confirmed to delete.
    */
   public abstract boolean confirmDeleteCatalogSelection();

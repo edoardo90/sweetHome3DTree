@@ -10,6 +10,7 @@ import java.util.Map;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.model.Wall;
 
 /**
@@ -112,6 +113,14 @@ public class BuildingSecurityGraph {
     broomSource.removeObject(objectCont);
   
   }
+  
+  
+  public void addNewObject(String idObject, BuildingObjectType type, String idRoomDestination )
+  {
+    
+  }
+  
+  
   
   public void putObjectCont(IdObject idObj, BuildingObjectContained cont)
   {

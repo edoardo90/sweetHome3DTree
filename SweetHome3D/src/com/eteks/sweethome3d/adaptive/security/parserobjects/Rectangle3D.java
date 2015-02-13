@@ -444,6 +444,13 @@ public class Rectangle3D extends Shape3D
 
   }
 
+  public Segment3D getTopSegment() {
+    Vector3D pn1 = this.getPointNorthEast();
+    Vector3D pn2 = this.getPointNorthWest();
+    Segment3D topSegm = new Segment3D(pn1, pn2);
+    return topSegm;
+  }
+
 
 
 

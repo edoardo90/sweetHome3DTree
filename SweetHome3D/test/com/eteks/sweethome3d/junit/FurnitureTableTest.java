@@ -68,13 +68,13 @@ public class FurnitureTableTest extends TestCase {
     LengthUnit currentUnit = preferences.getLengthUnit();
     assertFalse("Unit is in centimeter", currentUnit == LengthUnit.CENTIMETER);
     
-    // Get furniture catalog
+    // Get furniture sweetCatalogToType
     FurnitureCatalog catalog = preferences.getFurnitureCatalog();
     
-    // 2. Create a home that contains furniture matching catalog furniture
+    // 2. Create a home that contains furniture matching sweetCatalogToType furniture
     List<HomePieceOfFurniture> homeFurniture = createHomeFurnitureFromCatalog(catalog);
     Home home = new Home(homeFurniture);
-    // Check catalog furniture count equals home furniture count
+    // Check sweetCatalogToType furniture count equals home furniture count
     assertEquals("Different furniture count in list and home", 
         homeFurniture.size(), home.getFurniture().size());
 
@@ -128,7 +128,7 @@ public class FurnitureTableTest extends TestCase {
    * Tests sort in furniture table. 
    */
   public void testFurnitureTableSort() {
-    // 1.  Create a home that contains furniture matching catalog furniture
+    // 1.  Create a home that contains furniture matching sweetCatalogToType furniture
     UserPreferences preferences = new DefaultUserPreferences();
     List<HomePieceOfFurniture> homeFurniture = 
       createHomeFurnitureFromCatalog(preferences.getFurnitureCatalog());
@@ -180,7 +180,7 @@ public class FurnitureTableTest extends TestCase {
    * Tests filter in furniture table.
    */
   public void testFurnitureTableFilter() {
-    // 1.  Create a home that contains furniture matching catalog furniture
+    // 1.  Create a home that contains furniture matching sweetCatalogToType furniture
     UserPreferences preferences = new DefaultUserPreferences();
     List<HomePieceOfFurniture> homeFurniture = 
       createHomeFurnitureFromCatalog(preferences.getFurnitureCatalog());

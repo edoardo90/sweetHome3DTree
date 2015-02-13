@@ -26,7 +26,7 @@ package com.eteks.sweethome3d.viewcontroller;
 public interface TextureChoiceView extends View {
   /**
    * Displays a dialog that let user choose whether he wants to delete 
-   * the selected texture from catalog or not.
+   * the selected texture from sweetCatalogToType or not.
    * @return <code>true</code> if user confirmed to delete.
    */
   public abstract boolean confirmDeleteSelectedCatalogTexture();

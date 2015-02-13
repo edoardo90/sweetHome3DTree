@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 /**
- * A texture in textures catalog.
+ * A texture in textures sweetCatalogToType.
  * @author Emmanuel Puybaret
  */
 public class CatalogTexture implements TextureImage, CatalogItem, Comparable<CatalogTexture> {
@@ -54,7 +54,7 @@ public class CatalogTexture implements TextureImage, CatalogItem, Comparable<Cat
   }
 
   /**
-   * Creates an unmodifiable catalog texture.
+   * Creates an unmodifiable sweetCatalogToType texture.
    * @param name the name of this texture 
    * @param image the content of the image used for this texture
    * @param width the width of the texture in centimeters
@@ -65,7 +65,7 @@ public class CatalogTexture implements TextureImage, CatalogItem, Comparable<Cat
   }
 
   /**
-   * Creates a catalog texture.
+   * Creates a sweetCatalogToType texture.
    * @param id   the id of the texture
    * @param name the name of this texture 
    * @param image the content of the image used for this texture
@@ -81,7 +81,7 @@ public class CatalogTexture implements TextureImage, CatalogItem, Comparable<Cat
   }
   
   /**
-   * Creates a catalog texture.
+   * Creates a sweetCatalogToType texture.
    * @param name the name of this texture 
    * @param image the content of the image used for this texture
    * @param width the width of the texture in centimeters

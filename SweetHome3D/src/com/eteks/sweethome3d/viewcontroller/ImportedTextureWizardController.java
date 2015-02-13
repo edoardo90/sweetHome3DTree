@@ -59,7 +59,7 @@ public class ImportedTextureWizardController extends WizardController
   private float             height;
 
   /**
-   * Creates a controller that edits a new catalog texture.
+   * Creates a controller that edits a new sweetCatalogToType texture.
    */
   public ImportedTextureWizardController(UserPreferences preferences,
                                          ViewFactory    viewFactory,
@@ -68,7 +68,7 @@ public class ImportedTextureWizardController extends WizardController
   }
   
   /**
-   * Creates a controller that edits a new catalog texture with a given 
+   * Creates a controller that edits a new sweetCatalogToType texture with a given 
    * <code>textureName</code>.
    */
   public ImportedTextureWizardController(String textureName,
@@ -117,7 +117,7 @@ public class ImportedTextureWizardController extends WizardController
   public void finish() {
     CatalogTexture newTexture = new CatalogTexture(getName(), getImage(), 
         getWidth(), getHeight(), true);
-    // Remove the edited texture from catalog
+    // Remove the edited texture from sweetCatalogToType
     TexturesCatalog catalog = this.preferences.getTexturesCatalog();
     if (this.texture != null) {
       catalog.delete(this.texture);

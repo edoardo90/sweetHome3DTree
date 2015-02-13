@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.ifcSecurity;
+package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 
 import java.awt.Point;
 import java.awt.Polygon;
@@ -21,7 +21,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
-import com.eteks.sweethome3d.adaptive.security.ifcSecurity.ConfigLoader.SecurityNameAndMap;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader.SecurityNameAndMap;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -103,7 +103,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
          
           ConfigLoader cfg = ConfigLoader.getInstance(preferences);
           SecurityNameAndMap namesConv = cfg.namesConventionsSweetHome;
-          Map<String, BuildingObjectType> catalog = namesConv.catalog;
+          Map<String, BuildingObjectType> catalog = namesConv.sweetCatalogToType;
           String name = pieceOfForn.getName();
           BuildingObjectType typeObj = catalog.get(name);
           if(typeObj == null)

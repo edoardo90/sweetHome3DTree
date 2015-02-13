@@ -229,7 +229,7 @@ public class UserPreferencesPanel extends JPanel implements DialogView {
     }
     
     if (controller.isPropertyEditable(UserPreferencesController.Property.FURNITURE_CATALOG_VIEWED_IN_TREE)) {
-      // Create furniture catalog label and radio buttons bound to controller FURNITURE_CATALOG_VIEWED_IN_TREE property
+      // Create furniture sweetCatalogToType label and radio buttons bound to controller FURNITURE_CATALOG_VIEWED_IN_TREE property
       this.furnitureCatalogViewLabel = new JLabel(preferences.getLocalizedString(
           UserPreferencesPanel.class, "furnitureCatalogViewLabel.text"));
       this.treeRadioButton = new JRadioButton(SwingTools.getLocalizedLabelText(preferences, 

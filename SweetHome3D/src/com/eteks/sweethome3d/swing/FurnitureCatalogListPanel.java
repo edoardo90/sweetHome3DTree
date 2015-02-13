@@ -101,7 +101,7 @@ import com.eteks.sweethome3d.viewcontroller.FurnitureCatalogController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * A furniture catalog view that displays furniture in a list, with a combo and search text field.
+ * A furniture sweetCatalogToType view that displays furniture in a list, with a combo and search text field.
  * @author Emmanuel Puybaret
  */
 class FurnitureCatalogListPanel extends JPanel implements View {
@@ -113,7 +113,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   private JList                 catalogFurnitureList;
 
   /**
-   * Creates a panel that displays <code>catalog</code> furniture in a list with a filter combo box
+   * Creates a panel that displays <code>sweetCatalogToType</code> furniture in a list with a filter combo box
    * and a search field.
    */
   public FurnitureCatalogListPanel(FurnitureCatalog catalog,
@@ -301,7 +301,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   }
   
   /**
-   * Language and catalog listener bound to this component with a weak reference to avoid
+   * Language and sweetCatalogToType listener bound to this component with a weak reference to avoid
    * strong link between preferences and this component.  
    */
   private static class PreferencesChangeListener implements PropertyChangeListener, CollectionListener<CatalogPieceOfFurniture> {
@@ -328,7 +328,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
     }
     
     public void collectionChanged(CollectionEvent<CatalogPieceOfFurniture> ev) {
-      // If panel was garbage collected, remove this listener from catalog
+      // If panel was garbage collected, remove this listener from sweetCatalogToType
       FurnitureCatalogListPanel furnitureCatalogPanel = this.furnitureCatalogPanel.get();
       FurnitureCatalog catalog = (FurnitureCatalog)ev.getSource();
       if (furnitureCatalogPanel == null) {
@@ -540,7 +540,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
       };
     this.listSelectionListener = new ListSelectionListener() {
         public void valueChanged(ListSelectionEvent ev) {          
-          // Updates selected furniture in catalog from selected nodes in tree.
+          // Updates selected furniture in sweetCatalogToType from selected nodes in tree.
           controller.removeSelectionListener(modelSelectionListener);
           controller.setSelectedFurniture(getSelectedFurniture());
           controller.addSelectionListener(modelSelectionListener);
@@ -792,7 +792,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   }
   
   /**
-   * List model adaptor to CatalogPieceOfFurniture instances of catalog.  
+   * List model adaptor to CatalogPieceOfFurniture instances of sweetCatalogToType.  
    */
   private static class FurnitureCatalogListModel extends AbstractListModel {
     private FurnitureCatalog                catalog;
@@ -856,7 +856,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
     
     /**
      * Catalog furniture listener bound to this list model with a weak reference to avoid
-     * strong link between catalog and this list.  
+     * strong link between sweetCatalogToType and this list.  
      */
     private static class FurnitureCatalogListener implements CollectionListener<CatalogPieceOfFurniture> {
       private WeakReference<FurnitureCatalogListModel>  listModel;
@@ -866,7 +866,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
       }
       
       public void collectionChanged(CollectionEvent<CatalogPieceOfFurniture> ev) {
-        // If catalog list model was garbage collected, remove this listener from catalog
+        // If sweetCatalogToType list model was garbage collected, remove this listener from sweetCatalogToType
         FurnitureCatalogListModel listModel = this.listModel.get();
         FurnitureCatalog catalog = (FurnitureCatalog)ev.getSource();
         if (listModel == null) {

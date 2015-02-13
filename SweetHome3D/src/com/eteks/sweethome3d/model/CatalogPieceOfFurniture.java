@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 /**
- * A catalog piece of furniture.
+ * A sweetCatalogToType piece of furniture.
  * @author Emmanuel Puybaret
  */
 public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurniture>, PieceOfFurniture, CatalogItem {
@@ -79,7 +79,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
 
   /**
-   * Creates a catalog piece of furniture.
+   * Creates a sweetCatalogToType piece of furniture.
    * @param name  the name of the new piece
    * @param icon content of the icon of the new piece
    * @param model content of the 3D model of the new piece
@@ -89,7 +89,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
    * @param movable if <code>true</code>, the new piece is movable
    * @param doorOrWindow if <code>true</code>, the new piece is a door or a window
    * @deprecated As of version 1.7, use constructor without <code>doorOrWindow</code> 
-   *             parameter since a catalog door and window is supposed to be an instance 
+   *             parameter since a sweetCatalogToType door and window is supposed to be an instance 
    *             of {@link CatalogDoorOrWindow} 
    */
   public CatalogPieceOfFurniture(String name, Content icon, Content model, 
@@ -100,7 +100,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
 
   /**
-   * Creates an unmodifiable catalog piece of furniture of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType piece of furniture of the default sweetCatalogToType.
    * @param id    the id of the new piece or <code>null</code>
    * @param name  the name of the new piece
    * @param description the description of the new piece 
@@ -119,7 +119,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
    * @param valueAddedTaxPercentage the Value Added Tax percentage applied to the 
    *             price of the new piece or <code>null</code>
    * @deprecated As of version 1.7, use constructor without <code>doorOrWindow</code> 
-   *             parameter since a catalog door and window is supposed to be an instance 
+   *             parameter since a sweetCatalogToType door and window is supposed to be an instance 
    *             of {@link CatalogDoorOrWindow} 
    */
   public CatalogPieceOfFurniture(String id, String name, String description, Content icon, Content model, 
@@ -132,7 +132,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
          
   /**
-   * Creates an unmodifiable catalog piece of furniture of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType piece of furniture of the default sweetCatalogToType.
    * @param id    the id of the new piece or <code>null</code>
    * @param name  the name of the new piece
    * @param description the description of the new piece 
@@ -160,7 +160,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
          
   /**
-   * Creates an unmodifiable catalog piece of furniture of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType piece of furniture of the default sweetCatalogToType.
    * @param id    the id of the new piece or <code>null</code>
    * @param name  the name of the new piece
    * @param description the description of the new piece 
@@ -190,7 +190,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
   
   /**
-   * Creates an unmodifiable catalog piece of furniture of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType piece of furniture of the default sweetCatalogToType.
    * @param id    the id of the new piece or <code>null</code>
    * @param name  the name of the new piece
    * @param description the description of the new piece 
@@ -225,7 +225,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
   
   /**
-   * Creates an unmodifiable catalog piece of furniture of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType piece of furniture of the default sweetCatalogToType.
    * @param id    the id of the new piece or <code>null</code>
    * @param name  the name of the new piece
    * @param description the description of the new piece 
@@ -264,7 +264,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
   
   /**
-   * Creates an unmodifiable catalog piece of furniture of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType piece of furniture of the default sweetCatalogToType.
    * @param id    the id of the new piece or <code>null</code>
    * @param name  the name of the new piece
    * @param description the description of the new piece 
@@ -308,7 +308,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
   
   /**
-   * Creates an unmodifiable catalog piece of furniture of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType piece of furniture of the default sweetCatalogToType.
    * @param id    the id of the new piece or <code>null</code>
    * @param name  the name of the new piece
    * @param description the description of the new piece 
@@ -355,7 +355,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
   
  /**
-   * Creates a modifiable catalog piece of furniture with all its values.
+   * Creates a modifiable sweetCatalogToType piece of furniture with all its values.
    * @param name  the name of the new piece
    * @param icon content of the icon of the new piece
    * @param model content of the 3D model of the new piece
@@ -371,7 +371,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
    * @param iconYaw the yaw angle used to create the piece icon
    * @param proportional if <code>true</code>, size proportions will be kept 
    * @deprecated As of version 1.7, use constructor without <code>doorOrWindow</code> 
-   *             parameter since a catalog door and window is supposed to be an instance 
+   *             parameter since a sweetCatalogToType door and window is supposed to be an instance 
    *             of {@link CatalogDoorOrWindow} 
    */
   public CatalogPieceOfFurniture(String name, Content icon, Content model, 
@@ -384,7 +384,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
   
   /**
-   * Creates a modifiable catalog piece of furniture with all its values.
+   * Creates a modifiable sweetCatalogToType piece of furniture with all its values.
    * @param name  the name of the new piece
    * @param icon content of the icon of the new piece
    * @param model content of the 3D model of the new piece
@@ -410,7 +410,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
   }
   
   /**
-   * Creates a modifiable catalog piece of furniture with all its values.
+   * Creates a modifiable sweetCatalogToType piece of furniture with all its values.
    * @param name  the name of the new piece
    * @param icon content of the icon of the new piece
    * @param model content of the 3D model of the new piece

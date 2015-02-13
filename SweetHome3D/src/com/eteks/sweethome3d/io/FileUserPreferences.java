@@ -234,20 +234,20 @@ public class FileUserPreferences extends UserPreferences {
     setLanguage(language);    
 
     setFurnitureCatalog(new FurnitureCatalog());
-    // Fill default furniture catalog 
+    // Fill default furniture sweetCatalogToType 
     updateFurnitureDefaultCatalog(defaultExecutor, defaultExecutor);
     // Read additional furniture
     readModifiableFurnitureCatalog(preferences);
     
     setTexturesCatalog(new TexturesCatalog());
-    // Fill default textures catalog 
+    // Fill default textures sweetCatalogToType 
     updateTexturesDefaultCatalog(defaultExecutor, defaultExecutor);
     // Read additional textures
     readModifiableTexturesCatalog(preferences);
     
     DefaultUserPreferences defaultPreferences = new DefaultUserPreferences(false, this);
     
-    // Fill default patterns catalog 
+    // Fill default patterns sweetCatalogToType 
     PatternsCatalog patternsCatalog = defaultPreferences.getPatternsCatalog();
     setPatternsCatalog(patternsCatalog);
 
@@ -525,7 +525,7 @@ public class FileUserPreferences extends UserPreferences {
         public void run() {
           updater.execute(new Runnable() {
               public void run() {
-                // Delete default furniture of current furniture catalog          
+                // Delete default furniture of current furniture sweetCatalogToType          
                 for (FurnitureCategory category : furnitureCatalog.getCategories()) {
                   for (CatalogPieceOfFurniture piece : category.getFurniture()) {
                     if (!piece.isModifiable()) {
@@ -536,7 +536,7 @@ public class FileUserPreferences extends UserPreferences {
               }
             });
           
-          // Read default furniture catalog
+          // Read default furniture sweetCatalogToType
           final DefaultFurnitureCatalog defaultFurnitureCatalog = new DefaultFurnitureCatalog(
               FileUserPreferences.this, getFurnitureLibrariesPluginFolders());
           for (final FurnitureCategory category : defaultFurnitureCatalog.getCategories()) {
@@ -571,7 +571,7 @@ public class FileUserPreferences extends UserPreferences {
   }
 
   /**
-   * Reloads textures default catalog.
+   * Reloads textures default sweetCatalogToType.
    */
   private void updateTexturesDefaultCatalog(Executor texturesCatalogLoader, 
                                             final Executor updater) {
@@ -580,7 +580,7 @@ public class FileUserPreferences extends UserPreferences {
         public void run() {
           updater.execute(new Runnable() {
               public void run() {
-                // Delete default textures of current textures catalog          
+                // Delete default textures of current textures sweetCatalogToType          
                 for (TexturesCategory category : texturesCatalog.getCategories()) {
                   for (CatalogTexture texture : category.getTextures()) {
                     if (!texture.isModifiable()) {
@@ -591,7 +591,7 @@ public class FileUserPreferences extends UserPreferences {
               }
             });
             
-          // Read default textures catalog
+          // Read default textures sweetCatalogToType
           final DefaultTexturesCatalog defaultTexturesCatalog = new DefaultTexturesCatalog(
               FileUserPreferences.this, getTexturesLibrariesPluginFolders());
           for (final TexturesCategory category : defaultTexturesCatalog.getCategories()) {
@@ -626,7 +626,7 @@ public class FileUserPreferences extends UserPreferences {
   }
 
   /**
-   * Read modifiable furniture catalog from preferences.
+   * Read modifiable furniture sweetCatalogToType from preferences.
    */
   private void readModifiableFurnitureCatalog(Preferences preferences) {
     for (int i = 1; ; i++) {
@@ -719,7 +719,7 @@ public class FileUserPreferences extends UserPreferences {
   }
   
   /**
-   * Read modifiable textures catalog from preferences.
+   * Read modifiable textures sweetCatalogToType from preferences.
    */
   private void readModifiableTexturesCatalog(Preferences preferences) {
     for (int i = 1; ; i++) {
@@ -916,7 +916,7 @@ public class FileUserPreferences extends UserPreferences {
   }
     
   /**
-   * Writes modifiable textures catalog in <code>preferences</code>.
+   * Writes modifiable textures sweetCatalogToType in <code>preferences</code>.
    */
   private void writeModifiableTexturesCatalog(Preferences preferences) throws RecorderException {
     final Set<URL> texturesContentURLs = new HashSet<URL>();
@@ -1035,7 +1035,7 @@ public class FileUserPreferences extends UserPreferences {
   }
 
   /**
-   * Returns the folder where furniture catalog files must be placed 
+   * Returns the folder where furniture sweetCatalogToType files must be placed 
    * or <code>null</code> if that folder can't be retrieved.
    */
   private File [] getFurnitureLibrariesPluginFolders() {
@@ -1047,7 +1047,7 @@ public class FileUserPreferences extends UserPreferences {
   }
 
   /**
-   * Returns the folder where texture catalog files must be placed 
+   * Returns the folder where texture sweetCatalogToType files must be placed 
    * or <code>null</code> if that folder can't be retrieved.
    */
   private File [] getTexturesLibrariesPluginFolders() {
@@ -1271,7 +1271,7 @@ public class FileUserPreferences extends UserPreferences {
 
   /**
    * Adds the file <code>furnitureLibraryPath</code> to the first furniture libraries folder 
-   * to make the furniture library available to catalog.
+   * to make the furniture library available to sweetCatalogToType.
    */
   @Override
   public void addFurnitureLibrary(String furnitureLibraryPath) throws RecorderException {
@@ -1308,7 +1308,7 @@ public class FileUserPreferences extends UserPreferences {
 
   /**
    * Adds the file <code>texturesLibraryPath</code> to the first textures libraries folder 
-   * to make the textures library available to catalog.
+   * to make the textures library available to sweetCatalogToType.
    */
   @Override
   public void addTexturesLibrary(String texturesLibraryPath) throws RecorderException {

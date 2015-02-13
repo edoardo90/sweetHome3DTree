@@ -669,7 +669,7 @@ public class FurnitureTable extends JTable implements View, Printable {
       if (columnIdentifier instanceof HomePieceOfFurniture.SortableProperty) {
         switch ((HomePieceOfFurniture.SortableProperty)columnIdentifier) {
           case CATALOG_ID :
-            // Copy piece catalog id
+            // Copy piece sweetCatalogToType id
             String catalogId = copiedPiece.getCatalogId();
             writer.write(catalogId != null ? catalogId : "");
             break;
@@ -1025,7 +1025,7 @@ public class FurnitureTable extends JTable implements View, Printable {
     }
 
     /**
-     * Returns a renderer that displays the catalog id of a piece of furniture. 
+     * Returns a renderer that displays the sweetCatalogToType id of a piece of furniture. 
      */
     private TableCellRenderer getCatalogIdRenderer() {
       return new DefaultTableCellRenderer() { 

@@ -20,23 +20,23 @@
 package com.eteks.sweethome3d.model;
 
 /**
- * An item of a catalog.
+ * An item of a sweetCatalogToType.
  * @author Emmanuel Puybaret
  * @since 4.4
  */
 public interface CatalogItem {
   /**
-   * Returns the name of this catalog item.
+   * Returns the name of this sweetCatalogToType item.
    */
   public abstract String getName();
 
   /**
-   * Returns the icon of this catalog item.
+   * Returns the icon of this sweetCatalogToType item.
    */
   public abstract Content getIcon();
 
   /**
-   * Returns the creator of this catalog item or <code>null</code>.
+   * Returns the creator of this sweetCatalogToType item or <code>null</code>.
    */
   public String getCreator();
 }

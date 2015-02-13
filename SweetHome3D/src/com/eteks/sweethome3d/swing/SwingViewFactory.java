@@ -70,7 +70,7 @@ import com.eteks.sweethome3d.viewcontroller.WizardController;
  */
 public class SwingViewFactory implements ViewFactory {
   /**
-   * Returns a new view that displays furniture <code>catalog</code>.
+   * Returns a new view that displays furniture <code>sweetCatalogToType</code>.
    */
   public View createFurnitureCatalogView(FurnitureCatalog catalog,
                                          UserPreferences preferences,

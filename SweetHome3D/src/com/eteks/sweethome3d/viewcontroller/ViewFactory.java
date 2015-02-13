@@ -32,7 +32,7 @@ import com.eteks.sweethome3d.model.UserPreferences;
  */
 public interface ViewFactory {
   /**
-   * Returns a new view that displays furniture <code>catalog</code>.
+   * Returns a new view that displays furniture <code>sweetCatalogToType</code>.
    */
   public abstract View createFurnitureCatalogView(FurnitureCatalog catalog,
                                            UserPreferences preferences,

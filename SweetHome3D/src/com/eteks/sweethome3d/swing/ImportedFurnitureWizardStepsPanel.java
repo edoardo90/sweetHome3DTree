@@ -434,7 +434,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
 
     this.addToCatalogCheckBox = new JCheckBox(SwingTools.getLocalizedLabelText(preferences, 
         ImportedFurnitureWizardStepsPanel.class, "addToCatalogCheckBox.text"));
-    // Propose the add to catalog option only for home furniture import
+    // Propose the add to sweetCatalogToType option only for home furniture import
     this.addToCatalogCheckBox.setVisible(importHomePiece);
     this.addToCatalogCheckBox.addItemListener(new ItemListener() {
         public void itemStateChanged(ItemEvent ev) {

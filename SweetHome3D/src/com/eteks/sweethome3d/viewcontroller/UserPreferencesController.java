@@ -199,7 +199,7 @@ public class UserPreferencesController implements Controller {
   }
 
   /**
-   * Sets whether the furniture catalog should be viewed in a tree or a different way.
+   * Sets whether the furniture sweetCatalogToType should be viewed in a tree or a different way.
    */
   public void setFurnitureCatalogViewedInTree(boolean furnitureCatalogViewedInTree) {
     if (this.furnitureCatalogViewedInTree != furnitureCatalogViewedInTree) {
@@ -210,7 +210,7 @@ public class UserPreferencesController implements Controller {
   }
   
   /**
-   * Returns <code>true</code> if furniture catalog should be viewed in a tree.
+   * Returns <code>true</code> if furniture sweetCatalogToType should be viewed in a tree.
    */
   public boolean isFurnitureCatalogViewedInTree() {
     return this.furnitureCatalogViewedInTree;

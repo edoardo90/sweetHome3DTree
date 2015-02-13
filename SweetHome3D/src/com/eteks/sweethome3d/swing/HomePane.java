@@ -167,9 +167,9 @@ import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.ifcSecurity.GraphClean;
-import com.eteks.sweethome3d.adaptive.security.ifcSecurity.HomeSecurityExtractor;
-import com.eteks.sweethome3d.adaptive.security.ifcSecurity.IfcSecurityExtractor;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer;
 import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer.KindOfGraph;
 import com.eteks.sweethome3d.j3d.Ground3D;
@@ -1496,7 +1496,7 @@ public class HomePane extends JRootPane implements HomeView {
     // Map sort furniture properties to sort actions
     Map<HomePieceOfFurniture.SortableProperty, Action> sortActions = 
         new LinkedHashMap<HomePieceOfFurniture.SortableProperty, Action>();     
-    // Use catalog id if currency isn't null
+    // Use sweetCatalogToType id if currency isn't null
     if (preferences.getCurrency() != null) {
       addActionToMap(ActionType.SORT_HOME_FURNITURE_BY_CATALOG_ID, 
           sortActions, HomePieceOfFurniture.SortableProperty.CATALOG_ID); 
@@ -1599,7 +1599,7 @@ public class HomePane extends JRootPane implements HomeView {
     // Map displayProperty furniture properties to displayProperty actions
     Map<HomePieceOfFurniture.SortableProperty, Action> displayPropertyActions = 
         new LinkedHashMap<HomePieceOfFurniture.SortableProperty, Action>(); 
-    // Use catalog id if currency isn't null
+    // Use sweetCatalogToType id if currency isn't null
     if (preferences.getCurrency() != null) {
       addActionToMap(ActionType.DISPLAY_HOME_FURNITURE_CATALOG_ID, 
           displayPropertyActions, HomePieceOfFurniture.SortableProperty.CATALOG_ID); 
@@ -2302,7 +2302,7 @@ public class HomePane extends JRootPane implements HomeView {
       }
       if (!dragAndDropWithTransferHandlerSupported) {
         if (catalogView != null) {
-          // Check if furniture catalog is handled by a subcomponent
+          // Check if furniture sweetCatalogToType is handled by a subcomponent
           List<JViewport> viewports = SwingTools.findChildren(catalogView, JViewport.class);
           JComponent catalogComponent;
           if (viewports.size() > 0) {
@@ -2349,7 +2349,7 @@ public class HomePane extends JRootPane implements HomeView {
 
 
   /**
-   * Returns a mouse listener for catalog that acts as catalog view, furniture view and plan transfer handlers 
+   * Returns a mouse listener for sweetCatalogToType that acts as sweetCatalogToType view, furniture view and plan transfer handlers 
    * for drag and drop operations.
    */
   private MouseInputAdapter createFurnitureCatalogMouseListener() {
@@ -2532,7 +2532,7 @@ public class HomePane extends JRootPane implements HomeView {
   }
 
   /**
-   * Returns the main pane with catalog tree, furniture table and plan pane. 
+   * Returns the main pane with sweetCatalogToType tree, furniture table and plan pane. 
    * 
    * Edo's changes:
    * I also add a lateral panel in which will be displayed the Reacheability Tree.
@@ -2729,14 +2729,14 @@ public class HomePane extends JRootPane implements HomeView {
   }
 
   /**
-   * Returns the catalog tree and furniture table pane. 
+   * Returns the sweetCatalogToType tree and furniture table pane. 
    */
   private JComponent createCatalogFurniturePane(Home home,
                                                 UserPreferences preferences,
                                                 final HomeController controller) {
     JComponent catalogView = (JComponent)controller.getFurnitureCatalogController().getView();
     if (catalogView != null) {
-      // Create catalog view popup menu
+      // Create sweetCatalogToType view popup menu
       JPopupMenu catalogViewPopup = new JPopupMenu();
       addActionToPopupMenu(ActionType.COPY, catalogViewPopup);
       catalogViewPopup.addSeparator();
@@ -2853,7 +2853,7 @@ public class HomePane extends JRootPane implements HomeView {
         ((UserPreferences)ev.getSource()).removePropertyChangeListener(
             UserPreferences.Property.FURNITURE_CATALOG_VIEWED_IN_TREE, this);
       } else {
-        // Replace previous furniture catalog view by the new one
+        // Replace previous furniture sweetCatalogToType view by the new one
         JComponent oldFurnitureCatalogView = this.furnitureCatalogView.get();        
         if (oldFurnitureCatalogView != null) {
           boolean transferHandlerEnabled = homePane.transferHandlerEnabled; 
@@ -4563,7 +4563,7 @@ public class HomePane extends JRootPane implements HomeView {
 
   /**
    * Displays a dialog that let user choose whether he wants to delete 
-   * the selected furniture from catalog or not.
+   * the selected furniture from sweetCatalogToType or not.
    * @return <code>true</code> if user confirmed to delete.
    */
   public boolean confirmDeleteCatalogSelection() {

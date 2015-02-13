@@ -67,6 +67,23 @@ public class Segment3D {
     return Math.abs((point.first-A.first)*(B.second-A.second)-(point.second-A.second)*(B.first-A.first))/normalLength;
   }
   
+ public boolean isRighterThen(Segment3D other)
+ {
+   Vector3D myRighterPoint = this.getPointMaxX();
+   Vector3D otherRighterPoint = other.getPointMaxX();
+   return myRighterPoint.first > otherRighterPoint.first;
+ }
+
+ public boolean isUpperThen(Segment3D other)
+ {
+
+   Vector3D myUpperPoint = this.getPointMaxY();
+   Vector3D otherUpperPoint = other.getPointMaxY();
+   return myUpperPoint.second > otherUpperPoint.second;
+ }
+
+ 
+
 
 
   @Override
@@ -75,6 +92,51 @@ public class Segment3D {
             ", tail=" + this.tail +  "\n" + 
             ", magnitude=" + this.getLength() + "\n" +
             ", angle="     + this.getAngle() + "]";
+  }
+
+
+  private Vector3D getPointMaxY() {
+    if (this.row.second > this.row.second)
+      return this.row.clone();
+    else
+      return this.tail.clone();
+}
+
+  public Vector3D getPointMinX()
+  {
+    if (this.row.first < this.tail.first)
+      return this.row.clone();
+    else
+      return this.tail.clone();
+  }
+  
+  public Vector3D getPointMaxX()
+  {
+    if (this.row.first > this.tail.first)
+      return this.row.clone();
+    else
+      return this.tail.clone();
+  }
+  
+  public boolean contains(Segment3D otherTop) {
+    
+    Vector3D myLefterPoint = this.getPointMinX();
+    Vector3D myRighterPoint = this.getPointMinX();
+    
+    Vector3D otherLefterPoint = otherTop.getPointMinX();
+    Vector3D otherRighterPoint = otherTop.getPointMinX();
+    
+    boolean lefter =  (myLefterPoint.first <= otherLefterPoint.first);
+    boolean righter = (myRighterPoint.first >= otherRighterPoint.first);
+    
+    return lefter && righter;
+    
+  }
+
+
+
+  public String shortToString() {
+      return this.row.toStringShortXY(0) + "-----"  + this.tail.toStringShortXY(0);    
   }
   
   

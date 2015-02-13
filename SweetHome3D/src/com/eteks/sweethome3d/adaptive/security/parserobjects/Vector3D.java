@@ -74,7 +74,12 @@ public class Vector3D
 
   public String toStringShortXY()
   {
-    return "("+ round(this.first,3) + ", " +  round(this.second,3) + ")";
+    return this.toStringShortXY(3);
+  }
+  
+  public String toStringShortXY(int n)
+  {
+    return "("+ round(this.first,n) + ", " +  round(this.second,n) + ")";
   }
 
   private double round(double value, int places) {

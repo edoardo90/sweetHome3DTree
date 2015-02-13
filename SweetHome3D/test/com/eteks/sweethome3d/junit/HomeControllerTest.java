@@ -105,7 +105,7 @@ public class HomeControllerTest extends TestCase {
    * Tests add and delete furniture in home.
    */
   public void testHomeFurniture() {
-    // 2. Select the two first pieces of furniture in catalog and add them to the table
+    // 2. Select the two first pieces of furniture in sweetCatalogToType and add them to the table
     catalogTree.expandRow(0); 
     catalogTree.addSelectionInterval(1, 2);
     homeController.addHomeFurniture();
@@ -135,7 +135,7 @@ public class HomeControllerTest extends TestCase {
     // Check all actions are disabled
     assertActionsEnabled(false, false, false, false);
     
-    // 2. Select the two first pieces of furniture in catalog
+    // 2. Select the two first pieces of furniture in sweetCatalogToType
     catalogTree.expandRow(0); 
     catalogTree.addSelectionInterval(1, 2);
     // Check only Add action is enabled
@@ -199,7 +199,7 @@ public class HomeControllerTest extends TestCase {
    * Tests zoom and alignment tools. 
    */
   public void testZoomAndAligment() {
-    // Add the first two pieces of catalog first category to home
+    // Add the first two pieces of sweetCatalogToType first category to home
     FurnitureCategory firstCategory = this.preferences.getFurnitureCatalog().getCategories().get(0);
     HomePieceOfFurniture firstPiece = new HomePieceOfFurniture(firstCategory.getFurniture().get(0));
     this.home.addPieceOfFurniture(firstPiece);
@@ -293,7 +293,7 @@ public class HomeControllerTest extends TestCase {
    * Tests furniture visible properties changes.
    */
   public void testFurnitureVisibleProperties() {
-    // 1. Add the first piece of catalog first category to home
+    // 1. Add the first piece of sweetCatalogToType first category to home
     FurnitureCategory firstCategory = this.preferences.getFurnitureCatalog().getCategories().get(0);
     HomePieceOfFurniture piece = new HomePieceOfFurniture(firstCategory.getFurniture().get(0));
     this.home.addPieceOfFurniture(piece);
@@ -342,7 +342,7 @@ public class HomeControllerTest extends TestCase {
   public void testFurnitureGroup() {
     assertGroupActionsEnabled(false, false);
     
-    // 1. Add the first two pieces of catalog first category to home
+    // 1. Add the first two pieces of sweetCatalogToType first category to home
     FurnitureCategory firstCategory = this.preferences.getFurnitureCatalog().getCategories().get(0);
     List<CatalogPieceOfFurniture> catalogPieces = Arrays.asList(new CatalogPieceOfFurniture [] {
         firstCategory.getFurniture().get(0), firstCategory.getFurniture().get(1)});

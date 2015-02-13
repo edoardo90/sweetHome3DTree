@@ -360,7 +360,7 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
   }
 
   /**
-   * Returns the catalog ID of this piece of furniture or <code>null</code> if it doesn't exist.
+   * Returns the sweetCatalogToType ID of this piece of furniture or <code>null</code> if it doesn't exist.
    */
   public String getCatalogId() {
     return this.catalogId;

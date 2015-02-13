@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Textures catalog.
+ * Textures sweetCatalogToType.
  * @author Emmanuel Puybaret
  */
 public class TexturesCatalog {
@@ -41,7 +41,7 @@ public class TexturesCatalog {
   }
 
   /**
-   * Returns the count of categories in this catalog.
+   * Returns the count of categories in this sweetCatalogToType.
    */
   public int getCategoriesCount() {
     return this.categories.size();
@@ -55,22 +55,22 @@ public class TexturesCatalog {
   }
 
   /**
-   * Adds the texture <code>listener</code> in parameter to this catalog.
+   * Adds the texture <code>listener</code> in parameter to this sweetCatalogToType.
    */
   public void addTexturesListener(CollectionListener<CatalogTexture> listener) {
     this.texturesChangeSupport.addCollectionListener(listener);
   }
 
   /**
-   * Removes the texture <code>listener</code> in parameter from this catalog.
+   * Removes the texture <code>listener</code> in parameter from this sweetCatalogToType.
    */
   public void removeTexturesListener(CollectionListener<CatalogTexture> listener) {
     this.texturesChangeSupport.removeCollectionListener(listener);
   }
 
   /**
-   * Adds <code>texture</code> of a given <code>category</code> to this catalog.
-   * Once the <code>texture</code> is added, texture listeners added to this catalog will receive a
+   * Adds <code>texture</code> of a given <code>category</code> to this sweetCatalogToType.
+   * Once the <code>texture</code> is added, texture listeners added to this sweetCatalogToType will receive a
    * {@link CollectionListener#collectionChanged(CollectionEvent) collectionChanged} notification.
    * @param category the category of the texture.
    * @param texture  a texture.
@@ -92,9 +92,9 @@ public class TexturesCatalog {
   }
 
   /**
-   * Deletes the <code>texture</code> from this catalog.
-   * If then texture category is empty, it will be removed from the categories of this catalog. 
-   * Once the <code>texture</code> is deleted, texture listeners added to this catalog will receive a
+   * Deletes the <code>texture</code> from this sweetCatalogToType.
+   * If then texture category is empty, it will be removed from the categories of this sweetCatalogToType. 
+   * Once the <code>texture</code> is deleted, texture listeners added to this sweetCatalogToType will receive a
    * {@link CollectionListener#collectionChanged(CollectionEvent) collectionChanged} notification.
    * @param texture a texture.
    */
@@ -117,6 +117,6 @@ public class TexturesCatalog {
       }
     }
 
-    throw new IllegalArgumentException("catalog doesn't contain texture " + texture.getName());
+    throw new IllegalArgumentException("sweetCatalogToType doesn't contain texture " + texture.getName());
   }
 }

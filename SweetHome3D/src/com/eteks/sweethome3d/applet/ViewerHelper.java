@@ -85,7 +85,7 @@ public final class ViewerHelper {
   private static final String ACTIVATE_CAMERA_SWITCH_KEY_PARAMETER = "activateCameraSwitchKey";
   
   public ViewerHelper(final JApplet applet) {
-    // Create default user preferences with no catalog
+    // Create default user preferences with no sweetCatalogToType
     final UserPreferences preferences = new UserPreferences() {
         @Override
         public void addLanguageLibrary(String languageLibraryName) throws RecorderException {

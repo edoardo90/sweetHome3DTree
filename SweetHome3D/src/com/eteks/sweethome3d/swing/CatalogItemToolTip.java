@@ -40,7 +40,7 @@ import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 /**
- * A tool tip displaying the information and the icon of a catalog item.
+ * A tool tip displaying the information and the icon of a sweetCatalogToType item.
  * @author Emmanuel Puybaret
  */
 public class CatalogItemToolTip extends JToolTip {
@@ -100,7 +100,7 @@ public class CatalogItemToolTip extends JToolTip {
   }
   
   /**
-   * Sets the catalog item displayed by this tool tip.
+   * Sets the sweetCatalogToType item displayed by this tool tip.
    */
   public void setCatalogItem(CatalogItem item) {
     if (item != this.catalogItem) {

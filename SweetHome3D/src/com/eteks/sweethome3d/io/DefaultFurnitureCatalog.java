@@ -55,7 +55,7 @@ import com.eteks.sweethome3d.model.Sash;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 /**
- * Furniture default catalog read from resources localized in <code>.properties</code> files.
+ * Furniture default sweetCatalogToType read from resources localized in <code>.properties</code> files.
  * @author Emmanuel Puybaret
  */
 public class DefaultFurnitureCatalog extends FurnitureCatalog {
@@ -65,7 +65,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
   public enum PropertyKey {
     /**
      * The key for the ID of a piece of furniture (optional). 
-     * Two pieces of furniture read in a furniture catalog can't have the same ID
+     * Two pieces of furniture read in a furniture sweetCatalogToType can't have the same ID
      * and the second one will be ignored.   
      */
     ID("id"),
@@ -111,7 +111,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
     ICON("icon"),
     /**
      * The key for the SHA-1 digest of the icon file of a piece of furniture (optional). 
-     * This property is used to compare faster catalog resources with the ones of a read home,
+     * This property is used to compare faster sweetCatalogToType resources with the ones of a read home,
      * and should be encoded in Base64.  
      */
     ICON_DIGEST("iconDigest"),
@@ -124,7 +124,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
     PLAN_ICON("planIcon"),
     /**
      * The key for the SHA-1 digest of the plan icon file of a piece of furniture (optional). 
-     * This property is used to compare faster catalog resources with the ones of a read home,
+     * This property is used to compare faster sweetCatalogToType resources with the ones of a read home,
      * and should be encoded in Base64.  
      */
     PLAN_ICON_DIGEST("planIconDigest"),
@@ -137,7 +137,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
     MODEL("model"),
     /**
      * The key for the SHA-1 digest of the 3D model file of a piece of furniture (optional). 
-     * This property is used to compare faster catalog resources with the ones of a read home,
+     * This property is used to compare faster sweetCatalogToType resources with the ones of a read home,
      * and should be encoded in Base64.  
      */
     MODEL_DIGEST("modelDigest"),
@@ -315,7 +315,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
   }
 
   /**
-   * The name of <code>.properties</code> family files in plugin furniture catalog files. 
+   * The name of <code>.properties</code> family files in plugin furniture sweetCatalogToType files. 
    */
   public static final String PLUGIN_FURNITURE_CATALOG_FAMILY = "PluginFurnitureCatalog";
   
@@ -325,14 +325,14 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
   private List<Library> libraries = new ArrayList<Library>();
   
   /**
-   * Creates a default furniture catalog read from resources in the package of this class.
+   * Creates a default furniture sweetCatalogToType read from resources in the package of this class.
    */
   public DefaultFurnitureCatalog() {
     this((File)null);
   }
   
   /**
-   * Creates a default furniture catalog read from resources and   
+   * Creates a default furniture sweetCatalogToType read from resources and   
    * furniture plugin folder if <code>furniturePluginFolder</code> isn't <code>null</code>.
    */
   public DefaultFurnitureCatalog(File furniturePluginFolder) {
@@ -340,7 +340,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
   }
   
   /**
-   * Creates a default furniture catalog read from resources and   
+   * Creates a default furniture sweetCatalogToType read from resources and   
    * furniture plugin folder if <code>furniturePluginFolder</code> isn't <code>null</code>.
    */
   public DefaultFurnitureCatalog(final UserPreferences preferences, 
@@ -349,7 +349,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
   }
   
   /**
-   * Creates a default furniture catalog read from resources and   
+   * Creates a default furniture sweetCatalogToType read from resources and   
    * furniture plugin folders if <code>furniturePluginFolders</code> isn't <code>null</code>.
    */
   public DefaultFurnitureCatalog(final UserPreferences preferences, 
@@ -370,10 +370,10 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
         });
         
         if (pluginFurnitureCatalogFiles != null) {
-          // Treat furniture catalog files in reverse order of their version
+          // Treat furniture sweetCatalogToType files in reverse order of their version
           Arrays.sort(pluginFurnitureCatalogFiles, Collections.reverseOrder(OperatingSystem.getFileVersionComparator()));
           for (File pluginFurnitureCatalogFile : pluginFurnitureCatalogFiles) {
-            // Try to load the properties file describing furniture catalog from current file  
+            // Try to load the properties file describing furniture sweetCatalogToType from current file  
             readPluginFurnitureCatalog(pluginFurnitureCatalogFile, identifiedFurniture);
           }
         }
@@ -382,14 +382,14 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
   }
 
   /**
-   * Creates a default furniture catalog read only from resources in the given URLs.
+   * Creates a default furniture sweetCatalogToType read only from resources in the given URLs.
    */
   public DefaultFurnitureCatalog(URL [] pluginFurnitureCatalogUrls) {
     this(pluginFurnitureCatalogUrls, null);
   }
   
   /**
-   * Creates a default furniture catalog read only from resources in the given URLs 
+   * Creates a default furniture sweetCatalogToType read only from resources in the given URLs 
    * or in the classpath if the security manager doesn't allow to create class loaders.
    * Model and icon URLs will built from <code>furnitureResourcesUrlBase</code> if it isn't <code>null</code>.
    */
@@ -410,9 +410,9 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
               UserPreferences.FURNITURE_LIBRARY_TYPE, resource));
           readFurniture(resource, pluginFurnitureCatalogUrl, furnitureResourcesUrlBase, identifiedFurniture);
         } catch (MissingResourceException ex) {
-          // Ignore malformed furniture catalog
+          // Ignore malformed furniture sweetCatalogToType
         } catch (IllegalArgumentException ex) {
-          // Ignore malformed furniture catalog
+          // Ignore malformed furniture sweetCatalogToType
         }
       }
     } catch (AccessControlException ex) {
@@ -433,7 +433,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
   private static final Map<File,URL> pluginFurnitureCatalogUrlUpdates = new HashMap<File, URL>(); 
   
   /**
-   * Reads plug-in furniture catalog from the <code>pluginFurnitureCatalogFile</code> file. 
+   * Reads plug-in furniture sweetCatalogToType from the <code>pluginFurnitureCatalogFile</code> file. 
    */
   private void readPluginFurnitureCatalog(File pluginFurnitureCatalogFile,
                                           List<String> identifiedFurniture) {
@@ -445,7 +445,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
           && (urlUpdate == null 
               || urlUpdate.openConnection().getLastModified() < urlModificationDate)) {
         // Copy updated resource URL content to a temporary file to ensure furniture added to home can safely 
-        // reference any file of the catalog file even if its content is changed afterwards
+        // reference any file of the sweetCatalogToType file even if its content is changed afterwards
         TemporaryURLContent contentCopy = TemporaryURLContent.copyToTemporaryURLContent(new URLContent(pluginFurnitureCatalogFile.toURI().toURL()));
         URL temporaryFurnitureCatalogUrl = contentCopy.getURL();
         pluginFurnitureCatalogUrlUpdates.put(pluginFurnitureCatalogFile, temporaryFurnitureCatalogUrl);
@@ -462,11 +462,11 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
           UserPreferences.FURNITURE_LIBRARY_TYPE, resourceBundle));
       readFurniture(resourceBundle, pluginFurnitureCatalogUrl, null, identifiedFurniture);
     } catch (MissingResourceException ex) {
-      // Ignore malformed furniture catalog
+      // Ignore malformed furniture sweetCatalogToType
     } catch (IllegalArgumentException ex) {
-      // Ignore malformed furniture catalog
+      // Ignore malformed furniture sweetCatalogToType
     } catch (IOException ex) {
-      // Ignore unaccessible catalog
+      // Ignore unaccessible sweetCatalogToType
     }
   }
   
@@ -492,7 +492,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
   }
   
   /**
-   * Reads furniture of a given catalog family from resources.
+   * Reads furniture of a given sweetCatalogToType family from resources.
    */
   private void readFurnitureCatalog(final String furnitureCatalogFamily,
                                     final UserPreferences preferences,
@@ -545,7 +545,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
           continue;
         } else {
           // Add id to identifiedFurniture to be sure that two pieces with a same ID
-          // won't be added twice to furniture catalog (in case they are cited twice
+          // won't be added twice to furniture sweetCatalogToType (in case they are cited twice
           // in different furniture properties files)
           identifiedFurniture.add(piece.getId());
         }

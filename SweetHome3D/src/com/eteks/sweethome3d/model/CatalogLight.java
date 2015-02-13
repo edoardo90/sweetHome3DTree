@@ -22,7 +22,7 @@ package com.eteks.sweethome3d.model;
 import java.math.BigDecimal;
 
 /**
- * A light of the catalog.
+ * A light of the sweetCatalogToType.
  * @author Emmanuel Puybaret
  * @since  1.7
  */
@@ -30,7 +30,7 @@ public class CatalogLight extends CatalogPieceOfFurniture implements Light {
   private final LightSource [] lightSources;
 
   /**
-   * Creates an unmodifiable catalog light of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType light of the default sweetCatalogToType.
    * @param id    the id of the new light, or <code>null</code>
    * @param name  the name of the new light
    * @param description the description of the new light 
@@ -59,7 +59,7 @@ public class CatalogLight extends CatalogPieceOfFurniture implements Light {
   }
          
   /**
-   * Creates an unmodifiable catalog light of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType light of the default sweetCatalogToType.
    * @param id    the id of the new light, or <code>null</code>
    * @param name  the name of the new light
    * @param description the description of the new light 
@@ -91,7 +91,7 @@ public class CatalogLight extends CatalogPieceOfFurniture implements Light {
   }
          
   /**
-   * Creates an unmodifiable catalog light of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType light of the default sweetCatalogToType.
    * @param id    the id of the new light, or <code>null</code>
    * @param name  the name of the new light
    * @param description the description of the new light 
@@ -127,7 +127,7 @@ public class CatalogLight extends CatalogPieceOfFurniture implements Light {
   }
          
   /**
-   * Creates an unmodifiable catalog light of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType light of the default sweetCatalogToType.
    * @param id    the id of the new light, or <code>null</code>
    * @param name  the name of the new light
    * @param description the description of the new light 
@@ -167,7 +167,7 @@ public class CatalogLight extends CatalogPieceOfFurniture implements Light {
   }
          
   /**
-   * Creates an unmodifiable catalog light of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType light of the default sweetCatalogToType.
    * @param id    the id of the new light, or <code>null</code>
    * @param name  the name of the new light
    * @param description the description of the new light 
@@ -213,7 +213,7 @@ public class CatalogLight extends CatalogPieceOfFurniture implements Light {
   }
          
   /**
-   * Creates an unmodifiable catalog light of the default catalog.
+   * Creates an unmodifiable sweetCatalogToType light of the default sweetCatalogToType.
    * @param id    the id of the new light, or <code>null</code>
    * @param name  the name of the new light
    * @param description the description of the new light 

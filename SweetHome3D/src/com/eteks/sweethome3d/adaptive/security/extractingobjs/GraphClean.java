@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.ifcSecurity;
+package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 
 import java.util.List;
 

@@ -48,7 +48,7 @@ import com.eteks.sweethome3d.model.TexturesCategory;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 /**
- * Textures default catalog read from localized resources.
+ * Textures default sweetCatalogToType read from localized resources.
  * @author Emmanuel Puybaret
  */
 public class DefaultTexturesCatalog extends TexturesCatalog {
@@ -58,7 +58,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
   public enum PropertyKey {
     /**
      * The key for the ID of a texture (optional). 
-     * Two textures read in a texture catalog can't have the same ID
+     * Two textures read in a texture sweetCatalogToType can't have the same ID
      * and the second one will be ignored.   
      */
     ID("id"),
@@ -80,7 +80,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
     IMAGE("image"),
     /**
      * The key for the SHA-1 digest of the image file of a texture (optional). 
-     * This property is used to compare faster catalog resources with the ones of a read home,
+     * This property is used to compare faster sweetCatalogToType resources with the ones of a read home,
      * and should be encoded in Base64.  
      */
     IMAGE_DIGEST("imageDigest"),
@@ -113,7 +113,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
   }
 
   /**
-   * The name of <code>.properties</code> family files in plugin textures catalog files. 
+   * The name of <code>.properties</code> family files in plugin textures sweetCatalogToType files. 
    */
   public static final String PLUGIN_TEXTURES_CATALOG_FAMILY = "PluginTexturesCatalog";
 
@@ -122,14 +122,14 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
   private List<Library> libraries = new ArrayList<Library>();
   
   /**
-   * Creates a default textures catalog read from resources.
+   * Creates a default textures sweetCatalogToType read from resources.
    */
   public DefaultTexturesCatalog() {
     this((File)null);
   }
   
   /**
-   * Creates a default textures catalog read from resources and   
+   * Creates a default textures sweetCatalogToType read from resources and   
    * textures plugin folder if <code>texturesPluginFolder</code> isn't <code>null</code>.
    */
   public DefaultTexturesCatalog(File texturesPluginFolder) {
@@ -137,7 +137,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
   }
   
   /**
-   * Creates a default textures catalog read from resources and   
+   * Creates a default textures sweetCatalogToType read from resources and   
    * textures plugin folder if <code>texturesPluginFolder</code> isn't <code>null</code>.
    */
   public DefaultTexturesCatalog(final UserPreferences preferences, 
@@ -146,7 +146,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
   }
   
   /**
-   * Creates a default textures catalog read from resources and   
+   * Creates a default textures sweetCatalogToType read from resources and   
    * textures plugin folders if <code>texturesPluginFolders</code> isn't <code>null</code>.
    */
   public DefaultTexturesCatalog(final UserPreferences preferences, 
@@ -165,10 +165,10 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
         });
         
         if (pluginTexturesCatalogFiles != null) {
-          // Treat textures catalog files in reverse order of their version
+          // Treat textures sweetCatalogToType files in reverse order of their version
           Arrays.sort(pluginTexturesCatalogFiles, Collections.reverseOrder(OperatingSystem.getFileVersionComparator()));
           for (File pluginTexturesCatalogFile : pluginTexturesCatalogFiles) {
-            // Try to load the properties file describing textures catalog from current file  
+            // Try to load the properties file describing textures sweetCatalogToType from current file  
             readPluginTexturesCatalog(pluginTexturesCatalogFile, identifiedTextures);
           }
         }
@@ -177,14 +177,14 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
   }
 
   /**
-   * Creates a default textures catalog read only from resources in the given URLs.
+   * Creates a default textures sweetCatalogToType read only from resources in the given URLs.
    */
   public DefaultTexturesCatalog(URL [] pluginTexturesCatalogUrls) {
     this(pluginTexturesCatalogUrls, null);
   }
   
   /**
-   * Creates a default textures catalog read only from resources in the given URLs.
+   * Creates a default textures sweetCatalogToType read only from resources in the given URLs.
    * Texture image URLs will built from <code>texturesResourcesUrlBase</code> if it isn't <code>null</code>.
    */
   public DefaultTexturesCatalog(URL [] pluginTexturesCatalogUrls,
@@ -204,9 +204,9 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
               UserPreferences.TEXTURES_LIBRARY_TYPE, resource));
           readTextures(resource, pluginTexturesCatalogUrl, texturesResourcesUrlBase, identifiedTextures);
         } catch (MissingResourceException ex) {
-          // Ignore malformed textures catalog
+          // Ignore malformed textures sweetCatalogToType
         } catch (IllegalArgumentException ex) {
-          // Ignore malformed textures catalog
+          // Ignore malformed textures sweetCatalogToType
         }
       }
     } catch (AccessControlException ex) {
@@ -227,7 +227,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
   private static final Map<File,URL> pluginTexturesCatalogUrlUpdates = new HashMap<File,URL>(); 
   
   /**
-   * Reads plug-in textures catalog from the <code>pluginTexturesCatalogFile</code> file. 
+   * Reads plug-in textures sweetCatalogToType from the <code>pluginTexturesCatalogFile</code> file. 
    */
   private void readPluginTexturesCatalog(File pluginTexturesCatalogFile,
                                          List<String> identifiedTextures) {
@@ -239,7 +239,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
           && (urlUpdate == null 
               || urlUpdate.openConnection().getLastModified() < urlModificationDate)) {
         // Copy updated resource URL content to a temporary file to ensure textures used in home can safely 
-        // reference any file of the catalog file even if its content is changed afterwards
+        // reference any file of the sweetCatalogToType file even if its content is changed afterwards
         TemporaryURLContent contentCopy = TemporaryURLContent.copyToTemporaryURLContent(new URLContent(pluginTexturesCatalogFile.toURI().toURL()));
         URL temporaryTexturesCatalogUrl = contentCopy.getURL();
         pluginTexturesCatalogUrlUpdates.put(pluginTexturesCatalogFile, temporaryTexturesCatalogUrl);
@@ -256,11 +256,11 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
           UserPreferences.TEXTURES_LIBRARY_TYPE, resourceBundle));
       readTextures(resourceBundle, pluginTexturesCatalogUrl, null, identifiedTextures);
     } catch (MissingResourceException ex) {
-      // Ignore malformed textures catalog
+      // Ignore malformed textures sweetCatalogToType
     } catch (IllegalArgumentException ex) {
-      // Ignore malformed textures catalog
+      // Ignore malformed textures sweetCatalogToType
     } catch (IOException ex) {
-      // Ignore unaccessible catalog
+      // Ignore unaccessible sweetCatalogToType
     }
   }
   
@@ -281,7 +281,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
   }
   
   /**
-   * Reads textures of a given catalog family from resources.
+   * Reads textures of a given sweetCatalogToType family from resources.
    */
   private void readTexturesCatalog(final String texturesCatalogFamily,
                                    final UserPreferences preferences,
@@ -333,7 +333,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
           continue;
         } else {
           // Add id to identifiedTextures to be sure that two textures with a same ID
-          // won't be added twice to textures catalog (in case they are cited twice
+          // won't be added twice to textures sweetCatalogToType (in case they are cited twice
           // in different textures properties files)
           identifiedTextures.add(texture.getId());
         }

@@ -78,7 +78,7 @@ import com.eteks.sweethome3d.viewcontroller.FurnitureCatalogController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * A tree displaying furniture catalog by category.
+ * A tree displaying furniture sweetCatalogToType by category.
  * @author Emmanuel Puybaret
  */
 public class FurnitureCatalogTree extends JTree implements View {
@@ -87,7 +87,7 @@ public class FurnitureCatalogTree extends JTree implements View {
   private CatalogItemToolTip    toolTip;
 
   /**
-   * Creates a tree that displays <code>catalog</code> content.
+   * Creates a tree that displays <code>sweetCatalogToType</code> content.
    */
   public FurnitureCatalogTree(FurnitureCatalog catalog) {
     this(catalog, null);
@@ -95,7 +95,7 @@ public class FurnitureCatalogTree extends JTree implements View {
 
   /**
    * Creates a tree controlled by <code>controller</code> that displays 
-   * <code>catalog</code> content and its selection.
+   * <code>sweetCatalogToType</code> content and its selection.
    */
   public FurnitureCatalogTree(FurnitureCatalog catalog, 
                               FurnitureCatalogController controller) {
@@ -104,7 +104,7 @@ public class FurnitureCatalogTree extends JTree implements View {
   
   /**
    * Creates a tree controlled by <code>controller</code> that displays 
-   * <code>catalog</code> content and its selection.
+   * <code>sweetCatalogToType</code> content and its selection.
    */
   public FurnitureCatalogTree(FurnitureCatalog catalog, 
                               UserPreferences preferences, 
@@ -167,7 +167,7 @@ public class FurnitureCatalogTree extends JTree implements View {
       };
     this.treeSelectionListener = new TreeSelectionListener () {
         public void valueChanged(TreeSelectionEvent ev) {
-          // Updates selected furniture in catalog from selected nodes in tree. 
+          // Updates selected furniture in sweetCatalogToType from selected nodes in tree. 
           controller.removeSelectionListener(modelSelectionListener);
           controller.setSelectedFurniture(getSelectedFurniture());
           controller.addSelectionListener(modelSelectionListener);
@@ -179,7 +179,7 @@ public class FurnitureCatalogTree extends JTree implements View {
   }
   
   /**
-   * Updates selected nodes in tree from <code>catalog</code> selected furniture. 
+   * Updates selected nodes in tree from <code>sweetCatalogToType</code> selected furniture. 
    */
   private void updateTreeSelectedFurniture(FurnitureCatalog catalog,
                                            FurnitureCatalogController controller) {
@@ -320,7 +320,7 @@ public class FurnitureCatalogTree extends JTree implements View {
   }
   
   /**
-   * Cell renderer for this catalog tree.
+   * Cell renderer for this sweetCatalogToType tree.
    */
   private class CatalogCellRenderer extends JComponent implements TreeCellRenderer {
     private static final int        DEFAULT_ICON_HEIGHT = 32;
@@ -563,7 +563,7 @@ public class FurnitureCatalogTree extends JTree implements View {
     
     /**
      * Catalog furniture listener bound to this tree model with a weak reference to avoid
-     * strong link between catalog and this tree.  
+     * strong link between sweetCatalogToType and this tree.  
      */
     private static class CatalogFurnitureListener implements CollectionListener<CatalogPieceOfFurniture> {
       private WeakReference<CatalogTreeModel>  catalogTreeModel;
@@ -573,7 +573,7 @@ public class FurnitureCatalogTree extends JTree implements View {
       }
       
       public void collectionChanged(CollectionEvent<CatalogPieceOfFurniture> ev) {
-        // If catalog tree model was garbage collected, remove this listener from catalog
+        // If sweetCatalogToType tree model was garbage collected, remove this listener from sweetCatalogToType
         CatalogTreeModel catalogTreeModel = this.catalogTreeModel.get();
         FurnitureCatalog catalog = (FurnitureCatalog)ev.getSource();
         if (catalogTreeModel == null) {
