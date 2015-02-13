@@ -135,19 +135,22 @@ public class BuildingSecurityGraph {
     String s = "";
     for(BuildingRoomNode roomNode : this.roomNodeList )
     {
-      s = s + "ROOM: \n" + roomNode;
+      s = s + "\nROOM: \n" + roomNode;
       for(BuildingObjectContained bojc : roomNode.getObjectsInside())
       {
         s = s + "\n\t" + bojc;
       }
-      s = s + "\n";
+      s = s + "\n\n";
     }
     
     s = s + " LINKS : \n";
-    
+    if(this.getLinkEdgeList().isEmpty())
+    {
+      System.out.println("\t [ ] ");
+    }
     for(BuildingLinkEdge link : this.getLinkEdgeList())
     {
-      s = s + link + "\n";
+      s = s + link + "\n\n";
     }
     
     

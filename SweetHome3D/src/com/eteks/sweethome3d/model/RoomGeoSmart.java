@@ -5,6 +5,8 @@ import java.awt.Polygon;
 import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -389,15 +391,24 @@ public class RoomGeoSmart extends Room {
   public String toString()
   {
 
-    String s = "" + this.getName() != null ? this.getName() : "";
+    String s = "name:" + this.getName() != null ? this.getName() : "";
     float [][] points = this.getPoints();
     for(int i=0;i<points.length; i++)
     {
-      s = s + "(" + points[i][0] + ", " + points[i][1] + ")"   + "\n";
+      s = s + "\n(" +  round(points[i][0], 1) + ", " + round(points[i][1],1) + ")" ;
     }
     return s;
 
   }
+ 
+  private  double round(double value, int places) {
+    if (places < 0) throw new IllegalArgumentException();
+
+    BigDecimal bd = new BigDecimal(value);
+    bd = bd.setScale(places, RoundingMode.HALF_UP);
+    return bd.doubleValue();
+}
+  
 
   /**
    * centroid (x, y)  where x = avg (Xi)  of the shape, same with y

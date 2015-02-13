@@ -81,24 +81,7 @@ public class RoomCentroidTest extends BasicTest {
     this.furnitureTable = 
         (FurnitureTable)furnitureController.getView();
 
-    this.triangleRoom = getTriangle();
-    this.closeRectangleRoom = getRectangleClose();
-    this.farRectangleRoom = getRectangleFar();
-    this.weirdRoomPointsOnEdge = getStrangeShape();
-    this.weirdRoomPointsOutsideEdge = getStrangeShapeOutside();
-    this.weirdCloseButDetached = getStrangeShapeCloseButDeatched();
-    
-    this.squareRoom = getSquareRoom();
-    this.rectangularRoom = getRectangularShortRoom(0,0);
-    this.rectangularRoomShifted = getRectangularShortRoom(300, 0);
-    
-    this.elRoom1 = getEl1Room();
-    this.elRoom2 = getEl2Room();
-    this.wallBetweenL = getWallBetween();
-    this.squareBelowL1 = getroomBelowL1();
-    this.wallBetweenL1Square = getWallL1SQ();
-    
-    this.rectangularRoomShiftedDown = getRectangularShortRoom(0, 800);
+
     this.wallAside = getWallAside();
     
   }
@@ -243,7 +226,7 @@ public class RoomCentroidTest extends BasicTest {
     return new RoomGeoSmart(lst);
   } 
   
-  private RoomGeoSmart getroomBelowL1() {
+  protected RoomGeoSmart getroomBelowL1() {
     List<Vector3D> lst = new ArrayList<Vector3D>();
 
     lst.add(new Vector3D(100, 750, 0)); 
@@ -253,7 +236,7 @@ public class RoomCentroidTest extends BasicTest {
     
     return new RoomGeoSmart(lst);
   }
-  private RoomGeoSmart getWallL1SQ() {
+  protected RoomGeoSmart getWallL1SQ() {
     List<Vector3D> lst = new ArrayList<Vector3D>();
 
     lst.add(new Vector3D(300, 750, 0)); 
@@ -264,7 +247,7 @@ public class RoomCentroidTest extends BasicTest {
     return new RoomGeoSmart(lst);
   }
   
-  private RoomGeoSmart getWallAside() {
+  protected RoomGeoSmart getWallAside() {
     List<Vector3D> lst = new ArrayList<Vector3D>();
 
     lst.add(new Vector3D(900, 1000, 0)); 

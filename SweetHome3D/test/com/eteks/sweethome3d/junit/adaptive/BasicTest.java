@@ -84,6 +84,105 @@ public abstract  class BasicTest extends TestCase {
         (FurnitureTable)furnitureController.getView();
   }
 
+  protected RoomGeoSmart getRectangularShortRoom(int dx, int dy) {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(0    +dx,     0    +dy,      0));
+    lst.add(new Vector3D(800  +dx,     0    +dy,      0));
+    lst.add(new Vector3D(800  +dx,     200  +dy,  0));
+    lst.add(new Vector3D(0    +dx,     200  +dy,  0));
+    
+    return new RoomGeoSmart(lst);
+  }
+  
+  
+  
+  protected RoomGeoSmart getSquareRoom() {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(0, 0, 0));
+    lst.add(new Vector3D(200, 0, 0));
+    lst.add(new Vector3D(200, 200, 0));
+    lst.add(new Vector3D(0, 200, 0));
+    
+    return new RoomGeoSmart(lst);
+  }
+  
+  protected RoomGeoSmart getEl1Room()
+  {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(0, 0, 0));
+    lst.add(new Vector3D(200, 0, 0));
+    lst.add(new Vector3D(200, 500, 0));
+    lst.add(new Vector3D(500, 500, 0));
+    lst.add(new Vector3D(500, 700, 0));
+    lst.add(new Vector3D(0, 700, 0));    
+    
+    return new RoomGeoSmart(lst);
+  }
+  
+  protected RoomGeoSmart getEl2Room()
+  {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    
+    lst.add(new Vector3D(1000, 0, 0));
+    lst.add(new Vector3D(1200, 0, 0));
+    lst.add(new Vector3D(1200, 700, 0));
+    lst.add(new Vector3D(600,  700, 0));
+    lst.add(new Vector3D(600, 500, 0));
+    lst.add(new Vector3D(1000, 500, 0));    
+    
+    return new RoomGeoSmart(lst);
+    
+    
+  }
+  
+  protected RoomGeoSmart getWallBetween() {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(600, 700, 0)); 
+    lst.add(new Vector3D(500,  700, 0));
+    lst.add(new Vector3D(500, 500, 0)); 
+    lst.add(new Vector3D(600, 500, 0));  
+    
+    return new RoomGeoSmart(lst);
+  } 
+  
+  protected RoomGeoSmart getroomBelowL1() {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(100, 750, 0)); 
+    lst.add(new Vector3D(800,  750, 0));
+    lst.add(new Vector3D(800, 950, 0)); 
+    lst.add(new Vector3D(100, 950, 0));  
+    
+    return new RoomGeoSmart(lst);
+  }
+  protected RoomGeoSmart getWallL1SQ() {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(300, 750, 0)); 
+    lst.add(new Vector3D(100, 750, 0));
+    lst.add(new Vector3D(100, 700, 0));
+    lst.add(new Vector3D(300, 700, 0));  
+    
+    return new RoomGeoSmart(lst);
+  }
+  
+  protected RoomGeoSmart getWallAside() {
+    List<Vector3D> lst = new ArrayList<Vector3D>();
+
+    lst.add(new Vector3D(900, 1000, 0)); 
+    lst.add(new Vector3D(800, 1000, 0));
+    lst.add(new Vector3D(800,  0, 0));
+    lst.add(new Vector3D(900, 0, 0));  
+    
+    return new RoomGeoSmart(lst);
+  }
+
+  
   public  static void main(String [] args) {
     ViewFactory viewFactory = new SwingViewFactory();
     UserPreferences preferences = new DefaultUserPreferences();

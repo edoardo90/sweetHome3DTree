@@ -846,6 +846,7 @@ public class HomePane extends JRootPane implements HomeView {
           bsg = extr.getGraph();
           int pippo=0;
           pippo++;
+          System.out.println("GRAPH:\n" + bsg);
         }
         catch(Exception exxx) {
           exxx.printStackTrace();

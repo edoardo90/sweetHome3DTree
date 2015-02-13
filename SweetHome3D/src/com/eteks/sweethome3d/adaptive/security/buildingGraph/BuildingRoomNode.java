@@ -19,6 +19,8 @@ public class BuildingRoomNode extends BuildingGraphPart {
   
   private Shape3D roomShape;
   
+  private RoomGeoSmart roomSmart = null;
+  
   /**
    * 
    * @param roomName
@@ -49,9 +51,17 @@ public class BuildingRoomNode extends BuildingGraphPart {
    */
   public RoomGeoSmart getRoomSmart() 
   {
-    Room r = this.roomShape.getRoom();
-    r.setName(this.room.getName());
-    return new RoomGeoSmart(r);
+    if(this.roomSmart == null)
+    {  
+      Room r = this.roomShape.getRoom();
+      r.setName(this.room.getName());
+      this.roomSmart = new RoomGeoSmart(r);
+      return this.roomSmart;
+    }
+    else
+    {
+      return this.roomSmart;
+    }
   
   }
 
@@ -65,7 +75,7 @@ public class BuildingRoomNode extends BuildingGraphPart {
   @Override
   public String toString()
   {
-    return "name:" + this.getName() + "id:" + this.id + "\n shape:" + roomShape + "\n";
+    return "Room id:" + this.id + "\n room: \n" + getRoomSmart() ;
   }
 
   public List<BuildingObjectContained> getObjectsInside() {

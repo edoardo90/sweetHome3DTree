@@ -155,12 +155,15 @@ public class HomeSecurityExtractor extends SecurityExtractor {
         if (r1 != r2 &&  r1.intersectApprox(r2, 50))
         {
 
+          BuildingLinkEdge link = null;
+          //TODO: put wall correctly
+          
+          boolean areRoomsLinkedByDoor = false;
           for (HomePieceOfFurniture d : doors )
-          {
-            boolean areRoomsLinkedByDoor = areLinkedRoomsAndDoor(r1, r2, d);
-            BuildingLinkEdge link;
-            if ( areRoomsLinkedByDoor)
+          {  
+            if ( areLinkedRoomsAndDoor(r1, r2, d))
             {
+              areRoomsLinkedByDoor = true;
               // there is a link bw the E with r1 and the E with r2
               //graphRooms.
               SecurityGraphEdge e1 = graphRooms.get(r1);
@@ -174,22 +177,14 @@ public class HomeSecurityExtractor extends SecurityExtractor {
               dobj.setId(d.getId());
               dobj.setIdRoom1(r1.getId());
               dobj.setIdRoom1(r2.getId());
-              link = new BuildinLinkWallWithDoor(null, dobj, r1.getId(), r1.getId());
-              
+              link = new BuildinLinkWallWithDoor(null, dobj, r1.getId(), r2.getId());
               //TODO: put wall correctly
-              
             }
-            else
-            {
-              //TODO: put wall correctly
-              link = new BuildingLinkWall(null, r1.getId(), r2.getId());
-            }
-            String linkID = SessionIdentifierGenerator.getInstance().nextSessionId();
-            link.setId(linkID);
-            
-            
           }
-
+          if(!areRoomsLinkedByDoor) 
+              link = new BuildingLinkWall(null, r1.getId(), r2.getId());
+         
+          linkEdges.add(link);
         }
       }
     }
@@ -198,6 +193,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     securityGraph.setRoomNodeList(roomNodes);
     securityGraph.setLinkEdgeList(linkEdges);
     securityGraph.setNotLinkingWalls(walls);
+    
     return securityGraph;
 
   }
