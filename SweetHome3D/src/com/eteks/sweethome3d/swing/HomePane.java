@@ -537,7 +537,8 @@ public class HomePane extends JRootPane implements HomeView {
 
   /**
    * Returns a new <code>ControllerAction</code> object that calls on <code>controller</code> a given
-   * <code>method</code> with its <code>parameters</code>. This action is added to the action buildingTypeToHomePiece of this component.
+   * <code>method</code> with its <code>parameters</code>.
+   *  This action is added to the action buildingTypeToHomePiece of this component.
    */
   private Action createAction(ActionType actionType,
                               UserPreferences preferences,                            

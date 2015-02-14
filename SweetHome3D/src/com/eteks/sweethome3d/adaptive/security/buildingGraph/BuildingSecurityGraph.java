@@ -11,6 +11,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Wall;
 
 /**
@@ -115,8 +116,12 @@ public class BuildingSecurityGraph {
   }
   
   
-  public void addNewObject(String idObject, BuildingObjectType type, String idRoomDestination )
+  public void addNewObject(String idObject, BuildingObjectType type, String idRoomDestination, Vector3D position )
   {
+    
+    BuildingRoomNode broomDestination = this.buildingRooms.get(new IdRoom(idRoomDestination));
+    BuildingObjectContained objectCont = type.getBuildingObjectOfType(position);
+    broomDestination.addObjectContained(objectCont);
     
   }
   

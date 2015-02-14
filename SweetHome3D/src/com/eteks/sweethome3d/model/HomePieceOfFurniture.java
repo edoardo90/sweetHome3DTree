@@ -326,7 +326,7 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
       
       this.id = SessionIdentifierGenerator.getInstance().nextSessionId();
       this.id = this.id + "__" +  this.name;
-      System.out.println("created pof :" + this.name);
+      
       
     }
   }
@@ -921,7 +921,7 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
     if (x != this.x) {
       float oldX = this.x;
       this.x = x;
-      System.out.println("new X : " +  x + " old x :"  + oldX);
+      
       this.shapeCache = null;
       this.propertyChangeSupport.firePropertyChange(Property.X.name(), oldX, x);
       

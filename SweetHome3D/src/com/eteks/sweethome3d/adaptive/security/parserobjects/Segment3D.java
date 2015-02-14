@@ -136,12 +136,8 @@ public class Segment3D {
 
 
   public String shortToString() {
-      return this.row.toStringShortXY(0) + "-----"  + this.tail.toStringShortXY(0);    
+      return this.row.toStringShortXY(0) + "-----"  + this.tail.toStringShortXY(0);
   }
-  
-  
-  
-  
   
   
   

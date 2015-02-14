@@ -614,6 +614,10 @@ public class Home implements Serializable, Cloneable {
    * notification.
    */
   public void addPieceOfFurniture(HomePieceOfFurniture piece) {
+    
+    System.out.println(" piece X : " + piece.getX());
+    System.out.println(" piece Y : " + piece.getY());
+    
     addPieceOfFurniture(piece, this.furniture.size());
   }
 

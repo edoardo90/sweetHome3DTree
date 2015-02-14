@@ -364,7 +364,8 @@ public class FurnitureController implements Controller {
     if (furnitureProperty.equals(this.home.getFurnitureSortedProperty())) {
       this.home.setFurnitureSortedProperty(null);
     } else {
-      this.home.setFurnitureSortedProperty(furnitureProperty);      
+      this.home.setFurnitureSortedProperty(furnitureProperty);  
+      
     }
   }
 

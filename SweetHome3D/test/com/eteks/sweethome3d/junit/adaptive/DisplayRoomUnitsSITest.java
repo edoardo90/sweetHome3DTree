@@ -1,6 +1,7 @@
 package com.eteks.sweethome3d.junit.adaptive;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.FurnitureAddTest.ControllerTest;
 import com.eteks.sweethome3d.model.Home;
@@ -40,7 +41,20 @@ public class DisplayRoomUnitsSITest extends BasicTest {
   public void openIfcAndGetRooms(Home home, UserPreferences preferences) throws Exception
   {
     BuildingSecurityGraph graphScaled = this.openIfcAndReadIt(home, preferences);
-    home.displayGraph(graphScaled, preferences);
+////////////    errors !  home.displayGraph(graphScaled, preferences);
+//////////  
+////////    
+//////
+////    
+//
+
+     
+    ConfigFileEvilTest cfg = ConfigFileEvilTest.getInstance(preferences);
+    String nameOfCCTV =  cfg.getSweetHomeNameForType(BuildingObjectType.CCTV);
+    System.out.println("cctv : " + nameOfCCTV);   //Doccia
+    String objectName = "Doccia";
+    BuildingObjectType typeOfObject = cfg.getTypeForSweetHomeName(objectName);
+    System.out.println(" type  :" + typeOfObject);
     
   }
   

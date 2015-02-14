@@ -10,16 +10,16 @@ import com.eteks.sweethome3d.junit.resources.ResTest;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 
-public class ConfigFileTest extends ConfigLoader {
+public class ConfigFileEvilTest extends ConfigLoader {
 
-private static ConfigLoader instance = null;
+private static ConfigFileEvilTest instance = null;
   
-  public static ConfigLoader getInstance(UserPreferences preferences)
+  public static ConfigFileEvilTest getInstance(UserPreferences preferences)
   {
 
     if(instance == null)
     {
-      instance = new ConfigFileTest(preferences);
+      instance = new ConfigFileEvilTest(preferences);
       return instance;
     }
     else
@@ -29,7 +29,7 @@ private static ConfigLoader instance = null;
   }
 
   
-  private ConfigFileTest(UserPreferences preferences)
+  private ConfigFileEvilTest(UserPreferences preferences)
   {
     super(preferences);
   }

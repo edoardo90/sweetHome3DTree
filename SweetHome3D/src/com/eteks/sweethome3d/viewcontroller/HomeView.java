@@ -37,6 +37,13 @@ public interface HomeView extends View {
    * The actions proposed by the view to user.
    */
   public enum ActionType {
+       /**
+        * edoardo add
+        */
+      OPEN_IFC,
+      /**
+       * already here
+       */
       NEW_HOME, CLOSE, OPEN, DELETE_RECENT_HOMES, SAVE, SAVE_AS, SAVE_AND_COMPRESS,
       PAGE_SETUP, PRINT_PREVIEW, PRINT, PRINT_TO_PDF, PREFERENCES, EXIT, 
       UNDO, REDO, CUT, COPY, PASTE, DELETE, SELECT_ALL, SELECT_ALL_AT_ALL_LEVELS,

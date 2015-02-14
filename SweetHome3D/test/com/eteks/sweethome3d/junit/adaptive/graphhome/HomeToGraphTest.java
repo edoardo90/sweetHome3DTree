@@ -6,10 +6,13 @@ import java.util.List;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.BasicTest;
+import com.eteks.sweethome3d.junit.adaptive.ConfigFileEvilTest;
 import com.eteks.sweethome3d.junit.adaptive.ControllerTest;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.FurnitureCategory;
@@ -54,6 +57,30 @@ public class HomeToGraphTest extends BasicTest {
     }
     catch (Exception ex)   {     ex.printStackTrace();   }
     
+  }
+  
+  public void testAdd() throws Exception
+  {
+    Home home = new Home();
+    UserPreferences preferences = new DefaultUserPreferences();
+    HomePieceOfFurniture hopf = super.getHomePiece(preferences, 1, 2, "wash", 100, 200);
+    home.addPieceOfFurniture(hopf);
+    
+    HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
+    BuildingSecurityGraph segraph =  hse.getGraph();
+    
+    
+  }
+  
+  private void x()
+  {
+    ConfigFileEvilTest cfg = ConfigFileEvilTest.getInstance(preferences);
+    String nameOfCCTV =  cfg.getSweetHomeNameForType(BuildingObjectType.CCTV);
+    System.out.println("cctv : " + nameOfCCTV);   //Doccia
+    String objectName = "Doccia";
+    BuildingObjectType typeOfObject = cfg.getTypeForSweetHomeName(objectName);
+    System.out.println(" type  :" + typeOfObject);
+
   }
   
   

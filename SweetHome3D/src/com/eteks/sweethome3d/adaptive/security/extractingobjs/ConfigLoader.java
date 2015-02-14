@@ -100,6 +100,10 @@ public class ConfigLoader {
     return this.namesConventionsSweetHome.TypeToSweetName.get(type);
   }
   
+  public BuildingObjectType getTypeForSweetHomeName(String sweethomeName)
+  {
+    return this.namesConventionsSweetHome.sweetCatalogToType.get(sweethomeName);
+  }
   
   
   
