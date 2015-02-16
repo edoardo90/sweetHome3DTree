@@ -634,6 +634,7 @@ public class Home implements Serializable, Cloneable {
     this.furnitureChangeSupport.fireCollectionChanged(piece, index, CollectionEvent.Type.ADD);
     
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    
     ConfigLoader cfg = null;
     try { 
        cfg = ConfigLoader.getInstance(); 
@@ -672,6 +673,15 @@ public class Home implements Serializable, Cloneable {
       this.furniture = new ArrayList<HomePieceOfFurniture>(this.furniture);
       this.furniture.remove(index);
       this.furnitureChangeSupport.fireCollectionChanged(piece, index, CollectionEvent.Type.DELETE);
+    }
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    try
+    {  
+      segraph.removeObject(piece.getId());
+    }
+    catch(IllegalStateException e)
+    {
+      
     }
   }
 

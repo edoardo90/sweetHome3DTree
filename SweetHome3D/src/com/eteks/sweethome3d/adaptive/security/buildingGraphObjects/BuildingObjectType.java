@@ -16,6 +16,8 @@ public enum BuildingObjectType {
     switch(this)
     {
       case ACTOR:
+      case MAN:
+      case WOMAN:
         return new  ActorObject(position);
       case CCTV:
         return new CCTVObject(position);

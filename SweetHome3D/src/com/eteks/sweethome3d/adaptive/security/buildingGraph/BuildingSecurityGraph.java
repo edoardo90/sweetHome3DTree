@@ -171,7 +171,7 @@ public class BuildingSecurityGraph {
     this.objectsRoomLocation.remove(IDOBJ);
     this.objectsRoomLocation.put(IDOBJ, broomDestination);
     
-    System.out.println("CHANGED!!" + this);
+    System.out.println("MOVE - CHANGED!!" + this);
     
   }
   
@@ -209,6 +209,9 @@ public class BuildingSecurityGraph {
     IdObject ID = new IdObject(idObject);
     this.objectsRoomLocation.put(ID , broomDestination);
     this.objectsContained.put(ID, objectCont);
+    
+    System.out.println("ADD - CHANGED!!" + this);
+    
   }
   
   
@@ -280,6 +283,8 @@ public class BuildingSecurityGraph {
     this.objectsContained.remove(IDOBJ);
     this.objectsRoomLocation.remove(IDOBJ);
     
+    System.out.println("DELETE - CHANGED!" + this);
+    
   }
 
   public void moveObject(HomePieceOfFurniture homePieceOfFurniture, Vector3D position) {
@@ -288,12 +293,7 @@ public class BuildingSecurityGraph {
 
   public void addNewObject(String idObject, BuildingObjectType type, Vector3D position) {
     String idRoomDestination;
-    BuildingRoomNode buildRoom = this.getBuildingRoomFromObj(new IdObject(idObject));
-    if(buildRoom == null)
-    {
-      throw new IllegalStateException("graph not updated");
-    }
-    idRoomDestination = buildRoom.getId();
+    idRoomDestination = this.getRoomId(position);
     this.addNewObject(idObject, type, idRoomDestination, position);
     
   }
