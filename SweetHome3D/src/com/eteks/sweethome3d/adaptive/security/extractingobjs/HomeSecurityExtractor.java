@@ -72,6 +72,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     List<BuildingLinkEdge>  linkEdges = new ArrayList<BuildingLinkEdge>();
     
     BuildingSecurityGraph securityGraph = BuildingSecurityGraph.getInstance();
+    securityGraph.clearAll();
      
     Map<Room, SecurityGraphEdge> graphRooms = new HashMap<Room, SecurityGraphEdge>();
     List<SecurityGraphEdge>   graphRoomsList = new ArrayList<SecurityGraphEdge>();
@@ -102,7 +103,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           roomToFill.addPieceOfForniture(pieceOfForn);
          
           ConfigLoader cfg = ConfigLoader.getInstance(preferences);
-          SecurityNameAndMap namesConv = cfg.namesConventionsSweetHome;
+          SecurityNameAndMap namesConv = cfg.getNamesConventions();
           Map<String, BuildingObjectType> catalog = namesConv.sweetCatalogToType;
           String name = pieceOfForn.getName();
           BuildingObjectType typeObj = catalog.get(name);

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader.SecurityNameAndMap;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -35,7 +36,8 @@ public class ConfigLoader {
   private String securityCategoryName = "Security";
 
   private static ConfigLoader instance = null;
-  private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>(); 
+  private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>();
+  private SecurityNameAndMap snm = null; 
   
   /**
    * Map that stores the graphical representation associated to each {@link BuildingObjectType}
@@ -49,9 +51,9 @@ public class ConfigLoader {
   
     List<FurnitureCategory> categories= getUserPreferences().getFurnitureCatalog().getCategories();
   
-    namesConventionsSweetHome = this.getCatalogNamesFromFile();
+    SecurityNameAndMap namesConventionsSweetHome = this.getCatalogNamesFromFile();
     Map<String, BuildingObjectType> catalog = namesConventionsSweetHome.sweetCatalogToType;
-    securityCategoryName = namesConventionsSweetHome.securityCategoryName;
+    this.securityCategoryName = namesConventionsSweetHome.securityCategoryName;
   
     for(FurnitureCategory category : categories )
     {
@@ -70,8 +72,6 @@ public class ConfigLoader {
         }
       }
     }    
-  
-  
     return catalogFurniture;
   }
 
@@ -97,7 +97,13 @@ public class ConfigLoader {
    */
   public String getSweetHomeNameForType(BuildingObjectType type)
   {
-    return this.namesConventionsSweetHome.TypeToSweetName.get(type);
+    if(this.namesConventionsSweetHome != null)
+        return this.namesConventionsSweetHome.TypeToSweetName.get(type);
+    else
+    {
+      this.namesConventionsSweetHome = this.getNamesConventions();
+      return this.getSweetHomeNameForType(type);
+    }
   }
   
   public BuildingObjectType getTypeForSweetHomeName(String sweethomeName)
@@ -113,6 +119,7 @@ public class ConfigLoader {
     this.preferences = preferences;
     this.sweetHomeLibraryObjects = this.readSweetHomeLibraryObj();
     this.ifcWordsToLookFor = this.readWordsToLook();
+    
 
   }
 
@@ -153,7 +160,9 @@ public class ConfigLoader {
    */
   protected SecurityNameAndMap getCatalogNamesFromFile()
   {
-
+    if(snm != null)
+        return snm;
+    
     Map<String, BuildingObjectType> catalog = new HashMap<String, BuildingObjectType>();
     Map<BuildingObjectType, String> catalogBack = new HashMap<BuildingObjectType, String>();
     
@@ -170,8 +179,8 @@ public class ConfigLoader {
       catalogBack.put(buildingObjType, objectName);
 
     }
-
-    SecurityNameAndMap snm = new SecurityNameAndMap();
+    
+    snm = new SecurityNameAndMap();
     snm.sweetCatalogToType = catalog;
     snm.TypeToSweetName = catalogBack;
     snm.securityCategoryName = categoryName;
@@ -270,6 +279,20 @@ public class ConfigLoader {
   private String getSecurityCategoryName() {
 
     return this.securityCategoryName;
+  }
+
+
+  public SecurityNameAndMap getNamesConventions() {
+     if (this.snm != null)
+     {
+       return this.snm;
+     }
+     else
+     {
+       this.snm = this.getCatalogNamesFromFile();
+       return this.snm;
+     }
+     
   }
 
 

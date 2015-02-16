@@ -14,6 +14,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObje
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Wall;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 /**
  * Data Structure used to represent the graph associated to the building
@@ -142,13 +143,19 @@ public class BuildingSecurityGraph {
    */
   public void moveObject(String idObject, String idRoomDestination)
   {
-    BuildingRoomNode broomDestination = this.buildingRooms.get(new IdRoom(idRoomDestination));
-    BuildingRoomNode  broomSource = this.objectsRoomLocation.get(new IdObject(idObject));
-    BuildingObjectContained objectCont = this.objectsContained.get(new IdObject(idObject));
+    IdRoom IDDEST = new IdRoom(idRoomDestination);
+    IdObject IDOBJ = new IdObject(idObject);
+    
+    BuildingRoomNode broomDestination = this.buildingRooms.get(IDDEST);
+    BuildingRoomNode  broomSource = this.objectsRoomLocation.get(IDOBJ);
+    BuildingObjectContained objectCont = this.objectsContained.get(IDOBJ);
     
     broomDestination.addObjectContained(objectCont);
     broomSource.removeObject(objectCont);
-  
+    
+    this.objectsRoomLocation.remove(IDOBJ);
+    this.objectsRoomLocation.put(IDOBJ, broomDestination);
+    
   }
   
   
@@ -159,6 +166,11 @@ public class BuildingSecurityGraph {
     BuildingObjectContained objectCont = type.getBuildingObjectOfType(position);
     objectCont.setId(idObject);
     broomDestination.addObjectContained(objectCont);
+    
+    IdObject ID = new IdObject(idObject);
+    this.objectsRoomLocation.put(ID , broomDestination);
+    this.objectsContained.put(ID, objectCont);
+    
     
   }
   
@@ -206,6 +218,25 @@ public class BuildingSecurityGraph {
     
     
     return s;
+    
+  }
+
+  public void moveObject(String idObject, Vector3D position) {
+    String roomId = this.getRoomId(position);
+    moveObject(idObject, roomId);
+    
+  }
+
+  public void removeObject(String idObject) {
+    IdObject ID = new IdObject(idObject);
+    BuildingRoomNode containingRoom = this.objectsRoomLocation.get(ID);
+    BuildingObjectContained contained = this.objectsContained.get(ID);
+    
+    //from room
+    containingRoom.removeObject(contained);
+    //from maps
+    this.objectsContained.remove(ID);
+    this.objectsRoomLocation.remove(ID);
     
   }
   
