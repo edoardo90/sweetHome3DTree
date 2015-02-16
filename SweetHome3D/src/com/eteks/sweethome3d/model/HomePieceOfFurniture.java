@@ -38,6 +38,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.SessionIdentifierGenerator;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
@@ -325,7 +326,6 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
       this.y = this.depth / 2;
       
       this.id = SessionIdentifierGenerator.getInstance().nextSessionId();
-      this.id = this.id + "__" +  this.name;
       
       
     }
@@ -1216,6 +1216,19 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
   public void move(float dx, float dy) {
     setX(getX() + dx);
     setY(getY() + dy);
+    
+    try
+    {   BuildingSecurityGraph.getInstance().
+             moveObject(this, new Vector3D(getX(), getY(), 0));
+    }
+    catch(IllegalStateException e)
+    {
+      /* Do nothing, when graph will be updated the method will work
+      *
+      *  It is possible that the security admin is moving objects around
+      *  and has not asked the program for the graph
+      */
+    }
   }
   
   /**

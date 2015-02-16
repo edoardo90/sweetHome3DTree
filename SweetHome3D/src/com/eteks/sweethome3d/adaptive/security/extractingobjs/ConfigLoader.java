@@ -29,7 +29,7 @@ public class ConfigLoader {
 
 
   protected SecurityNameAndMap namesConventionsSweetHome;
-  private final UserPreferences preferences;
+  private static UserPreferences preferences;
   private File sweetHomeLibraryObjects;
   private File ifcWordsToLookFor;
 
@@ -108,7 +108,11 @@ public class ConfigLoader {
   
   public BuildingObjectType getTypeForSweetHomeName(String sweethomeName)
   {
-    return this.namesConventionsSweetHome.sweetCatalogToType.get(sweethomeName);
+    BuildingObjectType type = this.getNamesConventions().sweetCatalogToType.get(sweethomeName);
+    if (type == null)
+       type = BuildingObjectType.UNKNOWN_OBJECT;
+    return type;
+    
   }
   
   
@@ -293,6 +297,13 @@ public class ConfigLoader {
        return this.snm;
      }
      
+  }
+
+
+  public static ConfigLoader getInstance() {
+      if (preferences == null)
+        throw new IllegalStateException("configLoader should have preferences set before asking it !");
+      return new ConfigLoader(preferences);
   }
 
 

@@ -167,6 +167,7 @@ import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
 import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
@@ -280,7 +281,9 @@ public class HomePane extends JRootPane implements HomeView {
     this.home = home;
     this.preferences = preferences;
     this.controller = controller;
-
+    
+    ConfigLoader cfg = ConfigLoader.getInstance(preferences);
+    
     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
     ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);    
 

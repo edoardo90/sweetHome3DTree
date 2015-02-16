@@ -86,6 +86,10 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           rg.getShape(), objectsInside);  
       
       brn.setId(r.getId());
+      if(r.getName() == null || r.getName().equals(""))
+      {
+        r.setName(r.getId());
+      }
       securityGraph.putBuildingRoom(new IdRoom(r.getId()), brn);
       
       for(HomePieceOfFurniture pieceOfForn : fornitures)

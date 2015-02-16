@@ -12,7 +12,9 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Wall;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 
@@ -143,12 +145,25 @@ public class BuildingSecurityGraph {
    */
   public void moveObject(String idObject, String idRoomDestination)
   {
+    //TODO: update the position of the object
+    
     IdRoom IDDEST = new IdRoom(idRoomDestination);
     IdObject IDOBJ = new IdObject(idObject);
     
-    BuildingRoomNode broomDestination = this.buildingRooms.get(IDDEST);
-    BuildingRoomNode  broomSource = this.objectsRoomLocation.get(IDOBJ);
-    BuildingObjectContained objectCont = this.objectsContained.get(IDOBJ);
+    BuildingRoomNode broomDestination = this.getBuildingRoomFromRoom(IDDEST);
+    BuildingRoomNode  broomSource = this.getBuildingRoomFromObj(IDOBJ);
+    BuildingObjectContained objectCont = this.getObjectContainedFromObj(IDOBJ);
+    
+    if(broomDestination == null || broomSource == null || objectCont == null)
+    {
+      throw new IllegalStateException("graph probably not updated");
+      
+    }
+    
+    if(broomDestination.getId().equals(broomSource.getId()))
+    {
+      return;
+    }
     
     broomDestination.addObjectContained(objectCont);
     broomSource.removeObject(objectCont);
@@ -156,13 +171,37 @@ public class BuildingSecurityGraph {
     this.objectsRoomLocation.remove(IDOBJ);
     this.objectsRoomLocation.put(IDOBJ, broomDestination);
     
+    System.out.println("CHANGED!!" + this);
+    
+  }
+  
+  private BuildingObjectContained getObjectContainedFromObj(IdObject IDOBJ)
+  {
+    BuildingObjectContained boc = this.objectsContained.get(IDOBJ);
+    
+    return boc;
+  }
+  
+  private BuildingRoomNode getBuildingRoomFromRoom(IdRoom IDROOM)
+  {
+    BuildingRoomNode brn = this.buildingRooms.get(IDROOM);
+    return brn;
+  }
+  private BuildingRoomNode getBuildingRoomFromObj(IdObject IDOBJ)
+  {
+    BuildingRoomNode brn = this.objectsRoomLocation.get(IDOBJ);
+    return brn;
   }
   
   
   public void addNewObject(String idObject, BuildingObjectType type, String idRoomDestination, Vector3D position )
   {
     
-    BuildingRoomNode broomDestination = this.buildingRooms.get(new IdRoom(idRoomDestination));
+    BuildingRoomNode broomDestination = this.getBuildingRoomFromRoom(new IdRoom(idRoomDestination));
+    if(broomDestination == null)
+    {
+      throw new IllegalStateException("graph not updated");
+    }
     BuildingObjectContained objectCont = type.getBuildingObjectOfType(position);
     objectCont.setId(idObject);
     broomDestination.addObjectContained(objectCont);
@@ -170,8 +209,6 @@ public class BuildingSecurityGraph {
     IdObject ID = new IdObject(idObject);
     this.objectsRoomLocation.put(ID , broomDestination);
     this.objectsContained.put(ID, objectCont);
-    
-    
   }
   
   
@@ -228,15 +265,36 @@ public class BuildingSecurityGraph {
   }
 
   public void removeObject(String idObject) {
-    IdObject ID = new IdObject(idObject);
-    BuildingRoomNode containingRoom = this.objectsRoomLocation.get(ID);
-    BuildingObjectContained contained = this.objectsContained.get(ID);
+    IdObject IDOBJ = new IdObject(idObject);
+    BuildingRoomNode containingRoom = this.getBuildingRoomFromObj(IDOBJ);
+    BuildingObjectContained contained = this.getObjectContainedFromObj(IDOBJ);
+    
+    if(containingRoom == null || contained == null)
+    {
+      throw new IllegalStateException("graph not updated");
+    }
     
     //from room
     containingRoom.removeObject(contained);
     //from maps
-    this.objectsContained.remove(ID);
-    this.objectsRoomLocation.remove(ID);
+    this.objectsContained.remove(IDOBJ);
+    this.objectsRoomLocation.remove(IDOBJ);
+    
+  }
+
+  public void moveObject(HomePieceOfFurniture homePieceOfFurniture, Vector3D position) {
+      this.moveObject(homePieceOfFurniture.getId(), position);
+  }
+
+  public void addNewObject(String idObject, BuildingObjectType type, Vector3D position) {
+    String idRoomDestination;
+    BuildingRoomNode buildRoom = this.getBuildingRoomFromObj(new IdObject(idObject));
+    if(buildRoom == null)
+    {
+      throw new IllegalStateException("graph not updated");
+    }
+    idRoomDestination = buildRoom.getId();
+    this.addNewObject(idObject, type, idRoomDestination, position);
     
   }
   

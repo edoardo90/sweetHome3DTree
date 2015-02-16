@@ -41,7 +41,9 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 
@@ -630,6 +632,28 @@ public class Home implements Serializable, Cloneable {
     piece.setLevel(this.selectedLevel);
     this.furniture.add(index, piece);
     this.furnitureChangeSupport.fireCollectionChanged(piece, index, CollectionEvent.Type.ADD);
+    
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    ConfigLoader cfg = null;
+    try { 
+       cfg = ConfigLoader.getInstance(); 
+    }
+    catch(IllegalStateException e) {  }
+    BuildingObjectType type = cfg.getTypeForSweetHomeName(piece.getName());
+    
+    try {
+    segraph.addNewObject(piece.getId(), type,
+              new Vector3D(piece.getX(), piece.getY(), 0));
+    }
+    catch(IllegalStateException e)
+    {
+      /* Do nothing, when graph will be updated the method will work
+      *
+      *  It is possible that the security admin is moving objects around
+      *  and has not asked the program for the graph
+      */
+    }
+    
   }
 
   /**
