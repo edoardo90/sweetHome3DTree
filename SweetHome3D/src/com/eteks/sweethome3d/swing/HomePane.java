@@ -206,6 +206,7 @@ import com.eteks.sweethome3d.plugin.HomePluginController;
 import com.eteks.sweethome3d.plugin.Plugin;
 import com.eteks.sweethome3d.plugin.PluginAction;
 import com.eteks.sweethome3d.plugin.PluginManager;
+import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
@@ -323,6 +324,13 @@ public class HomePane extends JRootPane implements HomeView {
                              final HomeController controller) {
     createAction(ActionType.NEW_HOME, preferences, controller, "newHome");
     createAction(ActionType.OPEN, preferences, controller, "open");
+    
+    /** new action for security  **/
+    
+    createAction(ActionType.OPEN_IFC, preferences, controller, "openIfc");
+    
+    /**  end of new actions for security **/
+    
     createAction(ActionType.DELETE_RECENT_HOMES, preferences, controller, "deleteRecentHomes");
     createAction(ActionType.CLOSE, preferences, controller, "close");
     createAction(ActionType.SAVE, preferences, controller, "save");
@@ -2142,6 +2150,13 @@ public class HomePane extends JRootPane implements HomeView {
     addActionToToolBar(ActionType.CREATE_PHOTO, toolBar);
     addActionToToolBar(ActionType.CREATE_VIDEO, toolBar);
     toolBar.addSeparator();
+    
+    /***
+     * security actions
+     */
+    
+    addActionToToolBar(ActionType.OPEN_IFC, toolBar);
+    
 
     // Add plugin actions buttons
     boolean pluginActionsAdded = false;
@@ -2210,7 +2225,13 @@ public class HomePane extends JRootPane implements HomeView {
   private void addActionToToolBar(ActionType actionType,
                                   JToolBar toolBar) {
     Action action = getActionMap().get(actionType);
-    if (action!= null && action.getValue(Action.NAME) != null) {
+    String actionName =  "" + action.getValue(Action.NAME);
+    if(actionName.contains("Ifc"))
+    {
+      int pippo=0;
+      pippo++;
+    }
+    if (action!= null && actionName != null) {
       addActionToToolBar(new ResourceAction.ToolBarAction(action), toolBar);
     }
   }
@@ -2232,7 +2253,12 @@ public class HomePane extends JRootPane implements HomeView {
         }
       });
     } else {
-      toolBar.add(new JButton(new ResourceAction.ToolBarAction(action)));
+      
+      ToolBarAction a = new ResourceAction.ToolBarAction(action);
+      String s = a.getActionName();
+      if (s.contains("Ifc"))
+          a.setEnabled(true);
+      toolBar.add(new JButton(a));
     }
   }
 

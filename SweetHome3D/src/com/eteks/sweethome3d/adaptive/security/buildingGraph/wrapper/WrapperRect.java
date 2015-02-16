@@ -2,11 +2,13 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper;
 
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
 public class WrapperRect implements Comparable<WrapperRect> {
   
   private final Rectangle3D rect;
- 
+  private String roomID;
+  
   public  WrapperRect(Rectangle3D rect) {
     this.rect = rect;
   }
@@ -26,9 +28,13 @@ public class WrapperRect implements Comparable<WrapperRect> {
     }
     else
     {
-      return false;
+      if (o instanceof Vector3D) {
+        Vector3D position = (Vector3D)o;
+        return this.rect.contains(position);
+      }
     }
 
+   return false;
   }
   
   /**
@@ -64,8 +70,16 @@ public class WrapperRect implements Comparable<WrapperRect> {
   public String toString()
   {
     
-    return "" + this.rect.getTopSegment().shortToString();
+    return this.getRoomId()  + this.rect.getTopSegment().shortToString();
     
+  }
+
+  public String getRoomId() {
+    return roomID;
+  }
+
+  public void setRoomId(String roomId) {
+    this.roomID = roomId;
   }
   
   

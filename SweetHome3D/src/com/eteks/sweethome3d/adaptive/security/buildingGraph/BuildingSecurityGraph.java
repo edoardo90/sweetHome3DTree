@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
@@ -28,6 +29,10 @@ public class BuildingSecurityGraph {
   private Map<IdRoom, BuildingRoomNode>  buildingRooms = new HashMap<IdRoom, BuildingRoomNode>();
   private Map<IdObject, BuildingRoomNode>  objectsRoomLocation = new HashMap<IdObject, BuildingRoomNode>();
   private Map<IdObject, BuildingObjectContained> objectsContained = new HashMap<IdObject, BuildingObjectContained>();
+  
+  private List<WrapperRect>  spaceAreasOfRooms = new ArrayList<WrapperRect>();
+  /** now inefficient in the future could be  a btree  TODO: btree **/
+  
   
   private static BuildingSecurityGraph instance = null;
   
@@ -68,7 +73,19 @@ public class BuildingSecurityGraph {
   }
   public void setRoomNodeList(List<BuildingRoomNode> roomNodeList) {
     this.roomNodeList = roomNodeList;
+    for(BuildingRoomNode brn : roomNodeList)
+    {
+      WrapperRect r = brn.getWrappedRect();
+      r.setRoomId(brn.getId());
+      if( ! this.spaceAreasOfRooms.contains(r))
+      { 
+        this.spaceAreasOfRooms.add(r);
+      }
+    }
   }
+  
+  
+  
   public List<Wall> getNotLinkingWalls() {
     
     
@@ -84,6 +101,25 @@ public class BuildingSecurityGraph {
 
   public void setCyberLinkEdgeList(List<CyberLinkEdge> cyberLinkEdgeList) {
     this.cyberLinkEdgeList = cyberLinkEdgeList;
+  }
+  
+  public void addSpaceAreaOfRoom(WrapperRect rectRoom)
+  {
+    this.spaceAreasOfRooms.add(rectRoom);
+  }
+  
+  public String getRoomId(Vector3D position)
+  {
+    /** this should search in btree **/
+    for(WrapperRect rect : this.spaceAreasOfRooms)
+    {
+      if (rect.equals(position))
+      {
+        String roomId = rect.getRoomId();
+        return roomId;
+      }
+    }
+    return null;
   }
   
   
@@ -121,6 +157,7 @@ public class BuildingSecurityGraph {
     
     BuildingRoomNode broomDestination = this.buildingRooms.get(new IdRoom(idRoomDestination));
     BuildingObjectContained objectCont = type.getBuildingObjectOfType(position);
+    objectCont.setId(idObject);
     broomDestination.addObjectContained(objectCont);
     
   }

@@ -129,7 +129,10 @@ public class Segment3D {
     boolean lefter =  (myLefterPoint.first <= otherLefterPoint.first);
     boolean righter = (myRighterPoint.first >= otherRighterPoint.first);
     
-    return lefter && righter;
+    boolean sameY = (myLefterPoint.second == otherLefterPoint.second   &&
+                     myRighterPoint.second == otherRighterPoint.second);
+    
+    return lefter && righter && sameY;
     
   }
 

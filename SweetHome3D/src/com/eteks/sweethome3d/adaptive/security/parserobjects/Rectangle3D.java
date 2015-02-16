@@ -3,6 +3,7 @@ package com.eteks.sweethome3d.adaptive.security.parserobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.Wall;
 
 
@@ -449,6 +450,13 @@ public class Rectangle3D extends Shape3D
     Vector3D pn2 = this.getPointNorthWest();
     Segment3D topSegm = new Segment3D(pn1, pn2);
     return topSegm;
+  }
+
+  public boolean contains(Vector3D position) {
+    
+    RoomGeoSmart rg = new RoomGeoSmart(this);
+    return rg.containsPoint(position);
+    
   }
 
 

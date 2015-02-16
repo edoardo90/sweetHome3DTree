@@ -2,6 +2,7 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
 import java.util.List;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingGraphPart;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
@@ -89,6 +90,10 @@ public class BuildingRoomNode extends BuildingGraphPart {
   public void removeObject(BuildingObjectContained objectCont) {
    this.objectsInside.remove(objectCont);
     
+  }
+
+  public WrapperRect getWrappedRect() {
+    return new WrapperRect( this.getRoomSmart().getBoundingRoomRect3D());
   }
   
 }

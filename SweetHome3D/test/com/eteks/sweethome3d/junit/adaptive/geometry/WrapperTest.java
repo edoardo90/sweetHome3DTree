@@ -1,7 +1,9 @@
 package com.eteks.sweethome3d.junit.adaptive.geometry;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -20,10 +22,8 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
 
 public class WrapperTest extends BasicTest {
 
-  
-  @Override
-  public void doStuffInsideMain(Home home, UserPreferences preferences) {
-    super.setUp();
+  public void testWrappCubby()
+  {
     prepareHome(home, preferences);
     
     WrapperRect  cubbyW  = new WrapperRect( cubbyRoom.getBoundingRoomRect3D());
@@ -36,7 +36,7 @@ public class WrapperTest extends BasicTest {
     List<WrapperRect> rectsList = new ArrayList<WrapperRect>();
     
     TreeMap<WrapperRect, String> rectsTreeMap = new TreeMap<WrapperRect, String>();
-    
+ 
     rectsList.add(cubbyW);
     rectsList.add(livingW);
     rectsList.add(diningW);
@@ -46,6 +46,8 @@ public class WrapperTest extends BasicTest {
     rectsTreeMap.put(livingW, "");
     rectsTreeMap.put(diningW, "");
     rectsTreeMap.put(kitchenW, "");
+
+    
     
     rects.addAll(rectsList);
     System.out.println("list: " + rectsList);
@@ -54,15 +56,27 @@ public class WrapperTest extends BasicTest {
     
     Vector3D inCubby = new Vector3D(100, 100, 0);
     
+    boolean found = false;
     for(WrapperRect w : rects)
     {
       if(w.equals(inCubby))
       {
-        System.out.println(w);
+        System.out.println("W : "  + w);
+        assertTrue("the wrapper containing point inside cubby should be the cubby wrapper",
+            w.equals(cubbyW));
+        found = true;
       }
     }
     
-
+    assertTrue(found);
+    
+  }
+  
+  @Override
+  public void doStuffInsideMain(Home home, UserPreferences preferences) {
+    super.setUp();
+    
+    this.testWrappCubby();
   }
   
   public  static void main(String [] args) {

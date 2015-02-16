@@ -3,7 +3,6 @@ package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 import java.util.Map;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -15,7 +14,7 @@ public abstract class SecurityExtractor {
   
   protected ConfigLoader configLoader;
   protected UserPreferences preferences;
-
+  
   public SecurityExtractor( UserPreferences preferences)
   {
     this.securityGraph.clearAll();

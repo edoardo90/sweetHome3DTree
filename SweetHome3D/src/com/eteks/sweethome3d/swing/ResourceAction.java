@@ -109,8 +109,21 @@ public class ResourceAction extends AbstractAction {
   private void readActionProperties(UserPreferences preferences, 
                                     Class<?> resourceClass, 
                                     String actionPrefix) {
+
     String propertyPrefix = actionPrefix + ".";
-    putValue(NAME, getOptionalString(preferences, resourceClass, propertyPrefix + NAME, true));
+    
+    String nameAction = getOptionalString(preferences, resourceClass, propertyPrefix + NAME, true);
+    
+    /** shortcut for security actions,
+     *   maybe in the future would be nice do it sweethome3D way ... 
+     ***/
+    if(actionPrefix.equals("OPEN_IFC"))
+    {
+      nameAction = "Import from Ifc file";
+    }
+    
+    putValue(NAME, nameAction);
+    
     putValue(DEFAULT, getValue(NAME));
     putValue(POPUP, getOptionalString(preferences, resourceClass, propertyPrefix + POPUP, true));
     
@@ -181,6 +194,7 @@ public class ResourceAction extends AbstractAction {
 
     public AbstractDecoratedAction(Action action) {
       this.action = action;
+      
       this.propertyChangeSupport = new SwingPropertyChangeSupport(this);
       action.addPropertyChangeListener(new PropertyChangeListener() {
           public void propertyChange(PropertyChangeEvent ev) {
@@ -296,14 +310,34 @@ public class ResourceAction extends AbstractAction {
   public static class ToolBarAction extends AbstractDecoratedAction {
     public ToolBarAction(Action action) {
       super(action);
+      this.setActionName("" + action.getValue(Action.NAME));
     }
-
+    
+    private String actionName;
+    
     public Object getValue(String key) {
       // Ignore NAME in tool bar 
-      if (key.equals(NAME)) {        
-        return null;
+      /**
+       * except in ifc case, for now
+       * TODO: icon ? 
+       */
+      if (key.equals(NAME)) { 
+        if( ( "" + super.getValue(Action.NAME)).contains("Ifc") )
+        {
+          return super.getValue(key);
+        }
+        else
+          return null;
       } 
       return super.getValue(key);
+    }
+
+    public String getActionName() {
+      return actionName;
+    }
+
+    public void setActionName(String actionName) {
+      this.actionName = actionName;
     }
   }
 

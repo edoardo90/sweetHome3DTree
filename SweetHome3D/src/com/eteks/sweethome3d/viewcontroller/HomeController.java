@@ -1481,6 +1481,29 @@ public class HomeController implements Controller {
   }
 
   /**
+   * Assuming that a home is already open but still empty (no walls, no furnitures, no rooms)
+   * the method imports as much elements as possible from an IFC file
+   */
+  public void openIfc()
+  {
+    getView().invokeLater(new Runnable() {
+      public void run() {
+        final String homeName;
+        homeName = getView().showOpenDialog();
+        if (homeName != null) {
+          openIfc(homeName);
+        }
+      }
+    });
+    
+  }
+  
+  public void openIfc(String homeName)
+  {
+    System.out.println(" the home I should open is: ..." + homeName);
+  }
+  
+  /**
    * Opens a home. This method displays an {@link HomeView#showOpenDialog() open dialog} 
    * in view, reads the home from the chosen name and adds it to application home list.
    */

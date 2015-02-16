@@ -49,10 +49,10 @@ public class HomeToGraphTest extends BasicTest {
     try 
     {
         BuildingSecurityGraph segraph =  hse.getGraph();
-        System.out.println(segraph);
-        System.out.println("MOOOVEEEEE");
+//        System.out.println(segraph);
+//        System.out.println("MOOOVEEEEE");
         segraph.moveObject("washing", "kitchen");
-        System.out.println(segraph);
+//        System.out.println(segraph);
         assertTrue("the object has been moved", containsDeep(segraph, "kitchen", "washing"));
     }
     catch (Exception ex)   {     ex.printStackTrace();   }
@@ -61,16 +61,47 @@ public class HomeToGraphTest extends BasicTest {
   
   public void testAdd() throws Exception
   {
-    Home home = new Home();
-    UserPreferences preferences = new DefaultUserPreferences();
-    HomePieceOfFurniture hopf = super.getHomePiece(preferences, 1, 2, "wash", 100, 200);
+    
+    HomePieceOfFurniture hopf = super.getHomePiece(preferences, 1, 2, "wash", 100, 100);
     home.addPieceOfFurniture(hopf);
     
     HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
     BuildingSecurityGraph segraph =  hse.getGraph();
     
+    System.out.println(segraph);
+    
+    assertTrue("there should be wash in cubby room",
+           this.containsDeep(segraph, this.cubbyRoom.getId(), "wash"));
+    
+    segraph.addNewObject("light1", BuildingObjectType.LIGHT, "kitchen", 
+         new Vector3D(300, 400, 0));
+    
+    
+    assertTrue("light1 should be in kitchen", 
+        this.containsDeep(segraph, this.kitchen.getId(), "light1"));
     
   }
+  
+  public void testMatchCoords() throws Exception
+  {
+    HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
+    BuildingSecurityGraph segraph =  hse.getGraph();
+    String idRoom  = segraph.getRoomId(new Vector3D(300, 400, 0));
+    assertEquals("should be kitchen id", this.kitchen.getId(), idRoom);
+    
+    
+    idRoom  = segraph.getRoomId(new Vector3D(100, 100, 0));
+    assertEquals("should be cubby id", this.cubbyRoom.getId(), idRoom);
+    
+    idRoom  = segraph.getRoomId(new Vector3D(800, 300, 0));
+    assertEquals("should be dining id", this.diningRoom.getId(), idRoom);
+
+    idRoom  = segraph.getRoomId(new Vector3D(300, 100, 0));
+    assertEquals("should be living id", this.livingRoom.getId(), idRoom);
+    
+  }
+  
+  
   
   private void x()
   {

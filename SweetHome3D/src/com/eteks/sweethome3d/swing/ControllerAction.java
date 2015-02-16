@@ -78,6 +78,13 @@ public class ControllerAction extends ResourceAction {
                           Object controller, 
                           String method, 
                           Object ... parameters) throws NoSuchMethodException {
+    
+    /** es. new ControllerAction(preferences, HomePane.class, actionType.name(), controller, method, parameters);
+     *  resourceClass = HomePane.class
+     *  actionPrefix =  open
+     *  controller = HomeController
+     *
+     **/
     super(preferences, resourceClass, actionPrefix, enabled);
     this.controller = controller;
     this.parameters = parameters;
