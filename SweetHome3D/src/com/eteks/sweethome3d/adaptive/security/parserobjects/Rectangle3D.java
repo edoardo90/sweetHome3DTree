@@ -1,5 +1,7 @@
 package com.eteks.sweethome3d.adaptive.security.parserobjects;
 
+import java.awt.Polygon;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -457,6 +459,19 @@ public class Rectangle3D extends Shape3D
     RoomGeoSmart rg = new RoomGeoSmart(this);
     return rg.containsPoint(position);
     
+  }
+
+  public boolean contains(Rectangle3D rect) {
+    RoomGeoSmart rg = new RoomGeoSmart(this);
+    RoomGeoSmart rg2 = new RoomGeoSmart(rect);
+    Polygon p1 = rg.getPolygon1000xBigger();
+    Polygon p2 = rg2.getPolygon1000xBigger();
+    Area a1 = new Area(p1);
+    Area a2 = new Area(p2);
+    Area a1copy = (Area) a1.clone();
+    a1.intersect(a2);
+    boolean eq = a1.equals(a2);
+    return eq;
   }
 
 

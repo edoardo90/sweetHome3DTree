@@ -13,6 +13,14 @@ public class WrapperRect implements Comparable<WrapperRect> {
     this.rect = rect;
   }
   
+  public WrapperRect(float x, float y) {
+    this.rect = new Rectangle3D(new Vector3D(x, y, 0), 10, 10);
+  }
+
+  public WrapperRect(Vector3D position) {
+     this((float)position.first, (float)position.second);
+  }
+
   @Override
   public boolean equals(Object o)
   {
@@ -49,6 +57,14 @@ public class WrapperRect implements Comparable<WrapperRect> {
     
       Segment3D topSeg1 = rect.getTopSegment();
       Segment3D topSeg2 = o.rect.getTopSegment();
+      
+      Rectangle3D myRect = this.rect;
+      Rectangle3D otherRect = o.rect;
+      
+      if(this.rect.contains(otherRect) || otherRect.contains(this.rect))
+      {
+        return 0;
+      }
       
       if(topSeg1.isUpperThen(topSeg2))
         return 1;

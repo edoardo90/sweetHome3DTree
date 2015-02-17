@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BTree;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
@@ -22,6 +23,41 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
 
 public class WrapperTest extends BasicTest {
 
+  public void testBT()
+  {
+    String s;
+    BTree<WrapperRect, String>  wts;
+    
+    WrapperRect  cubbyW  = new WrapperRect( cubbyRoom.getBoundingRoomRect3D());
+    WrapperRect  livingW  = new WrapperRect( livingRoom.getBoundingRoomRect3D());
+    WrapperRect  diningW  = new WrapperRect( diningRoom.getBoundingRoomRect3D());
+    WrapperRect  kitchenW  = new WrapperRect( kitchen.getBoundingRoomRect3D());
+    
+     wts = new BTree<WrapperRect, String>();
+    
+    wts.put(cubbyW, "cubby");
+    wts.put(livingW, "living");
+    wts.put(diningW, "dining");
+    wts.put(kitchenW, "kitchen");
+    
+    WrapperRect p = new WrapperRect(100, 100);
+    
+    s = wts.get(p);
+    assertEquals("cubby", s);
+    
+    
+    wts.put(cubbyW, "cubby");
+    wts.put(diningW, "dining");
+    wts.put(cubbyW, "cubby");
+    
+    s = wts.get(p);
+    assertEquals("cubby", s);
+    
+    
+    
+  }
+  
+  
   public void testWrappCubby()
   {
     prepareHome(home, preferences);

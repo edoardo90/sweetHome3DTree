@@ -636,14 +636,11 @@ public class Home implements Serializable, Cloneable {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
     
     ConfigLoader cfg = null;
+    BuildingObjectType type = BuildingObjectType.UNKNOWN_OBJECT;
     try { 
-       cfg = ConfigLoader.getInstance(); 
-    }
-    catch(IllegalStateException e) {  }
-    BuildingObjectType type = cfg.getTypeForSweetHomeName(piece.getName());
-    
-    try {
-    segraph.addNewObject(piece.getId(), type,
+       cfg = ConfigLoader.getInstance();
+       type  = cfg.getTypeForSweetHomeName(piece.getName());
+       segraph.addNewObject(piece.getId(), type,
               new Vector3D(piece.getX(), piece.getY(), 0));
     }
     catch(IllegalStateException e)

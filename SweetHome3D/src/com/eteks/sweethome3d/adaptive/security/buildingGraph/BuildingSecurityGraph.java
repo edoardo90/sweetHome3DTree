@@ -36,6 +36,8 @@ public class BuildingSecurityGraph {
   private List<WrapperRect>  spaceAreasOfRooms = new ArrayList<WrapperRect>();
   /** now inefficient in the future could be  a btree  TODO: btree **/
   
+  private BTree<WrapperRect, String> spaceAreasTT = new BTree<WrapperRect, String>();
+  
   
   private static BuildingSecurityGraph instance = null;
   
@@ -79,9 +81,11 @@ public class BuildingSecurityGraph {
     for(BuildingRoomNode brn : roomNodeList)
     {
       WrapperRect r = brn.getWrappedRect();
+      
       r.setRoomId(brn.getId());
       if( ! this.spaceAreasOfRooms.contains(r))
       { 
+        this.spaceAreasTT.put(r, brn.getId());
         this.spaceAreasOfRooms.add(r);
       }
     }
@@ -111,18 +115,28 @@ public class BuildingSecurityGraph {
     this.spaceAreasOfRooms.add(rectRoom);
   }
   
+  @SuppressWarnings("unused")
   public String getRoomId(Vector3D position)
   {
+    String roomId = null;
     /** this should search in btree **/
     for(WrapperRect rect : this.spaceAreasOfRooms)
     {
       if (rect.equals(position))
       {
-        String roomId = rect.getRoomId();
-        return roomId;
+         roomId = rect.getRoomId();
       }
     }
-    return null;
+    
+    String roomId_btree; 
+    roomId_btree = this.spaceAreasTT.get(new WrapperRect(position));
+    
+    if(false) //TODO: try more and maybe keep just the btree
+        System.out.println(" room id old way : " + roomId + 
+            "\n room id new way :  "  + roomId_btree);
+    
+      
+    return roomId;
   }
   
   
