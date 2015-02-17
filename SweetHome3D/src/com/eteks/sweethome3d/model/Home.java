@@ -609,15 +609,20 @@ public class Home implements Serializable, Cloneable {
     return Collections.unmodifiableList(this.furniture);
   }
 
+  public void addPieceOfFurniture(HomePieceOfFurniture piece) {
+    this.addPieceOfFurniture(piece, UpdateBehaviour.UPDATE_GRAPH);
+  }
+  
   /**
    * Adds the <code>piece</code> in parameter to this home.
    * Once the <code>piece</code> is added, furniture listeners added to this home will receive a
    * {@link CollectionListener#collectionChanged(CollectionEvent) collectionChanged}
    * notification.
+   * @param updateGraphBehaviour 
    */
-  public void addPieceOfFurniture(HomePieceOfFurniture piece) {
+  public void addPieceOfFurniture(HomePieceOfFurniture piece, UpdateBehaviour updateGraphBehaviour) {
     
-    addPieceOfFurniture(piece, this.furniture.size());
+    addPieceOfFurniture(piece, this.furniture.size(), updateGraphBehaviour);
   }
 
   /**
@@ -626,30 +631,37 @@ public class Home implements Serializable, Cloneable {
    * {@link CollectionListener#collectionChanged(CollectionEvent) collectionChanged}
    * notification.
    */
-  public void addPieceOfFurniture(HomePieceOfFurniture piece, int index) {
+  public void addPieceOfFurniture(HomePieceOfFurniture piece, int index) 
+  {
+    this.addPieceOfFurniture(piece, index, UpdateBehaviour.UPDATE_GRAPH);
+  }
+  
+  public void addPieceOfFurniture(HomePieceOfFurniture piece, int index, UpdateBehaviour updateBehaviour) {
     // Make a copy of the list to avoid conflicts in the list returned by getFurniture
     this.furniture = new ArrayList<HomePieceOfFurniture>(this.furniture);
     piece.setLevel(this.selectedLevel);
     this.furniture.add(index, piece);
     this.furnitureChangeSupport.fireCollectionChanged(piece, index, CollectionEvent.Type.ADD);
     
-    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-    
-    ConfigLoader cfg = null;
-    BuildingObjectType type = BuildingObjectType.UNKNOWN_OBJECT;
-    try { 
-       cfg = ConfigLoader.getInstance();
-       type  = cfg.getTypeForSweetHomeName(piece.getName());
-       segraph.addNewObject(piece.getId(), type,
-              new Vector3D(piece.getX(), piece.getY(), 0));
-    }
-    catch(IllegalStateException e)
+    if(updateBehaviour == UpdateBehaviour.UPDATE_GRAPH)
     {
-      /* Do nothing, when graph will be updated the method will work
-      *
-      *  It is possible that the security admin is moving objects around
-      *  and has not asked the program for the graph
-      */
+      BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+      ConfigLoader cfg = null;
+      BuildingObjectType type = BuildingObjectType.UNKNOWN_OBJECT;
+      try { 
+        cfg = ConfigLoader.getInstance();
+        type  = cfg.getTypeForSweetHomeName(piece.getName());
+        segraph.addNewObject(piece.getId(), type,
+            new Vector3D(piece.getX(), piece.getY(), 0));
+      }
+      catch(IllegalStateException e)
+      {
+        /* Do nothing, when graph will be updated the method will work
+         *
+         *  It is possible that the security admin is moving objects around
+         *  and has not asked the program for the graph
+         */
+      }
     }
     
   }
@@ -1539,6 +1551,11 @@ public class Home implements Serializable, Cloneable {
     this.rooms.clear();
   }
 
+  public enum UpdateBehaviour
+  {
+    UPDATE_GRAPH, DONT_UPDATE_GRAPH;
+  }
+  
   public void displayGraph(BuildingSecurityGraph securityGraph, UserPreferences preferences) {
 
     List<BuildingRoomNode> roomsInBuilding = securityGraph.getRoomNodeList();
@@ -1554,8 +1571,9 @@ public class Home implements Serializable, Cloneable {
          hopf.setY((float)objPosition.second);
          hopf.setElevation(0);
          hopf.setAngle(0);
+         hopf.setId(objectContained.getId());
          
-         this.addPieceOfFurniture(hopf);
+         this.addPieceOfFurniture(hopf, UpdateBehaviour.DONT_UPDATE_GRAPH);
          
       }
     
@@ -1673,7 +1691,8 @@ public class Home implements Serializable, Cloneable {
 
     float xstart, ystart, xend, yend, thickness, height;
     
-    public WallProperties(float xstart, float ystart, float xend, float yend, float thickness, float height)
+    @SuppressWarnings("unused")
+    public WallProperties(final float xstart, final float ystart, final float xend, final float yend, final float thickness, final float height)
     {
       this.xstart = xstart;
       this.xend = xend;

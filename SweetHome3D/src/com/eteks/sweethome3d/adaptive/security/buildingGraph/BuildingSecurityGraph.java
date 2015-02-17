@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
@@ -113,7 +114,7 @@ public class BuildingSecurityGraph {
     this.spaceAreasOfRooms.add(rectRoom);
   }
   
-  @SuppressWarnings("unused")
+  @SuppressWarnings("unused") // see the todo
   public String getRoomId(Vector3D position)
   {
     String roomId = null;
@@ -241,6 +242,39 @@ public class BuildingSecurityGraph {
   public void putBuildingRoom(IdRoom idRoom, BuildingRoomNode room)
   {
     this.buildingRooms.put(idRoom, room);
+  }
+  
+  public String mapsToString()
+  {
+    
+    String  s = "OBJECTS ID -> OBJ CONT: \n";
+    
+    for(Entry<IdObject, BuildingObjectContained> entry : this.objectsContained.entrySet())
+    {
+       s = s + "\t" +  entry.getKey() + "\n";
+       s = s + "\t" +  entry.getValue().typeString()  + "\n\n";
+    }
+    
+    s = s + "\n  ROOMS ID -> BUILDING ROOM : \n";
+    for(Entry<IdRoom, BuildingRoomNode> entry : this.buildingRooms.entrySet())
+    {
+      s = s + "\t" + entry.getKey() + "\n";
+      s = s + "\t" + entry.getValue().getName() + "\n\n";
+    }
+        
+    s =  s + "\n OBJECT ID  ->  BUILDING ROOM \n";
+    for(Entry<IdObject, BuildingRoomNode> entry :  this.objectsRoomLocation.entrySet())
+    {
+      s = s + "\t" + entry.getKey() + "\n";
+      s = s + "\t" + entry.getValue().getName() + "\n\n";
+    }
+    
+    s = s + "\n\n BTREE ";
+    
+    s = s + this.spaceAreasTT;
+    
+    return s;
+    
   }
   
   

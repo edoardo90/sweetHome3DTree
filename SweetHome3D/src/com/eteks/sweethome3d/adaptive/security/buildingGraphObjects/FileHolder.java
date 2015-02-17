@@ -2,12 +2,11 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
-public class PCObject extends FileHolder {
+public class FileHolder extends BuildingObjectContained {
 
-  public PCObject(Vector3D position)
-  {
+  public FileHolder(Vector3D position) {
     super(position);
-    this.objectType = BuildingObjectType.PC;
+
   }
-  
+
 }

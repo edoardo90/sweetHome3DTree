@@ -3,6 +3,12 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper;
 public class IdRoom {
   private String idRoom;
 
+  @Override
+  public String toString()
+  {
+    return "ID: " + idRoom;
+  }
+  
   public IdRoom(String idRoom)
   {
     this.idRoom = idRoom;

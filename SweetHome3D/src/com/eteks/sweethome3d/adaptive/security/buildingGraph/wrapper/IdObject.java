@@ -3,6 +3,13 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper;
 public class IdObject {
   private String idObject;
 
+  @Override
+  public String toString()
+  {
+    return "ID: " + idObject;
+  }
+  
+  
   public IdObject(String idObject)
   {
     this.idObject = idObject;
