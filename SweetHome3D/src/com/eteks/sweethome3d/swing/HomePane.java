@@ -324,6 +324,7 @@ public class HomePane extends JRootPane implements HomeView {
     /** new action for security  **/
     
     createAction(ActionType.OPEN_IFC, preferences, controller, "openIfc");
+    createActionSimple(ActionType.SHOW_STATUS, controller, "showStatus");
     
     /**  end of new actions for security **/
     
@@ -538,6 +539,15 @@ public class HomePane extends JRootPane implements HomeView {
     createAction(ActionType.HELP, preferences, controller, "help");
     createAction(ActionType.ABOUT, preferences, controller, "about");
   }
+
+  private void createActionSimple(ActionType type, 
+                                  HomeController controller, String methodName) {
+    
+    ActionCoolFactory acf = new ActionCoolFactory();
+    Action a = acf.createAction(type, controller, methodName);
+    getActionMap().put(type, a);
+  }
+
 
   /**
    * Returns a new <code>ControllerAction</code> object that calls on <code>controller</code> a given
@@ -2103,6 +2113,7 @@ public class HomePane extends JRootPane implements HomeView {
      */
     
     addActionToToolBar(ActionType.OPEN_IFC, toolBar);
+    addActionToToolBarSimple(ActionType.SHOW_STATUS, toolBar);
     
 
     // Add plugin actions buttons
@@ -2166,6 +2177,12 @@ public class HomePane extends JRootPane implements HomeView {
     }
   }
 
+  public void addActionToToolBarSimple(ActionType actionType, JToolBar toolBar)
+  {
+    Action action = getActionMap().get(actionType);
+    toolBar.add(new JButton(action));
+  }
+  
   /**
    * Adds to tool bar the button matching the given <code>actionType</code>. 
    */

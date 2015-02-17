@@ -1503,6 +1503,19 @@ public class HomeController implements Controller {
     System.out.println(" the home I should open is: ..." + homeName);
   }
   
+  
+  public void showStatus()
+  {
+    /**
+     * obje = home.getSelected
+     * f = new Jframe( obje ). show()
+     * 
+     */
+    System.out.println("status....");
+  }
+  
+  
+  
   /**
    * Opens a home. This method displays an {@link HomeView#showOpenDialog() open dialog} 
    * in view, reads the home from the chosen name and adds it to application home list.

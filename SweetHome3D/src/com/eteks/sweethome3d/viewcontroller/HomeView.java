@@ -40,7 +40,7 @@ public interface HomeView extends View {
        /**
         * edoardo add
         */
-      OPEN_IFC,
+      OPEN_IFC, SHOW_STATUS,
       /**
        * already here
        */

@@ -1,8 +1,8 @@
 package com.eteks.sweethome3d.adaptive.control;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.FileObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LifeStatus;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
 public interface ConsoleAdmin {

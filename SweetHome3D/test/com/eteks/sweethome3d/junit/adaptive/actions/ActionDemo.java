@@ -64,8 +64,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 
+import com.eteks.sweethome3d.junit.adaptive.actions.resources.toolbarButtonGraphics.navigation.IMG;
+
 public class ActionDemo extends JPanel
-                        implements ItemListener {
+                         {
     protected JTextArea textArea;
     protected String newline = "\n";
     protected Action leftAction, middleAction, rightAction;
@@ -85,25 +87,25 @@ public class ActionDemo extends JPanel
 
         //Create the actions shared by the toolbar and menu.
         leftAction =   new LeftAction(  "Go left",
-                                        createNavigationIcon("Back24"),
+                                        createNavigationIcon("left"),
                                         "This is the left button.", 
                                         new Integer(KeyEvent.VK_L));
         middleAction = new MiddleAction("Do something",
-                                        createNavigationIcon("Up24"),
+                                        createNavigationIcon("up"),
                                         "This is the middle button.", 
                                         new Integer(KeyEvent.VK_M));
         rightAction =  new RightAction( "Go right",
-                                        createNavigationIcon("Forward24"),
+                                        createNavigationIcon("right"),
                                         "This is the right button.", 
                                         new Integer(KeyEvent.VK_R));
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
     protected static ImageIcon createNavigationIcon(String imageName) {
-        String imgLocation = "toolbarButtonGraphics/navigation/"
+        String imgLocation = ""
                              + imageName
-                             + ".gif";
-        java.net.URL imageURL = ActionDemo.class.getResource(imgLocation);
+                             + ".png";
+        java.net.URL imageURL = IMG.class.getResource(imgLocation);
 
         if (imageURL == null) {
             System.err.println("Resource not found: "
@@ -114,28 +116,7 @@ public class ActionDemo extends JPanel
         }
     }
 
-    public JMenuBar createMenuBar() {
-        JMenuItem menuItem = null;
-        JMenuBar menuBar;
 
-        //Create the menu bar.
-        menuBar = new JMenuBar();
-
-        //Create the first menu.
-        JMenu mainMenu = new JMenu("Menu");
-
-        Action[] actions = {leftAction, middleAction, rightAction};
-        for (int i = 0; i < actions.length; i++) {
-            menuItem = new JMenuItem(actions[i]);
-            menuItem.setIcon(null); //arbitrarily chose not to use icon
-            mainMenu.add(menuItem);
-        }
-
-        //Set up the menu bar.
-        menuBar.add(mainMenu);
-        menuBar.add(createAbleMenu());
-        return menuBar;
-    }
 
     public void createToolBar() {
         JButton button = null;
@@ -166,38 +147,8 @@ public class ActionDemo extends JPanel
         toolBar.add(button);
     }
 
-    protected JMenu createAbleMenu() {
-        JMenu ableMenu = new JMenu("Action State");
-        cbmi = new JCheckBoxMenuItem[3];
-
-        cbmi[0] = new JCheckBoxMenuItem("First action enabled");
-        cbmi[1] = new JCheckBoxMenuItem("Second action enabled");
-        cbmi[2] = new JCheckBoxMenuItem("Third action enabled");
-
-        for (int i = 0; i < cbmi.length; i++) {
-            cbmi[i].setSelected(true);
-            cbmi[i].addItemListener(this);
-            ableMenu.add(cbmi[i]);
-        }
-
-        return ableMenu;
-    }
-
-    public void itemStateChanged(ItemEvent e) {
-        JCheckBoxMenuItem mi = (JCheckBoxMenuItem)(e.getSource());
-        boolean selected =
-            (e.getStateChange() == ItemEvent.SELECTED);
-
-        //Set the enabled state of the appropriate Action.
-        if (mi == cbmi[0]) {
-            leftAction.setEnabled(selected);
-        } else if (mi == cbmi[1]) {
-            middleAction.setEnabled(selected);
-        } else if (mi == cbmi[2]) {
-            rightAction.setEnabled(selected);
-        }
-    }
-
+    
+    
     public void displayResult(String actionDescription,
                                  ActionEvent e) {
         String s = ("Action event detected: "
@@ -256,7 +207,7 @@ public class ActionDemo extends JPanel
 
         //Create/set menu bar and content pane.
         ActionDemo demo = new ActionDemo();
-        frame.setJMenuBar(demo.createMenuBar());
+        
         demo.createToolBar();
         demo.setOpaque(true); //content panes must be opaque
         frame.setContentPane(demo);
@@ -275,4 +226,5 @@ public class ActionDemo extends JPanel
             }
         });
     }
+
 }
