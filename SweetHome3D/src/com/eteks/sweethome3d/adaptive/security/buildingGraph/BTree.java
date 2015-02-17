@@ -1,6 +1,5 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 
 /*************************************************************************
  *  Compilation:  javac BTree.java

@@ -22,7 +22,6 @@ package com.eteks.sweethome3d.junit.adaptive;
 
 import java.awt.Polygon;
 import java.awt.geom.Area;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
@@ -36,7 +35,6 @@ import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.FurnitureCatalogTree;
 import com.eteks.sweethome3d.swing.FurnitureTable;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
-import com.eteks.sweethome3d.viewcontroller.FurnitureCatalogController;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.eteks.sweethome3d.viewcontroller.ViewFactory;

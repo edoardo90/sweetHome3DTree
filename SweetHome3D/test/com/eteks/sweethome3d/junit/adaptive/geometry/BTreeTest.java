@@ -1,10 +1,5 @@
 package com.eteks.sweethome3d.junit.adaptive.geometry;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BTree;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;

@@ -91,8 +91,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.AbstractAction;
@@ -164,15 +162,11 @@ import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.graph.implementations.SingleGraph;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
-import com.eteks.sweethome3d.adaptive.reachabletree.NullGraphExcepion;
-import com.eteks.sweethome3d.adaptive.reachabletree.ReachableTreeBuillder;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
-import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer;
-import com.eteks.sweethome3d.adaptive.treetobuilding.GraphDisplayer.KindOfGraph;
 import com.eteks.sweethome3d.j3d.Ground3D;
 import com.eteks.sweethome3d.j3d.HomePieceOfFurniture3D;
 import com.eteks.sweethome3d.j3d.OBJWriter;
@@ -269,8 +263,7 @@ public class HomePane extends JRootPane implements HomeView {
   private JTextField            txtAddVertex;
   private Graph                 homeGraph = new MultiGraph("home graph");
   private Graph                 homeTreeGraph  = new SingleGraph("home tree");
-  private GraphDisplayer        homeGraphDisplayer;
-
+  
   private JTextField            txtAddTreeVertex;
 
   /**
@@ -738,44 +731,6 @@ public class HomePane extends JRootPane implements HomeView {
     }
   }
 
-  /**
-   * Edo's change: onclick-listener for button - it updates the tree of reachability
-   * @author edoardo
-   */
-  private  class  DisplayGraphButtonListener implements ActionListener
-  {
-
-    public void actionPerformed(ActionEvent e) 
-    {
-
-      showGraphWindow(home);
-
-    }
-
-
-    private void showGraphWindow(final Home home)
-    {
-      ExecutorService executorService = Executors.newFixedThreadPool(10);
-
-      executorService.execute(new Runnable() {
-
-        public void run() {
-          if (homeGraphDisplayer == null)
-            homeGraphDisplayer =  GraphDisplayer.getDisplayer(homeGraph, home); 
-          try {
-            homeGraphDisplayer.addGraph(KindOfGraph.GRAPH, homeGraph);
-            homeGraphDisplayer.showAndMonitor(true, KindOfGraph.GRAPH);
-          } catch (NullGraphExcepion ex) {
-            homeGraph  = new SingleGraph("home graph");
-          }
-        }    
-      });
-
-      executorService.shutdown();
-    }
-
-
-  }
 
   private class AddVertexTreeActionListener implements ActionListener
   {
@@ -812,16 +767,6 @@ public class HomePane extends JRootPane implements HomeView {
   {
     public void actionPerformed(ActionEvent e) {
       System.out.println("b2t");
-
-      List<Wall> walls = new ArrayList<Wall>(home.getWalls());
-      List<Room> rooms = new ArrayList<Room>(home.getRooms());
-      List<HomePieceOfFurniture> fornitures = new ArrayList<HomePieceOfFurniture>(home.getFurniture());
-
-      ReachableTreeBuillder rt = new ReachableTreeBuillder( walls, rooms, fornitures); 
-      /* in some way then we will display the tree inside the jPanel  */
-      rt.displayTree();
-
-
     }
   }
 
@@ -881,7 +826,6 @@ public class HomePane extends JRootPane implements HomeView {
     public void actionPerformed(ActionEvent e) {
       System.out.println("tree to build");
 
-      homeGraphDisplayer.updateHomeTreeWay(homeGraph);
 
     }
   }
@@ -2589,15 +2533,9 @@ public class HomePane extends JRootPane implements HomeView {
       //The original code finished here, now We also add a lateral panel in which 
       // will be placed the Reach Tree.
       jpTreePanel = new JPanel();
-      JButton displayGraphButton = new JButton("Display graph window");
 
-      displayGraphButton.addActionListener(new DisplayGraphButtonListener());
 
       jpTreePanel.setLayout(new BoxLayout(jpTreePanel, BoxLayout.Y_AXIS));
-
-      jpTreePanel.add(displayGraphButton);
-
-
 
       graphicalGraphPan = new JPanel();
       graphicalGraphPan.setLayout(new BoxLayout(graphicalGraphPan, BoxLayout.Y_AXIS));

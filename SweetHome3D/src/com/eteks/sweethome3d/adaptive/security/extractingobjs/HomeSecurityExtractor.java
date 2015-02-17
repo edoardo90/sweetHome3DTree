@@ -3,19 +3,14 @@ package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import com.eteks.sweethome3d.adaptive.reachabletree.SecurityGraphEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.SessionIdentifierGenerator;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
@@ -29,7 +24,6 @@ import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
-import com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.NamespaceVersion;
 
 public class HomeSecurityExtractor extends SecurityExtractor {
 
@@ -74,12 +68,11 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     BuildingSecurityGraph securityGraph = BuildingSecurityGraph.getInstance();
     securityGraph.clearAll();
      
-    Map<Room, SecurityGraphEdge> graphRooms = new HashMap<Room, SecurityGraphEdge>();
-    List<SecurityGraphEdge>   graphRoomsList = new ArrayList<SecurityGraphEdge>();
+
 
     for (Room r : rooms)
     {
-      SecurityGraphEdge roomToFill = new SecurityGraphEdge(r);
+  
       RoomGeoSmart rg = new RoomGeoSmart(r);
       List<BuildingObjectContained> objectsInside = new ArrayList<BuildingObjectContained>();
       BuildingRoomNode brn = new BuildingRoomNode(rg.getName(), 
@@ -104,8 +97,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
         {
           Vector3D position = pieceOfForn.getPosition();
           
-          roomToFill.addPieceOfForniture(pieceOfForn);
-         
+          
           ConfigLoader cfg = ConfigLoader.getInstance(preferences);
           SecurityNameAndMap namesConv = cfg.getNamesConventions();
           Map<String, BuildingObjectType> catalog = namesConv.sweetCatalogToType;
@@ -132,9 +124,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
       }
 
       roomNodes.add(brn);
-      graphRoomsList.add(roomToFill);
-      graphRooms.put(r, roomToFill);
-
+      
     }
     
     securityGraph.setRoomNodeList(roomNodes);
@@ -151,7 +141,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
 
     // iterate on all the rooms and then intersect the bounding rectangles
     // if the (increased) bounding rect intersect, then we check wether there is a door
-    Set<SecurityGraphEdge> graphOfRe = new HashSet<SecurityGraphEdge>();
+    
     for (int i=0; i< rooms.size(); i++)
     {
       for (int j=i+1; j< rooms.size(); j++)
@@ -171,13 +161,6 @@ public class HomeSecurityExtractor extends SecurityExtractor {
               areRoomsLinkedByDoor = true;
               // there is a link bw the E with r1 and the E with r2
               //graphRooms.
-              SecurityGraphEdge e1 = graphRooms.get(r1);
-              SecurityGraphEdge e2 = graphRooms.get(r2);
-              e1.addNeighbour(e2);
-              e2.addNeighbour(e1);
-              
-              graphOfRe.add(e1);
-              graphOfRe.add(e2);
               DoorObject dobj = new DoorObject();
               dobj.setId(d.getId());
               dobj.setIdRoom1(r1.getId());

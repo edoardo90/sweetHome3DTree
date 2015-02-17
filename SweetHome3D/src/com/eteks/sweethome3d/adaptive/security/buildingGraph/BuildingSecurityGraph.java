@@ -12,11 +12,9 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Wall;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 
 /**
  * Data Structure used to represent the graph associated to the building
@@ -132,8 +130,8 @@ public class BuildingSecurityGraph {
     roomId_btree = this.spaceAreasTT.get(new WrapperRect(position));
     
     if(false) //TODO: try more and maybe keep just the btree
-        System.out.println(" room id old way : " + roomId + 
-            "\n room id new way :  "  + roomId_btree);
+            System.out.println(" room id old way : " + roomId + 
+                               "\n room id new way :  "  + roomId_btree);
     
       
     return roomId;

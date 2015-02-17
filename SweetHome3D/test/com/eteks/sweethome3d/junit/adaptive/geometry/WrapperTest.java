@@ -1,10 +1,7 @@
 package com.eteks.sweethome3d.junit.adaptive.geometry;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -14,7 +11,6 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.BasicTest;
 import com.eteks.sweethome3d.junit.adaptive.ControllerTest;
-import com.eteks.sweethome3d.junit.adaptive.graphhome.HomeToGraphTest;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.UserPreferences;
