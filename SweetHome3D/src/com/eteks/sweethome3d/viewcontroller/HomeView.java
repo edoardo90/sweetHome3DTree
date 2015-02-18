@@ -301,4 +301,6 @@ public interface HomeView extends View {
    * that manages toolkit events.  
    */
   public abstract void invokeLater(Runnable runnable);
+
+  public abstract String showStatusDialog();
 }

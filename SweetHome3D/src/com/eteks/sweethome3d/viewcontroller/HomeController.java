@@ -47,6 +47,8 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.Callable;
 
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.undo.AbstractUndoableEdit;
@@ -102,6 +104,8 @@ import com.eteks.sweethome3d.model.TextureImage;
 import com.eteks.sweethome3d.model.TexturesCatalog;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectView;
 import com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer;
 import com.eteks.sweethome3d.viewcontroller.PlanController.Mode;
 
@@ -1512,6 +1516,17 @@ public class HomeController implements Controller {
      * 
      */
     System.out.println("status....");
+    
+    
+    getView().invokeLater(new Runnable() {
+      public void run()
+      {
+        String st =  getView().showStatusDialog();
+        System.out.println(st);
+      }
+    });
+    
+    
   }
   
   

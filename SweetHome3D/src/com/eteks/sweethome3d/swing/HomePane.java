@@ -110,6 +110,7 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -202,6 +203,8 @@ import com.eteks.sweethome3d.plugin.Plugin;
 import com.eteks.sweethome3d.plugin.PluginAction;
 import com.eteks.sweethome3d.plugin.PluginManager;
 import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectView;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
@@ -3592,7 +3595,20 @@ public class HomePane extends JRootPane implements HomeView {
         this.preferences.getLocalizedString(HomePane.class, "openHomeDialog.title"), 
         ContentManager.ContentType.SWEET_HOME_3D);
   }
+  
+  public String showStatusDialog()
+  {
+    
+    JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
+    
+   
+   FrameStatus fs = new FrameStatus(f , "Edit Status");
+   fs.setVisible(true);
 
+     StatusOfObjectView r = fs.getRepresentation();
+    return r.getLifeStatus();
+  }
+  
   /**
    * Displays a dialog that lets user choose what he wants to do with a damaged home he tries to open it.
    * @return {@link com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer#REMOVE_DAMAGED_ITEMS} 
