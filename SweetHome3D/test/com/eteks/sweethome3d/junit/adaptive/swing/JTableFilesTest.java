@@ -52,14 +52,24 @@ public class JTableFilesTest extends BasicTest {
     files.add(fob1Represent);
     
     
+    FileObject fob2 = new FileObject(this.getFile("Add16.gif"));
+    FileObject fob3 = new FileObject(this.getFile("test.obj"));
+    FileObject fob4 = new FileObject(this.getFile("test.dae"));
+    FileObject fob5 = new FileObject(this.getFile("words.txt"));
+    FileObject[] fobs = new FileObject[]{fob2, fob3,fob4, fob5};
+    for(int i=0; i<4;i++)
+    {
+      files.add(fobs[i].getFileRepresentation());
+    }
+    
     StatusOfObjectForView status = new StatusOfObjectForView(lifeStatus, files);
     pc1.setStatusFromView(status);
     
     
-    
-    
     hv.showStatusDialog(status);
   }
+  
+  
   
   public  static void main(String [] args) {
     ViewFactory viewFactory = new SwingViewFactory();

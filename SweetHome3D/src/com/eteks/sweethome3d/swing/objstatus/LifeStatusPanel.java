@@ -2,6 +2,7 @@ package com.eteks.sweethome3d.swing.objstatus;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
@@ -28,10 +30,14 @@ public class LifeStatusPanel extends JPanel implements ActionListener {
   public LifeStatusPanel() 
   {
     BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
-    pickStatusLab.setAlignmentX(CENTER_ALIGNMENT);
+    pickStatusLab.setAlignmentX(LEFT_ALIGNMENT);
     this.setLayout(box);
     this.add(pickStatusLab);
-    this.add(this.radioPanel()); 
+    this.add(Box.createRigidArea(new Dimension(0, 20)));
+    JPanel radioP = this.radioPanel();
+    radioP.setAlignmentX(LEFT_ALIGNMENT);
+    this.add(radioP);
+    
     
     this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
     

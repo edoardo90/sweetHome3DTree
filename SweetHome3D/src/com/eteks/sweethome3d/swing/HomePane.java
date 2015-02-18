@@ -3607,6 +3607,7 @@ public class HomePane extends JRootPane implements HomeView {
     
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
     FrameStatus fs = new FrameStatus(statusObject, f , "Edit Status");
+    fs.setLocation(400, 200);
     fs.setVisible(true);
 
     StatusOfObjectForView r = fs.getRepresentation();
