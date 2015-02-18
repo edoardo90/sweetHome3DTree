@@ -21,6 +21,9 @@ public class LifeStatusPanel extends JPanel implements ActionListener {
 
   private String lifeSatus = "ON";
   private JLabel pickStatusLab = new JLabel("Select the life status of the object");
+  private JRadioButton brokenRadiob;
+  private JRadioButton onRadiob;
+  private JRadioButton offRadiob;
 
   public LifeStatusPanel() 
   {
@@ -39,18 +42,17 @@ public class LifeStatusPanel extends JPanel implements ActionListener {
   {
     JPanel radioP = new JPanel(new BorderLayout());
     
-    //Create the radio buttons.
-    JRadioButton brokenRadiob = new JRadioButton(LifeStatus.BROKEN.toString());
+    brokenRadiob = new JRadioButton(LifeStatus.BROKEN.toString());
     brokenRadiob.setMnemonic(KeyEvent.VK_B);
     brokenRadiob.setActionCommand("" + LifeStatus.BROKEN.name());
     brokenRadiob.setSelected(false);
     
-    JRadioButton onRadiob = new JRadioButton(LifeStatus.ON.toString());
+    onRadiob = new JRadioButton(LifeStatus.ON.toString());
     onRadiob.setMnemonic(KeyEvent.VK_O);
     onRadiob.setActionCommand("" + LifeStatus.ON.name());
     onRadiob.setSelected(true);
     
-    JRadioButton offRadiob = new JRadioButton(LifeStatus.OFF.toString());
+    offRadiob = new JRadioButton(LifeStatus.OFF.toString());
     offRadiob.setMnemonic(KeyEvent.VK_S);
     offRadiob.setActionCommand("" + LifeStatus.OFF.name());
     offRadiob.setSelected(false);
@@ -83,6 +85,22 @@ public class LifeStatusPanel extends JPanel implements ActionListener {
 
   public void setLifeSatus(String lifeSatus) {
     this.lifeSatus = lifeSatus;
+    LifeStatus stat = LifeStatus.valueOf(lifeSatus);
+    switch(stat)
+    {
+      case BROKEN:
+        this.brokenRadiob.setSelected(true);
+        break;
+      case ON:
+        this.onRadiob.setSelected(true);
+        break;
+      case OFF:
+        this.offRadiob.setSelected(true);
+        break;
+      default:
+        
+    }
+    
   }
 
   public void actionPerformed(ActionEvent e) {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
 
 public class FileHolder extends MaterialObject implements Iterable<FileObject> {
 
@@ -13,6 +14,7 @@ public class FileHolder extends MaterialObject implements Iterable<FileObject> {
   
   public FileHolder(Vector3D position) {
     super(position);
+    this.setLifeStatus(LifeStatus.ON);
 
   }
   
@@ -33,6 +35,36 @@ public class FileHolder extends MaterialObject implements Iterable<FileObject> {
   public void setActiveFiles(List<FileObject> activeFiles) {
     this.activeFiles = activeFiles;
   }
+
+  public List<String> getActiveFilesStr()
+  {
+    List<String> files = new ArrayList<String>();
+    for(FileObject f : this.getActiveFiles())
+    {
+      files.add(f.getFileRepresentation());
+    }
+    return files;
+  }
+  
+  @Override
+  public StatusOfObjectForView getStatusForView() {
+    return new StatusOfObjectForView("" + getLifeStatus().name(), 
+                                 getActiveFilesStr() );
+  }
+  
+  @Override
+  public void setStatusFromView( StatusOfObjectForView status) {
+    super.setStatusFromView(status);
+    
+    List<String> filesStr = status.getFiles();
+    for(String fileObjAsString : filesStr)
+    {
+      FileObject fob = new FileObject(fileObjAsString);
+      this.addFile(fob);
+    }
+    
+  }
+  
 
   public Iterator<FileObject> iterator() {
    return new Iterator<FileObject>() {

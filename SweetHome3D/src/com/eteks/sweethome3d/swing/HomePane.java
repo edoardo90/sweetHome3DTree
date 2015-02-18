@@ -164,6 +164,8 @@ import org.graphstream.graph.implementations.SingleGraph;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
@@ -204,7 +206,7 @@ import com.eteks.sweethome3d.plugin.PluginAction;
 import com.eteks.sweethome3d.plugin.PluginManager;
 import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectView;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
@@ -3596,18 +3598,23 @@ public class HomePane extends JRootPane implements HomeView {
         ContentManager.ContentType.SWEET_HOME_3D);
   }
   
-  public String showStatusDialog()
+  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject)
   {
+    if(statusObject == null)
+    {
+       return null;
+    }
     
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
-    
-   
-   FrameStatus fs = new FrameStatus(f , "Edit Status");
-   fs.setVisible(true);
+    FrameStatus fs = new FrameStatus(statusObject, f , "Edit Status");
+    fs.setVisible(true);
 
-     StatusOfObjectView r = fs.getRepresentation();
-    return r.getLifeStatus();
+    StatusOfObjectForView r = fs.getRepresentation();
+    return r;
   }
+  
+
+  
   
   /**
    * Displays a dialog that lets user choose what he wants to do with a damaged home he tries to open it.

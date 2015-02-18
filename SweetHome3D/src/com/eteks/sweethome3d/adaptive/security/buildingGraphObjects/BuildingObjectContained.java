@@ -3,6 +3,7 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.UserPreferences;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
 
 public abstract class BuildingObjectContained extends BuildingGraphPart {
 
@@ -44,7 +45,10 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   public void setPosition(Vector3D position) {
     this.position = position;
   }
+
+  public  abstract StatusOfObjectForView getStatusForView();
   
+  public  abstract void  setStatusFromView(StatusOfObjectForView status);
   
   
 }

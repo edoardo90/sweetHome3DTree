@@ -188,19 +188,19 @@ public class BuildingSecurityGraph {
     
   }
   
-  private BuildingObjectContained getObjectContainedFromObj(IdObject IDOBJ)
+  public BuildingObjectContained getObjectContainedFromObj(IdObject IDOBJ)
   {
     BuildingObjectContained boc = this.objectsContained.get(IDOBJ);
     
     return boc;
   }
   
-  private BuildingRoomNode getBuildingRoomFromRoom(IdRoom IDROOM)
+  public BuildingRoomNode getBuildingRoomFromRoom(IdRoom IDROOM)
   {
     BuildingRoomNode brn = this.buildingRooms.get(IDROOM);
     return brn;
   }
-  private BuildingRoomNode getBuildingRoomFromObj(IdObject IDOBJ)
+  public BuildingRoomNode getBuildingRoomFromObj(IdObject IDOBJ)
   {
     BuildingRoomNode brn = this.objectsRoomLocation.get(IDOBJ);
     return brn;
@@ -287,7 +287,7 @@ public class BuildingSecurityGraph {
       s = s + "\nROOM: \n" + roomNode;
       for(BuildingObjectContained bojc : roomNode.getObjectsInside())
       {
-        s = s + "\n\t" + bojc;
+        s = s + "\n\t" + bojc ;
       }
       s = s + "\n\n";
     }

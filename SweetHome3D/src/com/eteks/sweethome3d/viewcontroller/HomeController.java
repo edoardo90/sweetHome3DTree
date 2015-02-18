@@ -68,6 +68,9 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.AspectRatio;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.Camera;
@@ -105,7 +108,7 @@ import com.eteks.sweethome3d.model.TexturesCatalog;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectView;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer;
 import com.eteks.sweethome3d.viewcontroller.PlanController.Mode;
 
@@ -1521,15 +1524,51 @@ public class HomeController implements Controller {
     getView().invokeLater(new Runnable() {
       public void run()
       {
-        String st =  getView().showStatusDialog();
-        System.out.println(st);
+        if(home.getSelectedItems().size() != 1)
+        {
+          System.out.println("Select a car! Exactly 1");
+          return;
+        }
+        else
+        {
+          Selectable s =  home.getSelectedItems().get(0);
+          if (s instanceof HomePieceOfFurniture) {
+            HomePieceOfFurniture hopf = (HomePieceOfFurniture)s;
+            String id = hopf.getId();
+            
+            StatusOfObjectForView statusForView = getStatusOfObject(id);
+            StatusOfObjectForView representation =  getView().showStatusDialog( statusForView);
+            System.out.println(representation);
+            setStatusOfObject( id, representation);
+            
+          }
+        }
+
       }
+
     });
+    }
     
     
+    private void setStatusOfObject(String id, StatusOfObjectForView representation) {
+      BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+      BuildingObjectContained containedObj = segraph.getObjectContainedFromObj(new IdObject(id));
+      if(containedObj == null)
+      {
+        return ;
+      }
+      containedObj.setStatusFromView(representation);
+      
+    }
+  
+  private StatusOfObjectForView getStatusOfObject(String id)
+  {
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    BuildingObjectContained containedObj = segraph.getObjectContainedFromObj(new IdObject(id));
+    if(containedObj == null)
+         return null;
+    return containedObj.getStatusForView();
   }
-  
-  
   
   /**
    * Opens a home. This method displays an {@link HomeView#showOpenDialog() open dialog} 

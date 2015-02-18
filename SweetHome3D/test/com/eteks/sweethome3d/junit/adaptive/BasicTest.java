@@ -22,6 +22,7 @@ package com.eteks.sweethome3d.junit.adaptive;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.OBJWriterTest;
+import com.eteks.sweethome3d.junit.resources.ResTest;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.model.Home;
@@ -455,6 +457,20 @@ public abstract  class BasicTest extends TestCase {
     return new RoomGeoSmart(lst);
   }
 
+  protected File getFile(String name)
+  {
+      Class<ResTest> classe =ResTest.class;
+      URL url = classe.getResource(name);
+      URI uri=null;
+      try {
+        uri = url.toURI();
+      } catch (URISyntaxException ex) {
+
+        ex.printStackTrace();
+      }
+      File file = new File(uri);
+      return file;
+  }
 
 
 
