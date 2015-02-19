@@ -20,7 +20,7 @@
 package com.eteks.sweethome3d.model;
 
 /**
- * Exception thrown when there's not enough space to save a home.
+ * Exception thrown when there'niceString not enough space to save a home.
  * @author Emmanuel Puybaret
  * @since 4.4 
  */

@@ -11,12 +11,9 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.swing.ActionCoolFactory;
@@ -81,7 +78,7 @@ public class FileStatusPanel extends JPanel {
     if (returnVal == JFileChooser.APPROVE_OPTION) {
         File file = fc.getSelectedFile();
         FileObject fob = new FileObject(file);
-        this.tableFilePanel.addRow(fob.getFileRepresentation());
+        this.tableFilePanel.addRow(fob.getFileRepresentationForTable());
     } else {
         
     }
@@ -89,10 +86,18 @@ public class FileStatusPanel extends JPanel {
   }
   
   public void setFileStatus(List<String> files) {
-   this.files = files;
+   
+    if(files == null)
+    {
+      throw new IllegalStateException("files can't be null, at least emply list!");
+    }
+    
+    this.files = files;
    
    List<String> filesMut = new ArrayList<String>();
-   filesMut.addAll(this.getFiles());
+
+   
+   filesMut.addAll(this.files);
    
    this.tableFilePanel = new TableFilePanel(filesMut);
    this.tablePanel.add(this.tableFilePanel);
@@ -100,7 +105,10 @@ public class FileStatusPanel extends JPanel {
   
   public List<String> getFiles()
   {
-     return this.files;
+    if(this.tableFilePanel != null)
+        return this.tableFilePanel.getFiles();
+    else
+      return null;
   }
   
 

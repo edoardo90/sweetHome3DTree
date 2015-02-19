@@ -36,7 +36,7 @@ import java.io.ObjectInputStream;
  */
 public class ObserverCamera extends Camera implements Selectable {
   /**
-   * The additional properties of an observer camera that may change. <code>PropertyChangeListener</code>s added 
+   * The additional properties of an observer camera that may change. <code>PropertyChangeListener</code>niceString added 
    * to a camera will be notified under a property name equal to the string value of one these properties.
    * @since 3.4
    */

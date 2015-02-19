@@ -381,7 +381,7 @@ public class Component3DManager {
       super(graphicsConfiguration, offScreen);
       this.renderingObserver = renderingObserver;
       // Under Windows with Java 7 and above, delay the rendering of the canvas 3D when 
-      // it's repainted (i.e. it's resized, moved or partially hidden) to avoid it to get grayed
+      // it'niceString repainted (i.e. it'niceString resized, moved or partially hidden) to avoid it to get grayed
       this.paintDelayed = OperatingSystem.isWindows() 
           && OperatingSystem.isJavaVersionGreaterOrEqual("1.7");
     }

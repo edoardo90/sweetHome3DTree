@@ -756,7 +756,7 @@ public class FurnitureTable extends JTable implements View, Printable {
         exportRowToCSV(writer, '\t', row);
       }
     } catch (IOException ex) {
-      // May not happen since there's no IO write
+      // May not happen since there'niceString no IO write
     }
     return writer.toString();
   }

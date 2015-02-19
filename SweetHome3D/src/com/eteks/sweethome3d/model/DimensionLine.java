@@ -36,7 +36,7 @@ import java.io.Serializable;
  */
 public class DimensionLine implements Serializable, Selectable, Elevatable {
   /**
-   * The properties of a dimension line that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a dimension line that may change. <code>PropertyChangeListener</code>niceString added 
    * to a dimension line will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {X_START, Y_START, X_END, Y_END, OFFSET, LENGTH_STYLE, LEVEL} 

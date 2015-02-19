@@ -54,7 +54,7 @@ public class PlanControllerTest extends TestCase {
    */
   public void testPlanContoller() throws InterruptedException, InvocationTargetException {
     // Run test in Event Dispatch Thread because the default view associated 
-    // to plan controller instance performs some actions in EDT even if it's not displayed
+    // to plan controller instance performs some actions in EDT even if it'niceString not displayed
     EventQueue.invokeAndWait(new Runnable() {
         public void run() {
           runPlanContollerTest();          

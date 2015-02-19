@@ -76,7 +76,7 @@ public class CompassController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.compassView == null) {
       this.compassView = this.viewFactory.createCompassView(
           this.preferences, this); 

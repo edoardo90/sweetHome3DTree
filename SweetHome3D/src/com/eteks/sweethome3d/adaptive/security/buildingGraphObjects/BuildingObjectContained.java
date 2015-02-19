@@ -3,7 +3,8 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.UserPreferences;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
+
 
 public abstract class BuildingObjectContained extends BuildingGraphPart {
 

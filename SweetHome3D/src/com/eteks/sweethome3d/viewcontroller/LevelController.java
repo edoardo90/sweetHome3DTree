@@ -77,7 +77,7 @@ public class LevelController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.homeLevelView == null) {
       this.homeLevelView = this.viewFactory.createLevelView(this.preferences, this); 
     }

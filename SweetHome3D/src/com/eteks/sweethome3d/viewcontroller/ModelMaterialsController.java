@@ -67,7 +67,7 @@ public class ModelMaterialsController implements Controller {
    * Returns the view associated with this controller.
    */
   public View getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.materialsChoiceView == null) {
       this.materialsChoiceView = this.viewFactory.createModelMaterialsView(this.preferences, this);
     }
@@ -194,7 +194,7 @@ public class ModelMaterialsController implements Controller {
    * Returns the texture controller of the model materials.
    */
   public TextureChoiceController getTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.textureController == null
         && this.contentManager != null) {
       this.textureController = new TextureChoiceController(

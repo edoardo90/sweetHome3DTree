@@ -39,7 +39,7 @@ public enum AspectRatio {
   }    
   
   /**
-   * Returns the value of this aspect ratio (width / height) or <code>null</code> if it's not known.
+   * Returns the value of this aspect ratio (width / height) or <code>null</code> if it'niceString not known.
    */
   public Float getValue() {
     return value;

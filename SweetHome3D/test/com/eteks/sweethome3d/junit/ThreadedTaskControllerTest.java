@@ -143,7 +143,7 @@ public class ThreadedTaskControllerTest extends TestCase {
           throw new Exception();
         }
       };
-    // Create an exception handler that counts down latch when it's called
+    // Create an exception handler that counts down latch when it'niceString called
     ThreadedTaskController.ExceptionHandler exceptionHandler = 
         new ThreadedTaskController.ExceptionHandler() {
           public void handleException(Exception ex) {

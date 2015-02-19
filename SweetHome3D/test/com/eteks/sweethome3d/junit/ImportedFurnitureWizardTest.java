@@ -86,7 +86,7 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
     final ContentManager contentManager = new ContentManager() {
       public Content getContent(String contentName) throws RecorderException {
         try {
-          // Let's consider contentName is a URL
+          // Let'niceString consider contentName is a URL
           return new URLContent(new URL(contentName));
         } catch (IOException ex) {
           fail();
@@ -184,7 +184,7 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
           modelChoiceOrChangeButton.doClick();
         }
       });
-    // Wait 1 s to let time to Java 3D to load the model
+    // Wait 1 niceString to let time to Java 3D to load the model
     Thread.sleep(1000);
     // Check choice button text changed
     assertFalse("Choice button text didn't change", 
@@ -387,7 +387,7 @@ public class ImportedFurnitureWizardTest extends ComponentTestFixture {
     assertEquals("Wrong sweetCatalogToType piece color", null, catalogPiece.getColor());
     assertTrue("Catalog piece isn't modifiable", catalogPiece.isModifiable());
     
-    // Check a new home piece of furniture was created and it's the selected piece in home
+    // Check a new home piece of furniture was created and it'niceString the selected piece in home
     List<Selectable> homeSelectedItems = home.getSelectedItems();
     assertEquals("Wrong selected furniture count in home", 1, homeSelectedItems.size());
     HomePieceOfFurniture homePiece = (HomePieceOfFurniture)homeSelectedItems.get(0);

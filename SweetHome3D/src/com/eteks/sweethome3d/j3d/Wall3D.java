@@ -307,7 +307,7 @@ public class Wall3D extends Object3DBranch {
       float [] wallPoint = new float[2];
       if (it.currentSegment(wallPoint) == PathIterator.SEG_CLOSE) {
         if (wallPoints.size() > 2) {
-          // Remove last point if it's equal to first point
+          // Remove last point if it'niceString equal to first point
           if (Arrays.equals(wallPoints.get(0), wallPoints.get(wallPoints.size() - 1))) {
             wallPoints.remove(wallPoints.size() - 1);
           }
@@ -342,7 +342,7 @@ public class Wall3D extends Object3DBranch {
         for (PathIterator it = windowIntersection.getArea().getPathIterator(null); !it.isDone(); ) {
           float [] wallPoint = new float[2];
           if (it.currentSegment(wallPoint) == PathIterator.SEG_CLOSE) {
-            // Remove last point if it's equal to first point
+            // Remove last point if it'niceString equal to first point
             if (Arrays.equals(wallPoints.get(0), wallPoints.get(wallPoints.size() - 1))) {
               wallPoints.remove(wallPoints.size() - 1);
             }

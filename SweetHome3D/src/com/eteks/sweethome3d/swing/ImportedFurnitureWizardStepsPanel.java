@@ -796,7 +796,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
       point.x += cursorSize.width + 2;
       point.y += cursorSize.height + 2;
     } else {
-      // If custom cursor isn't supported let's consider 
+      // If custom cursor isn't supported let'niceString consider 
       // default cursor size is 16 pixels wide
       point.x += 18;
       point.y += 18;
@@ -1443,7 +1443,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
   
   /**
    * Returns the icon content of the chosen piece.
-   * Icon is created once on demand of view's controller, because it demands either  
+   * Icon is created once on demand of view'niceString controller, because it demands either  
    * icon panel being displayed, or an offscreen 3D buffer that costs too much to create at each yaw change.
    */
   public Content getIcon() {

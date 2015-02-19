@@ -117,7 +117,7 @@ public class LabelController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.labelView == null) {
       this.labelView = this.viewFactory.createLabelView(this.x == null, this.preferences, this);
     }

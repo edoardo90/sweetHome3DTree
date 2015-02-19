@@ -87,7 +87,7 @@ public class Home3DAttributesController implements Controller {
    * Returns the texture controller of the ground.
    */
   public TextureChoiceController getGroundTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.groundTextureController == null) {      
       this.groundTextureController = new TextureChoiceController(
           this.preferences.getLocalizedString(Home3DAttributesController.class, "groundTextureTitle"), 
@@ -106,7 +106,7 @@ public class Home3DAttributesController implements Controller {
    * Returns the texture controller of the sky.
    */
   public TextureChoiceController getSkyTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.skyTextureController == null) {
       this.skyTextureController = new TextureChoiceController(
           this.preferences.getLocalizedString(Home3DAttributesController.class, "skyTextureTitle"), 
@@ -126,7 +126,7 @@ public class Home3DAttributesController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.home3DAttributesView == null) {
       this.home3DAttributesView = this.viewFactory.createHome3DAttributesView(
           this.preferences, this); 

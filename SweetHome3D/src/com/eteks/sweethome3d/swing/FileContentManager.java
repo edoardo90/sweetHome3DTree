@@ -683,8 +683,8 @@ public class FileContentManager implements ContentManager {
   /**
    * Returns the last directory used for the given content type.
    * @return the last directory for <code>contentType</code> or the default last directory 
-   *         if it's not set. If <code>contentType</code> is <code>null</code>, the
-   *         returned directory will be the default last one or <code>null</code> if it's not set yet.
+   *         if it'niceString not set. If <code>contentType</code> is <code>null</code>, the
+   *         returned directory will be the default last one or <code>null</code> if it'niceString not set yet.
    */
   protected File getLastDirectory(ContentType contentType) {
     File directory = this.lastDirectories.get(contentType);
@@ -745,7 +745,7 @@ public class FileContentManager implements ContentManager {
     for (FileFilter filter : contentFileFilters) {
       fileChooser.addChoosableFileFilter(filter);
     }
-    // If there's only one file filter, select it 
+    // If there'niceString only one file filter, select it 
     if (contentFileFilters.length == 1) {
       fileChooser.setFileFilter(contentFileFilters [0]);
     } else {
@@ -908,7 +908,7 @@ public class FileContentManager implements ContentManager {
     }
     
     /**
-     * Selects the given directory or its parent if it's a file.
+     * Selects the given directory or its parent if it'niceString a file.
      */
     @Override
     public void setSelectedFile(File file) {

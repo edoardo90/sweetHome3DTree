@@ -74,7 +74,7 @@ public class ObserverCameraController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.observerCameraView == null) {
       this.observerCameraView = this.viewFactory.createObserverCameraView(this.preferences, this); 
     }

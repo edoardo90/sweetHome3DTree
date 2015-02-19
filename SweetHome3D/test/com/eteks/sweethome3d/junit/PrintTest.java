@@ -77,7 +77,7 @@ public class PrintTest extends ComponentTestFixture {
         public String showSaveDialog(View parentView, String dialogTitle, ContentType contentType, String name) {
           String os = System.getProperty("os.name");
           if (OperatingSystem.isMacOSX()) {
-            // Let's pretend the OS isn't Mac OS X to get a JFileChooser instance that works better in test
+            // Let'niceString pretend the OS isn't Mac OS X to get a JFileChooser instance that works better in test
             System.setProperty("os.name", "dummy");
           }
           try {

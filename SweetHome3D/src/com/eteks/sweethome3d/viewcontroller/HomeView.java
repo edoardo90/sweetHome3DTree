@@ -27,7 +27,8 @@ import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.InterruptedRecorderException;
 import com.eteks.sweethome3d.model.RecorderException;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
+
 
 /**
  * The main view that displays a home.
@@ -303,5 +304,5 @@ public interface HomeView extends View {
    */
   public abstract void invokeLater(Runnable runnable);
 
-  public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView status);
+  public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView status, boolean files);
 }

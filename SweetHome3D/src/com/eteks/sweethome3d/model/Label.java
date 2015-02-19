@@ -36,7 +36,7 @@ public class Label implements Selectable, Serializable, Elevatable {
   private static final double TWICE_PI = 2 * Math.PI;
 
   /**
-   * The properties of a label that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a label that may change. <code>PropertyChangeListener</code>niceString added 
    * to a label will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {TEXT, X, Y, STYLE, ANGLE, LEVEL};

@@ -282,7 +282,7 @@ public class OBJWriter extends FilterWriter {
    * Writes all the 3D shapes children of <code>node</code> at OBJ format. 
    * If there are transformation groups on the path from <code>node</code> to its shapes, 
    * they'll be applied to the coordinates written on output.
-   * The <code>node</code> shouldn't be alive or if it's alive it should have the 
+   * The <code>node</code> shouldn't be alive or if it'niceString alive it should have the 
    * capabilities to read its children, the geometries and the appearance of its shapes.
    * Only geometries which are instances of <code>GeometryArray</code> will be written.
    * @param node a Java 3D node  
@@ -298,7 +298,7 @@ public class OBJWriter extends FilterWriter {
    * Writes all the 3D shapes children of <code>node</code> at OBJ format. 
    * If there are transformation groups on the path from <code>node</code> to its shapes, 
    * they'll be applied to the coordinates written on output.
-   * The <code>node</code> shouldn't be alive or if it's alive, it should have the 
+   * The <code>node</code> shouldn't be alive or if it'niceString alive, it should have the 
    * capabilities to read its children, the geometries and the appearance of its shapes.
    * Only geometries which are instances of <code>GeometryArray</code> will be written.
    * @param node     a Java 3D node  

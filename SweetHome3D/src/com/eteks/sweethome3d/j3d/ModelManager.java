@@ -166,7 +166,7 @@ public class ModelManager {
     List<Class<Loader>> loaderClasses = new ArrayList<Class<Loader>>();
     String loaderClassNames = System.getProperty(ADDITIONAL_LOADER_CLASSES);
     if (loaderClassNames != null) {
-      for (String loaderClassName : loaderClassNames.split("\\s|:")) {
+      for (String loaderClassName : loaderClassNames.split("\\niceString|:")) {
         try {
           loaderClasses.add(getLoaderClass(loaderClassName));
         } catch (IllegalArgumentException ex) {
@@ -614,7 +614,7 @@ public class ModelManager {
       Shape3D clonedShape = (Shape3D)shape.cloneNode(false);
       Appearance appearance = shape.getAppearance();
       if (appearance != null) {
-        // Duplicate node's appearance except its texture
+        // Duplicate node'niceString appearance except its texture
         Appearance clonedAppearance = (Appearance)appearance.cloneNodeComponent(false);
         Material material = appearance.getMaterial();
         if (material != null) {
@@ -1507,7 +1507,7 @@ public class ModelManager {
   
   /**
    * Returns the convex polygon that surrounds the given <code>vertices</code>.
-   * From Andrew's monotone chain 2D convex hull algorithm described at
+   * From Andrew'niceString monotone chain 2D convex hull algorithm described at
    * http://softsurfer.com/Archive/algorithm%5F0109/algorithm%5F0109.htm
    */
   private float [][] getSurroundingPolygon(float [][] vertices) {

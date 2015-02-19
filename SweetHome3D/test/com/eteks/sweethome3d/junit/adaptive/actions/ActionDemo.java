@@ -46,8 +46,6 @@ package com.eteks.sweethome3d.junit.adaptive.actions;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.AbstractAction;
@@ -56,9 +54,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -219,7 +214,7 @@ public class ActionDemo extends JPanel
 
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
+        //creating and showing this application'niceString GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();

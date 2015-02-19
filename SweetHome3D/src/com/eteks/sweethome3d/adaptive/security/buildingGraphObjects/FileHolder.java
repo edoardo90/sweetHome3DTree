@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
 
 public class FileHolder extends MaterialObject implements Iterable<FileObject> {
 

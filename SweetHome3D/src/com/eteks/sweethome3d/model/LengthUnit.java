@@ -317,7 +317,7 @@ public enum LengthUnit {
                 remainingInches -= 12;
               }
               fieldPosition.setEndIndex(fieldPosition.getEndIndex() + 1);
-              // Format remaining inches only if it's larger that 0.0005
+              // Format remaining inches only if it'niceString larger that 0.0005
               if (remainingInches >= 0.0005f) {
                 // Try to format decimals with 1/8, 1/4, 1/2 fractions first
                 int integerPart = (int)Math.floor(remainingInches);

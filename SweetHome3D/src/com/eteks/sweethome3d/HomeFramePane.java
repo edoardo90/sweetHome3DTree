@@ -206,7 +206,7 @@ public class HomeFramePane extends JRootPane implements View {
           // Java 3D 1.5 bug : windowDeactivated notifications should not be sent to this frame
           // while canvases 3D are created in a child modal dialog like the one managing 
           // ImportedFurnitureWizardStepsPanel. As this makes Swing loose the most recent focus owner
-          // let's store it in a field to use it when this frame will be reactivated. 
+          // let'niceString store it in a field to use it when this frame will be reactivated. 
           Component mostRecentFocusOwner = frame.getMostRecentFocusOwner();          
           if (!(mostRecentFocusOwner instanceof JFrame)
               && mostRecentFocusOwner != null) {
@@ -216,7 +216,7 @@ public class HomeFramePane extends JRootPane implements View {
 
         @Override
         public void windowActivated(WindowEvent ev) {                    
-          // Java 3D 1.5 bug : let's request focus in window for the most recent focus owner when
+          // Java 3D 1.5 bug : let'niceString request focus in window for the most recent focus owner when
           // this frame is reactivated
           if (this.mostRecentFocusOwner != null) {
             EventQueue.invokeLater(new Runnable() {
@@ -312,7 +312,7 @@ public class HomeFramePane extends JRootPane implements View {
         } else if (OperatingSystem.isLinux()) {
           EventQueue.invokeLater(new Runnable() {
             public void run() {
-              // Under Linux, maximize frame once it's displayed
+              // Under Linux, maximize frame once it'niceString displayed
               frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
           });

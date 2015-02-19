@@ -7,8 +7,6 @@ import java.lang.reflect.Method;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 
-import com.eteks.sweethome3d.junit.adaptive.actions.resources.toolbarButtonGraphics.navigation.IMG;
-import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.resources.icons.IMGRES;
 
 public class ControllerActionIconEasy  extends AbstractAction {

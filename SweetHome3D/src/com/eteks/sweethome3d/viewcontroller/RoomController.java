@@ -115,7 +115,7 @@ public class RoomController implements Controller {
    * Returns the texture controller of the room floor.
    */
   public TextureChoiceController getFloorTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.floorTextureController == null) {
       this.floorTextureController = new TextureChoiceController(
           this.preferences.getLocalizedString(RoomController.class, "floorTextureTitle"), 
@@ -134,7 +134,7 @@ public class RoomController implements Controller {
    * Returns the texture controller of the room ceiling.
    */
   public TextureChoiceController getCeilingTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.ceilingTextureController == null) {
       this.ceilingTextureController = new TextureChoiceController(
           this.preferences.getLocalizedString(RoomController.class, "ceilingTextureTitle"), 
@@ -153,7 +153,7 @@ public class RoomController implements Controller {
    * Returns the texture controller of the room wall sides.
    */
   public TextureChoiceController getWallSidesTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.wallSidesTextureController == null) {
       this.wallSidesTextureController = new TextureChoiceController(
           this.preferences.getLocalizedString(RoomController.class, "wallSidesTextureTitle"), 
@@ -172,7 +172,7 @@ public class RoomController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.roomView == null) {
       this.roomView = this.viewFactory.createRoomView(this.preferences, this); 
     }

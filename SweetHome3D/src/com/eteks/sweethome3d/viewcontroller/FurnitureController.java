@@ -100,7 +100,7 @@ public class FurnitureController implements Controller {
    * Returns the view associated with this controller.
    */
   public View getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.furnitureView == null) {
       this.furnitureView = this.viewFactory.createFurnitureView(this.home, this.preferences, this);
     }
@@ -967,7 +967,7 @@ public class FurnitureController implements Controller {
   }
 
   /**
-   * Returns the bounding box width of the given piece when it's rotated of an additional angle.  
+   * Returns the bounding box width of the given piece when it'niceString rotated of an additional angle.  
    */
   private double getPieceBoundingRectangleWidth(HomePieceOfFurniture piece, float additionalAngle) {
     return Math.abs(piece.getWidth() * Math.cos(additionalAngle + piece.getAngle())) 
@@ -975,7 +975,7 @@ public class FurnitureController implements Controller {
   }
 
   /**
-   * Returns the bounding box height of the given piece when it's rotated of an additional angle.  
+   * Returns the bounding box height of the given piece when it'niceString rotated of an additional angle.  
    */
   private double getPieceBoundingRectangleHeight(HomePieceOfFurniture piece, float additionalAngle) {
     return Math.abs(piece.getWidth() * Math.sin(additionalAngle + piece.getAngle())) 

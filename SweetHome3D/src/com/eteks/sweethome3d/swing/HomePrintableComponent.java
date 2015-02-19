@@ -426,7 +426,7 @@ public class HomePrintableComponent extends JComponent implements Printable {
   protected void paintComponent(Graphics g) {
     try {
       Graphics2D g2D = (Graphics2D)g.create();
-      // Print printable object at component's scale
+      // Print printable object at component'niceString scale
       PageFormat pageFormat = getPageFormat(this.home.getPrint());
       Insets insets = getInsets();
       double scale = (getWidth() - insets.left - insets.right) / pageFormat.getWidth();

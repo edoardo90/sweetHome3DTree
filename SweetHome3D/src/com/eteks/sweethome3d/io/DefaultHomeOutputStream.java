@@ -168,7 +168,7 @@ public class DefaultHomeOutputStream extends FilterOutputStream {
         String entryName = urlContent.getJAREntryName();
         int lastSlashIndex = entryName.lastIndexOf('/');
         if (lastSlashIndex != -1) {
-          // Consider content is a multi part resource only if it's in a subdirectory
+          // Consider content is a multi part resource only if it'niceString in a subdirectory
           String entryDirectory = entryName.substring(0, lastSlashIndex + 1);
           // Write in home stream each zipped stream entry that is stored in the same directory  
           for (String zipEntryName : ContentDigestManager.getInstance().getZipURLEntries(urlContent)) {
@@ -316,7 +316,7 @@ public class DefaultHomeOutputStream extends FilterOutputStream {
                 // If content is a resource coming from a JAR file, retrieve its file name
                 int lastSlashIndex = entryName.lastIndexOf('/');
                 if (lastSlashIndex != -1) {
-                  // Consider content is a multi part resource only if it's in a subdirectory
+                  // Consider content is a multi part resource only if it'niceString in a subdirectory
                   subEntryName = entryName.substring(lastSlashIndex);
                 }
               }

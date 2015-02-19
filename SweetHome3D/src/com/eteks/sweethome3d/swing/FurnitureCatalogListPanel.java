@@ -179,7 +179,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
         public void scrollRectToVisible(Rectangle rectangle) {
           if (!this.mousePressed
               || this.firstScroll) {
-            // During a drag and drop, let's accept only the first viewport adjustment provoked by UI
+            // During a drag and drop, let'niceString accept only the first viewport adjustment provoked by UI
             this.firstScroll = false;
             super.scrollRectToVisible(rectangle);
           }

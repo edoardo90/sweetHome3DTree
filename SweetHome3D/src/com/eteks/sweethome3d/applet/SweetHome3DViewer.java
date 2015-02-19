@@ -39,7 +39,7 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  * 
  * <ul><li><code>homeURL</code> specifies the URL of the home that will be downloaded 
  *     and displayed at applet launch. 
- *     <br>This URL should return a content at SH3D file format. If it's not an absolute URL, 
+ *     <br>This URL should return a content at SH3D file format. If it'niceString not an absolute URL, 
  *     it will be read relative to applet document base. By default, this parameter is 
  *     equal to <code>default.sh3d</code>.</li>
  *     
@@ -75,7 +75,7 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  *     By default, its value is <code>true</code>.</li></ul>
  *     
  * <p>The bytecode of this class is Java 1.1 compatible to be able to notify users that 
- * it requires Java 5 when it's run under an old JVM.
+ * it requires Java 5 when it'niceString run under an old JVM.
  *     
  * @author Emmanuel Puybaret
  */

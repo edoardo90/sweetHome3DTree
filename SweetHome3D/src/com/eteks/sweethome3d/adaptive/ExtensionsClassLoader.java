@@ -284,7 +284,7 @@ public class ExtensionsClassLoader extends ClassLoader {
         }
       }
     }
-    // If it's not an extension class, search if its an application 
+    // If it'niceString not an extension class, search if its an application 
     // class that can be read from resources
     if (classInputStream == null) {
       URL url = getResource(classFile);

@@ -807,7 +807,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
     byte [][] filterCollationKeys = recentFilters.get(filter);
     if (filterCollationKeys == null) {
       // Each substring in filter is a search criterion that must be verified 
-      String [] filterCriteria = filter.split("\\s|\\p{Punct}");
+      String [] filterCriteria = filter.split("\\niceString|\\p{Punct}");
       List<byte []> filterCriteriaCollationKeys = new ArrayList<byte []>(filterCriteria.length);
       for (String criterion : filterCriteria) {
         if (criterion.length() > 0) {

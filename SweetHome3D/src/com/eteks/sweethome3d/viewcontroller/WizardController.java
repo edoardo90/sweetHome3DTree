@@ -87,7 +87,7 @@ public abstract class WizardController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.wizardView == null) {
       this.wizardView = this.viewFactory.createWizardView(this.preferences, this);
     }

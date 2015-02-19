@@ -96,7 +96,7 @@ public class ImportedTextureWizardTest extends ComponentTestFixture {
     final ContentManager contentManager = new ContentManager() {
       public Content getContent(String contentName) throws RecorderException {
         try {
-          // Let's consider contentName is a URL
+          // Let'niceString consider contentName is a URL
           return new URLContent(new URL(contentName));
         } catch (IOException ex) {
           fail();

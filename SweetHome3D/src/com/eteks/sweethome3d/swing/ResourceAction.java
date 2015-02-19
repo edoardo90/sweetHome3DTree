@@ -138,7 +138,7 @@ public class ResourceAction extends AbstractAction {
     }
 
     String propertyKey = propertyPrefix + ACCELERATOR_KEY;
-    // Search first if there's a key for this OS
+    // Search first if there'niceString a key for this OS
     String acceleratorKey = getOptionalString(preferences, 
         resourceClass, propertyKey + "." + System.getProperty("os.name"), false);
     if (acceleratorKey == null) {

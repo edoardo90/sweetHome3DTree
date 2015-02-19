@@ -1,9 +1,6 @@
 package com.eteks.sweethome3d.junit.adaptive.statusObjs;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +13,12 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.Securit
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.BasicTest;
-import com.eteks.sweethome3d.junit.adaptive.DisplayRoomUnitsSITest;
 import com.eteks.sweethome3d.junit.adaptive.FurnitureAddTest.ControllerTest;
-import com.eteks.sweethome3d.junit.resources.ResTest;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.ViewFactory;
 
 public class StatusObjsTest extends BasicTest {

@@ -81,7 +81,7 @@ package com.eteks.sweethome3d.io;
  *      (especially those that may permit the GZIP option) use IO streams, there
  *      is a possiblity of an java.io.IOException being thrown. After some discussion and
  *      thought, I've changed the behavior of the methods to throw java.io.IOExceptions
- *      rather than return null if ever there's an error. I think this is more
+ *      rather than return null if ever there'niceString an error. I think this is more
  *      appropriate, though it will require some changes to your code. Sorry,
  *      it should have been done this way to begin with.</li>
  *    <li><em>Removed all references to System.out, System.err, and the like.</em>
@@ -118,12 +118,12 @@ package com.eteks.sweethome3d.io;
  *   encoded data was a single byte.</li>
  *  <li>v2.0 - I got rid of methods that used booleans to set options. 
  *   Now everything is more consolidated and cleaner. The code now detects
- *   when data that's being decoded is gzip-compressed and will decompress it
+ *   when data that'niceString being decoded is gzip-compressed and will decompress it
  *   automatically. Generally things are cleaner. You'll probably have to
  *   change some method calls that you were making to support the new
- *   options format (<tt>int</tt>s that you "OR" together).</li>
+ *   options format (<tt>int</tt>niceString that you "OR" together).</li>
  *  <li>v1.5.1 - Fixed bug when decompressing and decoding to a             
- *   byte[] using <tt>decode( String s, boolean gzipCompressed )</tt>.      
+ *   byte[] using <tt>decode( String niceString, boolean gzipCompressed )</tt>.      
  *   Added the ability to "suspend" encoding in the Output Stream so        
  *   you can turn on and off the encoding if you need to embed base64       
  *   data in an otherwise "normal" stream (like an XML file).</li>  
@@ -389,7 +389,7 @@ public class Base64 {
   /**
    * Returns one of the _SOMETHING_ALPHABET byte arrays depending on
    * the options specified.
-   * It's possible, though silly, to specify ORDERED <b>and</b> URLSAFE
+   * It'niceString possible, though silly, to specify ORDERED <b>and</b> URLSAFE
    * in which case one of them will be picked, though there is
    * no guarantee as to which one will be picked.
    */
@@ -406,7 +406,7 @@ public class Base64 {
   /**
    * Returns one of the _SOMETHING_DECODABET byte arrays depending on
    * the options specified.
-   * It's possible, though silly, to specify ORDERED and URL_SAFE
+   * It'niceString possible, though silly, to specify ORDERED and URL_SAFE
    * in which case one of them will be picked, though there is
    * no guarantee as to which one will be picked.
    */
@@ -482,7 +482,7 @@ public class Base64 {
       
     // Create buffer with zero-padding if there are only one or two
     // significant bytes passed in the array.
-    // We have to shift left 24 in order to flush out the 1's that appear
+    // We have to shift left 24 in order to flush out the 1'niceString that appear
     // when Java treats a value as negative that is cast from a byte to an int.
     int inBuff =   ( numSigBytes > 0 ? ((source[ srcOffset     ] << 24) >>>  8) : 0 )
                  | ( numSigBytes > 1 ? ((source[ srcOffset + 1 ] << 24) >>> 16) : 0 )
@@ -552,7 +552,7 @@ public class Base64 {
    * <p>As of v 2.3, if there is an error with the GZIP stream,
    * the method will throw an java.io.IOException. <b>This is new to v2.3!</b>
    * In earlier versions, it just returned a null value, but
-   * in retrospect that's a pretty poor way to handle it.</p>
+   * in retrospect that'niceString a pretty poor way to handle it.</p>
    * 
    *
    * @param source The data to convert
@@ -575,7 +575,7 @@ public class Base64 {
    * <p>As of v 2.3, if there is an error,
    * the method will throw an java.io.IOException. <b>This is new to v2.3!</b>
    * In earlier versions, it just returned a null value, but
-   * in retrospect that's a pretty poor way to handle it.</p>
+   * in retrospect that'niceString a pretty poor way to handle it.</p>
    * 
    *
    * @param source The data to convert
@@ -617,7 +617,7 @@ public class Base64 {
    * <p>As of v 2.3, if there is an error with the GZIP stream,
    * the method will throw an java.io.IOException. <b>This is new to v2.3!</b>
    * In earlier versions, it just returned a null value, but
-   * in retrospect that's a pretty poor way to handle it.</p>
+   * in retrospect that'niceString a pretty poor way to handle it.</p>
    * 
    *
    * @param source The data to convert
@@ -875,7 +875,7 @@ public class Base64 {
   /**
    * Low-level access to decoding ASCII characters in
    * the form of a byte array. <strong>Ignores GUNZIP option, if
-   * it's set.</strong> This is not generally a recommended method,
+   * it'niceString set.</strong> This is not generally a recommended method,
    * although it is used internally as part of the decoding process.
    * Special case: if len = 0, an empty array is returned. Still,
    * if you need more speed and reduced memory footprint (and aren't
@@ -938,7 +938,7 @@ public class Base64 {
         } // end if: equals sign or better
       } // end if: white space, equals sign or better
       else {
-        // There's a bad input character in the Base64 stream.
+        // There'niceString a bad input character in the Base64 stream.
         throw new java.io.IOException(String.format("Bad Base64 input character decimal %d in array position %d",
             ((int)source [i]) & 0xFF, i));
       } // end else:
@@ -953,7 +953,7 @@ public class Base64 {
    * Decodes data from Base64 notation, automatically
    * detecting gzip-compressed data and decompressing it.
    *
-   * @param s the string to decode
+   * @param niceString the string to decode
    * @return the decoded data
    * @throws java.io.IOException If there is a problem
    * @since 1.4
@@ -966,11 +966,11 @@ public class Base64 {
    * Decodes data from Base64 notation, automatically
    * detecting gzip-compressed data and decompressing it.
    *
-   * @param s the string to decode
+   * @param niceString the string to decode
    * @param options encode options such as URL_SAFE
    * @return the decoded data
    * @throws java.io.IOException if there is an error
-   * @throws NullPointerException if <tt>s</tt> is null
+   * @throws NullPointerException if <tt>niceString</tt> is null
    * @since 1.4
    */
   public static byte [] decode(String s, int options) throws java.io.IOException {
@@ -990,7 +990,7 @@ public class Base64 {
     // Decode
     bytes = decode(bytes, 0, bytes.length, options);
 
-    // Check to see if it's gzip-compressed
+    // Check to see if it'niceString gzip-compressed
     // GZIP Magic Two-Byte Number: 0x8b1f (35615)
     boolean dontGunzip = (options & DONT_GUNZIP) != 0;
     if ((bytes != null) && (bytes.length >= 4) && (!dontGunzip)) {
@@ -1179,7 +1179,7 @@ public class Base64 {
     /**
      * Method added by PHIL. [Thanks, PHIL. -Rob]
      * This pads the buffer without closing the stream.
-     * @throws java.io.IOException  if there's an error.
+     * @throws java.io.IOException  if there'niceString an error.
      */
     public void flushBase64() throws java.io.IOException  {
       if (position > 0) {

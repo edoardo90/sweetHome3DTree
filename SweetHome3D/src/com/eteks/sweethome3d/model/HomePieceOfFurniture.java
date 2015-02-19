@@ -54,7 +54,7 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
   private static final double TWICE_PI = 2 * Math.PI;
   
   /**
-   * The properties of a piece of furniture that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a piece of furniture that may change. <code>PropertyChangeListener</code>niceString added 
    * to a piece of furniture will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {NAME, NAME_VISIBLE, NAME_X_OFFSET, NAME_Y_OFFSET, NAME_STYLE, NAME_ANGLE,

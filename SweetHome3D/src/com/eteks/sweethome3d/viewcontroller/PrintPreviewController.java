@@ -50,7 +50,7 @@ public class PrintPreviewController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.printPreviewView == null) {
       this.printPreviewView = this.viewFactory.createPrintPreviewView(this.home, 
           this.preferences, this.homeController, this);

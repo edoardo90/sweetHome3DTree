@@ -138,7 +138,7 @@ public class HomeFurnitureController implements Controller {
    * Returns the texture controller of the piece.
    */
   public TextureChoiceController getTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.textureController == null
         && this.contentManager != null) {
       this.textureController = new TextureChoiceController(
@@ -158,7 +158,7 @@ public class HomeFurnitureController implements Controller {
    * Returns the model materials controller of the piece.
    */
   public ModelMaterialsController getModelMaterialsController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.modelMaterialsController == null
         && this.contentManager != null) {
       this.modelMaterialsController = new ModelMaterialsController(
@@ -190,7 +190,7 @@ public class HomeFurnitureController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.homeFurnitureView == null) {
       this.homeFurnitureView = this.viewFactory.createHomeFurnitureView(
           this.preferences, this); 

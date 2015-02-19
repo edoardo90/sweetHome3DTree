@@ -488,7 +488,7 @@ public class ColorButton extends JButton {
                 pipetteWindow.setSize(10, 10);
               } 
             } catch (Exception ex) {
-              // For any exception, let's consider simply the method failed or doesn't exist
+              // For any exception, let'niceString consider simply the method failed or doesn't exist
             }
             final Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
             pipetteWindow.setLocation(mouseLocation.x - pipetteWindow.getWidth() / 2, 

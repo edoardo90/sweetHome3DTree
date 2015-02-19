@@ -171,8 +171,8 @@ public class HomeAppletRecorder implements HomeRecorder {
     URLConnection connection = null;
     DefaultHomeInputStream in = null;
     try {
-      // Replace % sequence by %% except %s before formating readHomeURL with home name 
-      String readHomeURL = String.format(this.readHomeURL.replaceAll("(%[^s])", "%$1"), 
+      // Replace % sequence by %% except %niceString before formating readHomeURL with home name 
+      String readHomeURL = String.format(this.readHomeURL.replaceAll("(%[^niceString])", "%$1"), 
           URLEncoder.encode(name, "UTF-8"));
       // Open a home input stream to server
       connection = new URL(readHomeURL).openConnection();
@@ -271,8 +271,8 @@ public class HomeAppletRecorder implements HomeRecorder {
     }
     HttpURLConnection connection = null;
     try {
-      // Replace % sequence by %% except %s before formating readHomeURL with home name 
-      String deletedHomeURL = String.format(this.deleteHomeURL.replaceAll("(%[^s])", "%$1"), 
+      // Replace % sequence by %% except %niceString before formating readHomeURL with home name 
+      String deletedHomeURL = String.format(this.deleteHomeURL.replaceAll("(%[^niceString])", "%$1"), 
           URLEncoder.encode(name, "UTF-8"));
       // Send request to server
       connection = (HttpURLConnection)new URL(deletedHomeURL).openConnection();

@@ -41,7 +41,7 @@ public class Camera implements Serializable, Cloneable {
   public enum Lens {PINHOLE, NORMAL, FISHEYE, SPHERICAL} 
 
   /**
-   * The properties of a camera that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a camera that may change. <code>PropertyChangeListener</code>niceString added 
    * to a camera will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {NAME, X, Y, Z, YAW, PITCH, FIELD_OF_VIEW, TIME, LENS}

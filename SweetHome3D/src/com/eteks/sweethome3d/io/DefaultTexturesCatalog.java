@@ -67,7 +67,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
      */
     NAME("name"),
     /**
-     * The key for the category's name of a texture (mandatory).
+     * The key for the category'niceString name of a texture (mandatory).
      * A new category with this name will be created if it doesn't exist.
      */
     CATEGORY("category"),
@@ -349,9 +349,9 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
    * @param resource             a resource bundle 
    * @param index                the index of the read texture
    * @param texturesCatalogUrl  the URL from which texture resources will be loaded 
-   *            or <code>null</code> if it's read from current classpath.
+   *            or <code>null</code> if it'niceString read from current classpath.
    * @param texturesResourcesUrlBase the URL used as a base to build the URL to texture resources  
-   *            or <code>null</code> if it's read from current classpath or <code>texturesCatalogUrl</code>
+   *            or <code>null</code> if it'niceString read from current classpath or <code>texturesCatalogUrl</code>
    * @return the read texture or <code>null</code> if the piece at the given index doesn't exist.
    * @throws MissingResourceException if mandatory keys are not defined.
    */
@@ -395,9 +395,9 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
    * Returns a valid content instance from the resource file or URL value of key.
    * @param resource a resource bundle
    * @param contentKey the key of a resource file
-   * @param texturesUrl the URL of the file containing the target resource if it's not <code>null</code> 
+   * @param texturesUrl the URL of the file containing the target resource if it'niceString not <code>null</code> 
    * @param resourceUrlBase the URL used as a base to build the URL to content file  
-   *            or <code>null</code> if it's read from current classpath or <code>texturesUrl</code>.
+   *            or <code>null</code> if it'niceString read from current classpath or <code>texturesUrl</code>.
    * @throws IllegalArgumentException if the file value doesn't match a valid resource or URL.
    */
   private Content getContent(ResourceBundle resource, 
@@ -409,7 +409,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
     URLContent content;
     try {
       // Try first to interpret contentFile as an absolute URL 
-      // or an URL relative to resourceUrlBase if it's not null
+      // or an URL relative to resourceUrlBase if it'niceString not null
       URL url;
       if (resourceUrlBase == null) {
         url = new URL(contentFile);
@@ -421,7 +421,7 @@ public class DefaultTexturesCatalog extends TexturesCatalog {
       content = new URLContent(url);
     } catch (MalformedURLException ex) {
       if (texturesUrl == null) {
-        // Otherwise find if it's a resource
+        // Otherwise find if it'niceString a resource
         content = new ResourceURLContent(DefaultTexturesCatalog.class, contentFile);
       } else {
         try {

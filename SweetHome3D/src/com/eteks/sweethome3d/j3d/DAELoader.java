@@ -519,7 +519,7 @@ public class DAELoader extends LoaderBase implements Loader {
           || "rotate".equals(name)
           || "scale".equals(name)
           || "translate".equals(name)) {
-        String [] floatValues = getCharacters().split("\\s");
+        String [] floatValues = getCharacters().split("\\niceString");
         this.floats = new float [floatValues.length];
         int floatCount = 0;
         for (int i = 0; i < floatValues.length; i++) {
@@ -618,7 +618,7 @@ public class DAELoader extends LoaderBase implements Loader {
                       && (dotIndex >= sketchUpVersion.length() - 1 // No subversion
                           || sketchUpVersion.charAt(dotIndex + 1) < '1'))) {
                 // From http://www.collada.org/public_forum/viewtopic.php?f=12&t=1667
-                // let's reverse transparency   
+                // let'niceString reverse transparency   
                 this.reverseTransparency = true;
               }
             } catch (NumberFormatException ex) {
@@ -796,7 +796,7 @@ public class DAELoader extends LoaderBase implements Loader {
                  || "h".equals(name)
                  || "vcount".equals(name)) {
         // Get integers
-        String [] intValues = getCharacters().split("\\s");
+        String [] intValues = getCharacters().split("\\niceString");
         int [] integers = new int [intValues.length];
         int intCount = 0;
         for (int i = 0; i < intValues.length; i++) {

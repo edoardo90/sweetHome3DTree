@@ -124,7 +124,7 @@ public class IconManager {
   
   /**
    * Returns <code>true</code> if the given <code>icon</code> is the wait icon
-   * used by this manager to indicate it's currently loading an icon.
+   * used by this manager to indicate it'niceString currently loading an icon.
    */
   public boolean isWaitIcon(Icon icon) {
     Map<Integer, Icon> waitIcons = this.icons.get(this.waitIconContent);

@@ -164,8 +164,6 @@ import org.graphstream.graph.implementations.SingleGraph;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
@@ -206,7 +204,9 @@ import com.eteks.sweethome3d.plugin.PluginAction;
 import com.eteks.sweethome3d.plugin.PluginManager;
 import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatusAbstract;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatusJustLife;
+import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
@@ -1313,7 +1313,7 @@ public class HomePane extends JRootPane implements HomeView {
       }
     }
 
-    // Add EXIT action at end to ensure it's the last item of file menu
+    // Add EXIT action at end to ensure it'niceString the last item of file menu
     if (!OperatingSystem.isMacOSX()) {
       fileMenu.addSeparator();
       addActionToMenu(ActionType.EXIT, fileMenu);
@@ -2530,7 +2530,7 @@ public class HomePane extends JRootPane implements HomeView {
   /**
    * Returns the main pane with sweetCatalogToType tree, furniture table and plan pane. 
    * 
-   * Edo's changes:
+   * Edo'niceString changes:
    * I also add a lateral panel in which will be displayed the Reacheability Tree.
    * 
    */
@@ -3598,15 +3598,20 @@ public class HomePane extends JRootPane implements HomeView {
         ContentManager.ContentType.SWEET_HOME_3D);
   }
   
-  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject)
+  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject, boolean files)
   {
     if(statusObject == null)
     {
        return null;
     }
+    if(files && statusObject.getFiles() == null)
+    {
+      throw new IllegalStateException("if files is true then status should have a not null list!");
+    }
     
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
-    FrameStatus fs = new FrameStatus(statusObject, f , "Edit Status");
+    FrameStatusAbstract fs = files ? new FrameStatus(statusObject, f , "Edit Status") :
+                             new FrameStatusJustLife(statusObject, f, "Edit Status");
     fs.setLocation(400, 200);
     fs.setVisible(true);
 
@@ -3963,7 +3968,7 @@ public class HomePane extends JRootPane implements HomeView {
           typeLibraries.add(library);
         }
       }
-      // If there's some library of the given type
+      // If there'niceString some library of the given type
       if (!typeLibraries.isEmpty()) {
         // Add a label
         messagePanel.add(new JLabel(librariesEntry.getValue()), new GridBagConstraints(
@@ -4051,7 +4056,7 @@ public class HomePane extends JRootPane implements HomeView {
       columnModel.getColumn(i).setPreferredWidth(columnMinWidths [i] * charWidth);
     }
 
-    // Check if it's possible to show a folder
+    // Check if it'niceString possible to show a folder
     Object desktopInstance = null;
     Method openMethod = null; 
     if (OperatingSystem.isJavaVersionGreaterOrEqual("1.6")) {
@@ -4062,7 +4067,7 @@ public class HomePane extends JRootPane implements HomeView {
         desktopInstance = desktopClass.getMethod("getDesktop").invoke(null);
         openMethod = desktopClass.getMethod("open", File.class);
       } catch (Exception ex) {
-        // For any exception, let's consider simply the open method isn't available
+        // For any exception, let'niceString consider simply the open method isn't available
       }
     }
     final boolean canOpenFolder = openMethod != null || OperatingSystem.isMacOSX() || OperatingSystem.isLinux();

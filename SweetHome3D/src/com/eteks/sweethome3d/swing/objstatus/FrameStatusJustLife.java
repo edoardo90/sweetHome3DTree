@@ -11,29 +11,24 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class FrameStatus extends FrameStatusAbstract {
+public class FrameStatusJustLife extends FrameStatusAbstract {
   
 
   private static final long serialVersionUID = -6273908450419161637L;
   private List<String> files = new ArrayList<String>();
   private String lifeStatus = "";
   private LifeStatusPanel lifeStatusPanel;
-  private FileStatusPanel fileStatusPanel;
   private Container container;
   private JPanel    containerPanel = new JPanel();
 
   
-  public FrameStatus(StatusOfObjectForView statusObject, JFrame  parent, String name)
+  public FrameStatusJustLife(StatusOfObjectForView statusObject, JFrame  parent, String name)
   {
     super(parent, name);
     this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     
     lifeStatusPanel = new LifeStatusPanel();
     lifeStatusPanel.setLifeSatus(statusObject.getLifeStatus());
-    
-    
-    fileStatusPanel = new FileStatusPanel();
-    fileStatusPanel.setFileStatus(statusObject.getFiles());
     
     container = this.getContentPane();
     
@@ -43,14 +38,11 @@ public class FrameStatus extends FrameStatusAbstract {
     containerPanel.setLayout(new BorderLayout());
     
     containerPanel.add(lifeStatusPanel, BorderLayout.NORTH);
-    containerPanel.add(fileStatusPanel, BorderLayout.CENTER);
     
     
     container.setBackground(Color.black);
     containerPanel.setBackground(Color.yellow);
     lifeStatusPanel.setBackground(Color.CYAN);
-    fileStatusPanel.setBackground(Color.orange);
-    
     
     
     
@@ -60,12 +52,12 @@ public class FrameStatus extends FrameStatusAbstract {
   }
   
 
-  
   public StatusOfObjectForView getRepresentation()
   {
     lifeStatus = lifeStatusPanel.getLifeSatus();
-    files = fileStatusPanel.getFiles();
+    files = null;
     return new StatusOfObjectForView(lifeStatus, files);
   }
+
   
   }

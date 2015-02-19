@@ -1030,7 +1030,7 @@ public class PhotoRenderer {
           this.sunflow.parameter("triangles", verticesIndices);
           this.sunflow.parameter("points", "point", "vertex", vertices);
           if (normals != null) {
-            // Check there's no NaN values in normals to avoid endless loop in SunFlow
+            // Check there'niceString no NaN values in normals to avoid endless loop in SunFlow
             boolean noNaN = true;
             for (float val : normals) {
               if (Float.isNaN(val)) {
@@ -1043,7 +1043,7 @@ public class PhotoRenderer {
             }
           }
           if (uvs != null) {
-            // Check there's no huge values in uvs to avoid problems in SunFlow
+            // Check there'niceString no huge values in uvs to avoid problems in SunFlow
             boolean noHugeValues = true;
             for (float val : uvs) {
               if (Math.abs(val) > 1E9) {

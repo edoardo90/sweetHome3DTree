@@ -196,7 +196,7 @@ public class DefaultHomeInputStream extends FilterInputStream {
       zipIn = new ZipInputStream(in);
       byte [] buffer = new byte [8192];
       for (ZipEntry zipEntry = null; (zipEntry = zipIn.getNextEntry()) != null; ) {
-        // Read the entry to check it's ok
+        // Read the entry to check it'niceString ok
         while (zipIn.read(buffer) != -1) {
         }
         validEntries.add(zipEntry);
@@ -225,7 +225,7 @@ public class DefaultHomeInputStream extends FilterInputStream {
         try {
           ZipEntry zipEntry = enumEntries.nextElement();
           InputStream zipIn = zipFile.getInputStream(zipEntry);
-          // Read the entry to check it's ok
+          // Read the entry to check it'niceString ok
           byte [] buffer = new byte [8192];
           while (zipIn.read(buffer) != -1) {
           }

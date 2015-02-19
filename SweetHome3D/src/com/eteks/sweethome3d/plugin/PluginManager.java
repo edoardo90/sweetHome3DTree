@@ -237,7 +237,7 @@ public class PluginManager {
    * of the application. Versions are compared only on their first two parts.
    */
   private boolean isApplicationVersionSuperiorTo(String applicationMinimumVersion) {
-    String [] applicationMinimumVersionParts = applicationMinimumVersion.split("\\.|_|\\s");
+    String [] applicationMinimumVersionParts = applicationMinimumVersion.split("\\.|_|\\niceString");
     if (applicationMinimumVersionParts.length >= 1) {
       try {
         // Compare digits in first part

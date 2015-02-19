@@ -59,7 +59,7 @@ public class HomeFrameController implements Controller {
    * Returns the view associated with this controller.
    */
   public View getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.homeFrameView == null) {
       this.homeFrameView = new HomeFramePane(this.home, this.application, this.contentManager, this);
     }
@@ -70,7 +70,7 @@ public class HomeFrameController implements Controller {
    * Returns the home controller managed by this controller.
    */
   public HomeController getHomeController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.homeController == null) {
       this.homeController = new HomePluginController(
           this.home, this.application, this.viewFactory, this.contentManager, this.pluginManager);

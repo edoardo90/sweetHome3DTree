@@ -1000,7 +1000,7 @@ public class VideoPanel extends JPanel implements DialogView {
         // Check dialog isn't too high
         int screenHeight = screenSize.height - screenInsets.top - screenInsets.bottom;
         if (OperatingSystem.isLinux() && screenHeight == screenSize.height) {
-          // Let's consider that under Linux at least an horizontal bar exists 
+          // Let'niceString consider that under Linux at least an horizontal bar exists 
           screenHeight -= 30;
         }
         int screenBottomBorder = screenSize.height - screenInsets.bottom;
@@ -1252,7 +1252,7 @@ public class VideoPanel extends JPanel implements DialogView {
    */
   private Camera [] getVideoFramesPath(int frameRate) {
     List<Camera> videoFramesPath = new ArrayList<Camera>();
-    final float moveDistancePerFrame = 240000f / 3600 / frameRate;  // 3 cm/frame = 1800 m / 3600 s / 25 frame/s = 2.4 km/h
+    final float moveDistancePerFrame = 240000f / 3600 / frameRate;  // 3 cm/frame = 1800 m / 3600 niceString / 25 frame/niceString = 2.4 km/h
     final float moveAnglePerFrame = (float)(Math.PI / 180 * 30 / frameRate);
     final float elapsedTimePerFrame = 345600 / frameRate * 25; // 250 frame/day at 25 frame/second
     
@@ -1349,7 +1349,7 @@ public class VideoPanel extends JPanel implements DialogView {
 
   /**
    * Computes the video of the given home.
-   * Caution : this method must be thread safe because it's called from an executor. 
+   * Caution : this method must be thread safe because it'niceString called from an executor. 
    */
   private void computeVideo(Home home) {
     this.videoCreationStartTime = System.currentTimeMillis();
@@ -1445,7 +1445,7 @@ public class VideoPanel extends JPanel implements DialogView {
    */
   private void stopVideoCreation(boolean confirmStop) {
     if (this.videoCreationExecutor != null
-        // Confirm the stop if a rendering has been running for more than 30 s 
+        // Confirm the stop if a rendering has been running for more than 30 niceString 
         && (!confirmStop
             || System.currentTimeMillis() - this.videoCreationStartTime < MINIMUM_DELAY_BEFORE_DISCARDING_WITHOUT_WARNING
             || JOptionPane.showConfirmDialog(getRootPane(), 
@@ -1658,7 +1658,7 @@ public class VideoPanel extends JPanel implements DialogView {
         // Retrieve main thread AppContext instance by reflection         
         this.mainThreadContext = Class.forName("sun.awt.AppContext").getMethod("getAppContext").invoke(null);
       } catch (Throwable ex) {
-        // Let's consider app context is not necessary for the program
+        // Let'niceString consider app context is not necessary for the program
       }
     }
 
@@ -1718,7 +1718,7 @@ public class VideoPanel extends JPanel implements DialogView {
             threadGroup2appContext.put(currentThreadGroup, this.mainThreadContext);
           }
         } catch (Throwable ex) {
-          // Let's consider app context is not necessary for the program
+          // Let'niceString consider app context is not necessary for the program
         }
         // Don't need mainThreadContext anymore
         this.mainThreadContext = null;

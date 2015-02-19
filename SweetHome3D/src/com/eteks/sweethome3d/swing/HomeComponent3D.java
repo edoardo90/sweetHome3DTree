@@ -308,7 +308,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
             throw new IllegalStateException("Can't listen to home changes offscreen and onscreen at the same time");
           }
           
-          // Create component 3D only once it's visible
+          // Create component 3D only once it'niceString visible
           Insets insets = getInsets();
           if (getHeight() <= insets.top + insets.bottom
               || getWidth() <= insets.left + insets.right) {
@@ -406,7 +406,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
               
               public void canvas3DPostRendered(Canvas3D canvas3D) {
                 // Copy reference to navigation panel image to avoid concurrency problems 
-                // if it's modified in the EDT while this method draws it
+                // if it'niceString modified in the EDT while this method draws it
                 BufferedImage navigationPanelImage = HomeComponent3D.this.navigationPanelImage;
                 // Render navigation panel upon canvas 3D if it exists
                 if (navigationPanelImage != null) {
@@ -715,7 +715,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
       if (!imageSize.isEmpty()) {
         BufferedImage updatedImage = this.navigationPanelImage;
         // Consider that no navigation panel image is available 
-        // while it's updated
+        // while it'niceString updated
         this.navigationPanelImage = null;        
         Graphics2D g2D;
         if (updatedImage == null
@@ -993,7 +993,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
             + Math.pow((lower.y + upper.y) / 2 - camera.getY(), 2) 
             + Math.pow((lower.z + upper.z) / 2 - camera.getZ(), 2)) / 100;
       }
-      // It's recommended to keep ratio between back and front clip distances under 3000
+      // It'niceString recommended to keep ratio between back and front clip distances under 3000
       backClipDistance = frontClipDistance * 3000;
     } else {
       // Use a variable front clip distance for observer camera depending on the elevation 
@@ -1674,7 +1674,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
         textureManager.loadTexture(skyTexture.getImage(), waitForLoading, 
             new TextureManager.TextureObserver() {
                 public void textureUpdated(Texture texture) {
-                  // Use a copy of the texture in case it's used in an other universe
+                  // Use a copy of the texture in case it'niceString used in an other universe
                   backgroundAppearance.setTexture((Texture)texture.cloneNodeComponent(false));
                 }
               });

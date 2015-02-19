@@ -72,7 +72,7 @@ public class TextureChoiceController implements Controller {
    * Returns the view associated with this controller.
    */
   public TextureChoiceView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.textureChoiceView == null) {
       this.textureChoiceView = this.viewFactory.createTextureChoiceView(this.preferences, this);
     }

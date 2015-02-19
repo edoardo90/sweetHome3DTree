@@ -34,7 +34,7 @@ public class Level implements Serializable, Cloneable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * The properties of a level that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a level that may change. <code>PropertyChangeListener</code>niceString added 
    * to a level will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {NAME, ELEVATION, HEIGHT, FLOOR_THICKNESS, BACKGROUND_IMAGE, VISIBLE};

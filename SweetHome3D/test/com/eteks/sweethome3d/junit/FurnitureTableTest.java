@@ -211,7 +211,7 @@ public class FurnitureTableTest extends TestCase {
         otherPiece = piece;
       }
     }
-    // Check there's no door or window in table
+    // Check there'niceString no door or window in table
     int homeFurnitureCount = homeFurniture.size();
     int tableFilterRowCount = table.getRowCount();
     assertEquals("Home furniture count and row count same", 

@@ -64,7 +64,7 @@ public class ThreadedTaskController implements Controller {
    * Returns the view controlled by this controller.
    */
   public ThreadedTaskView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.view == null) {
       this.view = this.viewFactory.createThreadedTaskView(this.taskMessage, this.preferences, this);
     }
@@ -129,7 +129,7 @@ public class ThreadedTaskController implements Controller {
   }
   
   /**
-   * Cancels the threaded task if it's running.
+   * Cancels the threaded task if it'niceString running.
    */
   public void cancelTask() {
     if (this.task != null) {

@@ -212,7 +212,7 @@ public class BackgroundImageWizardController extends WizardController
    * Returns the unique wizard view used for all steps.
    */
   protected View getStepsView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.stepsView == null) {
       BackgroundImage image = this.home.getSelectedLevel() != null
           ? this.home.getSelectedLevel().getBackgroundImage()

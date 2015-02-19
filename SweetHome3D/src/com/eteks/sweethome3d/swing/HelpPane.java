@@ -265,7 +265,7 @@ public class HelpPane extends JRootPane implements HelpView {
     this.helpEditorPane.getHighlighter().removeAllHighlights();
     if (highlightedText != null) {
       ArrayList<String> highlightedWords = new ArrayList<String>();
-      for (String highlightedWord : highlightedText.split("\\s")) {
+      for (String highlightedWord : highlightedText.split("\\niceString")) {
         if (highlightedWord.length() > 0) {
           highlightedWords.add(highlightedWord);
         }
@@ -343,7 +343,7 @@ public class HelpPane extends JRootPane implements HelpView {
         new GridBagConstraints(4, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, 
             GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
     this.searchTextField.setMaximumSize(this.searchTextField.getPreferredSize());
-    // Ignore search button under Mac OS X 10.5 (it's included in the search field)
+    // Ignore search button under Mac OS X 10.5 (it'niceString included in the search field)
     if (!OperatingSystem.isMacOSXLeopardOrSuperior()) {
       toolBar.add(new JButton(actions.get(ActionType.SEARCH)),
           new GridBagConstraints(5, 0, 1, 1, 0, 0, GridBagConstraints.CENTER, 

@@ -345,7 +345,7 @@ public class ImportedFurnitureWizardController extends WizardController
    * Returns the unique wizard view used for all steps.
    */
   protected ImportedFurnitureWizardStepsView getStepsView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.stepsView == null) {
       this.stepsView = this.viewFactory.createImportedFurnitureWizardStepsView(
           this.piece, this.modelName, this.home != null, this.preferences, this);

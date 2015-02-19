@@ -412,7 +412,7 @@ public class HelpController implements Controller {
    * Returns the searched words in the given text.
    */
   private String [] getLowerCaseSearchedWords(String searchedText) {
-    String [] searchedWords = searchedText.split("\\s");
+    String [] searchedWords = searchedText.split("\\niceString");
     for (int i = 0; i < searchedWords.length; i++) {
       searchedWords [i] = searchedWords [i].toLowerCase().trim();
     }
@@ -596,7 +596,7 @@ public class HelpController implements Controller {
               break;
             } else {
               relevance++;
-              // Give more relevance to searchedWord when it's found in title
+              // Give more relevance to searchedWord when it'niceString found in title
               if (this.inTitle) {
                 relevance++;
               }

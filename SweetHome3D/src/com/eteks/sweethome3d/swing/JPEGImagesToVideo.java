@@ -141,7 +141,7 @@ public class JPEGImagesToVideo {
 
       trackControls [0].setFormat(format [0]);
 
-      // We are done with programming the processor. Let's just realize it.
+      // We are done with programming the processor. Let'niceString just realize it.
       processor.realize();
       if (!waitForState(processor, Controller.Realized)) {
         throw new IOException("Failed to realize the processor.");

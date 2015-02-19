@@ -28,8 +28,23 @@ public class FileObject  {
     String fileName = strings[0];
     String fileNDA = strings[1];   
     String fileLev = strings[2];
-    this.securityLevel = SecurityLevel.valueOf(fileLev);
-    this.discloseLevel = NonDisclose.valueOf(fileNDA);
+    
+    try{
+        this.securityLevel = SecurityLevel.valueOfSmarter(fileLev);
+        this.discloseLevel = NonDisclose.valueOfSmarter(fileNDA);
+        if(this.securityLevel == null)
+          throw new Exception();
+    }
+    catch(Exception e) //switch
+    {
+      this.securityLevel = SecurityLevel.valueOfSmarter(fileNDA);
+      this.discloseLevel = NonDisclose.valueOfSmarter(fileLev);
+    }
+    
+    if(this.securityLevel == null || this.discloseLevel == null)
+    {
+      throw new IllegalStateException("the string was bad!! :::  " + fileObjAsString  + " ... i could not compute it !");
+    }
     
     File f = new File(fileName);
     this.actualFile = f;
@@ -63,6 +78,16 @@ public class FileObject  {
         + 
         "," +
         this.getSecurityLevel().name()
+        ;
+  }
+
+  public String getFileRepresentationForTable() {
+    return this.actualFile.getAbsolutePath() +
+        "," + 
+        this.getSecurityLevel().name()
+        + 
+        "," +
+        this.getDiscloseLevel().name()
         ;
   }
   

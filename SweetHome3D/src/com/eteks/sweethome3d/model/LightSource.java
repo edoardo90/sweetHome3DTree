@@ -82,7 +82,7 @@ public class LightSource implements Serializable {
   }
   
   /**
-   * Returns the diameter of this source or <code>null</code> if it's not defined.
+   * Returns the diameter of this source or <code>null</code> if it'niceString not defined.
    * @since 3.0
    */
   public Float getDiameter() {

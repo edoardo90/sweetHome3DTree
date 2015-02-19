@@ -47,7 +47,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObje
  */
 public abstract class UserPreferences {
   /**
-   * The properties of user preferences that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of user preferences that may change. <code>PropertyChangeListener</code>niceString added 
    * to user preferences will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {LANGUAGE, SUPPORTED_LANGUAGES, UNIT, MAGNETISM_ENABLED, RULERS_VISIBLE, GRID_VISIBLE, 
@@ -82,7 +82,7 @@ public abstract class UserPreferences {
       supportedLanguagesProperties.load(in);
       in.close();
       // Get property value of supportedLanguages
-      defaultSupportedLanguages = supportedLanguagesProperties.getProperty("supportedLanguages", "en").split("\\s");
+      defaultSupportedLanguages = supportedLanguagesProperties.getProperty("supportedLanguages", "en").split("\\niceString");
     } catch (IOException ex) {
       defaultSupportedLanguages = new String [] {"en"};
     }
@@ -150,7 +150,7 @@ public abstract class UserPreferences {
         this.language = supportedLanguage; // Found a supported language
       }
     }
-    // If no language was found, let's use English by default
+    // If no language was found, let'niceString use English by default
     if (this.language == null) {
       this.language = Locale.ENGLISH.getLanguage();
     }
@@ -170,7 +170,7 @@ public abstract class UserPreferences {
         Locale.setDefault(new Locale(this.language, this.defaultCountry));
       }
     } catch (AccessControlException ex) {
-      // Let's keep default language even if it's not supported
+      // Let'niceString keep default language even if it'niceString not supported
       this.language = Locale.getDefault().getLanguage();
     }
   }
@@ -697,7 +697,7 @@ public abstract class UserPreferences {
   }
 
   /**
-   * Returns the pattern used for new walls in plan or <code>null</code> if it's not set.
+   * Returns the pattern used for new walls in plan or <code>null</code> if it'niceString not set.
    * @since 4.0
    */
   public TextureImage getNewWallPattern() {

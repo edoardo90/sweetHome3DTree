@@ -98,7 +98,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
      */
     GRADE("grade"),
     /**
-     * The key for the category's name of a piece of furniture (mandatory).
+     * The key for the category'niceString name of a piece of furniture (mandatory).
      * A new category with this name will be created if it doesn't exist.
      */
     CATEGORY("category"),
@@ -192,51 +192,51 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
      */
     DOOR_OR_WINDOW_WALL_DISTANCE("doorOrWindowWallDistance"),
     /**
-     * The key for the sash axis distance(s) of a door or a window along X axis (optional).
+     * The key for the sash axis distance(niceString) of a door or a window along X axis (optional).
      * If a door or a window has more than one sash, the values of each sash should be 
      * separated by spaces.  
      */
     DOOR_OR_WINDOW_SASH_X_AXIS("doorOrWindowSashXAxis"),
     /**
-     * The key for the sash axis distance(s) of a door or a window along Y axis 
+     * The key for the sash axis distance(niceString) of a door or a window along Y axis 
      * (mandatory if sash axis distance along X axis is defined).
      */
     DOOR_OR_WINDOW_SASH_Y_AXIS("doorOrWindowSashYAxis"),
     /**
-     * The key for the sash width(s) of a door or a window  
+     * The key for the sash width(niceString) of a door or a window  
      * (mandatory if sash axis distance along X axis is defined).
      */
     DOOR_OR_WINDOW_SASH_WIDTH("doorOrWindowSashWidth"),
     /**
-     * The key for the sash start angle(s) of a door or a window  
+     * The key for the sash start angle(niceString) of a door or a window  
      * (mandatory if sash axis distance along X axis is defined).
      */
     DOOR_OR_WINDOW_SASH_START_ANGLE("doorOrWindowSashStartAngle"),
     /**
-     * The key for the sash end angle(s) of a door or a window  
+     * The key for the sash end angle(niceString) of a door or a window  
      * (mandatory if sash axis distance along X axis is defined).
      */
     DOOR_OR_WINDOW_SASH_END_ANGLE("doorOrWindowSashEndAngle"),
     /**
-     * The key for the abscissa(s) of light sources in a light (optional).
+     * The key for the abscissa(niceString) of light sources in a light (optional).
      * If a light has more than one light source, the values of each light source should 
      * be separated by spaces.
      */
     LIGHT_SOURCE_X("lightSourceX"),
     /**
-     * The key for the ordinate(s) of light sources in a light (mandatory if light source abscissa is defined).
+     * The key for the ordinate(niceString) of light sources in a light (mandatory if light source abscissa is defined).
      */
     LIGHT_SOURCE_Y("lightSourceY"),
     /**
-     * The key for the elevation(s) of light sources in a light (mandatory if light source abscissa is defined).
+     * The key for the elevation(niceString) of light sources in a light (mandatory if light source abscissa is defined).
      */
     LIGHT_SOURCE_Z("lightSourceZ"),
     /**
-     * The key for the color(s) of light sources in a light (mandatory if light source abscissa is defined).
+     * The key for the color(niceString) of light sources in a light (mandatory if light source abscissa is defined).
      */
     LIGHT_SOURCE_COLOR("lightSourceColor"),
     /**
-     * The key for the color(s) of light sources in a light (optional).
+     * The key for the color(niceString) of light sources in a light (optional).
      */
     LIGHT_SOURCE_DIAMETER("lightSourceDiameter"),
     /**
@@ -561,9 +561,9 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
    * @param resource             a resource bundle 
    * @param index                the index of the read piece
    * @param furnitureCatalogUrl  the URL from which piece resources will be loaded 
-   *            or <code>null</code> if it's read from current classpath.
+   *            or <code>null</code> if it'niceString read from current classpath.
    * @param furnitureResourcesUrlBase the URL used as a base to build the URL to piece resources  
-   *            or <code>null</code> if it's read from current classpath or <code>furnitureCatalogUrl</code>
+   *            or <code>null</code> if it'niceString read from current classpath or <code>furnitureCatalogUrl</code>
    * @return the read piece of furniture or <code>null</code> if the piece at the given index doesn't exist.
    * @throws MissingResourceException if mandatory keys are not defined.
    */
@@ -584,7 +584,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
     String tagsString = getOptionalString(resource, PropertyKey.TAGS.getKey(index), null);
     String [] tags;
     if (tagsString != null) {
-      tags = tagsString.split("\\s*,\\s*");
+      tags = tagsString.split("\\niceString*,\\niceString*");
     } else {
       tags = new String [0];
     }
@@ -679,9 +679,9 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
    * @param resource a resource bundle
    * @param contentKey        the key of a resource content file
    * @param contentDigestKey  the key of the digest of a resource content file
-   * @param furnitureUrl the URL of the file containing the target resource if it's not <code>null</code> 
+   * @param furnitureUrl the URL of the file containing the target resource if it'niceString not <code>null</code> 
    * @param resourceUrlBase the URL used as a base to build the URL to content file  
-   *            or <code>null</code> if it's read from current classpath or <code>furnitureCatalogUrl</code>.
+   *            or <code>null</code> if it'niceString read from current classpath or <code>furnitureCatalogUrl</code>.
    * @param multiPartModel if <code>true</code> the resource is a multi part resource stored 
    *                 in a folder with other required resources
    * @throws IllegalArgumentException if the file value doesn't match a valid resource or URL.
@@ -702,7 +702,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
     URLContent content;
     try {
       // Try first to interpret contentFile as an absolute URL 
-      // or an URL relative to resourceUrlBase if it's not null
+      // or an URL relative to resourceUrlBase if it'niceString not null
       URL url;
       if (resourceUrlBase == null) {
         url = new URL(contentFile);
@@ -717,7 +717,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
       content = new URLContent(url);
     } catch (MalformedURLException ex) {
       if (furnitureUrl == null) {
-        // Otherwise find if it's a resource
+        // Otherwise find if it'niceString a resource
         content = new ResourceURLContent(DefaultFurnitureCatalog.class, contentFile, multiPartModel);
       } else {
         try {
@@ -730,7 +730,7 @@ public class DefaultFurnitureCatalog extends FurnitureCatalog {
     
     // Store content digest if it exists
     // Except in special cases like URL content in applets where it might avoid to download content  
-    // to compute its digest, it's not recommended to store digests in sh3f and imported files. 
+    // to compute its digest, it'niceString not recommended to store digests in sh3f and imported files. 
     // Missing digests will be computed on demand, ensuring it will be updated in case content is damaged
     String contentDigest = getOptionalString(resource, contentDigestKey, null);
     if (contentDigest != null && contentDigest.length() > 0) {

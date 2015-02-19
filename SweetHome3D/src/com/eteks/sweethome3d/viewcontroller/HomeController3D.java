@@ -160,7 +160,7 @@ public class HomeController3D implements Controller {
    * Returns the view associated with this controller.
    */
   public View getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.home3DView == null) {
       this.home3DView = this.viewFactory.createView3D(this.home, this.preferences, this);
     }

@@ -172,7 +172,7 @@ public class FileUserPreferences extends UserPreferences {
    * @param preferencesFolder the folder where preferences files are stored
    *    or <code>null</code> if this folder is the default one.
    * @param applicationFolders the folders where application private files are stored
-   *    or <code>null</code> if it's the default one. As the first application folder
+   *    or <code>null</code> if it'niceString the default one. As the first application folder
    *    is used as the folder where plug-ins files are imported by the user, it should
    *    have write access otherwise the user won't be able to import them.
    */
@@ -186,7 +186,7 @@ public class FileUserPreferences extends UserPreferences {
    * @param preferencesFolder the folder where preferences files are stored
    *    or <code>null</code> if this folder is the default one.
    * @param applicationFolders  the folders where application private files are stored
-   *    or <code>null</code> if it's the default one. As the first application folder
+   *    or <code>null</code> if it'niceString the default one. As the first application folder
    *    is used as the folder where plug-ins files are imported by the user, it should
    *    have write access otherwise the user won't be able to import them.
    * @param updater  an executor that will be used to update user preferences for lengthy 

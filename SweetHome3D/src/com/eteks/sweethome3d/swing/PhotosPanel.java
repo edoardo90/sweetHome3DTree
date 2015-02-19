@@ -486,7 +486,7 @@ public class PhotosPanel extends JPanel implements DialogView {
         // Check dialog isn't too high
         int screenHeight = screenSize.height - screenInsets.top - screenInsets.bottom;
         if (OperatingSystem.isLinux() && screenHeight == screenSize.height) {
-          // Let's consider that under Linux at least an horizontal bar exists 
+          // Let'niceString consider that under Linux at least an horizontal bar exists 
           screenHeight -= 30;
         }
         int screenBottomBorder = screenSize.height - screenInsets.bottom;
@@ -617,7 +617,7 @@ public class PhotosPanel extends JPanel implements DialogView {
 
   /**
    * Computes the photo of the given home.
-   * Caution : this method must be thread safe because it's called from an executor. 
+   * Caution : this method must be thread safe because it'niceString called from an executor. 
    */
   private void computePhotos(Home home, final Map<Camera, File> cameraFiles) {
     BufferedImage image = null;

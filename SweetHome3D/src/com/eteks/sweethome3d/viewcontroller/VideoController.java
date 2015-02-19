@@ -97,7 +97,7 @@ public class VideoController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.videoView == null) {
       this.videoView = this.viewFactory.createVideoView(this.home, this.preferences, this);
     }

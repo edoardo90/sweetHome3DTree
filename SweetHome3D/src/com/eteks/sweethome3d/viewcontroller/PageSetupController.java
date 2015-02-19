@@ -71,7 +71,7 @@ public class PageSetupController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.pageSetupView == null) {
       this.pageSetupView = this.viewFactory.createPageSetupView(this.preferences, this);
     }

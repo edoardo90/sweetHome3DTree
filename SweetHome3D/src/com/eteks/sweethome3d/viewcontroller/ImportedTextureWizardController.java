@@ -158,7 +158,7 @@ public class ImportedTextureWizardController extends WizardController
    * Returns the unique wizard view used for all steps.
    */
   protected View getStepsView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.stepsView == null) {
       this.stepsView = this.viewFactory.createImportedTextureWizardStepsView(this.texture, this.textureName, 
           this.preferences, this);

@@ -71,7 +71,7 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactoryAdapter;
 
 /**
  * Helper for {@link SweetHome3DViewer SweetHome3DViewer}. This class is public 
- * because it's loaded by applet viewer class loader as a start point.
+ * because it'niceString loaded by applet viewer class loader as a start point.
  * @author Emmanuel Puybaret
  */
 public final class ViewerHelper {
@@ -147,7 +147,7 @@ public final class ViewerHelper {
   
               public void setTaskRunning(boolean taskRunning, View executingView) {
                 if (taskRunning && !this.taskRunning) {
-                  // Display task panel directly at applet center if it's empty 
+                  // Display task panel directly at applet center if it'niceString empty 
                   this.taskRunning = taskRunning;
                   JPanel contentPane = new JPanel(new GridBagLayout());
                   contentPane.add(this, new GridBagConstraints());
@@ -202,14 +202,14 @@ public final class ViewerHelper {
     String selectableLevelsParameter = applet.getParameter(SELECTABLE_LEVELS_PARAMETER);
     final String [] selectableLevels;
     if (selectableLevelsParameter != null) {
-      selectableLevels = selectableLevelsParameter.split("\\s*,\\s*");
+      selectableLevels = selectableLevelsParameter.split("\\niceString*,\\niceString*");
     } else {
       selectableLevels = new String [0];
     }
     String selectableCamerasParameter = applet.getParameter(SELECTABLE_CAMERAS_PARAMETER);
     final String [] selectableCameras;
     if (selectableCamerasParameter != null) {
-      selectableCameras = selectableCamerasParameter.split("\\s*,\\s*");
+      selectableCameras = selectableCamerasParameter.split("\\niceString*,\\niceString*");
     } else {
       selectableCameras = new String [0];
     }

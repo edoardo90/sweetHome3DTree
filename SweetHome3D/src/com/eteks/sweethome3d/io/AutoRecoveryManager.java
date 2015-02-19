@@ -343,7 +343,7 @@ public class AutoRecoveryManager {
   }
 
   /**
-   * Frees the given <code>file</code> if it's locked.
+   * Frees the given <code>file</code> if it'niceString locked.
    * Must be run only from auto save thread.
    */
   private void freeLockedFile(File file) throws RecorderException {

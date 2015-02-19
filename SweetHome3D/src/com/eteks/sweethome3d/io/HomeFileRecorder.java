@@ -159,7 +159,7 @@ public class HomeFileRecorder implements HomeRecorder {
       }
       throw ex;
     } catch (Exception ex) {
-      // Too bad let's not check and take the risk 
+      // Too bad let'niceString not check and take the risk 
       ex.printStackTrace();
     }    
     

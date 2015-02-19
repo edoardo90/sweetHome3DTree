@@ -56,7 +56,7 @@ import com.eteks.sweethome3d.viewcontroller.HomeController;
  *     only the first two groups of digits will be used for the comparison
  *     with current JVM version.</li></ul>    
  * <br>For example, a plug-in class named <code>com.mycompany.mypackage.MyPlugin</code> 
- * will become a plug-in if it's packed in a JAR file with the following 
+ * will become a plug-in if it'niceString packed in a JAR file with the following 
  * <code>ApplicationPlugin.properties</code> file: 
  * <pre> name=My plug-in
  * class=com.mycompany.mypackage.MyPlugin

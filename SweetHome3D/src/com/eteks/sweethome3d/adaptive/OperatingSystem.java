@@ -226,7 +226,7 @@ public class OperatingSystem {
     List<Object> versionParts = new ArrayList<Object>();
     StringBuilder subPart = new StringBuilder();
     // First split version with punctuation and space
-    for (String part : version.split("\\p{Punct}|\\s")) {
+    for (String part : version.split("\\p{Punct}|\\niceString")) {
       for (int i = 0; i < part.length(); ) {
         subPart.setLength(0);
         char c = part.charAt(i);

@@ -94,7 +94,7 @@ public class PhotosController extends AbstractPhotoController {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.photoView == null) {
       this.photoView = this.viewFactory.createPhotosView(this.home, this.preferences, this);
     }

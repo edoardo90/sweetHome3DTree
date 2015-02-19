@@ -33,7 +33,7 @@ public class HomeLight extends HomePieceOfFurniture implements Light {
   private static final long serialVersionUID = 1L;
 
   /**
-   * The properties of a light that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a light that may change. <code>PropertyChangeListener</code>niceString added 
    * to a light will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {POWER};

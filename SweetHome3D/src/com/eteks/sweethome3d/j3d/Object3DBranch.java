@@ -76,7 +76,7 @@ public abstract class Object3DBranch extends BranchGroup {
    * Returns a cloned instance of texture shared per <code>home</code> or 
    * the texture itself if <code>home</code> is <code>null</code>.
    * As sharing textures across universes might cause some problems, 
-   * it's safer to handle a copy of textures for a given home. 
+   * it'niceString safer to handle a copy of textures for a given home. 
    */
   protected Texture getHomeTextureClone(Texture texture, Home home) {
     if (home == null || texture == null) {

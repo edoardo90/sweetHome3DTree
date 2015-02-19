@@ -47,8 +47,6 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.concurrent.Callable;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.undo.AbstractUndoableEdit;
@@ -107,8 +105,7 @@ import com.eteks.sweethome3d.model.TextureImage;
 import com.eteks.sweethome3d.model.TexturesCatalog;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer;
 import com.eteks.sweethome3d.viewcontroller.PlanController.Mode;
 
@@ -366,7 +363,7 @@ public class HomeController implements Controller {
    * Returns the furniture sweetCatalogToType controller managed by this controller.
    */
   public FurnitureCatalogController getFurnitureCatalogController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.furnitureCatalogController == null) {
       this.furnitureCatalogController = new FurnitureCatalogController(
           this.preferences.getFurnitureCatalog(), this.preferences, this.viewFactory, this.contentManager);
@@ -378,7 +375,7 @@ public class HomeController implements Controller {
    * Returns the furniture controller managed by this controller.
    */
   public FurnitureController getFurnitureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.furnitureController == null) {
       this.furnitureController = new FurnitureController(
           this.home, this.preferences, this.viewFactory, this.contentManager, getUndoableEditSupport());
@@ -390,7 +387,7 @@ public class HomeController implements Controller {
    * Returns the controller of home plan.
    */
   public PlanController getPlanController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.planController == null) {
       this.planController = new PlanController(
           this.home, this.preferences, this.viewFactory, this.contentManager, getUndoableEditSupport());
@@ -402,7 +399,7 @@ public class HomeController implements Controller {
    * Returns the controller of home 3D view.
    */
   public HomeController3D getHomeController3D() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.homeController3D == null) {
       this.homeController3D = new HomeController3D(
           this.home, this.preferences, this.viewFactory, this.contentManager, getUndoableEditSupport());
@@ -1371,7 +1368,7 @@ public class HomeController implements Controller {
           && this.preferences.isMagnetismEnabled()
           && items.size() == 1
           && addedFurniture.size() == 1) {
-        // Adjust piece when it's dropped in plan view  
+        // Adjust piece when it'niceString dropped in plan view  
         getPlanController().adjustMagnetizedPieceOfFurniture((HomePieceOfFurniture)items.get(0), dx, dy);
       } 
       getPlanController().addItems(items);
@@ -1536,8 +1533,13 @@ public class HomeController implements Controller {
             HomePieceOfFurniture hopf = (HomePieceOfFurniture)s;
             String id = hopf.getId();
             
+            StatusOfObjectForView representation;
+            
             StatusOfObjectForView statusForView = getStatusOfObject(id);
-            StatusOfObjectForView representation =  getView().showStatusDialog( statusForView);
+            if(statusForView.getFiles() != null)
+                 representation =   getView().showStatusDialog( statusForView, true);
+            else
+                 representation =   getView().showStatusDialog(statusForView, false);                
             System.out.println(representation);
             setStatusOfObject( id, representation);
             
@@ -1964,7 +1966,7 @@ public class HomeController implements Controller {
    * this method will {@link HomeView#confirmSave(String) confirm} 
    * in view whether home should be saved. Once home is actually saved,
    * home is removed from application homes list and <code>postCloseTask</code> 
-   * is called if it's not <code>null</code>.
+   * is called if it'niceString not <code>null</code>.
    */
   protected void close(final Runnable postCloseTask) {
     // Create a task that deletes home and run postCloseTask
@@ -1997,7 +1999,7 @@ public class HomeController implements Controller {
 
   /**
    * Saves the home managed by this controller and executes <code>postSaveTask</code> 
-   * if it's not <code>null</code>.
+   * if it'niceString not <code>null</code>.
    */
   private void save(HomeRecorder.Type recorderType, Runnable postSaveTask) {
     if (this.home.getName() == null
@@ -2020,7 +2022,7 @@ public class HomeController implements Controller {
   /**
    * Saves the home managed by this controller with a different name. 
    * Once home is actually saved, home is removed from application homes list 
-   * and <code>postCloseTask</code> is called if it's not <code>null</code>.
+   * and <code>postCloseTask</code> is called if it'niceString not <code>null</code>.
    * @since 4.4 
    */
   protected void saveAs(HomeRecorder.Type recorderType, Runnable postSaveTask) {
@@ -2050,7 +2052,7 @@ public class HomeController implements Controller {
 
   /**
    * Actually saves the home managed by this controller and executes <code>postSaveTask</code> 
-   * if it's not <code>null</code>.
+   * if it'niceString not <code>null</code>.
    */
   private void save(final String homeName, 
                     final HomeRecorder.Type recorderType, 
@@ -2113,7 +2115,7 @@ public class HomeController implements Controller {
   
   /**
    * Updates the saved home and executes <code>postSaveTask</code> 
-   * if it's not <code>null</code>.
+   * if it'niceString not <code>null</code>.
    */
   private void updateSavedHome(final String homeName,
                                final Runnable postSaveTask) {
@@ -2364,7 +2366,7 @@ public class HomeController implements Controller {
       home.setRecovered(false);
       this.application.deleteHome(home);
     }
-    // Let application decide what to do when there's no more home
+    // Let application decide what to do when there'niceString no more home
   }
 
   /**

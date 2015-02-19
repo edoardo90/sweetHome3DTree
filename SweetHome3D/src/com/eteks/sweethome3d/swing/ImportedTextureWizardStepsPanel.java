@@ -639,7 +639,7 @@ public class ImportedTextureWizardStepsPanel extends JPanel implements View {
 
   /**
    * Reads image from <code>imageContent</code>. 
-   * Caution : this method must be thread safe because it's called from image loader executor. 
+   * Caution : this method must be thread safe because it'niceString called from image loader executor. 
    */
   private BufferedImage readImage(UserPreferences preferences,
                                   Content imageContent) throws IOException {

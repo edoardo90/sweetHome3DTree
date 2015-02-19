@@ -137,7 +137,7 @@ public class AppletApplication extends HomeApplication {
       this.name = applet.getName();
     }
     
-    final String readHomeURL = getAppletParameter(applet, READ_HOME_URL_PARAMETER, "readHome.php?home=%s");
+    final String readHomeURL = getAppletParameter(applet, READ_HOME_URL_PARAMETER, "readHome.php?home=%niceString");
     final String defaultHome = getAppletParameter(applet, DEFAULT_HOME_PARAMETER, "");    
     final boolean showMemoryStatus = getAppletBooleanParameter(applet, SHOW_MEMORY_STATUS_PARAMETER);
 
@@ -269,7 +269,7 @@ public class AppletApplication extends HomeApplication {
    * Returns the array of URL objects matching the URL list.
    */
   private URL [] getURLs(URL codeBase, String urlList) {
-    String [] urlStrings = urlList.split("\\s|,");
+    String [] urlStrings = urlList.split("\\niceString|,");
     List<URL> urls = new ArrayList<URL>(urlStrings.length);
     for (String urlString : urlStrings) {
       URL url = getURLWithCodeBase(codeBase, urlString);
@@ -335,7 +335,7 @@ public class AppletApplication extends HomeApplication {
    */
   protected HomeController createHomeController(Home home) {
     final String writeHomeURL = getAppletParameter(this.applet, WRITE_HOME_URL_PARAMETER, "writeHome.php");    
-    final String readHomeURL = getAppletParameter(this.applet, READ_HOME_URL_PARAMETER, "readHome.php?home=%s");
+    final String readHomeURL = getAppletParameter(this.applet, READ_HOME_URL_PARAMETER, "readHome.php?home=%niceString");
     final String listHomesURL = getAppletParameter(this.applet, LIST_HOMES_URL_PARAMETER, "listHomes.php");
     final String defaultHome = getAppletParameter(this.applet, DEFAULT_HOME_PARAMETER, "");    
     
@@ -524,7 +524,7 @@ public class AppletApplication extends HomeApplication {
   }
   
   /**
-   * Adds the action matching the given <code>actionType</code> to the tool bar if it exists and it's enabled.
+   * Adds the action matching the given <code>actionType</code> to the tool bar if it exists and it'niceString enabled.
    */
   private void addEnabledActionToToolBar(JComponent homeView, HomeView.ActionType actionType, JToolBar toolBar) {
     Action action = getToolBarAction(homeView, actionType);
@@ -607,7 +607,7 @@ public class AppletApplication extends HomeApplication {
     if (this.homeRecorder == null) {
       URL codeBase = this.applet.getCodeBase();
       final String writeHomeURL = getAppletParameter(this.applet, WRITE_HOME_URL_PARAMETER, "writeHome.php");    
-      final String readHomeURL = getAppletParameter(this.applet, READ_HOME_URL_PARAMETER, "readHome.php?home=%s");
+      final String readHomeURL = getAppletParameter(this.applet, READ_HOME_URL_PARAMETER, "readHome.php?home=%niceString");
       final String listHomesURL = getAppletParameter(this.applet, LIST_HOMES_URL_PARAMETER, "listHomes.php");
       final String deleteHomeURL = getAppletParameter(this.applet, DELETE_HOME_URL_PARAMETER, "");
       this.homeRecorder =  new HomeAppletRecorder(getURLStringWithCodeBase(codeBase, writeHomeURL), 

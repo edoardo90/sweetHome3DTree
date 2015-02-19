@@ -645,7 +645,7 @@ public class PhotoPanel extends JPanel implements DialogView {
         // Check dialog isn't too high
         int screenHeight = screenSize.height - screenInsets.top - screenInsets.bottom;
         if (OperatingSystem.isLinux() && screenHeight == screenSize.height) {
-          // Let's consider that under Linux at least an horizontal bar exists 
+          // Let'niceString consider that under Linux at least an horizontal bar exists 
           screenHeight -= 30;
         }
         int screenBottomBorder = screenSize.height - screenInsets.bottom;
@@ -733,7 +733,7 @@ public class PhotoPanel extends JPanel implements DialogView {
 
   /**
    * Computes the photo of the given home.
-   * Caution : this method must be thread safe because it's called from an executor. 
+   * Caution : this method must be thread safe because it'niceString called from an executor. 
    */
   private void computePhoto(Home home) {
     this.photoCreationStartTime = System.currentTimeMillis();
@@ -825,7 +825,7 @@ public class PhotoPanel extends JPanel implements DialogView {
    */
   private void stopPhotoCreation(boolean confirmStop) {
     if (this.photoCreationExecutor != null
-        // Confirm the stop if a rendering has been running for more than 30 s 
+        // Confirm the stop if a rendering has been running for more than 30 niceString 
         && (!confirmStop
             || System.currentTimeMillis() - this.photoCreationStartTime < MINIMUM_DELAY_BEFORE_DISCARDING_WITHOUT_WARNING
             || JOptionPane.showConfirmDialog(getRootPane(), 

@@ -93,7 +93,7 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
  * <code>-open</code> followed by the path of a Sweet Home 3D file.<br> 
  * Users may also define the optional following System properties to alter program behavior:
  * 
- * <ul><li><code>com.eteks.sweethome3d.applicationFolders</code> defines the folder(s) where private files 
+ * <ul><li><code>com.eteks.sweethome3d.applicationFolders</code> defines the folder(niceString) where private files 
  * of Sweet Home 3D are stored. Private files include SH3F furniture library files stored in a subfolder named
  * <code>furniture</code>, SH3T textures library files stored in a subfolder named <code>textures</code>, 
  * SH3L language library files stored in a subfolder named <code>languages</code>, SH3P application plug-in 
@@ -397,7 +397,7 @@ public class SweetHome3D extends HomeApplication {
       service = (SingleInstanceService) ServiceManager.lookup("javax.jnlp.SingleInstanceService");
       service.addSingleInstanceListener(singleInstanceListener);
     } catch (UnavailableServiceException ex) {
-      // Just ignore SingleInstanceService if it's not available
+      // Just ignore SingleInstanceService if it'niceString not available
       // to let application work outside of Java Web Start
     }
 
@@ -845,7 +845,7 @@ public class SweetHome3D extends HomeApplication {
 
     @Override
     protected void setLastDirectory(ContentType contentType, File directory) {
-      // Last directories are not recorded in user preferences since there's no need of portability 
+      // Last directories are not recorded in user preferences since there'niceString no need of portability 
       // from a computer to an other
       Preferences preferences = Preferences.userNodeForPackage(this.mainClass);
       if (directory == null) {
@@ -924,7 +924,7 @@ public class SweetHome3D extends HomeApplication {
           }  
         } catch (IOException ex2) {
         }
-        // For other cases, let's consider simply the showDocument method failed
+        // For other cases, let'niceString consider simply the showDocument method failed
       }
       return false;
     }
@@ -952,10 +952,10 @@ public class SweetHome3D extends HomeApplication {
             return true;
           }
         } catch (Exception ex) {
-          // For any exception, let's consider simply the isSupported method failed
+          // For any exception, let'niceString consider simply the isSupported method failed
         }
       }
-      // For other Java versions, let's support Mac OS X and Linux
+      // For other Java versions, let'niceString support Mac OS X and Linux
       return OperatingSystem.isMacOSX() || OperatingSystem.isLinux();
     }
   }

@@ -300,7 +300,7 @@ public class ModelPreviewComponent extends JComponent {
   }
 
   /**
-   * A <code>JCanvas</code> canvas that sends a notification when it's drawn.
+   * A <code>JCanvas</code> canvas that sends a notification when it'niceString drawn.
    */
   private static class JCanvas3DWithNotifiedPaint extends JCanvas3D {
     private final ModelPreviewComponent homeComponent3D;

@@ -131,7 +131,7 @@ public class FurnitureCatalogController implements Controller {
    * Returns the view associated with this controller.
    */
   public View getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.catalogView == null) {
       this.catalogView = viewFactory.createFurnitureCatalogView(this.catalog, this.preferences, this);
     }

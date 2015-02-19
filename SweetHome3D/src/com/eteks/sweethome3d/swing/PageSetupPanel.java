@@ -146,7 +146,7 @@ public class PageSetupPanel extends JPanel implements DialogView {
     this.planPrintedCheckBox = new JCheckBox(SwingTools.getLocalizedLabelText(preferences, 
         PageSetupPanel.class, "planPrintedCheckBox.text")); 
 
-    // Create scale radio buttons and user's scale spinner
+    // Create scale radio buttons and user'niceString scale spinner
     this.bestFitPlanScaleRadioButton = new JRadioButton(SwingTools.getLocalizedLabelText(preferences, 
         PageSetupPanel.class, "bestFitPlanScaleRadioButton.text"));
     this.userPlanScaleRadioButton = new JRadioButton(SwingTools.getLocalizedLabelText(preferences, 

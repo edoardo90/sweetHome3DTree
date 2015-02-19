@@ -46,7 +46,7 @@ public class Room implements Serializable, Selectable, Elevatable {
 
 
   /**
-   * The properties of a room that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a room that may change. <code>PropertyChangeListener</code>niceString added 
    * to a room will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {NAME, NAME_X_OFFSET, NAME_Y_OFFSET, NAME_STYLE, NAME_ANGLE,

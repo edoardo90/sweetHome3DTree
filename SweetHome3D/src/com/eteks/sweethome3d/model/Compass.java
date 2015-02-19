@@ -36,14 +36,14 @@ import java.util.Map;
 import java.util.TimeZone;
 
 /**
- * A compass used to locate where a home is located and how it's oriented towards North.
+ * A compass used to locate where a home is located and how it'niceString oriented towards North.
  * @since 3.0 
  * @author Emmanuel Puybaret
  * @author Frédéric Mantegazza (Sun location algorithm)
  */
 public class Compass implements Serializable, Selectable {
   /**
-   * The properties of a compass that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a compass that may change. <code>PropertyChangeListener</code>niceString added 
    * to a wall will be notified under a property name equal to the string value of one these properties.
    */
   public enum Property {X, Y, DIAMETER, VISIBLE, NORTH_DIRECTION, LATITUDE, LONGITUDE, TIME_ZONE}
@@ -364,7 +364,7 @@ public class Compass implements Serializable, Selectable {
   }
 
   /**
-   * Computes the Sun's location in the sky at a given <code>date</code>.
+   * Computes the Sun'niceString location in the sky at a given <code>date</code>.
    */
   private void updateSunLocation(long date) {
     if (this.dateCache == null
@@ -581,7 +581,7 @@ public class Compass implements Serializable, Selectable {
       timeZoneGeographicPoints.put("US/Michigan", new GeographicPoint(42.3313889f, -83.0458333f)); // Detroit
       timeZoneGeographicPoints.put("America/Caracas", new GeographicPoint(10.5f, -66.9166667f));
       timeZoneGeographicPoints.put("America/Anguilla", new GeographicPoint(18.2166667f, -63.05f)); // The Valley
-      timeZoneGeographicPoints.put("America/Antigua", new GeographicPoint(17.1166667f, -61.85f)); // Saint John's
+      timeZoneGeographicPoints.put("America/Antigua", new GeographicPoint(17.1166667f, -61.85f)); // Saint John'niceString
       timeZoneGeographicPoints.put("America/Aruba", new GeographicPoint(10.5411111f, -72.9175f));
       timeZoneGeographicPoints.put("America/Asuncion", new GeographicPoint(-25.2666667f, -57.6666667f));
       timeZoneGeographicPoints.put("America/Barbados", new GeographicPoint(13.1f, -59.6166667f)); // Bridgetown
@@ -631,7 +631,7 @@ public class Compass implements Serializable, Selectable {
       timeZoneGeographicPoints.put("SystemV/AST4", new GeographicPoint(44.65f, -63.6f)); // Halifax
       timeZoneGeographicPoints.put("SystemV/AST4ADT", new GeographicPoint(44.65f, -63.6f)); // Halifax
       timeZoneGeographicPoints.put("America/St_Johns", new GeographicPoint(47.5675f, -52.7072f));
-      timeZoneGeographicPoints.put("Canada/Newfoundland", new GeographicPoint(47.5675f, -52.7072f)); // St John's
+      timeZoneGeographicPoints.put("Canada/Newfoundland", new GeographicPoint(47.5675f, -52.7072f)); // St John'niceString
       timeZoneGeographicPoints.put("America/Araguaina", new GeographicPoint(-7.16f, -48.0575f));
       timeZoneGeographicPoints.put("America/Bahia", new GeographicPoint(-12.9833333f, -38.5166667f)); // Salvador
       timeZoneGeographicPoints.put("America/Belem", new GeographicPoint(-1.45f, -48.4833333f));
@@ -1015,7 +1015,7 @@ public class Compass implements Serializable, Selectable {
       timeZoneGeographicPoints.put("Jamaica", new GeographicPoint(18.0f, -76.8f)); // Kingston
       timeZoneGeographicPoints.put("America/Argentina/San_Luis", new GeographicPoint(-33.3f, -66.333f));
       timeZoneGeographicPoints.put("PRT", new GeographicPoint(18.467f, 66.117f)); // San Juan
-      timeZoneGeographicPoints.put("CNT", new GeographicPoint(47.5675f, -52.7072f)); // St John's
+      timeZoneGeographicPoints.put("CNT", new GeographicPoint(47.5675f, -52.7072f)); // St John'niceString
       timeZoneGeographicPoints.put("AGT", new GeographicPoint(-34.5875f, -58.6725f)); // Buenos Aires
       timeZoneGeographicPoints.put("America/Argentina/Buenos_Aires", new GeographicPoint(-34.5875f, -58.6725f));
       timeZoneGeographicPoints.put("America/Argentina/Catamarca", new GeographicPoint(-28.4666667f, -65.7833333f));

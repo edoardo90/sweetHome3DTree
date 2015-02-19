@@ -114,7 +114,7 @@ public class WallController implements Controller {
    * Returns the texture controller of the wall left side.
    */
   public TextureChoiceController getLeftSideTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.leftSideTextureController == null) {
       this.leftSideTextureController = new TextureChoiceController(
           this.preferences.getLocalizedString(WallController.class, "leftSideTextureTitle"), 
@@ -133,7 +133,7 @@ public class WallController implements Controller {
    * Returns the texture controller of the wall right side.
    */
   public TextureChoiceController getRightSideTextureController() {
-    // Create sub controller lazily only once it's needed
+    // Create sub controller lazily only once it'niceString needed
     if (this.rightSideTextureController == null) {
       this.rightSideTextureController = new TextureChoiceController(
           this.preferences.getLocalizedString(WallController.class, "rightSideTextureTitle"), 
@@ -152,7 +152,7 @@ public class WallController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.wallView == null) {
       this.wallView = this.viewFactory.createWallView(this.preferences, this); 
     }

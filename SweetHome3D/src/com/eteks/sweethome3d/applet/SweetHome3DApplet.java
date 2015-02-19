@@ -92,7 +92,7 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  *     <code>home</code> of a POST request encoded with multipart/form-data MIME type, with 
  *     the name of the uploaded home being stored in its <code>filename</code> attribute.
  *     This service must return 1 if it wrote the uploaded data successfully.
- *     <br>By default, this URL is <code>writeHome.php</code> and if it's not an absolute URL 
+ *     <br>By default, this URL is <code>writeHome.php</code> and if it'niceString not an absolute URL 
  *     it will be considered as relative to applet codebase. If its value is empty,
  *     <i>New</i>, <i>Save</i> and <i>Save as...</i> actions will be disabled and their buttons 
  *     won't be displayed.</li>
@@ -105,14 +105,14 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  *     <li><code>readHomeURL</code> specifies the URL of the HTTP service able 
  *     to return the data of a home written with the write home service. The home name
  *     is specified by the parameter named <code>home</code> of a GET request.
- *     <br>By default, this URL is <code>readHome.php?home=%s</code> (the %s sign will be 
- *     replaced by the requested home name). If it's not an absolute URL it will be 
+ *     <br>By default, this URL is <code>readHome.php?home=%niceString</code> (the %niceString sign will be 
+ *     replaced by the requested home name). If it'niceString not an absolute URL it will be 
  *     considered as relative to applet codebase.</li>
  *     
  *     <li><code>listHomesURL</code> specifies the URL of the HTTP service able 
  *     to return the list of home names able to be read from server. It must return
  *     these names in a string, separated from each other by a carriage return (\n).
- *     <br>By default, this URL is <code>listHomes.php</code> and if it's not an absolute URL 
+ *     <br>By default, this URL is <code>listHomes.php</code> and if it'niceString not an absolute URL 
  *     it will be considered as relative to applet codebase. If its value is empty,
  *     <i>New</i>, <i>Open</i> and <i>Save as...</i> actions will be disabled and their buttons 
  *     won't be displayed. If <code>defaultHome</code> is empty, <i>Save</i> action
@@ -121,17 +121,17 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  *     <li><code>deleteHomeURL</code> specifies the URL of the HTTP service able 
  *     to delete the data of a home written with the write home service. The home name
  *     is specified by the parameter named <code>home</code> of a GET request and the 
- *     the %s sign will be replaced by the home name that should be deleted.
+ *     the %niceString sign will be replaced by the home name that should be deleted.
  *     This service must return 1 if it deleted the given home successfully.
  *     <br>By default, this service doesn't exist and deletion is not possible from the applet.
- *     If it's not an absolute URL it will be considered as relative to applet codebase.
+ *     If it'niceString not an absolute URL it will be considered as relative to applet codebase.
  *     This service is available to the user if <code>listHomesURL</code> is defined.</li>
  *     
  *     <li><code>defaultHome</code> specifies the home that will be opened at applet launch
  *     with <code>readHomeURL</code> service. 
  *     <br>Omit this parameter or let its value empty, if no home should be opened.
  *     <br>If you want the applet open a home at launch without creating a <code>readHomeURL</code> 
- *     service, set <code>%s</code> value for <code>readHomeURL</code> parameter and put the absolute 
+ *     service, set <code>%niceString</code> value for <code>readHomeURL</code> parameter and put the absolute 
  *     URL of the home file or its URL relative to applet codebase in <code>defaultHome</code> 
  *     parameter.</li>
  * 
@@ -139,14 +139,14 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  *     to write the XML content describing the user preferences. This data will be uploaded 
  *     in the parameter named <code>preferences</code> of a POST request.
  *     This service must return 1 if it completed successfully.
- *     <br>By default, this URL is empty and if it's not an absolute URL 
+ *     <br>By default, this URL is empty and if it'niceString not an absolute URL 
  *     it will be considered as relative to applet codebase.</li>
  *     
  *     <li><code>readPreferencesURL</code> specifies the URL of the HTTP service able 
  *     to return an XML content describing the user preferences as a set of properties. 
  *     The DTD of the XML content supported by the applet is specified at 
  *     <a href="http://java.sun.com/dtd/properties.dtd">http://java.sun.com/dtd/properties.dtd</a>.
- *     <br>By default, this URL is empty and if it's not an absolute URL it will be 
+ *     <br>By default, this URL is empty and if it'niceString not an absolute URL it will be 
  *     considered as relative to applet codebase.</li>
  *     
  *     <li><code>enableExportToSH3D</code> specifies whether this applet should enable
@@ -191,7 +191,7 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  *     <br>By default, the selected language depends on the user environment.</li></ul>
  *     
  * <p>The bytecode of this class is Java 1.1 compatible to be able to notify users that 
- * it requires Java 5 when it's run under an old JVM.
+ * it requires Java 5 when it'niceString run under an old JVM.
  *     
  * @author Emmanuel Puybaret
  */
@@ -431,7 +431,7 @@ public class SweetHome3DApplet extends JApplet {
     if (pluginURLs != null) {        
       Set pluginPackages = new HashSet();
       // Add to pluginPackages all the packages contained in the plugin URLs
-      String [] urlStrings = pluginURLs.split("\\s|,");
+      String [] urlStrings = pluginURLs.split("\\niceString|,");
       for (int i = 0; i < urlStrings.length; i++) {
         try {
           URL pluginUrl = new URL(getCodeBase(), urlStrings [i]);

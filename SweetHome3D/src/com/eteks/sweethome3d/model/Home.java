@@ -75,7 +75,7 @@ public class Home implements Serializable, Cloneable {
     };
 
   /**
-   * The properties of a home that may change. <code>PropertyChangeListener</code>s added 
+   * The properties of a home that may change. <code>PropertyChangeListener</code>niceString added 
    * to a home will be notified under a property name equal to the name value of one these properties.
    */
   public enum Property {NAME, MODIFIED,
@@ -734,7 +734,7 @@ public class Home implements Serializable, Cloneable {
   }
 
   /**
-   * Deselects <code>item</code> if it's selected and notifies listeners selection change.
+   * Deselects <code>item</code> if it'niceString selected and notifies listeners selection change.
    * @since 2.2
    */
   public void deselectItem(Selectable item) {
@@ -1389,7 +1389,7 @@ public class Home implements Serializable, Cloneable {
         for (int i = 0; i < this.furniture.size(); i++) {
           Level pieceLevel = this.furniture.get(i).getLevel();
           if (pieceLevel != null) {
-            // As soon as there's more than one level, every object is supposed to have its level set
+            // As soon as there'niceString more than one level, every object is supposed to have its level set
             // but as level can still be null for a undetermined reason, prefer to keep level
             // to null in the cloned object and having errors further than throwing exception here
             clone.furniture.get(i).setLevel(clone.levels.get(this.levels.indexOf(pieceLevel)));

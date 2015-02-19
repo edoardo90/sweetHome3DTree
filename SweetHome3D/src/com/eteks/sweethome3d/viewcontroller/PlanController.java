@@ -251,7 +251,7 @@ public class PlanController extends FurnitureController implements Controller {
    * Returns the view associated with this controller.
    */
   public PlanView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.planView == null) {
       this.planView = this.viewFactory.createPlanView(this.home, this.preferences, this);
     }
@@ -5219,7 +5219,7 @@ public class PlanController extends FurnitureController implements Controller {
       it.next();
     }      
     
-    // Remove last point if it's equal to first point
+    // Remove last point if it'niceString equal to first point
     if (pathPoints.size() > 1
         && Arrays.equals(pathPoints.get(0), pathPoints.get(pathPoints.size() - 1))) {
       pathPoints.remove(pathPoints.size() - 1);
@@ -7143,7 +7143,7 @@ public class PlanController extends FurnitureController implements Controller {
           createWallsAroundRoom((Room)selectableItem);
         } else {
           if (this.roundWall && this.newWall != null) {
-            // Let's end wall creation of round walls after a double click 
+            // Let'niceString end wall creation of round walls after a double click 
             endWallCreation();
           }
           if (this.lastWall != null) {
@@ -7971,8 +7971,8 @@ public class PlanController extends FurnitureController implements Controller {
       if (!this.resizedPiece.isDoorOrWindowBoundToWall()
           || !selectedPiece.isDeformable()
           || !this.magnetismEnabled) {
-        // Update piece depth if it's not a door a window 
-        // or if it's a a door a window unbound to a wall when magnetism is enabled
+        // Update piece depth if it'niceString not a door a window 
+        // or if it'niceString a a door a window unbound to a wall when magnetism is enabled
         newDepth = (float)(deltaY * cos - deltaX * sin);
         if (this.magnetismEnabled) {
           newDepth = preferences.getLengthUnit().getMagnetizedLength(newDepth, planView.getPixelLength());
@@ -9543,7 +9543,7 @@ public class PlanController extends FurnitureController implements Controller {
     private Room createAndSelectRoom(float xStart, float yStart,
                                      float xEnd, float yEnd) {
       Room newRoom = createRoom(new float [][] {{xStart, yStart}, {xEnd, yEnd}});
-      // Let's consider that points outside of home will create  by default a room with no ceiling
+      // Let'niceString consider that points outside of home will create  by default a room with no ceiling
       Area insideWallsArea = getInsideWallsArea();
       newRoom.setCeilingVisible(insideWallsArea.contains(xStart, yStart));
       selectItem(newRoom);
@@ -9588,7 +9588,7 @@ public class PlanController extends FurnitureController implements Controller {
       if (this.newRoom != null
           && getRoomSideLength(this.newRoom, this.newRoom.getPointCount() - 1) > 0) {        
         this.newPoint = new float [2];
-        // Let's consider that any point outside of home will create 
+        // Let'niceString consider that any point outside of home will create 
         // by default a room with no ceiling
         if (this.newRoom.isCeilingVisible()) {
           float [][] roomPoints = this.newRoom.getPoints();
@@ -9602,7 +9602,7 @@ public class PlanController extends FurnitureController implements Controller {
 
     /**
      * Returns the room matching the closed path that contains the point at the given
-     * coordinates or <code>null</code> if there's no closed path at this point. 
+     * coordinates or <code>null</code> if there'niceString no closed path at this point. 
      */
     private Room createRoomAt(float x, float y) {
       for (GeneralPath roomPath : getRoomPathsFromWalls()) {

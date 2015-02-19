@@ -1460,9 +1460,9 @@ public class OBJLoader extends LoaderBase implements Loader {
       while (tokenizer.nextToken() == StreamTokenizer.TT_WORD) {        
       }
       tokenizer.pushBack();     
-    } else if ("s".equals(tokenizer.sval)) {
-      // Read smoothing group s n 
-      //                   or s off
+    } else if ("niceString".equals(tokenizer.sval)) {
+      // Read smoothing group niceString n 
+      //                   or niceString off
       if (tokenizer.nextToken() == StreamTokenizer.TT_WORD) {
         this.currentGroup.setSmooth(!"off".equals(tokenizer.sval));
       } else {
@@ -1525,7 +1525,7 @@ public class OBJLoader extends LoaderBase implements Loader {
 
     // All printable ASCII characters
     tokenizer.wordChars('!', '~');
-    // Let's tolerate other ISO-8859-1 characters
+    // Let'niceString tolerate other ISO-8859-1 characters
     tokenizer.wordChars(0x80, 0xFF);
 
     tokenizer.whitespaceChars(' ', ' ');
@@ -1568,7 +1568,7 @@ public class OBJLoader extends LoaderBase implements Loader {
   }
 
   /**
-   * Skips the back slash in the next token if it's followed by a new line.  
+   * Skips the back slash in the next token if it'niceString followed by a new line.  
    */
   private static void skipBackSlash(StreamTokenizer tokenizer) throws IOException {
     tokenizer.ordinaryChar('\\');

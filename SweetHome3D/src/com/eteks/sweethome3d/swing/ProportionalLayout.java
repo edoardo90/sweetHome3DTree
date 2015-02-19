@@ -132,7 +132,7 @@ public class ProportionalLayout implements LayoutManager2 {
       int bottomComponentWidth = bottomComponentHeight * bottomComponentPreferredSize.width 
                                  / bottomComponentPreferredSize.height;
       int bottomComponentX = parentInsets.left;
-      // Adjust component width and height if it's larger than parent
+      // Adjust component width and height if it'niceString larger than parent
       if (bottomComponentWidth > parentAvailableWidth) {
         bottomComponentWidth = parentAvailableWidth;
         int previousHeight = bottomComponentHeight;

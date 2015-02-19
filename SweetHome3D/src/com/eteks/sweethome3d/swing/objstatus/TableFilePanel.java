@@ -37,32 +37,31 @@ package com.eteks.sweethome3d.swing.objstatus;
  * TableFilePanel.java requires no other files.
  */
 
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.DefaultCellEditor;
-import javax.swing.InputMap;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.KeyStroke;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;
-
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.DefaultCellEditor;
+import javax.swing.InputMap;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LifeStatus;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;
 
 /** 
  * TableFilePanel is just like SimpleTableDemo, except that it
@@ -91,19 +90,31 @@ public class TableFilePanel extends JPanel {
     //Add the scroll pane to this panel.
     add(scrollPane);
   }
-  
+
   public void addRow(String s)
   {
     try{
       ((TableFileModel) this.table.getModel()).addRow(s);
-        this.table.repaint();
+      this.table.repaint();
     }
     catch(Exception e)
     {
       e.printStackTrace();
     }
   } 
-  
+
+  public List<String> getFiles() {
+
+    try{
+      return ((TableFileModel) this.table.getModel()).getFiles();
+
+    }
+    catch(Exception e)
+    {
+      return null;
+    }
+  }
+
 
   private void setCancKeyboardRemove() {
     int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
@@ -155,28 +166,26 @@ public class TableFilePanel extends JPanel {
      */
     private static final long serialVersionUID = 1L;
 
-    private List<String> files;
-    private List<String> colsHeader;
+    private List<String> files = new ArrayList<String>();
+    private List<String> colsHeader = new ArrayList<String>();
 
     public TableFileModel(List<String> files)
     {
-      this.files = new ArrayList<String>();
-      for(String fs : files)
+      
+      for(String fileString : files)
       {
-        String[] colss = fs.split(",");
-        String fileStr = colss[0];
-        String selevS = colss[2];
-        String selev = SecurityLevel.valueOf(selevS).toString();
-        String ndaStr = (colss[1]);
-        String nda  = NonDisclose.valueOf(ndaStr).toString();
-        fileStr = fileStr +  "," +  selev + "," + nda;
-        this.files.add(fileStr);
+        this.addRow(fileString);
       }
+      
 
-      colsHeader = new ArrayList<String>();
       colsHeader.add("File absolute Path");
       colsHeader.add("Security Level");
       colsHeader.add("Non disclosure");
+    }
+
+
+    public List<String> getFiles() {
+      return this.files;
     }
 
 
@@ -196,17 +205,17 @@ public class TableFilePanel extends JPanel {
     {
       try
       {
-        String niceNDA = "" + (NonDisclose.valueOf(s.split(",")[1]));
-        String niceSL =  "" + (SecurityLevel.valueOf(s.split(",")[2]));
-        this.files.add(s.split(",")[0] + "," +  niceSL + "," + niceNDA);
-        
+          FileObject fob = new FileObject(s);
+          String repr = fob.getFileRepresentationForTable();
+          if(!files.contains(repr))
+              this.files.add(repr);
       }
       catch(Exception e ){
         e.printStackTrace();
       }
-      
+
     }
-    
+
     public void removeRow(int row)
     {
       try
@@ -215,19 +224,39 @@ public class TableFilePanel extends JPanel {
       }
       catch(IndexOutOfBoundsException e)
       {
-        
-      }
-      
-    }
-    
-    
 
+      }
+
+    }
+
+
+    /**
+     * render
+     */
     public Object getValueAt(int row, int col) {
       String fileStr = this.files.get(row);
       String [] colss = fileStr.split(",");
-      return colss[col];
+      return niceString(colss[col]);
     }
-
+    
+    private String niceString(String s)
+    {
+      try{
+      try{
+        SecurityLevel  lev = SecurityLevel.valueOf(s);
+        return lev.toString();
+      }
+      catch(Exception e)
+      {
+        NonDisclose nd = NonDisclose.valueOf(s);
+        return nd.toString();
+      }}
+      catch(Exception e)
+      {
+        return s;
+      }
+    }
+    
     /*
      * JTable uses this method to determine the default renderer/
      * editor for each cell.  If we didn't implement this method,
@@ -239,7 +268,7 @@ public class TableFilePanel extends JPanel {
     }
 
     /*
-     * Don't need to implement this method unless your table's
+     * Don't need to implement this method unless your table'niceString
      * editable.
      */
     public boolean isCellEditable(int row, int col) {
@@ -253,7 +282,7 @@ public class TableFilePanel extends JPanel {
     }
 
     /*
-     * Don't need to implement this method unless your table's
+     * Don't need to implement this method unless your table'niceString
      * data can change.
      */
     public void setValueAt(Object value, int row, int col) {
@@ -293,6 +322,8 @@ public class TableFilePanel extends JPanel {
       }
     }
   }
+
+
 
 
 }

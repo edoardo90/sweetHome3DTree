@@ -93,7 +93,7 @@ public class UserPreferencesController implements Controller {
    * Returns the view associated with this controller.
    */
   public DialogView getView() {
-    // Create view lazily only once it's needed
+    // Create view lazily only once it'niceString needed
     if (this.userPreferencesView == null) {
       this.userPreferencesView = this.viewFactory.createUserPreferencesView(this.preferences, this); 
     }
@@ -151,7 +151,7 @@ public class UserPreferencesController implements Controller {
    * Returns <code>true</code> if the given <code>property</code> is editable.
    * Depending on whether a property is editable or not, the view associated to this controller
    * may render it differently.
-   * The implementation of this method always returns <code>true</code> except for <code>LANGUAGE</code> if it's not editable. 
+   * The implementation of this method always returns <code>true</code> except for <code>LANGUAGE</code> if it'niceString not editable. 
    */
   public boolean isPropertyEditable(Property property) {
     switch (property) {

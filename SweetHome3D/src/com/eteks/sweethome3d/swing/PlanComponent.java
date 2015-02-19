@@ -1764,7 +1764,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
   }
 
   /**
-   * Sets whether plan's background should be painted or not.
+   * Sets whether plan'niceString background should be painted or not.
    * Background may include grid and an image.   
    */
   public void setBackgroundPainted(boolean backgroundPainted) {
@@ -1775,7 +1775,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
   }
   
   /**
-   * Returns <code>true</code> if plan's background should be painted.
+   * Returns <code>true</code> if plan'niceString background should be painted.
    */
   public boolean isBackgroundPainted() {
     return this.backgroundPainted;
@@ -2647,7 +2647,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
                   || textureImage == WAIT_TEXTURE_IMAGE) {
                 final boolean waitForTexture = paintMode != PaintMode.PAINT;
                 if (isTextureManagerAvailable()) {
-                  // Prefer to share textures images with texture manager if it's available
+                  // Prefer to share textures images with texture manager if it'niceString available
                   TextureManager.getInstance().loadTexture(
                       floorTexture.getImage(), floorTexture.getAngle(), waitForTexture,
                       new TextureManager.TextureObserver() {
@@ -3882,7 +3882,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
   }
 
   /**
-   * Paints the outline of the compass when it's belongs to <code>items</code>. 
+   * Paints the outline of the compass when it'niceString belongs to <code>items</code>. 
    */
   private void paintCompassOutline(Graphics2D g2D, List<Selectable> items,
                                    Paint selectionOutlinePaint, Stroke selectionOutlineStroke, 
@@ -4563,7 +4563,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
   /**
    * Sets the scale used to display the plan.
    * If this component is displayed in a viewport the view position is updated
-   * to ensure the center's view will remain the same after the scale change.
+   * to ensure the center'niceString view will remain the same after the scale change.
    */
   public void setScale(float scale) {
     if (this.scale != scale) {
@@ -4747,7 +4747,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
       this.toolTipWindow.add(toolTipComponent);
       // Add to window a mouse listener that redispatch mouse events to
       // plan component (if the user moves fast enough the mouse pointer in a way 
-      // it's in toolTipWindow, the matching event is dispatched to toolTipWindow)
+      // it'niceString in toolTipWindow, the matching event is dispatched to toolTipWindow)
       MouseInputAdapter mouseAdapter = new MouseInputAdapter() {
         @Override
         public void mousePressed(MouseEvent ev) {
@@ -4788,7 +4788,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
       point.x += cursorSize.width / 2 + 3;
       point.y += cursorSize.height / 2 + 3;
     } else {
-      // If custom cursor isn't supported let's consider 
+      // If custom cursor isn't supported let'niceString consider 
       // default cursor size is 16 pixels wide
       point.x += 11;
       point.y += 11;
@@ -5056,13 +5056,13 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
   }
 
   public boolean getScrollableTracksViewportHeight() {
-    // Return true if the plan's preferred height is smaller than the viewport height
+    // Return true if the plan'niceString preferred height is smaller than the viewport height
     return getParent() instanceof JViewport
         && getPreferredSize().height < ((JViewport)getParent()).getHeight();
   }
 
   public boolean getScrollableTracksViewportWidth() {
-    // Return true if the plan's preferred width is smaller than the viewport width
+    // Return true if the plan'niceString preferred width is smaller than the viewport width
     return getParent() instanceof JViewport
         && getPreferredSize().width < ((JViewport)getParent()).getWidth();
   }
@@ -5498,7 +5498,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
           this.pieceColor = null;
         } else if (this.pieceTexture != null) {
           if (isTextureManagerAvailable()) {
-            // Prefer to share textures images with texture manager if it's available
+            // Prefer to share textures images with texture manager if it'niceString available
             TextureManager.getInstance().loadTexture(this.pieceTexture.getImage(), true,
                 new TextureManager.TextureObserver() {
                   public void textureUpdated(Texture texture) {                  
@@ -5606,7 +5606,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
       ModelManager.getInstance().loadModel(piece.getModel(), waitingComponent == null,
           new ModelManager.ModelObserver() {
             public void modelUpdated(final BranchGroup modelNode) {
-              // Now that it's sure that 3D model exists
+              // Now that it'niceString sure that 3D model exists
               // work on a clone of the piece centered at the origin
               // with the same size to get a correct texture mapping
               final HomePieceOfFurniture normalizedPiece = piece.clone();

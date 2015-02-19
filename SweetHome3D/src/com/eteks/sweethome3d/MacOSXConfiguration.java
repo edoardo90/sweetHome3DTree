@@ -233,7 +233,7 @@ class MacOSXConfiguration {
       @Override
       public void handleReOpenApplication(ApplicationEvent ev) {
         // handleReOpenApplication is called when user launches 
-        // the application when it's already open
+        // the application when it'niceString already open
         homeApplication.start(new String [0]);
       }
     });
