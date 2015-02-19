@@ -59,9 +59,11 @@ public class FileObject  {
 
     return this.actualFile.getAbsolutePath() +
         "," + 
-        this.getDiscloseLevel().name() + 
+        this.getDiscloseLevel().name()
+        + 
         "," +
-        this.getSecurityLevel().name() ;
+        this.getSecurityLevel().name()
+        ;
   }
   
   

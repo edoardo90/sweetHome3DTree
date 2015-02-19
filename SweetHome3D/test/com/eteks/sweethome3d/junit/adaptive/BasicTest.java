@@ -97,6 +97,10 @@ public abstract  class BasicTest extends TestCase {
   protected Wall w4;
   protected Wall w5;
 
+  public void testDumb()
+  {
+    
+  }
 
   @Override
   protected void setUp() {

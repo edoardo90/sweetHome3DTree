@@ -27,6 +27,8 @@ public class JTableFilesTest extends BasicTest {
   public void doStuffInsideMain(Home home, UserPreferences preferences) {
   }
   
+  
+  
   public void doOtherInMain(Home home, UserPreferences preferences, HomeView hv)
   {
     

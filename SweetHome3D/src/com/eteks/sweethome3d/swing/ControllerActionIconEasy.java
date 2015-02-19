@@ -48,7 +48,7 @@ public class ControllerActionIconEasy  extends AbstractAction {
       } catch (IllegalAccessException ex) {
         throw new RuntimeException (ex);
       } catch (InvocationTargetException ex) {
-        throw new RuntimeException (ex);
+          ex.printStackTrace();
       }
     }
     

@@ -25,6 +25,11 @@ public class ActionCoolFactory {
       }
       default:
       {
+       
+        text = "Click";
+        iconName = "edit_status";
+        desc = "Just click";
+        mnemonic = new Integer(KeyEvent.VK_E);
         
         break;
       }

@@ -75,7 +75,7 @@ public class TableFilePanel extends JPanel {
   public TableFilePanel(List<String> files) {
     super(new GridLayout(1,0));
 
-    AbstractTableModel mod = new MyTableModel(files);
+    AbstractTableModel mod = new TableFileModel(files);
     table = new JTable(mod);
 
 
@@ -91,6 +91,19 @@ public class TableFilePanel extends JPanel {
     //Add the scroll pane to this panel.
     add(scrollPane);
   }
+  
+  public void addRow(String s)
+  {
+    try{
+      ((TableFileModel) this.table.getModel()).addRow(s);
+        this.table.repaint();
+    }
+    catch(Exception e)
+    {
+      e.printStackTrace();
+    }
+  } 
+  
 
   private void setCancKeyboardRemove() {
     int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
@@ -102,8 +115,8 @@ public class TableFilePanel extends JPanel {
     actionMap.put("Delete", new AbstractAction() {
       public void actionPerformed(ActionEvent e) {
         TableModel mod = table.getModel();
-        if (mod instanceof MyTableModel) {
-          MyTableModel mtm = (MyTableModel)mod;
+        if (mod instanceof TableFileModel) {
+          TableFileModel mtm = (TableFileModel)mod;
 
           int rowToDelete = table.getSelectedRow();
           System.out.println("remove row : " + rowToDelete);
@@ -136,7 +149,7 @@ public class TableFilePanel extends JPanel {
 
   }
 
-  class MyTableModel extends AbstractTableModel {
+  class TableFileModel extends AbstractTableModel {
     /**
      * 
      */
@@ -145,7 +158,7 @@ public class TableFilePanel extends JPanel {
     private List<String> files;
     private List<String> colsHeader;
 
-    public MyTableModel(List<String> files)
+    public TableFileModel(List<String> files)
     {
       this.files = new ArrayList<String>();
       for(String fs : files)
@@ -179,6 +192,21 @@ public class TableFilePanel extends JPanel {
       return colsHeader.get(col);
     }
 
+    public void addRow(String s)
+    {
+      try
+      {
+        String niceNDA = "" + (NonDisclose.valueOf(s.split(",")[1]));
+        String niceSL =  "" + (SecurityLevel.valueOf(s.split(",")[2]));
+        this.files.add(s.split(",")[0] + "," +  niceSL + "," + niceNDA);
+        
+      }
+      catch(Exception e ){
+        e.printStackTrace();
+      }
+      
+    }
+    
     public void removeRow(int row)
     {
       try
@@ -191,6 +219,8 @@ public class TableFilePanel extends JPanel {
       }
       
     }
+    
+    
 
     public Object getValueAt(int row, int col) {
       String fileStr = this.files.get(row);
@@ -257,9 +287,6 @@ public class TableFilePanel extends JPanel {
     }
 
     private void printDebugData() {
-      int numRows = getRowCount();
-      int numCols = getColumnCount();
-
       for(String s : this.files)
       {
         System.out.println(s);
@@ -267,38 +294,5 @@ public class TableFilePanel extends JPanel {
     }
   }
 
-  /**
-   * Create the GUI and show it.  For thread safety,
-   * this method should be invoked from the
-   * event-dispatching thread.
-   */
-  private static void createAndShowGUI() {
-    //Create and set up the window.
-    JFrame frame = new JFrame("TableFilePanel");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    List<String> lst = new ArrayList<String>();
-    lst.add("c:\\pippo.txt,"
-        + NonDisclose.NDA_PROTECTED.name()
-        + "UNCLASSIFIED"  );
-
-    //Create and set up the content pane.
-    TableFilePanel newContentPane = new TableFilePanel(lst);
-    newContentPane.setOpaque(true); //content panes must be opaque
-    frame.setContentPane(newContentPane);
-
-    //Display the window.
-    frame.pack();
-    frame.setVisible(true);
-  }
-
-  public static void main(String[] args) {
-    //Schedule a job for the event-dispatching thread:
-    //creating and showing this application's GUI.
-    javax.swing.SwingUtilities.invokeLater(new Runnable() {
-      public void run() {
-        createAndShowGUI();
-      }
-    });
-  }
 }

@@ -2,17 +2,25 @@ package com.eteks.sweethome3d.swing.objstatus;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
+import com.eteks.sweethome3d.swing.ActionCoolFactory;
+import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
 
 public class FileStatusPanel extends JPanel {
 
@@ -20,6 +28,7 @@ public class FileStatusPanel extends JPanel {
   private JLabel generalTitleLab = new JLabel("These are the files stored in the device");
   
   private JPanel tablePanel;
+  private TableFilePanel tableFilePanel;
   
   public FileStatusPanel()
   {
@@ -36,7 +45,8 @@ public class FileStatusPanel extends JPanel {
     
     JPanel buttonPanel = this.borderedPanelCenterHorizontal(20, Color.magenta);
     
-    JButton addFileBtn = new JButton("Add File");
+    Action actionAddFile = this.getActionAddFile();
+    JButton addFileBtn = new JButton(actionAddFile);
     JLabel  addFileDescription = new JLabel("Click to Add a File");
     
     buttonPanel.add(addFileDescription);
@@ -54,14 +64,38 @@ public class FileStatusPanel extends JPanel {
     this.add(buttonAndTable);
     this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
   }
+  
+  private Action getActionAddFile()
+  {
+    ActionCoolFactory acf = new ActionCoolFactory();
+    Action a = acf.createAction(ActionType.ADD_FILE, this, "addFile");
+    return a;
+  }
+  
+  public void addFile()
+  {
+    final JFileChooser fc = new JFileChooser();
+    
+    int returnVal = fc.showOpenDialog(FileStatusPanel.this);
 
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+        File file = fc.getSelectedFile();
+        FileObject fob = new FileObject(file);
+        this.tableFilePanel.addRow(fob.getFileRepresentation());
+    } else {
+        
+    }
+     
+  }
+  
   public void setFileStatus(List<String> files) {
    this.files = files;
    
    List<String> filesMut = new ArrayList<String>();
    filesMut.addAll(this.getFiles());
    
-   this.tablePanel.add(new TableFilePanel(filesMut));
+   this.tableFilePanel = new TableFilePanel(filesMut);
+   this.tablePanel.add(this.tableFilePanel);
   }
   
   public List<String> getFiles()

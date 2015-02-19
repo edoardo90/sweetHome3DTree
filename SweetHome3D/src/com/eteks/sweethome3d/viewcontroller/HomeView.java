@@ -41,7 +41,7 @@ public interface HomeView extends View {
        /**
         * edoardo add
         */
-      OPEN_IFC, SHOW_STATUS,
+      OPEN_IFC, SHOW_STATUS,ADD_FILE,
       /**
        * already here
        */
@@ -77,7 +77,7 @@ public interface HomeView extends View {
       ZOOM_OUT, ZOOM_IN, EXPORT_TO_SVG,
       VIEW_FROM_TOP, VIEW_FROM_OBSERVER, MODIFY_OBSERVER, STORE_POINT_OF_VIEW, DELETE_POINTS_OF_VIEW, CREATE_PHOTOS_AT_POINTS_OF_VIEW, DETACH_3D_VIEW, ATTACH_3D_VIEW,  
       DISPLAY_ALL_LEVELS, DISPLAY_SELECTED_LEVEL, MODIFY_3D_ATTRIBUTES, CREATE_PHOTO, CREATE_VIDEO, EXPORT_TO_OBJ,
-      HELP, ABOUT}
+      HELP, ABOUT }
   public enum SaveAnswer {SAVE, CANCEL, DO_NOT_SAVE}
   public enum OpenDamagedHomeAnswer {REMOVE_DAMAGED_ITEMS, REPLACE_DAMAGED_ITEMS, DO_NOT_OPEN_HOME}
 
