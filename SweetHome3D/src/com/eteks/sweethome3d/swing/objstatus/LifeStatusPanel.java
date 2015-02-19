@@ -89,6 +89,8 @@ public class LifeStatusPanel extends JPanel implements ActionListener {
 
   public void setLifeSatus(String lifeSatus) {
     this.lifeSatus = lifeSatus;
+    if(lifeSatus == null || lifeSatus == "")
+      return ;
     LifeStatus stat = LifeStatus.valueOf(lifeSatus);
     switch(stat)
     {

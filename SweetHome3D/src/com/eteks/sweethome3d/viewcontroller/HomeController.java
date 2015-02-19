@@ -1536,6 +1536,8 @@ public class HomeController implements Controller {
             StatusOfObjectForView representation;
             
             StatusOfObjectForView statusForView = getStatusOfObject(id);
+            if(statusForView.getLifeStatus() == null || statusForView.getLifeStatus() == "")
+              return;
             if(statusForView.getFiles() != null)
                  representation =   getView().showStatusDialog( statusForView, true);
             else
