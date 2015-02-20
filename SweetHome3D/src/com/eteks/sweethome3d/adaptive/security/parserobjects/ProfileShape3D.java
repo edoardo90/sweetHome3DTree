@@ -1,9 +1,10 @@
 package com.eteks.sweethome3d.adaptive.security.parserobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileShape3D extends Shape3D {
+public class ProfileShape3D extends Shape3D implements Serializable {
 
   protected List<Vector3D> points;
 

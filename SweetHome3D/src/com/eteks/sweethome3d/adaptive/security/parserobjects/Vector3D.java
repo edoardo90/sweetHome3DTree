@@ -1,8 +1,10 @@
 package com.eteks.sweethome3d.adaptive.security.parserobjects;
 
+import java.io.Serializable;
 
 
-public class Vector3D
+
+public class Vector3D implements Serializable
 {
   public double first;
   public double second;

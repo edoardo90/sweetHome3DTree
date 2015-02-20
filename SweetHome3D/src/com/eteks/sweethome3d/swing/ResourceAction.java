@@ -114,14 +114,6 @@ public class ResourceAction extends AbstractAction {
     
     String nameAction = getOptionalString(preferences, resourceClass, propertyPrefix + NAME, true);
     
-    /** shortcut for security actions,
-     *   maybe in the future would be nice do it sweethome3D way ... 
-     ***/
-    if(actionPrefix.equals("OPEN_IFC"))
-    {
-      nameAction = "Import from Ifc file";
-    }
-    
     putValue(NAME, nameAction);
     
     putValue(DEFAULT, getValue(NAME));
@@ -317,16 +309,8 @@ public class ResourceAction extends AbstractAction {
     
     public Object getValue(String key) {
       // Ignore NAME in tool bar 
-      /**
-       * except in ifc case, for now
-       * TODO: icon ? 
-       */
+  
       if (key.equals(NAME)) { 
-        if( ( "" + super.getValue(Action.NAME)).contains("Ifc") )
-        {
-          return super.getValue(key);
-        }
-        else
           return null;
       } 
       return super.getValue(key);

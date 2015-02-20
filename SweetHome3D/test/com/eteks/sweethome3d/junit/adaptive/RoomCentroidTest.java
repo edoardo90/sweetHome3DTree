@@ -147,6 +147,11 @@ public class RoomCentroidTest extends BasicTest {
     boolean iswsep = this.isTheWallSeparating
           (rectangularRoom, rectangularRoomShiftedDown, wallAside, home);
     assertFalse("wall is aside, not separating", iswsep);
+    
+    iswsep = rectangularRoom.isTheWallSeparating
+        (rectangularRoomShiftedDown, wallAside);
+    assertFalse("wall is aside, not separating", iswsep);
+    
   }
   
   

@@ -40,7 +40,7 @@ public class SegmentTest extends BasicTest {
   
   @Override
   public void doStuffInsideMain(Home home, UserPreferences preferences) {
-    // TODO Auto-generated method stub
+   
     
   }
 

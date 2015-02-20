@@ -15,6 +15,15 @@ public class ActionCoolFactory {
     
     switch(type)
     {
+      case OPEN_IFC:
+      {
+        text = "Open Ifc File";
+        iconName = "open_ifc";
+        desc = "Click to import a home from an Ifc File";
+        mnemonic = new Integer(KeyEvent.VK_I);
+        break;
+      }
+      
       case SHOW_STATUS:
       {
          text = "Edit Status";
@@ -23,6 +32,15 @@ public class ActionCoolFactory {
          mnemonic = new Integer(KeyEvent.VK_E);
          break;
       }
+      case ADD_FILE:
+      {
+        text = "Add new File";
+        iconName = "add_file";
+        desc = "Click to add a new file";
+        mnemonic = new Integer(KeyEvent.VK_A); 
+        break;
+      }
+      
       default:
       {
        
@@ -41,7 +59,7 @@ public class ActionCoolFactory {
       Action a = new ControllerActionIconEasy(text, iconName, desc, mnemonic, controller, methodName);
       return a;
     } catch (Exception ex) {
-      // TODO Auto-generated catch block
+      
       ex.printStackTrace();
       return null;
     }

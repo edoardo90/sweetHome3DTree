@@ -118,7 +118,7 @@ public class FileStatusPanel extends JPanel {
     jp.setBorder(BorderFactory.createEmptyBorder(bord, bord, bord, bord));
     jp.setAlignmentX(CENTER_ALIGNMENT);
     jp.setLayout(new BoxLayout(jp, BoxLayout.X_AXIS));
-    jp.setBackground(color);
+    
     return jp;
   }
   
@@ -129,7 +129,7 @@ public class FileStatusPanel extends JPanel {
     jp.setBorder(BorderFactory.createEmptyBorder(bord, bord, bord, bord));
     jp.setAlignmentX(CENTER_ALIGNMENT);
     jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-    jp.setBackground(color);
+    
     return jp;
   }
   

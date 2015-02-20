@@ -68,7 +68,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     BuildingSecurityGraph securityGraph = BuildingSecurityGraph.getInstance();
     securityGraph.clearAll();
      
-
+    
 
     for (Room r : rooms)
     {

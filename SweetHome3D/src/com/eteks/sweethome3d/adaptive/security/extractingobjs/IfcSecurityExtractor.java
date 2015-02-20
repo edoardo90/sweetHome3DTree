@@ -289,7 +289,7 @@ public class IfcSecurityExtractor extends SecurityExtractor{
     Collections.sort(buildingLinkEdgeList, new Comparator<BuildingLinkEdge>() {
 
       public int compare(BuildingLinkEdge o1, BuildingLinkEdge o2) {
-        // TODO Auto-generated method stub
+       
         return (""+o1).compareTo(""+o2);
       }
     });

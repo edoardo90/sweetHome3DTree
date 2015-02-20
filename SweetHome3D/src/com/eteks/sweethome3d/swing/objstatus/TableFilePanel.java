@@ -58,7 +58,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LifeStatus;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;

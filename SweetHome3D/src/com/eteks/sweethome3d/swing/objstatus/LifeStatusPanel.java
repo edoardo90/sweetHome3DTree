@@ -76,8 +76,10 @@ public class LifeStatusPanel extends JPanel implements ActionListener {
     offRadiob.addActionListener(this);
     brokenRadiob.addActionListener(this);
     
+    
     radioP.add(radioPanel, BorderLayout.LINE_START);
     radioP.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+    
     
     return radioP;
    

@@ -25,7 +25,8 @@ public class RoomGeoSmart extends Room {
   private ProfileShape3D polygon100BigShape3D ;
 
   /**
-   * Points expressed in cm
+   * Points should be given counter-clock-wise
+   * Points expressed in cm, 
    * @param points
    */
   public RoomGeoSmart(List<Vector3D> points)
@@ -40,6 +41,7 @@ public class RoomGeoSmart extends Room {
   }
 
   /**
+   * Points of the Shap3D should be given counter-clock-wise
    * each point of the shape expressed in cm
    * @param shape3D
    */
@@ -71,6 +73,7 @@ public class RoomGeoSmart extends Room {
 
   /**
    * <pre>
+   * Points of Polygon should be set counter-clock-wise
    * a big polygon is needed
    * a big polygon is one in which every coordinate is expressed in 
    * deci-millimiter
@@ -86,6 +89,7 @@ public class RoomGeoSmart extends Room {
   }
 
   /**
+   * Used for debug purpose
    * each point is expressed in cm
    * @param pointCenterOfSmallRoom
    */
@@ -95,6 +99,7 @@ public class RoomGeoSmart extends Room {
 
   }
 
+  /** Used for debug purpose **/
   public RoomGeoSmart(Segment3D seg1) {
     super(getFloatArrayAroundSegment(seg1));
 
@@ -116,6 +121,7 @@ public class RoomGeoSmart extends Room {
   }
   /**
    * <pre>
+   * Points should be in counter-clock-wise order
    * each point is expressed in cm
    * float [][]  points = new float[NUMBER_OF_POINTS][2];
    * for instance:
@@ -131,7 +137,7 @@ public class RoomGeoSmart extends Room {
 
 
   /**
-   * point expressed in cm
+   * Point expressed in cm
    * @param x
    * @param y
    */
@@ -156,9 +162,12 @@ public class RoomGeoSmart extends Room {
 
   /**
    * The returned rectangle has coordinates expressed in cm
+   * It only works well if the RoomGeosmart was created with a list
+   * of points anti-clock-wise !!
    * 
    * @return
    */
+  //TODO: generalize for any list acceptable
   public Rectangle3D getBoundingRoomRect3D()
   {
     return getRectangleFromPoints();
@@ -179,6 +188,12 @@ public class RoomGeoSmart extends Room {
     return rect3D;
   }
 
+  /**
+   * TODO: this is bad... 
+   * Rectangle 3D should be smarter enough to understand given 4 points
+   * which of them is the NE, NW, SE, SW
+   * @return
+   */
   private Rectangle3D getRectangleFromPoints()
   {
     List<Vector3D> points = this.polygon100BigShape3D.getListOfPoints();

@@ -19,6 +19,8 @@
  */
 package com.eteks.sweethome3d.viewcontroller;
 
+import ifc2x3javatoolbox.ifc2x3tc1.IfcExtendedMaterialProperties;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -69,6 +71,8 @@ import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SecurityExtractor;
 import com.eteks.sweethome3d.model.AspectRatio;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.Camera;
@@ -1493,7 +1497,7 @@ public class HomeController implements Controller {
     getView().invokeLater(new Runnable() {
       public void run() {
         final String homeName;
-        homeName = getView().showOpenDialog();
+        homeName = getView().showOpenDialogIFC();
         if (homeName != null) {
           openIfc(homeName);
         }
@@ -1504,7 +1508,23 @@ public class HomeController implements Controller {
   
   public void openIfc(String homeName)
   {
-    System.out.println(" the home I should open is: ..." + homeName);
+    if(homeName == null)
+      return ;
+    IfcSecurityExtractor se = new IfcSecurityExtractor(homeName, this.preferences);
+    BuildingSecurityGraph bsg = BuildingSecurityGraph.getInstance();
+    try 
+    {
+      bsg = se.getGraph();
+      System.out.println("open ifc : " + bsg);
+      home.displayGraph(bsg, preferences);
+    }
+    catch (Exception ex) 
+    {
+      ex.printStackTrace();
+    }
+    
+    
+    
   }
   
   
@@ -1536,7 +1556,7 @@ public class HomeController implements Controller {
             StatusOfObjectForView representation;
             
             StatusOfObjectForView statusForView = getStatusOfObject(id);
-            if(statusForView.getLifeStatus() == null || statusForView.getLifeStatus() == "")
+            if(statusForView == null ||  statusForView.getLifeStatus() == null || statusForView.getLifeStatus() == "")
               return;
             if(statusForView.getFiles() != null)
                  representation =   getView().showStatusDialog( statusForView, true);

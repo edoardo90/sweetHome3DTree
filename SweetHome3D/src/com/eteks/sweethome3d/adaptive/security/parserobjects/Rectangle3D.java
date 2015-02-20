@@ -8,6 +8,32 @@ import java.util.List;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.Wall;
 
+/**
+ * <pre>
+  * 
+  * Intances of this class are supposed to be rectangles
+  * without rotations applied, so with each edge parallel to X axis or 
+  * to Y axis
+  *
+  * NW                     NE 
+  *    <---x_DIM---------->   
+  *    1------------------2    ^
+  *    |                  |    |            ^
+  *    |         O        |  Y_DIM          |
+  *    |                  |    |            y
+  *    4------------------3    v            |---x-->
+  * SW                     SE
+ * 
+ * 
+ * NE: North East
+ * NW: North West
+ * SW: South West
+ * SE: South East
+ * 
+ * </pre>
+ * 
+ * @author Edoardo Pasi
+ */
 
 public class Rectangle3D extends Shape3D
 {
@@ -18,13 +44,19 @@ public class Rectangle3D extends Shape3D
   
   private boolean isARectangle = true;
 
-  /* 
+  /***
+   * 
+   * <pre> 
    *  <---x_DIM---------->   
    *  1------------------2    ^
    *  |                  |    |            ^
    *  |         O        |  Y_DIM          |
    *  |                  |    |            y
    *  4------------------3    v            |---x-->
+   *  
+   *  </pre>
+   * 
+   * @return the North East point
    */
   public Vector3D getPointNorthEast()
   {
@@ -80,7 +112,11 @@ public class Rectangle3D extends Shape3D
   {
     return this.pointSouthEast.clone();
   }
-
+  /**
+   * This method gets the long edges of the rectangle 
+   * and returns a wall built between them
+   * @return
+   */
   public Wall getWall()
   {
     List<Segment3D> shorts = this.getShortEdges();
@@ -139,7 +175,10 @@ public class Rectangle3D extends Shape3D
         "\n +"  + p3 +  "--------------"  + p4 + "\n"; 
   }
 
-
+  /**
+   * In future implementation the Rectangle 3D may be also rotated
+   * @return
+   */
   public float getAngleOfLongsEdges()
   {
     
@@ -147,7 +186,30 @@ public class Rectangle3D extends Shape3D
     return longEdge.getAngle();
     
   }
-  
+  /**
+   * <pre>
+   *           ----------
+   *           |         |
+   *           |         |
+   *    .P     |  RECT   |
+   *           |         |
+   *           |         |
+   *           |         |
+   *           -----------
+   *           
+   *           ----------
+   *           |         |
+   *           |         |
+   *   P.|--V------>     |
+   *           |         |
+   *           |         |
+   *           |         |
+   *           -----------
+   *                      
+   * </pre>
+   * @param startingPoint  P
+   * @return V
+   */
   public Vector3D perpendicularVectorTowardsInside(Vector3D startingPoint)
   {
     List<Segment3D>  longs = getLongEdges();

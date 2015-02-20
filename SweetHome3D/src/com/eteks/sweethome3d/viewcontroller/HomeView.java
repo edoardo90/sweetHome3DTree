@@ -115,6 +115,8 @@ public interface HomeView extends View {
    * Displays a content chooser open dialog to choose the name of a home.
    */
   public abstract String showOpenDialog();
+  
+  public abstract String showOpenDialogIFC();
 
   /**
    * Displays a dialog that lets user choose what he wants 

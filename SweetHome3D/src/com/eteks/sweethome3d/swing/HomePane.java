@@ -207,6 +207,7 @@ import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatusAbstract;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatusJustLife;
 import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.opendialog.FileIfcDialog;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
@@ -328,7 +329,7 @@ public class HomePane extends JRootPane implements HomeView {
     
     /** new action for security  **/
     
-    createAction(ActionType.OPEN_IFC, preferences, controller, "openIfc");
+    createActionSimple(ActionType.OPEN_IFC,    controller, "openIfc");
     createActionSimple(ActionType.SHOW_STATUS, controller, "showStatus");
     
     /**  end of new actions for security **/
@@ -2117,7 +2118,7 @@ public class HomePane extends JRootPane implements HomeView {
      * security actions
      */
     
-    addActionToToolBar(ActionType.OPEN_IFC, toolBar);
+    addActionToToolBarSimple(ActionType.OPEN_IFC, toolBar);
     addActionToToolBarSimple(ActionType.SHOW_STATUS, toolBar);
     
 
@@ -2195,11 +2196,7 @@ public class HomePane extends JRootPane implements HomeView {
                                   JToolBar toolBar) {
     Action action = getActionMap().get(actionType);
     String actionName =  "" + action.getValue(Action.NAME);
-    if(actionName.contains("Ifc"))
-    {
-      int pippo=0;
-      pippo++;
-    }
+
     if (action!= null && actionName != null) {
       addActionToToolBar(new ResourceAction.ToolBarAction(action), toolBar);
     }
@@ -2224,9 +2221,6 @@ public class HomePane extends JRootPane implements HomeView {
     } else {
       
       ToolBarAction a = new ResourceAction.ToolBarAction(action);
-      String s = a.getActionName();
-      if (s.contains("Ifc"))
-          a.setEnabled(true);
       toolBar.add(new JButton(a));
     }
   }
@@ -2554,89 +2548,94 @@ public class HomePane extends JRootPane implements HomeView {
 
       //The original code finished here, now We also add a lateral panel in which 
       // will be placed the Reach Tree.
-      jpTreePanel = new JPanel();
-
-
-      jpTreePanel.setLayout(new BoxLayout(jpTreePanel, BoxLayout.Y_AXIS));
-
-      graphicalGraphPan = new JPanel();
-      graphicalGraphPan.setLayout(new BoxLayout(graphicalGraphPan, BoxLayout.Y_AXIS));
-      JSplitPane spTextAreaGraph = new  JSplitPane(JSplitPane.VERTICAL_SPLIT,
-          jpTreePanel, graphicalGraphPan);
-
-      //add arch
-      JPanel addArchPanel = new JPanel(new FlowLayout());
-      JButton btnAddArch = new JButton("add arch to graph");
-      txtAddArch = new JTextField("AB");
-      addArchPanel.add(txtAddArch);
-      addArchPanel.add(btnAddArch);
-
-      //add vertex
-      JPanel addVertexPanel = new JPanel(new FlowLayout());
-      JButton btnAddVertex = new JButton("add vertex to graph");
-      txtAddVertex = new JTextField("A");
-      addVertexPanel.add(txtAddVertex);
-      addVertexPanel.add(btnAddVertex);
-
-      btnAddArch.addActionListener(new AddArchActionListener() );
-      btnAddVertex.addActionListener(new AddVertexActionListener());
-
-      graphicalGraphPan.add(addVertexPanel);
-      graphicalGraphPan.add(addArchPanel);
-
-
-      JPanel graphicalTreePan = new JPanel();
-
-      //add vertex to tree
-      JPanel addVertexTreePanel = new JPanel(new FlowLayout());
-      JButton btnAddTreeVertex = new JButton("add vertex path to tree");
-      txtAddTreeVertex = new JTextField("A.B.C.E.G");
-      addVertexTreePanel.add(txtAddTreeVertex);
-      addVertexTreePanel.add(btnAddTreeVertex);
-
-
-      btnAddTreeVertex.addActionListener(new AddVertexTreeActionListener());
-
-
-      graphicalTreePan.add(addVertexTreePanel);
-
-
-
-      JPanel controlGraphsDisplay = new JPanel();
-      controlGraphsDisplay.setLayout(new FlowLayout());
-
-      JButton buttonDisplayGraph = new JButton("display graph");
-      JButton buttonAddRoom = new JButton("Open Ifc File ");
-      JButton buttonTreeToBuilding = new JButton("tree to building");
-      JButton buttonBuildingToTree = new JButton("building to tree");
-
-      buttonBuildingToTree.addActionListener(new BuildingToTreeAL());
-      buttonAddRoom.addActionListener(new AddRoomAL());
-      buttonTreeToBuilding.addActionListener(new TreeToBuildingAL());
-      buttonDisplayGraph.addActionListener(new DisplayGraphAL());
-
-      controlGraphsDisplay.add(buttonDisplayGraph);
-      controlGraphsDisplay.add(buttonAddRoom);
-
-      JPanel controlGraphsBuild = new JPanel();
-      controlGraphsBuild.setLayout(new FlowLayout());
-
-      controlGraphsBuild.add(buttonTreeToBuilding);
-      controlGraphsBuild.add(buttonBuildingToTree);
-
-      graphicalGraphPan.add(graphicalTreePan);
-      graphicalGraphPan.add(controlGraphsDisplay);
-      graphicalGraphPan.add(controlGraphsBuild);
-
-      final JSplitPane mainRich = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-          mainPane, spTextAreaGraph);
-      return mainRich;
-
+      return mainPane;
 
     }
   }
 
+  private JComponent createDebugPanel(JSplitPane mainPane)
+  {
+    jpTreePanel = new JPanel();
 
+
+    jpTreePanel.setLayout(new BoxLayout(jpTreePanel, BoxLayout.Y_AXIS));
+
+    graphicalGraphPan = new JPanel();
+    graphicalGraphPan.setLayout(new BoxLayout(graphicalGraphPan, BoxLayout.Y_AXIS));
+    JSplitPane spTextAreaGraph = new  JSplitPane(JSplitPane.VERTICAL_SPLIT,
+        jpTreePanel, graphicalGraphPan);
+
+    //add arch
+    JPanel addArchPanel = new JPanel(new FlowLayout());
+    JButton btnAddArch = new JButton("add arch to graph");
+    txtAddArch = new JTextField("AB");
+    addArchPanel.add(txtAddArch);
+    addArchPanel.add(btnAddArch);
+
+    //add vertex
+    JPanel addVertexPanel = new JPanel(new FlowLayout());
+    JButton btnAddVertex = new JButton("add vertex to graph");
+    txtAddVertex = new JTextField("A");
+    addVertexPanel.add(txtAddVertex);
+    addVertexPanel.add(btnAddVertex);
+
+    btnAddArch.addActionListener(new AddArchActionListener() );
+    btnAddVertex.addActionListener(new AddVertexActionListener());
+
+    graphicalGraphPan.add(addVertexPanel);
+    graphicalGraphPan.add(addArchPanel);
+
+
+    JPanel graphicalTreePan = new JPanel();
+
+    //add vertex to tree
+    JPanel addVertexTreePanel = new JPanel(new FlowLayout());
+    JButton btnAddTreeVertex = new JButton("add vertex path to tree");
+    txtAddTreeVertex = new JTextField("A.B.C.E.G");
+    addVertexTreePanel.add(txtAddTreeVertex);
+    addVertexTreePanel.add(btnAddTreeVertex);
+
+
+    btnAddTreeVertex.addActionListener(new AddVertexTreeActionListener());
+
+
+    graphicalTreePan.add(addVertexTreePanel);
+
+
+
+    JPanel controlGraphsDisplay = new JPanel();
+    controlGraphsDisplay.setLayout(new FlowLayout());
+
+    JButton buttonDisplayGraph = new JButton("display graph");
+    JButton buttonAddRoom = new JButton("Open Ifc File ");
+    JButton buttonTreeToBuilding = new JButton("tree to building");
+    JButton buttonBuildingToTree = new JButton("building to tree");
+
+    buttonBuildingToTree.addActionListener(new BuildingToTreeAL());
+    buttonAddRoom.addActionListener(new AddRoomAL());
+    buttonTreeToBuilding.addActionListener(new TreeToBuildingAL());
+    buttonDisplayGraph.addActionListener(new DisplayGraphAL());
+
+    controlGraphsDisplay.add(buttonDisplayGraph);
+    controlGraphsDisplay.add(buttonAddRoom);
+
+    JPanel controlGraphsBuild = new JPanel();
+    controlGraphsBuild.setLayout(new FlowLayout());
+
+    controlGraphsBuild.add(buttonTreeToBuilding);
+    controlGraphsBuild.add(buttonBuildingToTree);
+
+    graphicalGraphPan.add(graphicalTreePan);
+    graphicalGraphPan.add(controlGraphsDisplay);
+    graphicalGraphPan.add(controlGraphsBuild);
+
+    final JSplitPane mainRich = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+        mainPane, spTextAreaGraph);
+  
+    return mainRich;
+  }
+  
+  
 
 
   /**
@@ -3597,6 +3596,18 @@ public class HomePane extends JRootPane implements HomeView {
         this.preferences.getLocalizedString(HomePane.class, "openHomeDialog.title"), 
         ContentManager.ContentType.SWEET_HOME_3D);
   }
+  
+  /**
+   * Displays a content chooser open dialog to choose the name of a home.
+   */
+  public String showOpenDialogIFC() {
+    
+    JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
+     FileIfcDialog ff = new FileIfcDialog(f, "Import from IFC file");
+     String fileName = ff.getFileAbsoluteName();
+    return fileName;
+  }
+  
   
   public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject, boolean files)
   {

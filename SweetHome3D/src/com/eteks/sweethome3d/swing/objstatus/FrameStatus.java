@@ -1,7 +1,6 @@
 package com.eteks.sweethome3d.swing.objstatus;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +43,6 @@ public class FrameStatus extends FrameStatusAbstract {
     
     containerPanel.add(lifeStatusPanel, BorderLayout.NORTH);
     containerPanel.add(fileStatusPanel, BorderLayout.CENTER);
-    
-    
-    container.setBackground(Color.black);
-    containerPanel.setBackground(Color.yellow);
-    lifeStatusPanel.setBackground(Color.CYAN);
-    fileStatusPanel.setBackground(Color.orange);
-    
-    
-    
     
     this.setContentPane(container);
     this.setLocationRelativeTo(null);
