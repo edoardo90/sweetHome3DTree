@@ -1,9 +1,39 @@
 package com.eteks.sweethome3d.adaptive.security.parserobjects;
 
+/**
+ * <pre>
+ * 
+*                  this: AB 
+*                  
+*           A.<=========== B
+*          ^            .> 
+*         /           .  
+*   row  /         .
+*       /       .    tail
+*      /    . 
+*     . 
+*  O: origin
+*   
+*   
+*  </pre>
+* @author Edoardo Pasi
+*/
 public class Segment3D {
   
   private Vector3D row, tail;
   
+  /**
+  *                  this: AB 
+  *                  
+  *           A.<=========== B
+  *          ^            .> 
+  *         /           .  
+  *   a    /         .
+  *       /       .    b
+  *      /    . 
+  *     . 
+  *  O: origin
+  **/
   
   public Segment3D(Vector3D a, Vector3D b)
   {
@@ -48,7 +78,36 @@ public class Segment3D {
   
   
   private double square (double x)  { return x * x; }
-
+  
+  /**
+   * <pre>
+   * 
+   *                  this: AB 
+   *                  
+   *           A.<=========== B
+   *          ^            .> 
+   *         /           .  
+   *   row  /         .
+   *       /       .    tail
+   *      /    . 
+   *     . 
+   *  O: origin
+   *   
+   *   
+   *                 ^
+   *                 |
+   *       V         |
+   *  A'.<===========|___________________>
+   *                origin
+   *   
+   * </pre>
+   * @return V
+   */
+  public Vector3D getOriginVector()
+  {
+    Vector3D originVector = this.row.getSubVector(this.tail);
+    return originVector;
+  }
 
   public float getAngle() {
     
@@ -56,6 +115,15 @@ public class Segment3D {
     return (float) Math.atan2(originVector.second, originVector.first);
     
   }
+  
+  public boolean isPerpendicular(Segment3D s2)
+  {
+    Vector3D v1 = this.getOriginVector();
+    Vector3D v2 = s2.getOriginVector();
+    return (Math.abs(v1.scalarProduct(v2)) < 10e-05);
+    
+  }
+  
   
   public double getDistanceFromPoint(Vector3D point)
   {

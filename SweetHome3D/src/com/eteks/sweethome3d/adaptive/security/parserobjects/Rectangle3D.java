@@ -3,7 +3,11 @@ package com.eteks.sweethome3d.adaptive.security.parserobjects;
 import java.awt.Polygon;
 import java.awt.geom.Area;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.Wall;
@@ -42,6 +46,8 @@ public class Rectangle3D extends Shape3D
   
   private Vector3D  pointNorthEast = null, pointSouthWest = null;
   
+  private String rectName;
+  
   private boolean isARectangle = true;
 
   /***
@@ -60,23 +66,6 @@ public class Rectangle3D extends Shape3D
    */
   public Vector3D getPointNorthEast()
   {
-  
-    double x1, y1, x2, x3, y2, y3, x4, y4;
-  
-    x1 = this.pointNorthWest.first;
-    y1 = this.pointNorthWest.second;
-  
-    x3 = this.pointSouthEast.first;
-    y3 = this.pointSouthEast.second;
-  
-    x2 = x3;
-    y2 = y1;
-  
-    x4= x1;
-    y4 = y3;
-    if(this.pointNorthEast == null)
-      return new Vector3D(x2, y2, this.pointNorthWest.third);
-    else
       return this.pointNorthEast;
   }
 
@@ -87,25 +76,7 @@ public class Rectangle3D extends Shape3D
 
   public Vector3D getPointSouthWest()
   {
-  
-    double x1, y1, x2, x3, y2, y3, x4, y4;
-  
-    x1 = this.pointNorthWest.first;
-    y1 = this.pointNorthWest.second;
-  
-    x3 = this.pointSouthEast.first;
-    y3 = this.pointSouthEast.second;
-  
-    x2 = x3;
-    y2 = y1;
-  
-    x4= x1;
-    y4 = y3;
-  
-    if(this.pointSouthWest == null)
-      return new Vector3D(x4, y4, this.pointNorthWest.third);
-    else
-      return this.pointSouthWest;
+        return this.pointSouthWest;
   }
 
   public Vector3D getPointSouthEast()
@@ -312,8 +283,11 @@ public class Rectangle3D extends Shape3D
   
   @Override
   /**
-   * counterclock
+   * Counterclock
+   * It relies on getPointNorthEast() and so on
+   * 
    */
+  
   public List<Vector3D> getListOfPoints()
   {
     //get copies of vectors: new 3d vectors
@@ -332,35 +306,6 @@ public class Rectangle3D extends Shape3D
   }
 
 
-  /* 
-   *  <---x_DIM---------->   
-   *  1------------------2    ^
-   *  |                  |    |            ^
-   *  |         O        |  Y_DIM          |
-   *  |                  |    |            y
-   *  4------------------3    v            |---x-->
-   */
-  /**
-   * The rectangle created in this way just stores information about the shape, none about the location!
-   * @param center
-   * @param xDim
-   * @param yDim
-   */
-  public Rectangle3D(Vector3D center, double xDim, double yDim)
-  {
-    double x1, y1, z1 = center.third,   x3,y3,z3 = center.third;
-
-    x1 = center.first - xDim / 2;
-    y1 = center.second + yDim / 2;
-    x3 = center.first + xDim / 2;
-    y3 = center.second - yDim / 2;
-
-    this.pointNorthWest = new Vector3D(x1, y1, z1);
-    this.pointSouthEast = new Vector3D(x3, y3, z3);
-
-  }
-
-  
   private double sqr(double x)
   {
     return Math.sqrt(Math.abs(x));
@@ -412,76 +357,192 @@ public class Rectangle3D extends Shape3D
 
   }
   
+  /* 
+   *  <---x_DIM---------->   
+   *  1------------------2    ^
+   *  |                  |    |            ^
+   *  |      Center      |  Y_DIM          |
+   *  |                  |    |            y
+   *  4------------------3    v            |---x-->
+   */
+  /**
+   * The rectangle created in this way have edges parallel to X or Y axis
+   * @param center
+   * @param xDim
+   * @param yDim
+   */
+ 
+  public Rectangle3D(Vector3D center, double xDim, double yDim)
+  {
+    double x1, y1, z1 = center.third,   x3,y3,z3 = center.third;
+    
+    
+    x1 = center.first - xDim / 2;
+    y1 = center.second + yDim / 2;
+    x3 = center.first + xDim / 2;
+    y3 = center.second - yDim / 2;
+  
+    this.pointNorthWest = new Vector3D(x1, y1, z1);
+    this.pointNorthEast = new Vector3D(x3, y1, 0);
+    
+    this.pointSouthEast = new Vector3D(x3, y3, z3);
+    this.pointSouthWest = new Vector3D(x1, y3, 0);
+  
+  }
+
+  /**
+   * 
+   * @param nE
+   * @param nW
+   * @param sW
+   * @param sE
+   */
+
   public Rectangle3D(Vector3D nE, Vector3D nW, Vector3D sW, Vector3D sE)
   {
-    this.pointNorthWest = nW;
-    this.pointSouthEast = sE;
-    this.pointNorthEast = nE;
-    this.pointSouthWest = sW;
-  }
-
+    /***
+     *  NW        NE  
+     *    1     2
+     *    
+     *    3     4
+     *  SW        SE
+     * 
+     */
+      constructorCompassPoints(nE, nW, sW, sE);
+   }
+  
   public Rectangle3D(List<Vector3D> list)
   {
-    if(list == null || list.size() != 4)
-    {
-      this.pointNorthWest = new Vector3D();
-      this.pointSouthEast = new Vector3D(1,1,0);
-      this.isARectangle = false;
-      throw new IllegalStateException("not a rectangle!");
-
-    }
-    else
-    {
-      
-      /*
-       * NW    N    NE
-       *    
-       * W     +     E
-       *     
-       *SW     S    SE
-       * 
-       */
-
-       double minX = 0, maxY=0;
-       minX = list.get(0).first;
-       maxY = list.get(0).second;
-       for(int i=0;i<4;i++)
-       { 
-         double x = list.get(i).first;
-         double y = list.get(i).second;
-         if(x <= minX)
-           minX = x;
-         if(y >= maxY)
-           maxY = y;
-       }
-
-       for(int i=0;i<4;i++)
-       {
-         double x = list.get(i).first;
-         double y = list.get(i).second;
-
-         if(x==minX && y == maxY)
-         {
-           this.pointNorthWest = list.get(i);
-         }
-         if(x!=minX && y!= maxY)
-         {
-           this.pointSouthEast = list.get(i);
-         }
-
-       }
-
-       if(! this.isARectangle())
-       {
-         this.isARectangle = false;
-         throw new IllegalStateException("not a rectangle!");
-         
-       }
-
-       
-    }
+      if(list != null && list.size() == 4)
+      {
+        try{
+        this.constructorCompassPoints(list.get(0),
+                                      list.get(1),
+                                      list.get(2),
+                                      list.get(3));
+        }
+        catch(IllegalStateException e)
+        {
+          e.printStackTrace();
+        }
+      }
+      else
+      {
+        throw new IllegalStateException("Rectangle 3D list contructor"
+            + " needs a list with 4 vecto3d inside ");
+      }
   }
 
+  private void constructorCompassPoints(Vector3D nE, Vector3D nW, Vector3D sW, Vector3D sE)
+  {
+    Map<Compass, Vector3D> map = this.getMapFromPoints(nW, nE, sE, sW);
+    
+    this.pointNorthWest = map.get(Compass.NW);
+    this.pointSouthEast = map.get(Compass.SE);
+    this.pointNorthEast = map.get(Compass.NE);
+    this.pointSouthWest = map.get(Compass.SW);
+  }
+
+  private void constructListOldWay(List<Vector3D> list)
+  {
+    double minX = 0, maxY=0;
+    minX = list.get(0).first;
+    maxY = list.get(0).second;
+    for(int i=0;i<4;i++)
+    { 
+      double x = list.get(i).first;
+      double y = list.get(i).second;
+      if(x <= minX)
+        minX = x;
+      if(y >= maxY)
+        maxY = y;
+    }
+
+    for(int i=0;i<4;i++)
+    {
+      double x = list.get(i).first;
+      double y = list.get(i).second;
+
+      if(x==minX && y == maxY)
+      {
+        this.pointNorthWest = list.get(i);
+      }
+      if(x!=minX && y!= maxY)
+      {
+        this.pointSouthEast = list.get(i);
+      }
+
+    }
+
+    if(! this.isARectangle())
+    {
+      this.isARectangle = false;
+      throw new IllegalStateException("not a rectangle!");
+      
+    }
+    
+  }
+  
+  private Map<Compass, Vector3D> getMapFromPoints(Vector3D nW, Vector3D nE, Vector3D sE, Vector3D sW)
+  {
+    TreeSet<Vector3D> ts = new TreeSet<Vector3D>(new Comparator<Vector3D>() {
+  
+      public int compare(Vector3D v1, Vector3D v2) {
+        
+          if(v1.second < v2.second)
+            return 1;
+          if(v1.second > v2.second)
+            return -1;
+  
+          if(v1.first  < v2.first)
+            return -1;
+          if(v1.first  > v2.first)
+            return 1;
+  
+          return 0;
+        
+      }
+    });
+    
+    ts.add(nW);
+    ts.add(nE);
+    ts.add(sE);
+    ts.add(sW);
+    
+    List<Vector3D> points = new ArrayList<Vector3D>(ts);
+    
+    Vector3D nW1 = points.get(0);
+    Vector3D nE1 = points.get(1);
+    Vector3D sW1 = points.get(2);
+    Vector3D sE1 = points.get(3);
+    
+    Segment3D NN = new Segment3D(nE1, nW1);
+    Segment3D WW = new Segment3D(nW1, sW1);
+    boolean perp = NN.isPerpendicular(WW);
+    Segment3D SS = new Segment3D(sW1, sE1);
+    Segment3D EE = new Segment3D(nE1, sE1);
+  
+    perp = perp && SS.isPerpendicular(EE);
+    this.isARectangle = perp;
+    
+    if(! this.isARectangle)
+    {
+      throw new IllegalStateException("points does not form a rect!!");
+    }
+    
+    Map<Compass, Vector3D> compm  = new HashMap<Compass, Vector3D>();
+    compm.put(Compass.NE, nE1);
+    compm.put(Compass.NW, nW1);
+    compm.put(Compass.SE, sE1);
+    compm.put(Compass.SW, sW1);
+    return compm;
+  }
+
+
+  public enum Compass
+  {
+    NE, NW, SE, SW;
+  }
 
   private String spacesFor(String s)
   {
@@ -496,17 +557,11 @@ public class Rectangle3D extends Shape3D
 
   @Override
   public void scale(float scaleFactor) {
+    
     this.pointNorthWest.scale(scaleFactor);
     this.pointSouthEast.scale(scaleFactor);
-    if(this.pointNorthEast != null)
-    {
-      this.pointNorthEast.scale(scaleFactor);
-    }
-    if(this.pointSouthWest != null)
-    {
-      this.pointSouthWest.scale(scaleFactor);
-    }
-
+    this.pointNorthEast.scale(scaleFactor);
+    this.pointSouthWest.scale(scaleFactor);
   }
 
   public Segment3D getTopSegment() {
@@ -534,6 +589,14 @@ public class Rectangle3D extends Shape3D
     a1.intersect(a2);
     boolean eq = a1.equals(a2);
     return eq;
+  }
+
+  public String getRectName() {
+    return rectName;
+  }
+
+  public void setRectName(String rectName) {
+    this.rectName = rectName;
   }
 
 

@@ -200,6 +200,7 @@ public class RoomGeoSmart extends Room {
     if(points != null  && points.size() == 4)
     {
       Vector3D  nE, nW, sW, sE;
+
       nE = points.get(0);
       nW = points.get(1);
       sW = points.get(2);
@@ -619,6 +620,9 @@ public class RoomGeoSmart extends Room {
     {
       Area a1 = new Area( this.getPolygonBigger(100)); //getAreaShape100Big
       Area a2 = new Area( r2.getPolygonBigger(100));
+      
+      int pluto = 32;
+      
       Rectangle3D rectBounds = wall.getBoundingRoomRect3D();
       float borderSize = (float) rectBounds.getMinEdge();
       RoomGeoSmart  borderedWall = wall.getBiggerRoomBordered(borderSize);

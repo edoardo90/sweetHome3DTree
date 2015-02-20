@@ -21,6 +21,7 @@
 package com.eteks.sweethome3d.junit.adaptive;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -476,7 +477,29 @@ public abstract  class BasicTest extends TestCase {
       return file;
   }
 
+  
+  protected void runAllOwnTests()
+  {
+    Method [] methods = this.getClass().getMethods();
+    
+    for(Method m : methods)
+    {
+      try 
+      { 
+        Class<?> declaring = m.getDeclaringClass();
+        Class<?> thisClazz = this.getClass();
+        String name =  m.getName().toString();
 
+        
+        if(thisClazz.equals(declaring) && name.startsWith("test"))
+        {
+          m.invoke(this);
+        }
+      } 
+      catch (Exception e) {  e.printStackTrace(); }
+    }
+  }
+  
 
 
 

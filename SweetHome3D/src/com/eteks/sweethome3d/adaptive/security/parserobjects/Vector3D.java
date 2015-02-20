@@ -129,6 +129,12 @@ public class Vector3D implements Serializable
     return new Vector3D(this.first * scaleFactor, this.second * scaleFactor, this.third * scaleFactor);
   }
   
+  public double scalarProduct(Vector3D v2)
+  {
+    return this.first  * v2.first +
+           this.second * v2.second +
+           this.third  * v2.third;
+  }
   
   
   
