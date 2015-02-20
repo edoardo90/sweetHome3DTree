@@ -97,6 +97,8 @@ public abstract  class BasicTest extends TestCase {
   protected Wall w3;
   protected Wall w4;
   protected Wall w5;
+  protected HomePieceOfFurniture washing;
+  protected HomePieceOfFurniture coocker;
 
   public void testDumb()
   {
@@ -192,8 +194,11 @@ public abstract  class BasicTest extends TestCase {
     home.addWall(w4);
     home.addWall(w5);
 
-    HomePieceOfFurniture hopf = getHomePiece(preferences, 1, 4, "washing", 100, 60);
-    home.addPieceOfFurniture(hopf);
+    washing = getHomePiece(preferences, 3, 2, "washing", 100, 60);
+    coocker = getHomePiece(preferences, 3, 1, "coocker", 500, 100);
+    
+    home.addPieceOfFurniture(washing);
+    home.addPieceOfFurniture(coocker);
 
   }
 

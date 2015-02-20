@@ -1,6 +1,6 @@
-Bagno
-Doccia,CCTV
-Gabinetto,PC
+Kitchen
+Cooker,CCTV
+Dishwasher,PC
 Lavandino,PRINTER
 Lavandino con mobiletto,LIGHT
 Vasca da bagno,HVAC

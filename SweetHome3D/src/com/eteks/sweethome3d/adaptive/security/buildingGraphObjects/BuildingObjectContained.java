@@ -43,6 +43,11 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     return position;
   }
 
+  public BuildingObjectType getType()
+  {
+    return this.objectType;
+  }
+  
   public void setPosition(Vector3D position) {
     this.position = position;
   }

@@ -1,14 +1,17 @@
 package com.eteks.sweethome3d.junit.adaptive.graphhome;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.CyberLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
+import com.eteks.sweethome3d.junit.HomeExtractorEvil;
 import com.eteks.sweethome3d.junit.adaptive.BasicTest;
 import com.eteks.sweethome3d.junit.adaptive.ControllerTest;
 import com.eteks.sweethome3d.model.Home;
@@ -17,6 +20,7 @@ import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
 import com.eteks.sweethome3d.viewcontroller.ViewFactory;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.LocalAttribute;
 
 public class HomeToGraphTest extends BasicTest {
 
@@ -38,7 +42,7 @@ public class HomeToGraphTest extends BasicTest {
   public void testMove() throws Exception
   {
 
-    HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
+    HomeSecurityExtractor hse = new HomeExtractorEvil(home, preferences);
 
     BuildingSecurityGraph segraph =  hse.getGraph();
 
@@ -56,9 +60,30 @@ public class HomeToGraphTest extends BasicTest {
     assertFalse("the object should be only in kitchen",
         containsDeep(segraph, this.livingRoom.getId(), "washing"));
 
-
-
   }
+  
+  public void testCyberLink() throws Exception
+  {
+    
+    HomeExtractorEvil hee = new HomeExtractorEvil(home, preferences);
+    BuildingSecurityGraph segraph =  hee.getGraph();
+    
+    System.out.println(segraph);
+    
+    segraph.addCyberLink(this.coocker.getId(), this.washing.getId());
+    
+    assertTrue("cooker and washing should be linked",
+                    this.isThereLink(segraph, coocker.getId(),  washing.getId()));
+    
+    segraph.removeCyberLink(this.coocker.getId(), this.washing.getId());
+    
+    assertFalse("cooker and washing should not be linked anymore",
+        this.isThereLink(segraph, coocker.getId(),  washing.getId()));
+    
+  }
+  
+  
+  
 
   public void testRemove() throws Exception
   {
@@ -107,7 +132,7 @@ public class HomeToGraphTest extends BasicTest {
 
   public void testMatchCoords() throws Exception
   {
-    HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
+    HomeSecurityExtractor hse = new HomeExtractorEvil(home, preferences);
     BuildingSecurityGraph segraph =  hse.getGraph();
 
     String idRoom  = segraph.getRoomId(new Vector3D(300, 400, 0));
@@ -160,6 +185,7 @@ public class HomeToGraphTest extends BasicTest {
   public void doStuffInsideMain(Home home, UserPreferences preferences) {
 
     this.setUp();
+    
     prepareHome(home , preferences);
     HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
     try 
@@ -171,7 +197,18 @@ public class HomeToGraphTest extends BasicTest {
     catch (Exception ex)  {     ex.printStackTrace();  }
 
   }
-
+  
+  private boolean isThereLink(BuildingSecurityGraph segraph, String id1, String id2)
+  {
+    List<CyberLinkEdge> cyberLinks = segraph.getCyberLinkEdgeList();
+    for(CyberLinkEdge cle : cyberLinks)
+    {
+      cle.equals(new CyberLinkEdge(id1, id2));
+    }
+    
+    return false;
+  }
+  
   protected boolean containsDeep(BuildingSecurityGraph segraph, String roomId, String objectId)
   {
 

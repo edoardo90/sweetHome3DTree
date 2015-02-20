@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.junit.adaptive.statusObjs;
+package com.eteks.sweethome3d.junit.adaptive.objectsContained;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -68,7 +68,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     BuildingSecurityGraph securityGraph = BuildingSecurityGraph.getInstance();
     securityGraph.clearAll();
      
-    
+    this.preferences = preferences;
 
     for (Room r : rooms)
     {
@@ -98,7 +98,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           Vector3D position = pieceOfForn.getPosition();
           
           
-          ConfigLoader cfg = ConfigLoader.getInstance(preferences);
+          ConfigLoader cfg = this.getConfig(preferences);
           SecurityNameAndMap namesConv = cfg.getNamesConventions();
           Map<String, BuildingObjectType> catalog = namesConv.sweetCatalogToType;
           String name = pieceOfForn.getName();
@@ -184,6 +184,10 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     
     return securityGraph;
 
+  }
+
+  protected ConfigLoader getConfig(UserPreferences preferences) {
+    return ConfigLoader.getInstance(preferences);
   }
 
   private boolean areLinkedRoomsAndDoor(Room r1, Room r2, HomePieceOfFurniture d)

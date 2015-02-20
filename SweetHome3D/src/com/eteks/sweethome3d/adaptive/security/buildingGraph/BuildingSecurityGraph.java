@@ -343,6 +343,21 @@ public class BuildingSecurityGraph {
     this.addNewObject(idObject, type, idRoomDestination, position);
     
   }
+
+  public void addCyberLink(String id1, String id2) {
+      BuildingObjectContained bo1 = this.getObjectContainedFromObj(new IdObject(id1));
+      BuildingObjectContained bo2 = this.getObjectContainedFromObj(new IdObject(id2));
+      
+      bo1.getType(); 
+      //TODO: check on type to understand wether the link make sens or not
+      
+      
+  }
+
+  public void removeCyberLink(String id, String id2) {
+    // TODO Auto-generated method stub
+    
+  }
   
   
   
