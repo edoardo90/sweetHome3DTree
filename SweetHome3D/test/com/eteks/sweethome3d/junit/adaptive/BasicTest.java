@@ -27,6 +27,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -97,8 +98,10 @@ public abstract  class BasicTest extends TestCase {
   protected Wall w3;
   protected Wall w4;
   protected Wall w5;
-  protected HomePieceOfFurniture washing;
-  protected HomePieceOfFurniture coocker;
+  protected HomePieceOfFurniture pc;
+  protected HomePieceOfFurniture cctv;
+  protected HomePieceOfFurniture printer;
+  protected HomePieceOfFurniture actor;
 
   public void testDumb()
   {
@@ -194,14 +197,30 @@ public abstract  class BasicTest extends TestCase {
     home.addWall(w4);
     home.addWall(w5);
 
-    washing = getHomePiece(preferences, 3, 2, "washing", 100, 60);
-    coocker = getHomePiece(preferences, 3, 1, "coocker", 500, 100);
+    pc = getHomePieceOfForniture(preferences, BuildingObjectType.PC, new Vector3D(100, 100, 0));
+    cctv = getHomePieceOfForniture(preferences, BuildingObjectType.CCTV, new Vector3D(500, 100, 0));
+    printer = getHomePieceOfForniture(preferences, BuildingObjectType.PRINTER, new Vector3D(300, 500, 0));
+    actor = getHomePieceOfForniture(preferences, BuildingObjectType.ACTOR, new Vector3D(500, 500, 0));
     
-    home.addPieceOfFurniture(washing);
-    home.addPieceOfFurniture(coocker);
+    home.addPieceOfFurniture(pc);
+    home.addPieceOfFurniture(cctv);
+    home.addPieceOfFurniture(printer);
+    home.addPieceOfFurniture(actor);
 
   }
 
+  protected HomePieceOfFurniture getHomePieceOfForniture(UserPreferences preferences, BuildingObjectType type, Vector3D position)
+  {
+    ConfigFileEvilTest cfg = ConfigFileEvilTest.getInstance(preferences);
+    Map<BuildingObjectType, HomePieceOfFurniture> map =   cfg.createTypeToFurnitureMap();
+    preferences.setFornitureMap(map); 
+    
+    HomePieceOfFurniture hopf = preferences.getPieceOfForniture(type);
+    hopf.setId(type.name());
+    hopf.setPosition(position);
+    return hopf;
+  }
+  
   protected HomePieceOfFurniture getHomePiece(UserPreferences preferences, int categ, int item, String id, int x, int y)
   {
     FurnitureCategory cat =  preferences.getFurnitureCatalog().getCategories().get(categ);

@@ -1260,4 +1260,9 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
   public void setId(String id) {
     this.id = id;
   }
+
+  public void setPosition(Vector3D position) {
+    this.setX((float)position.first);
+    this.setY((float)position.second);
+  }
 }

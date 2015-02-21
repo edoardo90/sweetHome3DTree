@@ -122,7 +122,6 @@ public class ConfigLoader {
     this.preferences = preferences;
     this.sweetHomeLibraryObjects = this.readSweetHomeLibraryObj();
     this.ifcWordsToLookFor = this.readWordsToLook();
-    
 
   }
 

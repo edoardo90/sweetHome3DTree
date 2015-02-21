@@ -1,8 +1,9 @@
 Kitchen
 Cooker,CCTV
 Dishwasher,PC
-Lavandino,PRINTER
+Fridge,PRINTER
+Sink,ACTOR
 Lavandino con mobiletto,LIGHT
 Vasca da bagno,HVAC
-Vasca da bagno incassata,MAN
+Kitchen cabinet,MAN
 Doccia,UNKNOWN_OBJECT

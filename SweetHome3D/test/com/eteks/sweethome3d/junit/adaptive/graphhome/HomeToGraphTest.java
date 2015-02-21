@@ -46,19 +46,19 @@ public class HomeToGraphTest extends BasicTest {
 
     BuildingSecurityGraph segraph =  hse.getGraph();
 
-    segraph.moveObject("washing", this.kitchen.getId());
+    segraph.moveObject(this.pc.getId(), this.kitchen.getId());
 
     assertTrue("the object has been moved",
-        containsDeep(segraph, this.kitchen.getId(), "washing"));
+        containsDeep(segraph, this.kitchen.getId(), this.pc.getId()));
 
     assertFalse("the object should be only in kitchen",
-        containsDeep(segraph, this.cubbyRoom.getId(), "washing"));
+        containsDeep(segraph, this.cubbyRoom.getId(), this.pc.getId()));
 
     assertFalse("the object should be only in kitchen",
-        containsDeep(segraph, this.diningRoom.getId(), "washing"));
+        containsDeep(segraph, this.diningRoom.getId(), this.pc.getId()));
 
     assertFalse("the object should be only in kitchen",
-        containsDeep(segraph, this.livingRoom.getId(), "washing"));
+        containsDeep(segraph, this.livingRoom.getId(), this.pc.getId()));
 
   }
   
@@ -67,18 +67,29 @@ public class HomeToGraphTest extends BasicTest {
     
     HomeExtractorEvil hee = new HomeExtractorEvil(home, preferences);
     BuildingSecurityGraph segraph =  hee.getGraph();
-    
     System.out.println(segraph);
     
-    segraph.addCyberLink(this.coocker.getId(), this.washing.getId());
+    boolean illegalArg = false;
+    try
+    {
+      segraph.addCyberLink(this.cctv.getId(), this.pc.getId());
+    }
+    catch(IllegalArgumentException iae)
+    {
+      illegalArg = true;
+    }
+    assertTrue("can't link CCTV and PC because CCTV can't accept connections", illegalArg);
+
     
-    assertTrue("cooker and washing should be linked",
-                    this.isThereLink(segraph, coocker.getId(),  washing.getId()));
+    segraph.addCyberLink(this.printer.getId(), this.pc.getId());
     
-    segraph.removeCyberLink(this.coocker.getId(), this.washing.getId());
+    assertTrue("printer and pc should be linked",
+                    this.isThereLink(segraph, printer.getId(),  pc.getId()));
     
-    assertFalse("cooker and washing should not be linked anymore",
-        this.isThereLink(segraph, coocker.getId(),  washing.getId()));
+    segraph.removeCyberLink(this.printer.getId(), this.pc.getId());
+    
+    assertFalse("printer and pc should not be linked anymore",
+        this.isThereLink(segraph, printer.getId(),  pc.getId()));
     
   }
   
@@ -187,11 +198,11 @@ public class HomeToGraphTest extends BasicTest {
     this.setUp();
     
     prepareHome(home , preferences);
-    HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
+    HomeSecurityExtractor hse = new HomeExtractorEvil(home, preferences);
     try 
-    {   BuildingSecurityGraph segraph =  hse.getGraph();
-    
-        segraph.moveObject("washing", "kitchen");
+    {  
+      BuildingSecurityGraph segraph =  hse.getGraph();
+      segraph.moveObject(this.pc.getId(), this.kitchen.getId());
     
     }
     catch (Exception ex)  {     ex.printStackTrace();  }
@@ -203,7 +214,10 @@ public class HomeToGraphTest extends BasicTest {
     List<CyberLinkEdge> cyberLinks = segraph.getCyberLinkEdgeList();
     for(CyberLinkEdge cle : cyberLinks)
     {
-      cle.equals(new CyberLinkEdge(id1, id2));
+      boolean eq = cle.equals(new CyberLinkEdge(id1, id2));
+      if(eq)
+        return true;
+      
     }
     
     return false;

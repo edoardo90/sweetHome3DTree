@@ -348,15 +348,29 @@ public class BuildingSecurityGraph {
       BuildingObjectContained bo1 = this.getObjectContainedFromObj(new IdObject(id1));
       BuildingObjectContained bo2 = this.getObjectContainedFromObj(new IdObject(id2));
       
-      bo1.getType(); 
-      //TODO: check on type to understand wether the link make sens or not
+      if(bo1 == null || bo2 == null)
+      {
+        throw new IllegalStateException("Id not found maybe the graph is not updated");
+      }
       
+      BuildingObjectType t1 = bo1.getType();
+      BuildingObjectType t2 = bo2.getType();
+      
+      if(t1.canAcceptConnections() && t2.canStartConnections()  ||
+         t2.canAcceptConnections() && t1.canStartConnections()   )
+      {
+        this.cyberLinkEdgeList.add( new CyberLinkEdge(id1, id2));
+      }
+      else
+      {
+        throw new IllegalArgumentException("these 2 objects can't be linked");
+      }
+        
       
   }
 
-  public void removeCyberLink(String id, String id2) {
-    // TODO Auto-generated method stub
-    
+  public void removeCyberLink(String id1, String id2) {
+      this.cyberLinkEdgeList.remove(new CyberLinkEdge(id1, id2));
   }
   
   

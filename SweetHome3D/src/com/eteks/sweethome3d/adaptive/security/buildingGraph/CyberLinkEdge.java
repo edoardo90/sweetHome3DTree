@@ -20,7 +20,12 @@ public class CyberLinkEdge {
   public void setIdObject2(String idObject2) {
     this.idObject2 = idObject2;
   }
-  
+
+  @Override
+  public String toString()
+  {
+    return this.idObject1 + "<::::::::::::>" + this.idObject2 + "\n";
+  }
 
   
   @Override 
@@ -33,9 +38,15 @@ public class CyberLinkEdge {
       String id1 = this.idObject1;
       String id2 = this.idObject2;
       
-      return id1.equals(oc.getIdObject1()) && id2.equals(oc.getIdObject2())    || 
-             id1.equals(oc.getIdObject2()) && id2.equals(oc.getIdObject1()) 
-            ;
+      String other1 = oc.idObject1;
+      String other2 = oc.idObject2;
+      
+      boolean oneAndOne = id1.equals(other1);
+      boolean oneAndTwo = id1.equals(other2);
+      boolean twoAndOne = id2.equals(other1);
+      boolean twoAndtwo = id2.equals(other2);
+      
+      return (oneAndOne  && twoAndtwo) ||  (oneAndTwo && twoAndOne);
       
              
     }

@@ -37,4 +37,38 @@ public enum BuildingObjectType {
     return null;
   }
   
+  
+  public boolean canStartConnections()
+  {
+    switch (this)
+    {
+      case PC:
+      case ACTOR:
+      case MAN:
+      case WOMAN:
+        return true;
+      default:
+        return false;
+    }
+    
+  }
+  
+ 
+  public boolean canAcceptConnections()
+  {
+    switch (this)
+    {
+      case PC:
+      case PRINTER:
+        return true;
+      default:
+        return false;
+    }
+
+  }
+  
+  
+  
+  
+  
 }
