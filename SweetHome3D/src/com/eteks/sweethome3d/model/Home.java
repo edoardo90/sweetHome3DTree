@@ -40,6 +40,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
@@ -1720,6 +1721,37 @@ public class Home implements Serializable, Cloneable {
     
     
     
+  }
+
+  public void addCyberLink(String id1, String id2) {
+    try
+    {
+      BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+      
+      try
+      {
+        segraph.addCyberLink(id1, id2);
+      }
+      catch(IllegalArgumentException e) {   return;   }
+      catch(IllegalStateException e1) { return ; }
+      catch(Exception e2) { e2.printStackTrace(); }
+      
+      BuildingObjectContained bo1 = segraph.getObjectContainedFromObj(new IdObject(id1));
+      BuildingObjectContained bo2 = segraph.getObjectContainedFromObj(new IdObject(id2));
+      
+      float xStart = (float) bo1.getPosition().first;
+      float yStart = (float) bo1.getPosition().second;
+      float xEnd = (float)   bo2.getPosition().first;
+      float yEnd = (float)   bo2.getPosition().second;
+      
+      DimensionLine dimensionLine = new DimensionLine(xStart, yStart, xEnd, yEnd, 20);
+      
+      this.addDimensionLine(dimensionLine);
+      
+    }
+    catch(Exception e) { e.printStackTrace(); }
+    
+
   }
 
 

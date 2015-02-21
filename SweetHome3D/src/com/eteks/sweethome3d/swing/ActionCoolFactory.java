@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 
 import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 
 public class ActionCoolFactory {
 
@@ -40,7 +41,22 @@ public class ActionCoolFactory {
         mnemonic = new Integer(KeyEvent.VK_A); 
         break;
       }
-      
+      case ADD_LINK:
+      {
+        text = "Connect this 2 selected objects";
+        iconName = "et_link";
+        desc = "Click to connect the 2 selected objects";
+        mnemonic = new Integer(KeyEvent.VK_C);
+        break;
+      }
+      case REFRESH_GRAPH:
+      {
+        text = "refresh";
+        iconName = "refresh";
+        desc = "Click to refresh the state";
+        mnemonic = new Integer(KeyEvent.VK_R);
+        break;
+      }
       default:
       {
        

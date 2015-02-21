@@ -203,6 +203,8 @@ public class HomeToGraphTest extends BasicTest {
     {  
       BuildingSecurityGraph segraph =  hse.getGraph();
       segraph.moveObject(this.pc.getId(), this.kitchen.getId());
+      
+      
     
     }
     catch (Exception ex)  {     ex.printStackTrace();  }

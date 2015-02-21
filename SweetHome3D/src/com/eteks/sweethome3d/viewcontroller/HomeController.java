@@ -71,6 +71,7 @@ import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.SecurityExtractor;
 import com.eteks.sweethome3d.model.AspectRatio;
@@ -1524,7 +1525,6 @@ public class HomeController implements Controller {
     }
     
     
-    
   }
   
   
@@ -1592,6 +1592,44 @@ public class HomeController implements Controller {
     if(containedObj == null)
          return null;
     return containedObj.getStatusForView();
+  }
+  
+  public void addCyberLink()
+  {
+    List<Selectable> selected = home.getSelectedItems();
+    if(selected.size() != 2)
+    {
+      System.out.println("select 2 objects that can be connected");
+      return ;
+    }
+    else
+    {
+      
+      Selectable obj1 = selected.get(0);
+      Selectable obj2 = selected.get(1);
+      if (obj1 instanceof HomePieceOfFurniture && obj2 instanceof HomePieceOfFurniture) {
+        HomePieceOfFurniture hopf1 = (HomePieceOfFurniture)obj1;
+        HomePieceOfFurniture hopf2 = (HomePieceOfFurniture)obj2;
+        home.addCyberLink(hopf1.getId(), hopf2.getId());
+      }
+      else
+      {
+        return;
+      }
+    
+    }
+  }
+  
+  public void refreshGraph()
+  {
+    HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
+    try{
+      hse.getGraph();
+    }
+    catch(Exception e)
+    {
+      
+    }
   }
   
   /**

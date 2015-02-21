@@ -331,6 +331,8 @@ public class HomePane extends JRootPane implements HomeView {
     
     createActionSimple(ActionType.OPEN_IFC,    controller, "openIfc");
     createActionSimple(ActionType.SHOW_STATUS, controller, "showStatus");
+    createActionSimple(ActionType.ADD_LINK,    controller, "addCyberLink");
+    createActionSimple(ActionType.REFRESH_GRAPH,    controller, "refreshGraph");
     
     /**  end of new actions for security **/
     
@@ -2113,6 +2115,7 @@ public class HomePane extends JRootPane implements HomeView {
     addActionToToolBar(ActionType.CREATE_PHOTO, toolBar);
     addActionToToolBar(ActionType.CREATE_VIDEO, toolBar);
     toolBar.addSeparator();
+    toolBar.addSeparator();
     
     /***
      * security actions
@@ -2120,7 +2123,8 @@ public class HomePane extends JRootPane implements HomeView {
     
     addActionToToolBarSimple(ActionType.OPEN_IFC, toolBar);
     addActionToToolBarSimple(ActionType.SHOW_STATUS, toolBar);
-    
+    addActionToToolBarSimple(ActionType.ADD_LINK, toolBar);
+    addActionToToolBarSimple(ActionType.REFRESH_GRAPH, toolBar);
 
     // Add plugin actions buttons
     boolean pluginActionsAdded = false;
@@ -4865,4 +4869,6 @@ public class HomePane extends JRootPane implements HomeView {
   private abstract interface SelectableFormat<T extends Selectable> {
     public abstract String format(T item);
   }
+
+
 }

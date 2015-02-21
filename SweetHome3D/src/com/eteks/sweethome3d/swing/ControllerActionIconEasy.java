@@ -22,7 +22,7 @@ public class ControllerActionIconEasy  extends AbstractAction {
                             String method, 
                             Object ... parameters) throws NoSuchMethodException {
       
-      super(text, createNavigationIcon(iconName));
+      super("", createNavigationIcon(iconName));
       putValue(SHORT_DESCRIPTION, desc);
       putValue(MNEMONIC_KEY, mnemonic);
       

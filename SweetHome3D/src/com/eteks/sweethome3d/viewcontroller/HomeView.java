@@ -42,7 +42,7 @@ public interface HomeView extends View {
        /**
         * edoardo add
         */
-      OPEN_IFC, SHOW_STATUS,ADD_FILE,
+      OPEN_IFC, SHOW_STATUS,ADD_FILE, ADD_LINK, REFRESH_GRAPH,
       /**
        * already here
        */
@@ -306,5 +306,12 @@ public interface HomeView extends View {
    */
   public abstract void invokeLater(Runnable runnable);
 
+  /**
+   * show the status of the object, like if it is broken or what files does it contain
+   * @param status: life
+   * @param files:  true iif there is need to display files
+   * @return
+   */
   public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView status, boolean files);
+  
 }
