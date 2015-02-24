@@ -30,7 +30,9 @@ import java.math.BigDecimal;
 import java.security.AccessControlException;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -60,6 +62,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   private final HomeFurnitureController controller;
   private JLabel                  nameLabel;
   private JTextField              nameTextField;
+  
   private JLabel                  descriptionLabel;
   private JTextField              descriptionTextField;
   private NullableCheckBox        nameVisibleCheckBox;
@@ -908,10 +911,14 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
       namePanel.add(this.nameTextField, new GridBagConstraints(
           1, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START,
           GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 10), 0, 0));
+      namePanel.add(new JButton("ciao"), new GridBagConstraints(
+          2, 0, 1, 1, 0, 0, GridBagConstraints.LINE_END,
+          GridBagConstraints.HORIZONTAL, new Insets(0,0,0,20), 0, 0));
     }
+    
     if (this.nameVisibleCheckBox != null) {
       namePanel.add(this.nameVisibleCheckBox, new GridBagConstraints(
-          2, 0, 2, 1, 0, 0, GridBagConstraints.LINE_START,
+          3, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START,
           GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     }
     if (this.descriptionLabel != null) {
@@ -934,6 +941,36 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
       add(namePanel, new GridBagConstraints(0, 0, 3, 1, 0, 0, labelAlignment, GridBagConstraints.HORIZONTAL,
           new Insets(0, 0, rowGap, 0), 0, 0));
     }
+    //Role panel
+    
+    int gridx=0, gridy=1, gridwidth=1, gridheight=1;
+    int weightx=0, weighty=0;
+    int anchor=GridBagConstraints.CENTER, fill=GridBagConstraints.NONE,  ipadx=0, ipady=0;
+    Insets insets = new Insets(0, 0, 0, 0);
+    
+    JPanel rolePanel = SwingTools.createTitledPanel("Role");
+    
+    anchor=GridBagConstraints.LINE_START;
+    gridwidth=2; weightx=0;
+    rolePanel.add(new JLabel("Add role:"), new GridBagConstraints(gridx, gridy, gridwidth, gridheight,
+        weightx, weighty, anchor, fill, new Insets(0, 10, 0, 0), ipadx, ipady));
+    
+    gridx=2;
+    gridwidth=1;
+    weightx=1;
+    
+    anchor=GridBagConstraints.LINE_START;
+    rolePanel.add(new JButton("___ooo__"), new GridBagConstraints
+        (gridx, gridy, gridwidth, gridheight, 
+         weightx, weighty,
+         anchor, fill, new Insets(10, 10, 10, 10), ipadx, ipady));
+    ipadx=0;
+    
+    gridx=0; gridy=1; gridwidth=3; weightx=1; fill = GridBagConstraints.HORIZONTAL;
+    add(rolePanel, new GridBagConstraints(gridx, gridy, gridwidth, gridheight, 
+          weightx, weighty, anchor, fill, insets, ipadx, ipady));
+    
+    
     // Location panel
     JPanel locationPanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
         HomeFurniturePanel.class, "locationPanel.title"));
@@ -978,9 +1015,12 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
     }
     if (locationPanel.getComponentCount() > 0) {
       add(locationPanel, new GridBagConstraints(
-          0, 1, 1, 1, 1, 0, labelAlignment, GridBagConstraints.BOTH, new Insets(
+          0, 1+1, 1, 1, 1, 0, labelAlignment, GridBagConstraints.BOTH, new Insets(
           0, 0, rowGap, 0), 0, 0));
     }
+    
+    
+    
     // Size panel
     JPanel sizePanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
         HomeFurniturePanel.class, "sizePanel.title"));
@@ -1020,7 +1060,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
     }
     if (sizePanel.getComponentCount() > 0) {
       add(sizePanel, new GridBagConstraints(
-          1, 1, 2, 1, 1, 0, labelAlignment, 
+          1, 1+1, 2, 1, 1, 0, labelAlignment, 
           GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0));
     }
     final JPanel paintPanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
@@ -1064,7 +1104,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
             GridBagConstraints.HORIZONTAL, new Insets(5, 0, buttonsBottomInset, 0), 0, buttonPadY));
       }
       add(paintPanel, new GridBagConstraints(
-          0, 2, 1, 1, 0, 0, labelAlignment, 
+          0, 2+1, 1, 1, 0, 0, labelAlignment, 
           GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0));
       
       controller.addPropertyChangeListener(HomeFurnitureController.Property.TEXTURABLE, 
@@ -1094,7 +1134,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
             GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 0, 0));
       }
       add(shininessPanel, new GridBagConstraints(
-          1, 2, 2, 1, 0, 0, labelAlignment, 
+          1, 2+1, 2, 1, 0, 0, labelAlignment, 
           GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0));
       
       controller.addPropertyChangeListener(HomeFurnitureController.Property.TEXTURABLE, 
@@ -1108,15 +1148,15 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
     // Last row
     if (this.visibleCheckBox != null) {
       add(this.visibleCheckBox, new GridBagConstraints(
-          0, 3, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
+          0, 3+1, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
           GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
     }
     if (this.lightPowerLabel != null) {
       add(this.lightPowerLabel, new GridBagConstraints(
-          1, 3, 1, 1, 0, 0, labelAlignment, 
+          1, 3+1, 1, 1, 0, 0, labelAlignment, 
           GridBagConstraints.NONE, new Insets(0, 10, 0, 5), 0, 0));
       add(this.lightPowerSpinner, new GridBagConstraints(
-          2, 3, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
+          2, 3+1, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
           GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
     }
   }

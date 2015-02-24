@@ -53,7 +53,7 @@ public enum BuildingObjectType {
     
   }
   
- 
+ //TODO: REMOVE
   public boolean canAcceptConnections()
   {
     switch (this)

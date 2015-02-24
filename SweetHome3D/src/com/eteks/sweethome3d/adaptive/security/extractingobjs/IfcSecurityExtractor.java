@@ -65,6 +65,7 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
@@ -903,6 +904,11 @@ public class IfcSecurityExtractor extends SecurityExtractor{
     return new Axis3DNice(x1, x2, x3, y1, y2, y3, z1, z2, z3);
   }
 
+  
+  @Override
+  protected ConfigLoader getConfig(UserPreferences preferences) {
+    return ConfigLoader.getInstance();
+  }
 
 
 

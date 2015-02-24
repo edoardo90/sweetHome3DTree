@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.FurnitureCategory;
@@ -36,14 +37,15 @@ public class ConfigLoader {
 
   private static ConfigLoader instance = null;
   private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>();
-  private SecurityNameAndMap snm = null; 
+  private SecurityNameAndMap snm = null;
+  private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = null;
   
   /**
    * Map that stores the graphical representation associated to each {@link BuildingObjectType}
    * 
    * @return
    */
-  public Map<BuildingObjectType, HomePieceOfFurniture> createTypeToFurnitureMap()
+  private Map<BuildingObjectType, HomePieceOfFurniture> createTypeToFurnitureMap()
   {
     Map<BuildingObjectType, HomePieceOfFurniture> catalogFurniture =
         new HashMap<BuildingObjectType, HomePieceOfFurniture>();
@@ -114,16 +116,34 @@ public class ConfigLoader {
     
   }
   
-  
+  public Map<BuildingObjectType, HomePieceOfFurniture> getMapTypeToFurniture()
+  {
+    if(typeToFurniture == null)
+        typeToFurniture = this.createTypeToFurnitureMap();
+    return this.typeToFurniture;
+  }
   
 
   protected ConfigLoader(UserPreferences preferences)
   {
-    this.preferences = preferences;
+    ConfigLoader.preferences = preferences;
     this.sweetHomeLibraryObjects = this.readSweetHomeLibraryObj();
     this.ifcWordsToLookFor = this.readWordsToLook();
-
+    this.setMapOfLibraryObjects(preferences);
+    
   }
+  
+  /**
+   * Create a map from object type to homePieceOfFurniture, this map is used by the objects
+   * This is used by objects of the class {@link BuildingObjectContained} to call getPieceOfForniture
+   * @param preferences
+   */
+  private void setMapOfLibraryObjects(UserPreferences preferences)
+  {
+    Map<BuildingObjectType, HomePieceOfFurniture> map =   this.getMapTypeToFurniture();
+    preferences.setFornitureMap(map); 
+  }
+  
 
 
   protected File getFileFromName(String name)

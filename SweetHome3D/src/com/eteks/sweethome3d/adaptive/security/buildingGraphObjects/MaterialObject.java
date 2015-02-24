@@ -3,7 +3,7 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
 
-public class MaterialObject extends BuildingObjectContained {
+public abstract class MaterialObject extends BuildingObjectContained {
 
   private LifeStatus lifeStatus = LifeStatus.ON;
   

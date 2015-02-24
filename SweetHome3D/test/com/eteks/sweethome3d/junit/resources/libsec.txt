@@ -3,7 +3,7 @@ Cooker,CCTV
 Dishwasher,PC
 Fridge,PRINTER
 Sink,ACTOR
-Lavandino con mobiletto,LIGHT
-Vasca da bagno,HVAC
+Fridge & Freezer,LIGHT
+Clothes washer,HVAC
 Kitchen cabinet,MAN
-Doccia,UNKNOWN_OBJECT
+Kitchen cabinet,UNKNOWN_OBJECT

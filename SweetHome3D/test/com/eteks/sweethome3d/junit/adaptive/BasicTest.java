@@ -113,6 +113,9 @@ public abstract  class BasicTest extends TestCase {
     this.viewFactory = new SwingViewFactory();
     this.preferences = new DefaultUserPreferences();
     this.preferences.setFurnitureCatalogViewedInTree(true);
+    ConfigFileEvilTest cfg = ConfigFileEvilTest.getInstance(preferences);
+    
+    
     this.home = new Home();
     this.homeController = 
         new HomeController(this.home, this.preferences, viewFactory);
@@ -212,7 +215,7 @@ public abstract  class BasicTest extends TestCase {
   protected HomePieceOfFurniture getHomePieceOfForniture(UserPreferences preferences, BuildingObjectType type, Vector3D position)
   {
     ConfigFileEvilTest cfg = ConfigFileEvilTest.getInstance(preferences);
-    Map<BuildingObjectType, HomePieceOfFurniture> map =   cfg.createTypeToFurnitureMap();
+    Map<BuildingObjectType, HomePieceOfFurniture> map =   cfg.getMapTypeToFurniture();
     preferences.setFornitureMap(map); 
     
     HomePieceOfFurniture hopf = preferences.getPieceOfForniture(type);
@@ -365,7 +368,7 @@ public abstract  class BasicTest extends TestCase {
     IfcSecurityExtractor extractor= null;
 
     try{
-      extractor = new IfcExtractorScale(ifcFileName, preferences, 1f);
+      extractor = new IfcExtractorScale(ifcFileName, preferences, 0.1f);
     }
     catch(Exception e)
     {
@@ -373,12 +376,8 @@ public abstract  class BasicTest extends TestCase {
     }
 
     BuildingSecurityGraph graph = extractor.getGraph();
-
-
-    IfcSecurityExtractor extractorScaled = new IfcExtractorScale(ifcFileName, preferences, 2f);
-
-    BuildingSecurityGraph graphScaled = extractorScaled.getGraph();
-    return graphScaled;
+    
+    return graph;
 
   }
 

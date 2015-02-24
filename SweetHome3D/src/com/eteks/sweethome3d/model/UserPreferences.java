@@ -178,6 +178,11 @@ public abstract class UserPreferences {
   public HomePieceOfFurniture getPieceOfForniture(BuildingObjectType type)
   {
     HomePieceOfFurniture o = UserPreferences.pieceOfFornitureForBuilding.get(type);
+    if(o == null)
+    {
+      int pluto=0;
+      pluto--;
+    }
     return o.clone();
   }
   
