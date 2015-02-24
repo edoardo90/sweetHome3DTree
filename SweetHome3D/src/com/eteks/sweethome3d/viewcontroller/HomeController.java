@@ -1624,11 +1624,12 @@ public class HomeController implements Controller {
   {
     HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
     try{
-      hse.getGraph();
+      BuildingSecurityGraph segraph = hse.getGraph();
+      System.out.println(segraph);
     }
     catch(Exception e)
     {
-      
+      e.printStackTrace();
     }
   }
   

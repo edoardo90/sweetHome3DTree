@@ -36,6 +36,7 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
@@ -209,13 +210,14 @@ public class HomeFurnitureController implements Controller {
   
   /**
    * Returns the view associated with this controller with actors roles
+   * @param actorSelected : actor selected in main pane
    */
-  public DialogView getViewActor() {
+  public DialogView getViewActor(ActorObject actorSelected) {
     // Create view lazily only once it'niceString needed
     if (this.homeFurnitureActorView == null) 
     {
       this.homeFurnitureActorView = this.viewFactory.createHomeFurnitureViewActor(
-          this.preferences, this); 
+          actorSelected, this.preferences, this); 
     }
     return this.homeFurnitureActorView;
   }
@@ -231,9 +233,10 @@ public class HomeFurnitureController implements Controller {
   /**
    * Displays the view controlled by this controller which allows to set
    * actors roles
+   * @param actorSelected : actor selected in the HomePane
    */
-  public void displayViewActor(View parentView) {
-    getViewActor().displayView(parentView);
+  public void displayViewActor(ActorObject actorSelected, View parentView) {
+    getViewActor(actorSelected ).displayView(parentView);
   }
   
 

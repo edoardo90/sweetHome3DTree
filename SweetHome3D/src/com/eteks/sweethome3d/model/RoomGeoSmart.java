@@ -116,7 +116,12 @@ public class RoomGeoSmart extends Room {
   public RoomGeoSmart(Room r)
   {
     super( r.getPoints());
-    this.setName(r.getName());
+    String name= r.getName();
+    if(name != null)
+      this.setName(name);
+    else
+      this.setName(r.getId());
+    
     this.addAllPoints(r.getPoints());
   }
   /**
@@ -205,9 +210,17 @@ public class RoomGeoSmart extends Room {
       nW = points.get(1);
       sW = points.get(2);
       sE = points.get(3);
-      Rectangle3D rect = new Rectangle3D(nE.clone(), nW.clone(), sW.clone(), sE.clone());
-      rect.scale(0.01f);
-      return rect;
+      try
+      { 
+        Rectangle3D rect = new Rectangle3D(nE.clone(), nW.clone(), sW.clone(), sE.clone());
+        rect.scale(0.01f);
+        return rect;
+      }
+      catch(IllegalStateException e)
+      {
+        return this.getBoundingBox();
+      }
+
     }
     return this.getBoundingBox();
   }

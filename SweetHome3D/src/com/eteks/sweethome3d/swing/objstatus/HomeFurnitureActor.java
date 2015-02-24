@@ -5,12 +5,16 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.Role;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.HomeFurniturePanel;
 import com.eteks.sweethome3d.swing.SwingTools;
@@ -18,18 +22,12 @@ import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
 
 public class HomeFurnitureActor extends HomeFurniturePanel {
 
-  public HomeFurnitureActor(UserPreferences preferences, HomeFurnitureController controller) {
-      super(preferences, controller);
-  }
+  private final ActorObject actor ;
   
-  protected void layoutComponents(UserPreferences preferences, 
-                                  final HomeFurnitureController controller) {
-
-        super.layoutComponents(preferences, controller);
-        
-        this.shiftDownPanels(2, this.getPanels().size(), 1);
-        this.addRolePanel(2);
-        
+  public HomeFurnitureActor(ActorObject actor, UserPreferences preferences, HomeFurnitureController controller) {
+      super(preferences, controller);
+      this.actor = actor;
+      this.addRolePanel(2);
   }
   
   private void shiftDownPanels(int firstRowAffected, int lastRowAffected, int downOf)
@@ -49,6 +47,9 @@ public class HomeFurnitureActor extends HomeFurniturePanel {
   
   private void addRolePanel(int row)
   {
+    
+    this.shiftDownPanels(2, this.getPanels().size(), 1);
+
     //Role panel
     int gridx=0, gridy=1, gridwidth=1, gridheight=1;
     int weightx=0, weighty=0;
@@ -67,7 +68,7 @@ public class HomeFurnitureActor extends HomeFurniturePanel {
     weightx=1;
     
     anchor=GridBagConstraints.LINE_START;
-    rolePanel.add(new JButton("___ooo__"), new GridBagConstraints
+    rolePanel.add(this.getRolesComponent(), new GridBagConstraints
         (gridx, gridy, gridwidth, gridheight, 
          weightx, weighty,
          anchor, fill, new Insets(10, 10, 10, 10), ipadx, ipady));
@@ -83,6 +84,15 @@ public class HomeFurnitureActor extends HomeFurniturePanel {
 
   }
   
+  private Component getRolesComponent() {
+    
+     List<Role> actorRoles = this.actor.getRoles();
+     JList<String> swRoles = new JList(actorRoles.toArray());
+     
+    
+    return swRoles;
+  }
+
   private void shiftDown(Component cc, int firstRow)
   {
     

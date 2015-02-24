@@ -1,5 +1,8 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.Role;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
@@ -9,7 +12,7 @@ import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
 
 public class ActorObject extends BuildingObjectContained {
   
-  private Role role;
+  private List<Role> roles = new ArrayList<Role>();
   
   public ActorObject(Vector3D position)
   {
@@ -28,12 +31,17 @@ public class ActorObject extends BuildingObjectContained {
     // TODO actor has no real state
   }
 
-  public Role getRole() {
-    return role;
+  public List<Role> getRoles() {
+    return roles;
   }
 
-  public void setRole(Role role) {
-    this.role = role;
+  public void setRole(List<Role> roles) {
+    this.roles = roles;
+  }
+  
+  public void addRole(Role role)
+  {
+    this.roles.add(role);
   }
 
 

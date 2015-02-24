@@ -50,6 +50,7 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
   private static final long serialVersionUID = 1L;
   
   private String id;
+  private String originalName;
   
   private static final double TWICE_PI = 2 * Math.PI;
   
@@ -279,6 +280,8 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
    */
   public HomePieceOfFurniture(PieceOfFurniture piece) {
     this.name = piece.getName();
+    this.originalName = piece.getName();
+    
     this.description = piece.getDescription();
     this.information = piece.getInformation();
     this.icon = piece.getIcon();
@@ -1264,5 +1267,11 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
   public void setPosition(Vector3D position) {
     this.setX((float)position.first);
     this.setY((float)position.second);
+  }
+
+  public String getOriginalName() {
+    if(this.originalName == null)
+         this.originalName = this.getName();
+    return originalName;
   }
 }

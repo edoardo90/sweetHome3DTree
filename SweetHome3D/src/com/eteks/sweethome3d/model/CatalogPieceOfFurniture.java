@@ -36,6 +36,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
 
   private final String            id;
   private final String            name;
+  private final String            originalName;
   private final String            description;
   private final String            information;
   private final String []         tags;
@@ -302,7 +303,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
                                  float [][] modelRotation, String creator, 
                                  boolean resizable, boolean deformable, boolean texturable, 
                                  BigDecimal price, BigDecimal valueAddedTaxPercentage, String currency) {
-    this(id, name, description, information, tags, creationDate, grade, icon, planIcon, model, width, depth, 
+    this(id, name, name, description, information, tags, creationDate, grade, icon, planIcon, model, width, depth, 
         height, elevation, 1f, movable, false, staircaseCutOutShape, null, modelRotation, creator, false, resizable, deformable,
         texturable, price, valueAddedTaxPercentage, currency, (float)Math.PI / 8, true, false);
   }
@@ -349,7 +350,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
                                  float [][] modelRotation, String creator, 
                                  boolean resizable, boolean deformable, boolean texturable, 
                                  BigDecimal price, BigDecimal valueAddedTaxPercentage, String currency) {
-    this(id, name, description, information, tags, creationDate, grade, icon, planIcon, model, width, depth, 
+    this(id, name, name, description, information, tags, creationDate, grade, icon, planIcon, model, width, depth, 
         height, elevation, dropOnTopElevation, movable, false, staircaseCutOutShape, null, modelRotation, creator, false, resizable, deformable,
         texturable, price, valueAddedTaxPercentage, currency, (float)Math.PI / 8, true, false);
   }
@@ -434,11 +435,11 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
                                  Integer color, float [][] modelRotation, 
                                  boolean backFaceShown,
                                  float iconYaw, boolean proportional) {
-    this(null, name, null, null, new String [0], System.currentTimeMillis(), null, icon, null, model, width, depth, height, elevation, 1f,
+    this(null, name, name, null, null, new String [0], System.currentTimeMillis(), null, icon, null, model, width, depth, height, elevation, 1f,
         movable, false, staircaseCutOutShape, color, modelRotation, null, backFaceShown, true, true, true, null, null, null, iconYaw, proportional, true);
   }
   
-  private CatalogPieceOfFurniture(String id, String name, String description, 
+  private CatalogPieceOfFurniture(String id, String name, String originalName, String description, 
                                   String information, String [] tags, Long creationDate, Float grade, 
                                   Content icon, Content planIcon, Content model, 
                                   float width, float depth, float height, 
@@ -450,6 +451,7 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
                                   float iconYaw, boolean proportional, boolean modifiable) {
     this.id = id;
     this.name = name;
+    this.originalName = originalName;
     this.description = description;
     this.information = information;
     this.tags = tags;
@@ -872,5 +874,10 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
       }
     }
     return false;
+  }
+
+  public String getOriginalName() {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

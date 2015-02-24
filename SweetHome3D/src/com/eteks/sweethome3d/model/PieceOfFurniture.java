@@ -30,6 +30,12 @@ public interface PieceOfFurniture {
    * Returns the name of this piece of furniture.
    */
   public abstract String getName();
+  
+  /**
+   * 
+   * @return Name at the moment of creation
+   */
+  public abstract String getOriginalName();
 
   /**
    * Returns the description of this piece of furniture.

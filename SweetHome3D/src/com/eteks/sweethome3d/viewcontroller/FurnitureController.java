@@ -37,6 +37,8 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ActorAction;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.model.CollectionEvent;
 import com.eteks.sweethome3d.model.CollectionListener;
 import com.eteks.sweethome3d.model.DoorOrWindow;
@@ -480,13 +482,14 @@ public class FurnitureController implements Controller {
                                         this.viewFactory, this.contentManager, 
                                         this.undoSupport); 
       
-      if(false)
+      ActorObject actorSelected = home.getActorSelected(); 
+      if(actorSelected == null)
       {
         homeFurnitureController.displayView(getView());
       }
       else
       {
-        homeFurnitureController.displayViewActor(getView());
+        homeFurnitureController.displayViewActor(actorSelected, getView());
       }
       
     }

@@ -19,6 +19,7 @@
  */
 package com.eteks.sweethome3d.viewcontroller;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.CatalogTexture;
@@ -122,8 +123,9 @@ public interface ViewFactory {
 
   /**
    * Returns a new view that edits furniture values and allow to set roles for actors
+   * @param actorSelected : actor selected in main pane
    */
-  public abstract DialogView createHomeFurnitureViewActor(UserPreferences preferences,
+  public abstract DialogView createHomeFurnitureViewActor(ActorObject actorSelected, UserPreferences preferences,
                                                  HomeFurnitureController homeFurnitureController);
   
   /**

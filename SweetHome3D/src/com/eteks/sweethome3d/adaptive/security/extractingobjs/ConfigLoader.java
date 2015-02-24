@@ -66,7 +66,7 @@ public class ConfigLoader {
         {
           HomePieceOfFurniture  hopf = new HomePieceOfFurniture(piece);
   
-          String pieceName = piece.getName();
+          String pieceName = hopf.getOriginalName();
   
           BuildingObjectType typeOBJ = catalog.get(pieceName);
           catalogFurniture.put(typeOBJ, hopf);

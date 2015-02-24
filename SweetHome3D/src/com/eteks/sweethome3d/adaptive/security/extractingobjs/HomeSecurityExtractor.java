@@ -72,7 +72,6 @@ public class HomeSecurityExtractor extends SecurityExtractor {
 
     for (Room r : rooms)
     {
-  
       RoomGeoSmart rg = new RoomGeoSmart(r);
       List<BuildingObjectContained> objectsInside = new ArrayList<BuildingObjectContained>();
       BuildingRoomNode brn = new BuildingRoomNode(rg.getName(), 
@@ -101,7 +100,11 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           ConfigLoader cfg = this.getConfig(preferences);
           SecurityNameAndMap namesConv = cfg.getNamesConventions();
           Map<String, BuildingObjectType> catalog = namesConv.sweetCatalogToType;
-          String name = pieceOfForn.getName();
+          String name = pieceOfForn.getOriginalName();
+          if(name == null)
+          {
+            throw new IllegalStateException("tha name should be not null!!!");
+          }
           BuildingObjectType typeObj = catalog.get(name);
           if(typeObj == null)
           {
@@ -115,7 +118,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           
           BuildingObjectContained objCont = typeObj.getBuildingObjectOfType(position);
           objCont.setId(pieceOfForn.getId());
-          
+          objCont.setName(pieceOfForn.getName());
           securityGraph.putObjectCont(new IdObject(pieceOfForn.getId()), objCont);
           securityGraph.putObjectRoom(new IdObject(pieceOfForn.getId()), brn);
           
