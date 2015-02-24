@@ -78,6 +78,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           rg.getShape(), objectsInside);  
       
       brn.setId(r.getId());
+      brn.setName(r.getName());
       if(r.getName() == null || r.getName().equals(""))
       {
         r.setName(r.getId());
@@ -156,6 +157,18 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           BuildingLinkEdge link = null;
           //TODO: put wall correctly
           
+          String roomId1 = r1.getId();
+          String roomId2 = r2.getId();
+          if(r1.getName() != null && r1.getName().length() > 0)
+          {
+            roomId1 = r1.getName();
+          }
+          
+          if(r2.getName() != null && r2.getName().length() > 0)
+          {
+            roomId2 = r2.getName();
+          }
+          
           boolean areRoomsLinkedByDoor = false;
           for (HomePieceOfFurniture d : doors )
           {  
@@ -166,14 +179,16 @@ public class HomeSecurityExtractor extends SecurityExtractor {
               //graphRooms.
               DoorObject dobj = new DoorObject();
               dobj.setId(d.getId());
-              dobj.setIdRoom1(r1.getId());
-              dobj.setIdRoom1(r2.getId());
-              link = new BuildinLinkWallWithDoor(null, dobj, r1.getId(), r2.getId());
+
+              
+              dobj.setIdRoom1(roomId1);
+              dobj.setIdRoom1(roomId2);
+              link = new BuildinLinkWallWithDoor(null, dobj, roomId1, roomId2);
               //TODO: put wall correctly
             }
           }
           if(!areRoomsLinkedByDoor) 
-              link = new BuildingLinkWall(null, r1.getId(), r2.getId());
+              link = new BuildingLinkWall(null, roomId1, roomId2);
          
           linkEdges.add(link);
         }

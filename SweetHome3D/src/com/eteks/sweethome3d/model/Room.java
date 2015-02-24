@@ -139,6 +139,17 @@ public class Room implements Serializable, Selectable, Elevatable {
 
   @Override
   public String toString() {
+    if(this.getArea() == 0 )
+    {
+      if(this.getName() == null)
+      {
+        return "room "  +this.getId();
+      }
+      else
+      {
+        return "room " + this.getName();
+      }
+    }
     return this.name == null ?  "Room " + Float.toString(this.areaCache / 10000).substring(0, 1)
         :   this.getName();
   }

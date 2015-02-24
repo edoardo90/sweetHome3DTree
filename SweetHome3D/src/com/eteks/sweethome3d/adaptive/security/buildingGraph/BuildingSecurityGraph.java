@@ -217,6 +217,7 @@ public class BuildingSecurityGraph {
     }
     BuildingObjectContained objectCont = type.getBuildingObjectOfType(position);
     objectCont.setId(idObject);
+    //TODO: pass name too
     broomDestination.addObjectContained(objectCont);
     
     IdObject ID = new IdObject(idObject);
@@ -340,6 +341,10 @@ public class BuildingSecurityGraph {
   public void addNewObject(String idObject, BuildingObjectType type, Vector3D position) {
     String idRoomDestination;
     idRoomDestination = this.getRoomId(position);
+    if(idRoomDestination == null)
+    {
+      throw new IllegalStateException("getRoomId(position) failed  - as if it there was no room there");
+    }
     this.addNewObject(idObject, type, idRoomDestination, position);
     
   }

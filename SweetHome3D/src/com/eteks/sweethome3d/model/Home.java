@@ -636,6 +636,10 @@ public class Home implements Serializable, Cloneable {
      */
     public void addPieceOfFurniture(HomePieceOfFurniture piece, int index) 
     {
+      if(piece.getName() == null || piece.getOriginalName()== null)
+      {
+        throw new IllegalStateException("piece should have name and original name");
+      }
       this.addPieceOfFurniture(piece, index, UpdateBehaviour.UPDATE_GRAPH);
     }
 
@@ -643,9 +647,21 @@ public class Home implements Serializable, Cloneable {
       // Make a copy of the list to avoid conflicts in the list returned by getFurniture
       this.furniture = new ArrayList<HomePieceOfFurniture>(this.furniture);
       piece.setLevel(this.selectedLevel);
+      
+      if(piece.getName() == null || piece.getOriginalName()== null)
+      {
+        throw new IllegalStateException("piece should have name and original name");
+      }
       this.furniture.add(index, piece);
-      this.furnitureChangeSupport.fireCollectionChanged(piece, index, CollectionEvent.Type.ADD);
-
+      try
+      {
+        this.furnitureChangeSupport.fireCollectionChanged(piece, index, CollectionEvent.Type.ADD);
+      }
+      catch(Exception e)
+      {
+        e.printStackTrace();
+      }
+      
       if(updateBehaviour == UpdateBehaviour.UPDATE_GRAPH)
       {
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
