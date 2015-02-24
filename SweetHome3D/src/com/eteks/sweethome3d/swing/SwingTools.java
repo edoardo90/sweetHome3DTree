@@ -638,6 +638,7 @@ public class SwingTools {
           panelBorder, BorderFactory.createEmptyBorder(10, 0, 0, 0));
     }
     titledPanel.setBorder(panelBorder);    
+    titledPanel.setName(title);
     return titledPanel;
   }
 

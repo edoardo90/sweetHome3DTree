@@ -471,8 +471,24 @@ public class FurnitureController implements Controller {
    */
   public void modifySelectedFurniture() {
     if (!Home.getFurnitureSubList(this.home.getSelectedItems()).isEmpty()) {
-      new HomeFurnitureController(this.home, this.preferences,  
-          this.viewFactory, this.contentManager, this.undoSupport).displayView(getView());
+      
+      System.out.println("edit forniture!!");
+      
+      
+      HomeFurnitureController homeFurnitureController =  new 
+                HomeFurnitureController(this.home, this.preferences,  
+                                        this.viewFactory, this.contentManager, 
+                                        this.undoSupport); 
+      
+      if(false)
+      {
+        homeFurnitureController.displayView(getView());
+      }
+      else
+      {
+        homeFurnitureController.displayViewActor(getView());
+      }
+      
     }
   }
 

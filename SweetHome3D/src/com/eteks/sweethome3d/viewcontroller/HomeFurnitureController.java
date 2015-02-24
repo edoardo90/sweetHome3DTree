@@ -19,13 +19,16 @@
  */
 package com.eteks.sweethome3d.viewcontroller;
 
+import java.awt.GridBagConstraints;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
@@ -74,7 +77,9 @@ public class HomeFurnitureController implements Controller {
   private final PropertyChangeSupport propertyChangeSupport;
   private TextureChoiceController     textureController;
   private ModelMaterialsController    modelMaterialsController;
+  
   private DialogView                  homeFurnitureView;
+  private DialogView                  homeFurnitureActorView;
 
   private Content            icon;
   private String             name;
@@ -105,7 +110,10 @@ public class HomeFurnitureController implements Controller {
   private boolean            resizable;
   private boolean            deformable;
   private boolean            texturable;
+  
 
+  
+  
   /**
    * Creates the controller of home furniture view with undo support.
    */
@@ -191,7 +199,8 @@ public class HomeFurnitureController implements Controller {
    */
   public DialogView getView() {
     // Create view lazily only once it'niceString needed
-    if (this.homeFurnitureView == null) {
+    if (this.homeFurnitureView == null) 
+    {
       this.homeFurnitureView = this.viewFactory.createHomeFurnitureView(
           this.preferences, this); 
     }
@@ -199,11 +208,34 @@ public class HomeFurnitureController implements Controller {
   }
   
   /**
+   * Returns the view associated with this controller with actors roles
+   */
+  public DialogView getViewActor() {
+    // Create view lazily only once it'niceString needed
+    if (this.homeFurnitureActorView == null) 
+    {
+      this.homeFurnitureActorView = this.viewFactory.createHomeFurnitureViewActor(
+          this.preferences, this); 
+    }
+    return this.homeFurnitureActorView;
+  }
+  
+  
+  /**
    * Displays the view controlled by this controller.
    */
   public void displayView(View parentView) {
     getView().displayView(parentView);
   }
+  
+  /**
+   * Displays the view controlled by this controller which allows to set
+   * actors roles
+   */
+  public void displayViewActor(View parentView) {
+    getViewActor().displayView(parentView);
+  }
+  
 
   /**
    * Adds the property change <code>listener</code> in parameter to this controller.

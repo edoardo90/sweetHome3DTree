@@ -44,6 +44,8 @@ public interface ViewFactory {
   public abstract View createFurnitureView(Home home, UserPreferences preferences,
                                            FurnitureController furnitureController);
 
+  
+  
   /**
    * Returns a new view that displays <code>home</code> on a plan.
    */
@@ -118,6 +120,12 @@ public interface ViewFactory {
   public abstract DialogView createHomeFurnitureView(UserPreferences preferences,
                                          HomeFurnitureController homeFurnitureController);
 
+  /**
+   * Returns a new view that edits furniture values and allow to set roles for actors
+   */
+  public abstract DialogView createHomeFurnitureViewActor(UserPreferences preferences,
+                                                 HomeFurnitureController homeFurnitureController);
+  
   /**
    * Returns a new view that edits wall values.
    */

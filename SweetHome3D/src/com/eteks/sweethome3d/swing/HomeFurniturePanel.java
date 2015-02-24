@@ -28,6 +28,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
 import java.security.AccessControlException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -100,6 +104,21 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   private JSpinner                lightPowerSpinner;
   private String                  dialogTitle;
 
+  private int rowGap = OperatingSystem.isMacOSXLeopardOrSuperior() ? 0 : 5;
+  
+  protected Map<String, GridBagConstraints> constraintsPanel = new HashMap<String, GridBagConstraints>();
+  protected int labelAlignment;
+  protected boolean priceDisplayed;
+  protected Insets labelInsets;
+  protected Insets rightComponentInsets;
+  protected JPanel lastRowPanel;
+  protected JPanel shininessPanel;
+  protected JPanel namePanel;
+  protected JPanel locationPanel;
+  protected JPanel sizePanel;
+  protected JPanel paintPanel;
+  
+  
   /**
    * Creates a panel that displays home furniture data according to the units 
    * set in <code>preferences</code>.
@@ -110,11 +129,24 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
                             HomeFurnitureController controller) {
     super(new GridBagLayout());
     this.controller = controller;
+    this.paramsSetup();
     createComponents(preferences, controller);
     setMnemonics(preferences);
     layoutComponents(preferences, controller);
   }
-
+  
+  private void paramsSetup()
+  {
+    labelAlignment = OperatingSystem.isMacOSX() 
+        ? GridBagConstraints.LINE_END
+        : GridBagConstraints.LINE_START;
+   
+    priceDisplayed = this.priceLabel != null;
+    labelInsets = new Insets(0, 0, 5, 5);
+    rightComponentInsets = new Insets(0, 0, 5, 0);
+    
+  }
+  
   /**
    * Creates and initializes components and spinners model.
    */
@@ -894,88 +926,57 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   /**
    * Layouts panel components in panel with their labels. 
    */
-  private void layoutComponents(UserPreferences preferences, 
+  protected void layoutComponents(UserPreferences preferences, 
                                 final HomeFurnitureController controller) {
-    int labelAlignment = OperatingSystem.isMacOSX() 
-        ? GridBagConstraints.LINE_END
-        : GridBagConstraints.LINE_START;
-    // First row    
-    boolean priceDisplayed = this.priceLabel != null;
-    JPanel namePanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
-        HomeFurniturePanel.class, priceDisplayed  ?  "nameAndPricePanel.title"  : "namePanel.title"));
-    int rowGap = OperatingSystem.isMacOSXLeopardOrSuperior() ? 0 : 5;
-    if (this.nameLabel != null) {
-      namePanel.add(this.nameLabel, new GridBagConstraints(
-          0, 0, 1, 1, 0, 0, labelAlignment, GridBagConstraints.NONE,
-          new Insets(0, 0, 0, 5), 0, 0));
-      namePanel.add(this.nameTextField, new GridBagConstraints(
-          1, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START,
-          GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 10), 0, 0));
-      namePanel.add(new JButton("ciao"), new GridBagConstraints(
-          2, 0, 1, 1, 0, 0, GridBagConstraints.LINE_END,
-          GridBagConstraints.HORIZONTAL, new Insets(0,0,0,20), 0, 0));
-    }
     
-    if (this.nameVisibleCheckBox != null) {
-      namePanel.add(this.nameVisibleCheckBox, new GridBagConstraints(
-          3, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START,
-          GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    }
-    if (this.descriptionLabel != null) {
-      namePanel.add(this.descriptionLabel, new GridBagConstraints(
-          0, 1, 1, 1, 0, 0, labelAlignment, GridBagConstraints.NONE,
-          new Insets(5, 0, 0, 5), 0, 0));
-      namePanel.add(this.descriptionTextField, new GridBagConstraints(
-          1, 1, priceDisplayed  ? 1  : 3, 1, 0, 0, GridBagConstraints.LINE_START,
-          GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, priceDisplayed  ? 10  : 0), 0, 0));
-    }
-    if (priceDisplayed) {
-      namePanel.add(this.priceLabel, new GridBagConstraints(
-          this.descriptionLabel != null  ? 2  : 0, 1, 1, 1, 0, 0, labelAlignment, GridBagConstraints.NONE,
-          new Insets(5, 0, 0, 5), 0, 0));
-      namePanel.add(this.priceSpinner, new GridBagConstraints(
-          this.descriptionLabel != null  ? 3  : 1, 1, 1, 1, 0, 0, GridBagConstraints.LINE_START,
-          GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
-    }
-    if (namePanel.getComponentCount() > 0) {
-      add(namePanel, new GridBagConstraints(0, 0, 3, 1, 0, 0, labelAlignment, GridBagConstraints.HORIZONTAL,
-          new Insets(0, 0, rowGap, 0), 0, 0));
-    }
-    //Role panel
+    int rowOfPanel = 1;
+    this.addNamePanel(rowOfPanel, preferences, priceDisplayed, labelAlignment);
     
-    int gridx=0, gridy=1, gridwidth=1, gridheight=1;
-    int weightx=0, weighty=0;
-    int anchor=GridBagConstraints.CENTER, fill=GridBagConstraints.NONE,  ipadx=0, ipady=0;
-    Insets insets = new Insets(0, 0, 0, 0);
+    rowOfPanel=2;
+    this.addLocationPanel(rowOfPanel, preferences, rowGap, labelInsets, rightComponentInsets, labelAlignment);
+    this.sizePanel(rowOfPanel, preferences, rowGap, labelInsets, rightComponentInsets, labelAlignment);
     
-    JPanel rolePanel = SwingTools.createTitledPanel("Role");
+    rowOfPanel=3;
+    this.shineAndPaint(rowOfPanel, preferences, rowGap, labelInsets, labelAlignment);
     
-    anchor=GridBagConstraints.LINE_START;
-    gridwidth=2; weightx=0;
-    rolePanel.add(new JLabel("Add role:"), new GridBagConstraints(gridx, gridy, gridwidth, gridheight,
-        weightx, weighty, anchor, fill, new Insets(0, 10, 0, 0), ipadx, ipady));
+    rowOfPanel=4;
+    this.addLastRowPanel(rowOfPanel, labelAlignment);
     
-    gridx=2;
-    gridwidth=1;
-    weightx=1;
+  
+  }
+
+  protected int getRowOfPanel(JPanel panel)
+  {
+      GridBagConstraints c = this.constraintsPanel.get(panel.getName());
+      return c.gridy;
+  }
+  
+  protected void changeRowToPanel(JPanel panel, int newRow)
+  {
+      GridBagConstraints c = this.constraintsPanel.get(panel.getName());
+      c.gridy = newRow;
+      this.remove(panel);
+      this.add(panel, c);
+  }
+  
+  protected List<JPanel> getPanels()
+  {
+    List<JPanel> pans = new ArrayList<JPanel>();
+    pans.add(this.namePanel);
+    pans.add(this.locationPanel);
+    pans.add(this.sizePanel);
+    pans.add(this.shininessPanel);
+    pans.add(this.paintPanel);
+    pans.add(this.lastRowPanel);
     
-    anchor=GridBagConstraints.LINE_START;
-    rolePanel.add(new JButton("___ooo__"), new GridBagConstraints
-        (gridx, gridy, gridwidth, gridheight, 
-         weightx, weighty,
-         anchor, fill, new Insets(10, 10, 10, 10), ipadx, ipady));
-    ipadx=0;
-    
-    gridx=0; gridy=1; gridwidth=3; weightx=1; fill = GridBagConstraints.HORIZONTAL;
-    add(rolePanel, new GridBagConstraints(gridx, gridy, gridwidth, gridheight, 
-          weightx, weighty, anchor, fill, insets, ipadx, ipady));
-    
-    
-    // Location panel
-    JPanel locationPanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
+    return pans;
+  }
+  
+  
+  private void addLocationPanel(int rowOfPanel, UserPreferences preferences, int rowGap2, Insets labelInsets,
+                                Insets rightComponentInsets, int labelAlignment) {
+ locationPanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
         HomeFurniturePanel.class, "locationPanel.title"));
-    Insets labelInsets = new Insets(0, 0, 5, 5);
-    Insets rightComponentInsets = new Insets(0, 0, 5, 0);
     if (this.xLabel != null) {
       locationPanel.add(this.xLabel, new GridBagConstraints(
           0, 0, 1, 1, 0, 0, labelAlignment, GridBagConstraints.NONE,
@@ -1014,15 +1015,30 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
           GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     }
     if (locationPanel.getComponentCount() > 0) {
-      add(locationPanel, new GridBagConstraints(
+      
+      GridBagConstraints c1 =   new GridBagConstraints(
           0, 1+1, 1, 1, 1, 0, labelAlignment, GridBagConstraints.BOTH, new Insets(
-          0, 0, rowGap, 0), 0, 0));
+          0, 0, rowGap, 0), 0, 0);
+      
+      this.setLocation(locationPanel, rowOfPanel, c1);
+
     }
-    
-    
-    
-    // Size panel
-    JPanel sizePanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
+  }
+
+  private void addLastRowPanel(int rowOfPanel, int labelAlignment)
+  {
+    lastRowPanel = new JPanel();
+    lastRowPanel.setName("last");
+    GridBagConstraints lastRowConstr = new GridBagConstraints(
+              0, 4, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
+              GridBagConstraints.BOTH, new Insets(0, 10, 0, 0), 0, 0);
+    this.setLocation(lastRowPanel, rowOfPanel ,lastRowConstr);
+    this.addOnLastRow(lastRowPanel, labelAlignment);
+  }
+  
+  private void sizePanel(int rowOfPanel, UserPreferences preferences, int rowGap,Insets rightComponentInsets,  Insets labelInsets, int labelAlignment)
+  {
+  sizePanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
         HomeFurniturePanel.class, "sizePanel.title"));
     if (this.widthLabel != null) {
       sizePanel.add(this.widthLabel, new GridBagConstraints(
@@ -1059,11 +1075,87 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
           GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     }
     if (sizePanel.getComponentCount() > 0) {
-      add(sizePanel, new GridBagConstraints(
+      GridBagConstraints sizeContr = new GridBagConstraints(
           1, 1+1, 2, 1, 1, 0, labelAlignment, 
-          GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0));
+          GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0);
+      this.setLocation(sizePanel, rowOfPanel ,sizeContr);
+      
     }
-    final JPanel paintPanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
+    
+  }
+
+  protected void addNamePanel(int rowOfPanel, UserPreferences preferences, boolean priceDisplayed, int labelAlignment)
+  {
+    namePanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
+        HomeFurniturePanel.class, priceDisplayed  ?  "nameAndPricePanel.title"  : "namePanel.title"));
+    
+    if (this.nameLabel != null) {
+      namePanel.add(this.nameLabel, new GridBagConstraints(
+          0, 0, 1, 1, 0, 0, labelAlignment, GridBagConstraints.NONE,
+          new Insets(0, 0, 0, 5), 0, 0));
+      namePanel.add(this.nameTextField, new GridBagConstraints(
+          1, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START,
+          GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 10), 0, 0));
+      
+    }
+    
+    if (this.nameVisibleCheckBox != null) {
+      namePanel.add(this.nameVisibleCheckBox, new GridBagConstraints(
+          3, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START,
+          GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    }
+    if (this.descriptionLabel != null) {
+      namePanel.add(this.descriptionLabel, new GridBagConstraints(
+          0, 1, 1, 1, 0, 0, labelAlignment, GridBagConstraints.NONE,
+          new Insets(5, 0, 0, 5), 0, 0));
+      namePanel.add(this.descriptionTextField, new GridBagConstraints(
+          1, 1, priceDisplayed  ? 1  : 3, 1, 0, 0, GridBagConstraints.LINE_START,
+          GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, priceDisplayed  ? 10  : 0), 0, 0));
+    }
+    if (priceDisplayed) {
+      namePanel.add(this.priceLabel, new GridBagConstraints(
+          this.descriptionLabel != null  ? 2  : 0, 1, 1, 1, 0, 0, labelAlignment, GridBagConstraints.NONE,
+          new Insets(5, 0, 0, 5), 0, 0));
+      namePanel.add(this.priceSpinner, new GridBagConstraints(
+          this.descriptionLabel != null  ? 3  : 1, 1, 1, 1, 0, 0, GridBagConstraints.LINE_START,
+          GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
+    }
+    
+    GridBagConstraints  gb =  new GridBagConstraints(0, 0, 3, 1, 0, 0, labelAlignment, GridBagConstraints.HORIZONTAL,
+        new Insets(0, 0, rowGap, 0), 0, 0);
+    
+    this.setLocation(namePanel, rowOfPanel, gb);
+    
+  }
+  
+  protected void setLocation(JPanel panel, int rowNumber,GridBagConstraints constr)
+  {
+    constr.gridy = rowNumber;
+    this.add(panel, constr);
+    this.constraintsPanel.put(panel.getName(), constr);
+  }
+  
+  protected void addOnLastRow(JPanel lastRow, int labelAlignment)
+  {
+    // Last row
+    if (this.visibleCheckBox != null) {
+      lastRow.add(this.visibleCheckBox, new GridBagConstraints(
+          0, 4, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
+          GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
+    }
+    if (this.lightPowerLabel != null) {
+      lastRow.add(this.lightPowerLabel, new GridBagConstraints(
+          1, 4, 1, 1, 0, 0, labelAlignment, 
+          GridBagConstraints.NONE, new Insets(0, 10, 0, 5), 0, 0));
+      lastRow.add(this.lightPowerSpinner, new GridBagConstraints(
+          2, 4, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
+          GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
+    }
+    
+  }
+  
+  protected void shineAndPaint(int rowOfPanel, UserPreferences preferences , int rowGap, Insets labelInsets, int labelAlignment) {
+    paintPanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
         HomeFurniturePanel.class, "colorAndTexturePanel.title"));
     if (this.defaultColorAndTextureRadioButton != null) {
       int buttonPadY;
@@ -1103,9 +1195,16 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
             1, 3, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
             GridBagConstraints.HORIZONTAL, new Insets(5, 0, buttonsBottomInset, 0), 0, buttonPadY));
       }
-      add(paintPanel, new GridBagConstraints(
-          0, 2+1, 1, 1, 0, 0, labelAlignment, 
-          GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0));
+      
+      
+      
+      GridBagConstraints paintPanelConstr = new GridBagConstraints(
+              0, 2+1, 1, 1, 0, 0, labelAlignment, 
+              GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0);
+      this.setLocation(paintPanel, rowOfPanel, paintPanelConstr);
+      this.constraintsPanel.put(paintPanel.getName(), paintPanelConstr);
+      
+      
       
       controller.addPropertyChangeListener(HomeFurnitureController.Property.TEXTURABLE, 
           new PropertyChangeListener() {
@@ -1116,8 +1215,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
       paintPanel.setVisible(controller.isTexturable());
     }
     if (this.defaultShininessRadioButton != null) {
-      // Shininess panel
-      final JPanel shininessPanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
+      shininessPanel = SwingTools.createTitledPanel(preferences.getLocalizedString(
           HomeFurniturePanel.class, "shininessPanel.title"));
       shininessPanel.add(this.defaultShininessRadioButton, new GridBagConstraints(
           0, 0, 1, 1, 0, 1, GridBagConstraints.LINE_START, 
@@ -1133,9 +1231,15 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
             0, 3, 1, 1, 0, 1, GridBagConstraints.LINE_START, 
             GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 0, 0));
       }
-      add(shininessPanel, new GridBagConstraints(
-          1, 2+1, 2, 1, 0, 0, labelAlignment, 
-          GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0));
+      
+      
+      GridBagConstraints shineConstr =  new GridBagConstraints(
+                  1, 3, 2, 1, 0, 0, labelAlignment, 
+                  GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0);
+      
+      this.setLocation(shininessPanel, rowOfPanel ,shineConstr);
+      
+      
       
       controller.addPropertyChangeListener(HomeFurnitureController.Property.TEXTURABLE, 
           new PropertyChangeListener() {
@@ -1145,20 +1249,8 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
           });
       shininessPanel.setVisible(controller.isTexturable());
     }
-    // Last row
-    if (this.visibleCheckBox != null) {
-      add(this.visibleCheckBox, new GridBagConstraints(
-          0, 3+1, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
-          GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
-    }
-    if (this.lightPowerLabel != null) {
-      add(this.lightPowerLabel, new GridBagConstraints(
-          1, 3+1, 1, 1, 0, 0, labelAlignment, 
-          GridBagConstraints.NONE, new Insets(0, 10, 0, 5), 0, 0));
-      add(this.lightPowerSpinner, new GridBagConstraints(
-          2, 3+1, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
-          GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
-    }
+
+    
   }
 
   /**

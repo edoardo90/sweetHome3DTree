@@ -236,4 +236,9 @@ public class ViewFactoryAdapter implements ViewFactory {
   public DialogView createVideoView(Home home, UserPreferences preferences, VideoController videoController) {
     throw new UnsupportedOperationException();
   }
+
+  public DialogView createHomeFurnitureViewActor(UserPreferences preferences,
+                                                 HomeFurnitureController homeFurnitureController) {
+    throw new UnsupportedOperationException();
+  }
 }

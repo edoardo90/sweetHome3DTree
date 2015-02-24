@@ -27,6 +27,7 @@ import com.eteks.sweethome3d.model.CatalogTexture;
 import com.eteks.sweethome3d.model.FurnitureCatalog;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.UserPreferences;
+import com.eteks.sweethome3d.swing.objstatus.HomeFurnitureActor;
 import com.eteks.sweethome3d.viewcontroller.BackgroundImageWizardController;
 import com.eteks.sweethome3d.viewcontroller.CompassController;
 import com.eteks.sweethome3d.viewcontroller.DialogView;
@@ -194,6 +195,15 @@ public class SwingViewFactory implements ViewFactory {
                                HomeFurnitureController homeFurnitureController) {
     return new HomeFurniturePanel(preferences, homeFurnitureController);
   }
+  
+  /**
+   * Returns a new view that edits furniture values and allows to set roles for actors.
+   */
+  public DialogView createHomeFurnitureViewActor(UserPreferences preferences,
+                               HomeFurnitureController homeFurnitureController) {
+    return new HomeFurnitureActor(preferences, homeFurnitureController);
+  }
+  
 
   /**
    * Returns a new view that edits wall values.
