@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
@@ -32,6 +34,7 @@ public class ConfigLoader {
   private static UserPreferences preferences;
   private File sweetHomeLibraryObjects;
   private File ifcWordsToLookFor;
+  private File roles;
 
   private String securityCategoryName = "Security";
 
@@ -39,6 +42,7 @@ public class ConfigLoader {
   private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>();
   private SecurityNameAndMap snm = null;
   private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = null;
+  private Set<String> availableRoles = new TreeSet<String>();
   
   /**
    * Map that stores the graphical representation associated to each {@link BuildingObjectType}
@@ -130,9 +134,11 @@ public class ConfigLoader {
     this.sweetHomeLibraryObjects = this.readSweetHomeLibraryObj();
     this.ifcWordsToLookFor = this.readWordsToLook();
     this.setMapOfLibraryObjects(preferences);
-    
+    this.roles = this.readRoles();
   }
   
+
+
   /**
    * Create a map from object type to homePieceOfFurniture, this map is used by the objects
    * This is used by objects of the class {@link BuildingObjectContained} to call getPieceOfForniture
@@ -160,6 +166,11 @@ public class ConfigLoader {
     File file = new File(uri);
     return file;
 
+  }
+  
+  protected String getReadRolesFileName()
+  {
+    return "roles.txt";
   }
 
   protected String getReadWordsToLookFileName()
@@ -247,6 +258,18 @@ public class ConfigLoader {
     return null;
 
   }
+  
+  
+  public Set<String> getAvailableRoles()
+  {
+    if(this.availableRoles == null || this.availableRoles.size() == 0 )
+    {
+      List<String> cont = this.getfileContent(this.roles.getAbsolutePath());
+      this.availableRoles.addAll(cont); 
+    }
+    return this.availableRoles;
+  }
+  
 
   /**
    * <pre>
@@ -264,8 +287,7 @@ public class ConfigLoader {
     List<String> content = this.getfileContent(this.ifcWordsToLookFor.getAbsolutePath());
     for(String line : content)
     {
-
-      String [] parts = line.split(",");
+     String [] parts = line.split(",");
       String object = parts[0];
       BuildingObjectType type = BuildingObjectType.valueOf(object);
       if(objectType.equals(type))
@@ -277,15 +299,17 @@ public class ConfigLoader {
       }
 
     }
-
-    return words;
-
+   return words;
   }
 
   private UserPreferences getUserPreferences() {
     return this.preferences;
   }
-
+  
+  private File readRoles()
+  {
+    return getFileFromName(""+  getReadRolesFileName());
+  }
 
   private  File readWordsToLook() {
     return getFileFromName("" + getReadWordsToLookFileName());
@@ -322,6 +346,11 @@ public class ConfigLoader {
       if (preferences == null)
         throw new IllegalStateException("configLoader should have preferences set before asking it !");
       return new ConfigLoader(preferences);
+  }
+
+
+  public boolean isARole(String roleStr) {
+    return this.getAvailableRoles().contains(roleStr);
   }
 
 

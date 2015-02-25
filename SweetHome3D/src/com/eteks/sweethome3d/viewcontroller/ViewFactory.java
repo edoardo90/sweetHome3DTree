@@ -19,6 +19,9 @@
  */
 package com.eteks.sweethome3d.viewcontroller;
 
+import java.util.List;
+import java.util.Set;
+
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
@@ -26,6 +29,7 @@ import com.eteks.sweethome3d.model.CatalogTexture;
 import com.eteks.sweethome3d.model.FurnitureCatalog;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.UserPreferences;
+import com.eteks.sweethome3d.swing.objstatus.HomeFurnitureActor;
 
 /**
  * A factory that specifies how to create the views displayed in Sweet Home 3D. 
@@ -123,9 +127,10 @@ public interface ViewFactory {
 
   /**
    * Returns a new view that edits furniture values and allow to set roles for actors
+   * @param roles 
    * @param actorSelected : actor selected in main pane
    */
-  public abstract DialogView createHomeFurnitureViewActor(ActorObject actorSelected, UserPreferences preferences,
+  public abstract HomeFurnitureActor createHomeFurnitureViewActor(Set<String> roles, ActorObject actorSelected, UserPreferences preferences,
                                                  HomeFurnitureController homeFurnitureController);
   
   /**

@@ -1,32 +1,37 @@
 package com.eteks.sweethome3d.swing.objstatus;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.Role;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.HomeFurniturePanel;
 import com.eteks.sweethome3d.swing.SwingTools;
 import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
 
-public class HomeFurnitureActor extends HomeFurniturePanel {
+public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListener{
 
   private final ActorObject actor ;
+  private final Set<String> roles;
+  private Set<String> selectedRoles = new HashSet<String>();
   
-  public HomeFurnitureActor(ActorObject actor, UserPreferences preferences, HomeFurnitureController controller) {
+  public HomeFurnitureActor(Set<String> roles, ActorObject actor, UserPreferences preferences, HomeFurnitureController controller) {
       super(preferences, controller);
       this.actor = actor;
+      this.roles = roles;
+      this.selectedRoles.addAll(actor.getRolesStr());
       this.addRolePanel(2);
   }
   
@@ -86,11 +91,43 @@ public class HomeFurnitureActor extends HomeFurniturePanel {
   
   private Component getRolesComponent() {
     
-     List<Role> actorRoles = this.actor.getRoles();
-     JList<String> swRoles = new JList(actorRoles.toArray());
-     
-    
-    return swRoles;
+    JPanel panelRolesCheck = new JPanel();
+    panelRolesCheck.setLayout(new GridBagLayout());
+    Insets insets = new Insets(10, 10, 10, 10);
+    int row=0;
+    for(String role : this.roles)
+    {
+      panelRolesCheck.add(new JLabel(role), new GridBagConstraints
+          (/*gridx */0,
+           /*gridy*/row, 
+           /*gridwidth*/1,
+           /*gridheight*/ 1,
+           /* weightx */ 0, 
+           /* weighty */0,
+           /*anchor */ GridBagConstraints.CENTER, 
+           /*fill*/ GridBagConstraints.BOTH,
+           insets, 
+           /*ipadx*/ 0,
+           /*ipady*/0));
+      JCheckBox c1 = new JCheckBox(role);
+      if(this.selectedRoles.contains(role))
+             c1.setSelected(true);
+      c1.addItemListener(this);
+      panelRolesCheck.add(c1, new GridBagConstraints
+          (/*gridx */1,
+              /*gridy*/row, 
+              /*gridwidth*/1,
+              /*gridheight*/ 1,
+              /* weightx */ 0, 
+              /* weighty */0,
+              /*anchor */ GridBagConstraints.CENTER, 
+              /*fill*/ GridBagConstraints.BOTH,
+              insets, 
+              /*ipadx*/ 0,
+              /*ipady*/0));
+      row++;
+    }
+    return panelRolesCheck;
   }
 
   private void shiftDown(Component cc, int firstRow)
@@ -144,6 +181,25 @@ public class HomeFurnitureActor extends HomeFurniturePanel {
             "ipadx:         " + c.ipadx;
     return s;
   }
+
+  public Set<String> getSelectedRoles()
+  {
+    return this.selectedRoles;
+  }
   
+  public void itemStateChanged(ItemEvent e) {
+    int state = e.getStateChange();  // 1 = ON  2 = OFF
+    System.out.println(state);
+    String text = ((JCheckBox) e.getItem() ).getText();
+    if(state==1)
+    {
+      this.selectedRoles.add(text);
+    }
+    else if(state == 2)
+    {
+      this.selectedRoles.remove(text);
+    }
+  }
+
   
 }

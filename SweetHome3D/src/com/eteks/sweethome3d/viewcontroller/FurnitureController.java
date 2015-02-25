@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
@@ -39,6 +40,7 @@ import javax.swing.undo.UndoableEditSupport;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ActorAction;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.model.CollectionEvent;
 import com.eteks.sweethome3d.model.CollectionListener;
 import com.eteks.sweethome3d.model.DoorOrWindow;
@@ -489,7 +491,9 @@ public class FurnitureController implements Controller {
       }
       else
       {
-        homeFurnitureController.displayViewActor(actorSelected, getView());
+        ConfigLoader cfg = ConfigLoader.getInstance();
+        Set<String> roles = cfg.getAvailableRoles();
+        homeFurnitureController.displayViewActor(roles, actorSelected, getView());
       }
       
     }

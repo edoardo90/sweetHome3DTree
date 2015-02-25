@@ -19,6 +19,9 @@
  */
 package com.eteks.sweethome3d.viewcontroller;
 
+import java.util.List;
+import java.util.Set;
+
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
@@ -26,6 +29,7 @@ import com.eteks.sweethome3d.model.CatalogTexture;
 import com.eteks.sweethome3d.model.FurnitureCatalog;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.UserPreferences;
+import com.eteks.sweethome3d.swing.objstatus.HomeFurnitureActor;
 
 /**
  * A view factory with all its methods throwing
@@ -238,7 +242,7 @@ public class ViewFactoryAdapter implements ViewFactory {
     throw new UnsupportedOperationException();
   }
 
-  public DialogView createHomeFurnitureViewActor(ActorObject o, UserPreferences preferences,
+  public HomeFurnitureActor createHomeFurnitureViewActor(Set<String> roles, ActorObject o, UserPreferences preferences,
                                                  HomeFurnitureController homeFurnitureController) {
     throw new UnsupportedOperationException();
   }

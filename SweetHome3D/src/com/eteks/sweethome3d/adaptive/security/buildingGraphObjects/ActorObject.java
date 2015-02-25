@@ -1,7 +1,10 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.Role;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
@@ -42,6 +45,24 @@ public class ActorObject extends BuildingObjectContained {
   public void addRole(Role role)
   {
     this.roles.add(role);
+  }
+
+  public Collection<? extends String> getRolesStr() {
+    Set<String> roless = new HashSet<String>();
+    for(Role r : this.roles)
+    {
+      roless.add(r.getRole());
+    }
+    return roless;
+  }
+
+  public void setRolesStr(Set<String> selectedRoles) {
+    this.roles.clear();
+    for(String roleStr : selectedRoles)
+    {
+      this.addRole(new Role(roleStr));
+    }
+    
   }
 
 

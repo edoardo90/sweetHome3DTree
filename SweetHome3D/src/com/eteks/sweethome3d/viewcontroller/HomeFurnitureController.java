@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
@@ -47,6 +48,7 @@ import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.HomeTexture;
 import com.eteks.sweethome3d.model.Selectable;
 import com.eteks.sweethome3d.model.UserPreferences;
+import com.eteks.sweethome3d.swing.objstatus.HomeFurnitureActor;
 
 /**
  * A MVC controller for home furniture view.
@@ -80,7 +82,7 @@ public class HomeFurnitureController implements Controller {
   private ModelMaterialsController    modelMaterialsController;
   
   private DialogView                  homeFurnitureView;
-  private DialogView                  homeFurnitureActorView;
+  private HomeFurnitureActor          homeFurnitureActorView;
 
   private Content            icon;
   private String             name;
@@ -210,14 +212,15 @@ public class HomeFurnitureController implements Controller {
   
   /**
    * Returns the view associated with this controller with actors roles
+   * @param roles available
    * @param actorSelected : actor selected in main pane
    */
-  public DialogView getViewActor(ActorObject actorSelected) {
+  public HomeFurnitureActor getViewActor(Set<String> roles, ActorObject actorSelected) {
     // Create view lazily only once it'niceString needed
     if (this.homeFurnitureActorView == null) 
     {
       this.homeFurnitureActorView = this.viewFactory.createHomeFurnitureViewActor(
-          actorSelected, this.preferences, this); 
+          roles, actorSelected, this.preferences, this); 
     }
     return this.homeFurnitureActorView;
   }
@@ -233,10 +236,16 @@ public class HomeFurnitureController implements Controller {
   /**
    * Displays the view controlled by this controller which allows to set
    * actors roles
+   * @param roles available roles
    * @param actorSelected : actor selected in the HomePane
    */
-  public void displayViewActor(ActorObject actorSelected, View parentView) {
-    getViewActor(actorSelected ).displayView(parentView);
+  public void displayViewActor(Set<String> roles, ActorObject actorSelected, View parentView) {
+    HomeFurnitureActor hfa = getViewActor(roles,  actorSelected );
+    hfa.displayView(parentView);
+    Set<String> selectedRoles = hfa.getSelectedRoles();
+    System.out.println("selected: " + selectedRoles);
+    actorSelected.setRolesStr(selectedRoles);
+    
   }
   
 
