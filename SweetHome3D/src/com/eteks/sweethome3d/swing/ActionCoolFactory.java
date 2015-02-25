@@ -57,6 +57,14 @@ public class ActionCoolFactory {
         mnemonic = new Integer(KeyEvent.VK_R);
         break;
       }
+      case SHOW_GRAPH:
+      {
+        text = "show";
+        iconName = "show_graph";
+        desc = "Click to display the Graph";
+        mnemonic = new Integer(KeyEvent.VK_G);
+        break;
+      }
       default:
       {
        
@@ -72,7 +80,8 @@ public class ActionCoolFactory {
     
     
     try {
-      Action a = new ControllerActionIconEasy(text, iconName, desc, mnemonic, controller, methodName);
+      Action a = new ControllerActionIconEasy
+            (text, iconName, desc, mnemonic, controller, methodName);
       return a;
     } catch (Exception ex) {
       

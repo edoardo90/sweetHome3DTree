@@ -9,6 +9,7 @@ import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.graph.implementations.MultiNode;
 import org.graphstream.ui.spriteManager.Sprite;
 import org.graphstream.ui.spriteManager.SpriteManager;
+import org.graphstream.ui.swingViewer.Viewer;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
@@ -26,12 +27,15 @@ public class GraphClean {
   {
     this.homeGraph = new MultiGraph("my");
     links = securityGraph.getLinkEdgeList();
+    
   }
 
   public void show()
   {
     putlabels();
-    homeGraph.display();
+    Viewer viewer = this.homeGraph.display();
+    viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+    
   }
 
 
@@ -82,7 +86,7 @@ public class GraphClean {
       }
       else
       {
-        edge.setAttribute("ui.label", "_____________WALL");
+        edge.setAttribute("ui.label", "WALL");
         
       }
       

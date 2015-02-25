@@ -42,7 +42,7 @@ public interface HomeView extends View {
        /**
         * edoardo add
         */
-      OPEN_IFC, SHOW_STATUS,ADD_FILE, ADD_LINK, REFRESH_GRAPH,
+      OPEN_IFC, SHOW_STATUS,ADD_FILE, ADD_LINK, REFRESH_GRAPH, SHOW_GRAPH,
       /**
        * already here
        */

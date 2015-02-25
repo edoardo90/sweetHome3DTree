@@ -333,6 +333,7 @@ public class HomePane extends JRootPane implements HomeView {
     createActionSimple(ActionType.SHOW_STATUS, controller, "showStatus");
     createActionSimple(ActionType.ADD_LINK,    controller, "addCyberLink");
     createActionSimple(ActionType.REFRESH_GRAPH,    controller, "refreshGraph");
+    createActionSimple(ActionType.SHOW_GRAPH,    controller, "showGraph");
     
     /**  end of new actions for security **/
     
@@ -2125,6 +2126,7 @@ public class HomePane extends JRootPane implements HomeView {
     addActionToToolBarSimple(ActionType.SHOW_STATUS, toolBar);
     addActionToToolBarSimple(ActionType.ADD_LINK, toolBar);
     addActionToToolBarSimple(ActionType.REFRESH_GRAPH, toolBar);
+    addActionToToolBarSimple(ActionType.SHOW_GRAPH, toolBar);
 
     // Add plugin actions buttons
     boolean pluginActionsAdded = false;

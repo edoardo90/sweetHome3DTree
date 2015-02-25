@@ -35,6 +35,7 @@ import java.awt.Insets;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.SplashScreen;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -621,6 +622,57 @@ public class SwingTools {
       // Ignore splash screen
     }
   }
+ 
+  public static  Window showSplashScreenWindowW(URL imageUrl) {
+    try {
+      final BufferedImage image = ImageIO.read(imageUrl);
+      final Window splashScreenWindow = new Window(new Frame()) {
+          @Override
+          public void paint(Graphics g) {
+            g.drawImage(image, 0, 0, this);
+          }
+        };
+        
+      splashScreenWindow.setSize(image.getWidth(), image.getHeight());
+      splashScreenWindow.setLocationRelativeTo(null);
+      splashScreenWindow.setVisible(true);
+          
+      Executors.newSingleThreadExecutor().execute(new Runnable() {
+          public void run() {
+            try {
+              Thread.sleep(500);
+              while (splashScreenWindow.isVisible()) {
+                // If an other frame is showing, dispose splash window
+                EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                      for (Frame frame : Frame.getFrames()) {
+                        if (frame.isShowing()) {
+                          splashScreenWindow.dispose();
+                        }
+                      }
+                    }
+                  });
+                Thread.sleep(300);
+              }
+            } catch (InterruptedException ex) {
+              EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                  splashScreenWindow.dispose();
+                }
+              });
+            };
+          }
+        });
+      
+      return splashScreenWindow;
+        } catch (IOException ex) {
+              // Ignore splash screen
+         }
+    return null;
+      
+ 
+  }
+ 
   
   /**
    * Returns a new panel with a border and the given <code>title</code>

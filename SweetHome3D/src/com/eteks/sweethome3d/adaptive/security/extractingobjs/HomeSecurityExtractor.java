@@ -151,7 +151,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
       for (int j=i+1; j< rooms.size(); j++)
       {
         Room r1 = rooms.get(i), r2 = rooms.get(j);
-        if (r1 != r2 &&  r1.intersectApprox(r2, 50))
+        if (r1 != r2 &&  areIntersected(r1, r2))
         {
 
           BuildingLinkEdge link = null;
@@ -202,6 +202,27 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     
     return securityGraph;
 
+  }
+
+  private boolean areIntersected(Room r1, Room r2) {
+     //         METHOD 1:
+     boolean inters1 = r1.intersectApprox(r2, 50);
+    
+    //          METHOD 2:
+    
+    RoomGeoSmart rg1 = new RoomGeoSmart(r1);
+    RoomGeoSmart rg2 = new RoomGeoSmart(r2);
+    
+    boolean inters2 = rg2.intersectBordered(rg1, 15);
+    
+    //          COMPARISON
+    //    if(inters1 != inters2)
+    //    {
+    //      int pippo = 1231;
+    //      pippo++;
+    //    }
+    
+    return inters2;
   }
 
   protected ConfigLoader getConfig(UserPreferences preferences) {

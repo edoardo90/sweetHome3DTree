@@ -303,15 +303,31 @@ public class RoomGeoSmart extends Room {
   }
 
   /**
-   * 
+   * This method computes intersection between the 2 areas,
+   * it should be accurate, so if it is intended to give some
+   * degree of error then rooms have to be enlarged first.
+   * See getBiggerRoomBordered(borderSize) at this purpose   
    * @param r2
    * @return true iif there is an intersection with other room
    */
   public boolean intersect(RoomGeoSmart r2)
   {
+    
     return this.intersect(r2, intersectionAlgorithm.AREA);
   }
-
+  
+  /**
+   * This method computes intersection with a certain degree of freedom given by the border
+   * @param rg2
+   * @param border in cm
+   * @return
+   */
+  public boolean intersectBordered(RoomGeoSmart rg2, float border)
+  {
+    RoomGeoSmart rg2Bordered = rg2.getBiggerRoomBordered(border);
+    RoomGeoSmart thisBordered = this.getBiggerRoomBordered(border);
+    return rg2Bordered.intersect(thisBordered);
+  }
 
 
   /**
