@@ -7,7 +7,6 @@ import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.JCheckBox;

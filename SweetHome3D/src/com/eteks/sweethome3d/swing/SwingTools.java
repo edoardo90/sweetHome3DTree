@@ -35,7 +35,6 @@ import java.awt.Insets;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.SplashScreen;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;

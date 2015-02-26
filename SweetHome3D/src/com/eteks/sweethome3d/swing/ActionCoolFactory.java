@@ -5,20 +5,41 @@ import java.awt.event.KeyEvent;
 import javax.swing.Action;
 
 import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap.Key;
 
 public class ActionCoolFactory {
 
   public Action createAction(ActionType type, Object controller, String methodName)
   {
-    
-    String text = "", iconName = "", desc = ""; Integer mnemonic = 0;
+    return this.createAction(true, false, "", type, controller, methodName);
+  }
+  
+  public Action createAction(String label, ActionType type, Object controller, String methodName)
+  {
+    return this.createAction(false, false, label, type, controller, methodName);
+  }
+  
+  public Action createAction(boolean defaultText, ActionType type, Object controller, String methodName)
+  {
+    return this.createAction(false, true, "", type, controller, methodName);
+  }
+  
+  
+  public Action createActionDefaultLbl(ActionType type, Object controller, String methodName)
+  {
+    return this.createAction(true, false, "", type, controller, methodName);
+  }
+  
+  private Action createAction(boolean iconOnly, boolean defaultText, String labelText, ActionType type, Object controller, String methodName)
+  {
+    String  iconName = "", desc = ""; Integer mnemonic = 0;
+    String defaultTxt = "";
+    String textToPut = labelText;
     
     switch(type)
     {
       case OPEN_IFC:
       {
-        text = "Open Ifc File";
+
         iconName = "open_ifc";
         desc = "Click to import a home from an Ifc File";
         mnemonic = new Integer(KeyEvent.VK_I);
@@ -27,7 +48,6 @@ public class ActionCoolFactory {
       
       case SHOW_STATUS:
       {
-         text = "Edit Status";
          iconName = "edit_status";
          desc = "Click to edit the status of the object";
          mnemonic = new Integer(KeyEvent.VK_E);
@@ -35,7 +55,6 @@ public class ActionCoolFactory {
       }
       case ADD_FILE:
       {
-        text = "Add new File";
         iconName = "add_file";
         desc = "Click to add a new file";
         mnemonic = new Integer(KeyEvent.VK_A); 
@@ -43,7 +62,7 @@ public class ActionCoolFactory {
       }
       case ADD_LINK:
       {
-        text = "Connect this 2 selected objects";
+
         iconName = "et_link";
         desc = "Click to connect the 2 selected objects";
         mnemonic = new Integer(KeyEvent.VK_C);
@@ -51,7 +70,7 @@ public class ActionCoolFactory {
       }
       case REFRESH_GRAPH:
       {
-        text = "refresh";
+
         iconName = "refresh";
         desc = "Click to refresh the state";
         mnemonic = new Integer(KeyEvent.VK_R);
@@ -59,16 +78,31 @@ public class ActionCoolFactory {
       }
       case SHOW_GRAPH:
       {
-        text = "show";
+
         iconName = "show_graph";
         desc = "Click to display the Graph";
         mnemonic = new Integer(KeyEvent.VK_G);
         break;
       }
+      case FILTER:
+      {
+
+        iconName = "filter";
+        desc = "Click to choose which kind of elements to show";
+        mnemonic = new Integer(KeyEvent.VK_F);
+        break;
+      }  
+      case TOGGLE_CONNECTION:
+      {
+        defaultTxt = "Toggle Connectable visibility";
+        iconName = "toggle_conn";
+        desc = "Toggle visibility of Connectable elements";
+        mnemonic = new Integer(KeyEvent.VK_T);
+        break;
+      }  
       default:
       {
        
-        text = "Click";
         iconName = "edit_status";
         desc = "Just click";
         mnemonic = new Integer(KeyEvent.VK_E);
@@ -78,10 +112,14 @@ public class ActionCoolFactory {
       
     }
     
+    if(defaultText)
+       textToPut = defaultTxt;
     
+    if(iconOnly )
+        textToPut = "";
     try {
       Action a = new ControllerActionIconEasy
-            (text, iconName, desc, mnemonic, controller, methodName);
+            (textToPut, iconName, desc, mnemonic, controller, methodName);
       return a;
     } catch (Exception ex) {
       

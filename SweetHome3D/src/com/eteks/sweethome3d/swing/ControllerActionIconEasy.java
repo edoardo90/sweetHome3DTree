@@ -22,7 +22,7 @@ public class ControllerActionIconEasy  extends AbstractAction {
                             String method, 
                             Object ... parameters) throws NoSuchMethodException {
       
-      super("", createNavigationIcon(iconName));
+      super(text, createNavigationIcon(iconName));
       putValue(SHORT_DESCRIPTION, desc);
       putValue(MNEMONIC_KEY, mnemonic);
       
@@ -34,6 +34,15 @@ public class ControllerActionIconEasy  extends AbstractAction {
         parametersClass [i] = parameters [i].getClass();
       
       this.controllerMethod = controller.getClass().getMethod(method, parametersClass);
+    }
+    
+    public ControllerActionIconEasy( String iconName,
+                                    String desc, Integer mnemonic,
+                                    Object controller, 
+                                    String method, 
+                                    Object ... parameters) throws NoSuchMethodException 
+    {
+      this("", iconName, desc, mnemonic, controller, method, parameters);
     }
 
     /**

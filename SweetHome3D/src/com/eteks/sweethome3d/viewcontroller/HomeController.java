@@ -19,8 +19,6 @@
  */
 package com.eteks.sweethome3d.viewcontroller;
 
-import ifc2x3javatoolbox.ifc2x3tc1.IfcExtendedMaterialProperties;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
@@ -74,7 +72,6 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObje
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.SecurityExtractor;
 import com.eteks.sweethome3d.model.AspectRatio;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.Camera;
@@ -112,7 +109,6 @@ import com.eteks.sweethome3d.model.TexturesCatalog;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
 import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
-import com.eteks.sweethome3d.swing.opendialog.DemoSplash;
 import com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer;
 import com.eteks.sweethome3d.viewcontroller.PlanController.Mode;
 
@@ -1533,6 +1529,11 @@ public class HomeController implements Controller {
     
   }
 
+  public void toggleConnectableVisibility()
+  {
+    System.out.println("kjkljklsdsadsadsa");
+  }
+  
   public void showGraph()
   {
     try

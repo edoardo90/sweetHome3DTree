@@ -203,6 +203,7 @@ import com.eteks.sweethome3d.plugin.Plugin;
 import com.eteks.sweethome3d.plugin.PluginAction;
 import com.eteks.sweethome3d.plugin.PluginManager;
 import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
+import com.eteks.sweethome3d.swing.filter.JFilterButton;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatusAbstract;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatusJustLife;
@@ -2127,6 +2128,7 @@ public class HomePane extends JRootPane implements HomeView {
     addActionToToolBarSimple(ActionType.ADD_LINK, toolBar);
     addActionToToolBarSimple(ActionType.REFRESH_GRAPH, toolBar);
     addActionToToolBarSimple(ActionType.SHOW_GRAPH, toolBar);
+    addFilterButton(toolBar);
 
     // Add plugin actions buttons
     boolean pluginActionsAdded = false;
@@ -2194,6 +2196,16 @@ public class HomePane extends JRootPane implements HomeView {
     Action action = getActionMap().get(actionType);
     toolBar.add(new JButton(action));
   }
+  
+  private void addFilterButton(JToolBar toolBar)
+  {
+    JFilterButton filterConnected = new JFilterButton();
+    Action toggleConn = (new ActionCoolFactory()).createAction
+           ("Toggle Visibility of Connectable Elements" , ActionType.TOGGLE_CONNECTION, this.controller, "toggleConnectableVisibility");
+    filterConnected.addMenuItemAction(toggleConn);
+    toolBar.add(filterConnected);
+  }
+  
   
   /**
    * Adds to tool bar the button matching the given <code>actionType</code>. 

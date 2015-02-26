@@ -20,7 +20,6 @@
 package com.eteks.sweethome3d.swing;
 
 import java.security.AccessControlException;
-import java.util.List;
 import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;

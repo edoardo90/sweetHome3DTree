@@ -1,7 +1,6 @@
 package com.eteks.sweethome3d.junit.adaptive.graphhome;
 
 import java.util.List;
-import java.util.Locale;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
@@ -20,7 +19,6 @@ import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
 import com.eteks.sweethome3d.viewcontroller.ViewFactory;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.LocalAttribute;
 
 public class HomeToGraphTest extends BasicTest {
 

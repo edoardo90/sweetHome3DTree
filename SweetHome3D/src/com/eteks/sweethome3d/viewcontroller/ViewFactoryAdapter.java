@@ -19,7 +19,6 @@
  */
 package com.eteks.sweethome3d.viewcontroller;
 
-import java.util.List;
 import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;

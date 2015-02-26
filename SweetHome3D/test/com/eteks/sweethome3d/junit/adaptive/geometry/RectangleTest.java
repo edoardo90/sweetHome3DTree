@@ -1,11 +1,7 @@
 package com.eteks.sweethome3d.junit.adaptive.geometry;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
-import junit.framework.TestCase;
 
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;

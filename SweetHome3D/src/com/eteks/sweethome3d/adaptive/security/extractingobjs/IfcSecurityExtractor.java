@@ -65,7 +65,6 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
-
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;

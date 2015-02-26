@@ -2,9 +2,6 @@ package com.eteks.sweethome3d.swing.opendialog;
 
 import java.awt.Window;
 
-import javax.swing.SwingUtilities;
-
-import com.eteks.sweethome3d.SweetHome3D;
 import com.eteks.sweethome3d.resources.Res;
 import com.eteks.sweethome3d.swing.SwingTools;
 

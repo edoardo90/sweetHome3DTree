@@ -28,8 +28,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.swing.undo.AbstractUndoableEdit;
@@ -38,7 +38,6 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ActorAction;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.model.CollectionEvent;

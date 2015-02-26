@@ -4,7 +4,6 @@ import java.io.File;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class FileIfcDialog extends JDialog
 {
