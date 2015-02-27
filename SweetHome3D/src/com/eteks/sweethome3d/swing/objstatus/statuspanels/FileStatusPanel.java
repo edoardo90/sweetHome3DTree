@@ -19,7 +19,7 @@ import javax.swing.border.EtchedBorder;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.swing.ActionCoolFactory;
-import com.eteks.sweethome3d.swing.objstatus.TableFilePanel;
+import com.eteks.sweethome3d.swing.objstatus.tables.TableFilePanel;
 import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
 
 public class FileStatusPanel extends JPanelColor {

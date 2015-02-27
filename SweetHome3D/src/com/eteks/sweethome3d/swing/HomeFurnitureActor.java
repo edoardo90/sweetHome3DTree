@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.swing.objstatus;
+package com.eteks.sweethome3d.swing;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -16,8 +16,6 @@ import javax.swing.JPanel;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.model.UserPreferences;
-import com.eteks.sweethome3d.swing.HomeFurniturePanel;
-import com.eteks.sweethome3d.swing.SwingTools;
 import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
 /**
  * This class provides a panel with checkboxes to select roles associated to

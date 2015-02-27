@@ -45,7 +45,7 @@ import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.HomeTexture;
 import com.eteks.sweethome3d.model.Selectable;
 import com.eteks.sweethome3d.model.UserPreferences;
-import com.eteks.sweethome3d.swing.objstatus.HomeFurnitureActor;
+import com.eteks.sweethome3d.swing.HomeFurnitureActor;
 
 /**
  * A MVC controller for home furniture view.

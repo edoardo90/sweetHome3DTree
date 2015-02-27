@@ -28,7 +28,7 @@ import com.eteks.sweethome3d.model.CatalogTexture;
 import com.eteks.sweethome3d.model.FurnitureCatalog;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.UserPreferences;
-import com.eteks.sweethome3d.swing.objstatus.HomeFurnitureActor;
+import com.eteks.sweethome3d.swing.HomeFurnitureActor;
 
 /**
  * A factory that specifies how to create the views displayed in Sweet Home 3D. 
