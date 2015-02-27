@@ -27,7 +27,7 @@ import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.InterruptedRecorderException;
 import com.eteks.sweethome3d.model.RecorderException;
-import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 
 
 /**
@@ -308,8 +308,8 @@ public interface HomeView extends View {
   public abstract void invokeLater(Runnable runnable);
 
   /**
-   * show the status of the object, like if it is broken or what files does it contain
-   * @param status: life
+   * show the initialStatusPanel of the object, like if it is broken or what files does it contain
+   * @param initialStatusPanel: life
    * @param files:  true iif there is need to display files
    * @return
    */

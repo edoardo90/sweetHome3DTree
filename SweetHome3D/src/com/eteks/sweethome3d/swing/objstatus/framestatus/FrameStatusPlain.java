@@ -1,6 +1,9 @@
-package com.eteks.sweethome3d.swing.objstatus;
+package com.eteks.sweethome3d.swing.objstatus.framestatus;
 
 import javax.swing.JFrame;
+
+import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
+import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 
 public class FrameStatusPlain extends FrameStatusAbstract {
   

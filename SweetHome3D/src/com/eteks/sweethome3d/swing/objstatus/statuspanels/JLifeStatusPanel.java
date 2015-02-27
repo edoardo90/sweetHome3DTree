@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.swing.objstatus;
+package com.eteks.sweethome3d.swing.objstatus.statuspanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -20,16 +20,17 @@ import javax.swing.border.EtchedBorder;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LifeStatus;
 
-public class JLifeStatusPanel extends JPanel implements ActionListener {
+public class JLifeStatusPanel extends JPanelColor implements ActionListener {
 
   private String lifeSatus = "ON";
-  private String title = "Select the life status of the object";
+  private String title = "Select the life initialStatusPanel of the object";
   private JRadioButton brokenRadiob;
   private JRadioButton onRadiob;
   private JRadioButton offRadiob;
 
-  public JLifeStatusPanel() 
+  public JLifeStatusPanel(String name) 
   {
+    super(name);
     BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
     this.setLayout(box);
     
@@ -116,7 +117,7 @@ public class JLifeStatusPanel extends JPanel implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
       this.lifeSatus = e.getActionCommand();
-      System.out.println("life status:" + this.lifeSatus);
+      System.out.println("life initialStatusPanel:" + this.lifeSatus);
   }
   
   

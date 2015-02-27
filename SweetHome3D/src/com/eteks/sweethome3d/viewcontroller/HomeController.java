@@ -109,7 +109,7 @@ import com.eteks.sweethome3d.model.TextureImage;
 import com.eteks.sweethome3d.model.TexturesCatalog;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
-import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer;
 import com.eteks.sweethome3d.viewcontroller.PlanController.Mode;
 
@@ -1560,7 +1560,7 @@ public class HomeController implements Controller {
      * f = new Jframe( obje ). show()
      * 
      */
-    System.out.println("status....");
+    System.out.println("initialStatusPanel....");
 
 
     getView().invokeLater(new Runnable() {
@@ -3057,7 +3057,7 @@ public class HomeController implements Controller {
 
     /**
      * Throws a <code>SAXException</code> exception initialized with a <code>InterruptedRecorderException</code> 
-     * cause if current thread is interrupted. The interrupted status of the current thread 
+     * cause if current thread is interrupted. The interrupted initialStatusPanel of the current thread 
      * is cleared when an exception is thrown.
      */
     private void checkCurrentThreadIsntInterrupted() throws SAXException {

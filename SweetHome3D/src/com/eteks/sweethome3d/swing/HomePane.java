@@ -204,16 +204,17 @@ import com.eteks.sweethome3d.plugin.PluginAction;
 import com.eteks.sweethome3d.plugin.PluginManager;
 import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
 import com.eteks.sweethome3d.swing.filter.JFilterButton;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatusAbstract;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatusJustLife;
-import com.eteks.sweethome3d.swing.objstatus.FrameStatusPlain;
-import com.eteks.sweethome3d.swing.objstatus.JLifeStatusPanel;
-import com.eteks.sweethome3d.swing.objstatus.JPanelColor;
 import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
+import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusFilePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusLifePanelDec;
-import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatus;
+import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusAbstract;
+import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusJustLife;
+import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusPlain;
+import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.statuspanels.JLifeStatusPanel;
+import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 import com.eteks.sweethome3d.swing.opendialog.FileIfcDialog;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
@@ -3641,20 +3642,22 @@ public class HomePane extends JRootPane implements HomeView {
     }
     if(files && statusObject.getFiles() == null)
     {
-      throw new IllegalStateException("if files is true then status should have a not null list!");
+      throw new IllegalStateException("if files is true then initialStatusPanel should have a not null list!");
     }
     
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
 
     JPanelStatusDecorator mainPanel;
     JPanelColor panelStatus = new JPanelColor("fileStatusPanel");
-
+    
     mainPanel = new JStatusLifePanelDec(panelStatus, statusObject);
     mainPanel = new JStatusFilePanelDec(mainPanel,   statusObject);
+    mainPanel = new JStatusContainPanelDec(mainPanel,   statusObject);
     
-    //FrameStatusAbstract fs = new FrameStatusPlain(statusObject, mainPanel, f, "Edit Status");
-        FrameStatusAbstract fs = files ? new FrameStatus(statusObject, f , "Edit Status") :
-            new FrameStatusJustLife(statusObject, f, "Edit Status");
+    FrameStatusAbstract fs = new FrameStatusPlain
+               (statusObject, mainPanel, f, "Edit Status");
+//        FrameStatusAbstract fs = files ? new FrameStatus(statusObject, f , "Edit Status") :
+//            new FrameStatusJustLife(statusObject, f, "Edit Status");
     fs.setLocation(400, 200);
     fs.setVisible(true);
 //

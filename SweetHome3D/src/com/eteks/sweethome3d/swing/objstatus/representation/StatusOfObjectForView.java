@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.swing.objstatus;
+package com.eteks.sweethome3d.swing.objstatus.representation;
 
 import java.util.Collections;
 import java.util.List;

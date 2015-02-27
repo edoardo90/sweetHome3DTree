@@ -17,7 +17,7 @@ import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.LengthUnit;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.SwingViewFactory;
-import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.HomeView;
 import com.eteks.sweethome3d.viewcontroller.ViewFactory;
 

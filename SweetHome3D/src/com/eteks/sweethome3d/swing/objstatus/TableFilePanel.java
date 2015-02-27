@@ -61,10 +61,10 @@ import javax.swing.table.TableModel;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;
-
-/** 
- * TableFilePanel is just like SimpleTableDemo, except that it
- * uses a custom TableModel.
+/**
+ * This class provide a panel containing a table of files
+ * 
+ * @author Edoardo Pasi
  */
 public class TableFilePanel extends JPanel {
   private boolean DEBUG = true;

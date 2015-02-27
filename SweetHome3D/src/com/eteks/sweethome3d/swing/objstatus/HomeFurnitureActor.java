@@ -19,21 +19,42 @@ import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.HomeFurniturePanel;
 import com.eteks.sweethome3d.swing.SwingTools;
 import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
-
+/**
+ * This class provides a panel with checkboxes to select roles associated to
+ * agents
+ * @author Edoardo Pasi
+ */
 public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListener{
 
-  private final ActorObject actor ;
   private final Set<String> roles;
   private Set<String> selectedRoles = new HashSet<String>();
   
   public HomeFurnitureActor(Set<String> roles, ActorObject actor, UserPreferences preferences, HomeFurnitureController controller) {
       super(preferences, controller);
-      this.actor = actor;
       this.roles = roles;
       this.selectedRoles.addAll(actor.getRolesStr());
       this.addRolePanel(2);
   }
   
+  public Set<String> getSelectedRoles()
+  {
+    return this.selectedRoles;
+  }
+
+  public void itemStateChanged(ItemEvent e) {
+    int state = e.getStateChange();  // 1 = ON  2 = OFF
+    System.out.println(state);
+    String text = ((JCheckBox) e.getItem() ).getText();
+    if(state==1)
+    {
+      this.selectedRoles.add(text);
+    }
+    else if(state == 2)
+    {
+      this.selectedRoles.remove(text);
+    }
+  }
+
   private void shiftDownPanels(int firstRowAffected, int lastRowAffected, int downOf)
   {
     for(JPanel p : super.getPanels())
@@ -179,25 +200,6 @@ public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListen
             "gridWidth:     " + c.gridwidth +  "\n" +
             "ipadx:         " + c.ipadx;
     return s;
-  }
-
-  public Set<String> getSelectedRoles()
-  {
-    return this.selectedRoles;
-  }
-  
-  public void itemStateChanged(ItemEvent e) {
-    int state = e.getStateChange();  // 1 = ON  2 = OFF
-    System.out.println(state);
-    String text = ((JCheckBox) e.getItem() ).getText();
-    if(state==1)
-    {
-      this.selectedRoles.add(text);
-    }
-    else if(state == 2)
-    {
-      this.selectedRoles.remove(text);
-    }
   }
 
   

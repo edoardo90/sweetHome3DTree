@@ -30,7 +30,7 @@ public interface ThreadedTaskView extends View {
   public abstract void invokeLater(Runnable runnable);
 
   /**
-   * Sets the running status of the threaded task. 
+   * Sets the running initialStatusPanel of the threaded task. 
    * If <code>taskRunning</code> is <code>true</code>, a waiting dialog will be shown.
    */
   public abstract void setTaskRunning(boolean taskRunning,

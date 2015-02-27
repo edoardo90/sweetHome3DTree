@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.swing.objstatus;
+package com.eteks.sweethome3d.swing.objstatus.framestatus;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -8,6 +8,10 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.statuspanels.FileStatusPanel;
+import com.eteks.sweethome3d.swing.objstatus.statuspanels.JLifeStatusPanel;
 
 
 public class FrameStatus extends FrameStatusAbstract {
@@ -27,7 +31,7 @@ public class FrameStatus extends FrameStatusAbstract {
     super(statusObject, parent, name);
     this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     
-    jLifeStatusPanel = new JLifeStatusPanel();
+    jLifeStatusPanel = new JLifeStatusPanel("life status");
     jLifeStatusPanel.setLifeSatus(statusObject.getLifeStatus());
     
     

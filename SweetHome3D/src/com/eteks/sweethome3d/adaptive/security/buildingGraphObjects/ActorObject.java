@@ -8,7 +8,7 @@ import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.Role;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
-import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 
 
 

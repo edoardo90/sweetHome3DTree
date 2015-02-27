@@ -90,7 +90,7 @@ public abstract class LocatedTransferHandler extends TransferHandler {
               Component component = ev.getDropTargetContext().getComponent();
               if (component instanceof JComponent) {
                 if (acceptDropAction(ev.getSourceActions(), ev.getDropAction()) ^ this.acceptedDragAction) {
-                  // Simulate a drag enter or exit when accept status changes 
+                  // Simulate a drag enter or exit when accept initialStatusPanel changes 
                   this.acceptedDragAction = !this.acceptedDragAction;
                   if (this.acceptedDragAction) {
                     dragEntered((JComponent)component, ev.getTransferable(), ev.getDropAction());

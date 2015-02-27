@@ -83,7 +83,7 @@ public class ThreadedTaskController implements Controller {
     this.task = tasksExecutor.submit(new FutureTask<Void>(this.threadedTask) {
         @Override
         public void run() {
-          // Update running status in view
+          // Update running initialStatusPanel in view
           getView().invokeLater(new Runnable() {
               public void run() {
                 getView().setTaskRunning(true, executingView);
@@ -94,7 +94,7 @@ public class ThreadedTaskController implements Controller {
       
         @Override
         protected void done() {
-          // Update running status in view
+          // Update running initialStatusPanel in view
           getView().invokeLater(new Runnable() {
               public void run() {
                 getView().setTaskRunning(false, executingView);
