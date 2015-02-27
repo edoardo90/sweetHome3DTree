@@ -100,7 +100,7 @@ import com.eteks.sweethome3d.viewcontroller.PhotoController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * A panel to edit photo creation. 
+ * A decoratedPanel to edit photo creation. 
  * @author Emmanuel Puybaret
  */
 public class PhotoPanel extends JPanel implements DialogView {
@@ -138,7 +138,7 @@ public class PhotoPanel extends JPanel implements DialogView {
   private JButton                  saveButton;
   private JButton                  closeButton;
 
-  private static PhotoPanel        currentPhotoPanel; // Support only one photo panel opened at a time
+  private static PhotoPanel        currentPhotoPanel; // Support only one photo decoratedPanel opened at a time
 
   public PhotoPanel(Home home, 
                     UserPreferences preferences, 
@@ -262,7 +262,7 @@ public class PhotoPanel extends JPanel implements DialogView {
 
     this.animatedWaitLabel = new JLabel(new ImageIcon(PhotoPanel.class.getResource("resources/animatedWait.gif")));
 
-    // Create size and quality panel
+    // Create size and quality decoratedPanel
     this.sizeAndQualityPanel = new PhotoSizeAndQualityPanel(home, preferences, controller);
     controller.addPropertyChangeListener(AbstractPhotoController.Property.QUALITY, 
         new PropertyChangeListener() {
@@ -484,8 +484,8 @@ public class PhotoPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Preferences property listener bound to this panel with a weak reference to avoid
-   * strong link between user preferences and this panel.  
+   * Preferences property listener bound to this decoratedPanel with a weak reference to avoid
+   * strong link between user preferences and this decoratedPanel.  
    */
   public static class LanguageChangeListener implements PropertyChangeListener {
     private final WeakReference<PhotoPanel> photoPanel;
@@ -495,7 +495,7 @@ public class PhotoPanel extends JPanel implements DialogView {
     }
 
     public void propertyChange(PropertyChangeEvent ev) {
-      // If photo panel was garbage collected, remove this listener from preferences
+      // If photo decoratedPanel was garbage collected, remove this listener from preferences
       PhotoPanel photoPanel = this.photoPanel.get();
       UserPreferences preferences = (UserPreferences)ev.getSource();
       if (photoPanel == null) {
@@ -509,13 +509,13 @@ public class PhotoPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents() {
     int labelAlignment = OperatingSystem.isMacOSX()
         ? JLabel.TRAILING
         : JLabel.LEADING;
-    // Add animatedWaitLabel and photoComponent to a card panel 
+    // Add animatedWaitLabel and photoComponent to a card decoratedPanel 
     this.photoCardLayout = new CardLayout();
     this.photoPanel = new JPanel(this.photoCardLayout);
     photoPanel.add(this.photoComponent, PHOTO_CARD);
@@ -613,7 +613,7 @@ public class PhotoPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a non modal dialog.
+   * Displays this decoratedPanel in a non modal dialog.
    */
   public void displayView(View parentView) {
     if (currentPhotoPanel == this) {

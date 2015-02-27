@@ -57,7 +57,7 @@ import com.eteks.sweethome3d.viewcontroller.TextureChoiceController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Home furniture editing panel.
+ * Home furniture editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class HomeFurniturePanel extends JPanel implements DialogView {
@@ -104,7 +104,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
 
   private int rowGap = OperatingSystem.isMacOSXLeopardOrSuperior() ? 0 : 5;
   
-  protected Map<String, GridBagConstraints> constraintsPanel = new HashMap<String, GridBagConstraints>();
+  protected Map<String, GridBagConstraints> constraintsPanelMap = new HashMap<String, GridBagConstraints>();
   protected int labelAlignment;
   protected boolean priceDisplayed;
   protected Insets labelInsets;
@@ -118,10 +118,10 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   
   
   /**
-   * Creates a panel that displays home furniture data according to the units 
+   * Creates a decoratedPanel that displays home furniture data according to the units 
    * set in <code>preferences</code>.
    * @param preferences user preferences
-   * @param controller the controller of this panel
+   * @param controller the controller of this decoratedPanel
    */
   public HomeFurniturePanel(UserPreferences preferences,
                             HomeFurnitureController controller) {
@@ -922,7 +922,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   protected void layoutComponents(UserPreferences preferences, 
                                 final HomeFurnitureController controller) {
@@ -945,13 +945,13 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
 
   protected int getRowOfPanel(JPanel panel)
   {
-      GridBagConstraints c = this.constraintsPanel.get(panel.getName());
+      GridBagConstraints c = this.constraintsPanelMap.get(panel.getName());
       return c.gridy;
   }
   
   protected void changeRowToPanel(JPanel panel, int newRow)
   {
-      GridBagConstraints c = this.constraintsPanel.get(panel.getName());
+      GridBagConstraints c = this.constraintsPanelMap.get(panel.getName());
       c.gridy = newRow;
       this.remove(panel);
       this.add(panel, c);
@@ -1130,7 +1130,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   {
     constr.gridy = rowNumber;
     this.add(panel, constr);
-    this.constraintsPanel.put(panel.getName(), constr);
+    this.constraintsPanelMap.put(panel.getName(), constr);
   }
   
   protected void addOnLastRow(JPanel lastRow, int labelAlignment)
@@ -1167,7 +1167,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
         buttonPadY = 0;
         buttonsBottomInset = 0;
       }
-      // Color and Texture panel
+      // Color and Texture decoratedPanel
       paintPanel.add(this.defaultColorAndTextureRadioButton, new GridBagConstraints(
           0, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
           GridBagConstraints.NONE, labelInsets, 0, 0));
@@ -1200,7 +1200,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
               0, 2+1, 1, 1, 0, 0, labelAlignment, 
               GridBagConstraints.BOTH, new Insets(0, 0, rowGap, 0), 0, 0);
       this.setLocation(paintPanel, rowOfPanel, paintPanelConstr);
-      this.constraintsPanel.put(paintPanel.getName(), paintPanelConstr);
+      this.constraintsPanelMap.put(paintPanel.getName(), paintPanelConstr);
       
       
       
@@ -1252,7 +1252,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a modal dialog box. 
+   * Displays this decoratedPanel in a modal dialog box. 
    */
   public void displayView(View parentView) {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 

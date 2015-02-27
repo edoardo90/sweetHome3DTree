@@ -217,7 +217,7 @@ public class UserPreferencesController implements Controller {
   }
   
   /**
-   * Sets whether the navigation panel should be displayed or not.
+   * Sets whether the navigation decoratedPanel should be displayed or not.
    */
   public void setNavigationPanelVisible(boolean navigationPanelVisible) {
     if (this.navigationPanelVisible != navigationPanelVisible) {
@@ -228,7 +228,7 @@ public class UserPreferencesController implements Controller {
   }
   
   /**
-   * Returns <code>true</code> if the navigation panel should be displayed.
+   * Returns <code>true</code> if the navigation decoratedPanel should be displayed.
    */
   public boolean isNavigationPanelVisible() {
     return this.navigationPanelVisible;

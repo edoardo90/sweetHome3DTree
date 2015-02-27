@@ -53,7 +53,7 @@ import com.eteks.sweethome3d.viewcontroller.PrintPreviewController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Home print preview editing panel.
+ * Home print preview editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class PrintPreviewPanel extends JPanel implements DialogView {
@@ -65,11 +65,11 @@ public class PrintPreviewPanel extends JPanel implements DialogView {
   private JLabel                 pageLabel;
 
   /**
-   * Creates a panel that displays print preview.
-   * @param home home previewed by this panel
+   * Creates a decoratedPanel that displays print preview.
+   * @param home home previewed by this decoratedPanel
    * @param preferences the user preferences from which localized data is retrieved
    * @param homeController the controller of <code>home</code>
-   * @param printPreviewController the controller of this panel
+   * @param printPreviewController the controller of this decoratedPanel
    */
   public PrintPreviewPanel(Home home,
                            UserPreferences preferences, 
@@ -210,14 +210,14 @@ public class PrintPreviewPanel extends JPanel implements DialogView {
   }
     
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents() {
-    // Add toolbar at top in a flow layout panel to make it centered
+    // Add toolbar at top in a flow layout decoratedPanel to make it centered
     JPanel panel = new JPanel();
     panel.add(this.toolBar);
     add(panel, ProportionalLayout.Constraints.TOP);
-    // Add printable component at bottom of proportional layout panel
+    // Add printable component at bottom of proportional layout decoratedPanel
     add(this.printableComponent, ProportionalLayout.Constraints.BOTTOM);
   }
 
@@ -235,7 +235,7 @@ public class PrintPreviewPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a modal resizable dialog box. 
+   * Displays this decoratedPanel in a modal resizable dialog box. 
    */
   public void displayView(View parentView) {
     String dialogTitle = preferences.getLocalizedString(PrintPreviewPanel.class, "printPreview.title");

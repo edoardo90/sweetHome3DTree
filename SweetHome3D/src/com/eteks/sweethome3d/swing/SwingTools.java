@@ -674,7 +674,7 @@ public class SwingTools {
  
   
   /**
-   * Returns a new panel with a border and the given <code>title</code>
+   * Returns a new decoratedPanel with a border and the given <code>title</code>
    */
   public static JPanel createTitledPanel(String title) {
     JPanel titledPanel = new JPanel(new GridBagLayout());

@@ -46,7 +46,7 @@ import com.eteks.sweethome3d.viewcontroller.ObserverCameraController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Observer camera editing panel.
+ * Observer camera editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class ObserverCameraPanel extends JPanel implements DialogView {
@@ -67,10 +67,10 @@ public class ObserverCameraPanel extends JPanel implements DialogView {
   private String        dialogTitle;
 
   /**
-   * Creates a panel that displays observer camera attributes data according to the units 
+   * Creates a decoratedPanel that displays observer camera attributes data according to the units 
    * set in <code>preferences</code>.
    * @param preferences user preferences
-   * @param controller the controller of this panel
+   * @param controller the controller of this decoratedPanel
    */
   public ObserverCameraPanel(UserPreferences preferences,
                              ObserverCameraController controller) {
@@ -259,7 +259,7 @@ public class ObserverCameraPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents(UserPreferences preferences) {
     int labelAlignment = OperatingSystem.isMacOSX() 
@@ -333,7 +333,7 @@ public class ObserverCameraPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a modal dialog box. 
+   * Displays this decoratedPanel in a modal dialog box. 
    */
   public void displayView(View parentView) {
     JFormattedTextField elevationSpinnerTextField = 

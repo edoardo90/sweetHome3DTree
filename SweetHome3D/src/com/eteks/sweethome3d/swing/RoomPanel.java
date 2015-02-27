@@ -50,7 +50,7 @@ import com.eteks.sweethome3d.viewcontroller.TextureChoiceController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Room editing panel.
+ * Room editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class RoomPanel extends JPanel implements DialogView {
@@ -83,10 +83,10 @@ public class RoomPanel extends JPanel implements DialogView {
   private String                dialogTitle;
 
   /**
-   * Creates a panel that displays room data according to the units set in
+   * Creates a decoratedPanel that displays room data according to the units set in
    * <code>preferences</code>.
    * @param preferences user preferences
-   * @param controller the controller of this panel
+   * @param controller the controller of this decoratedPanel
    */
   public RoomPanel(UserPreferences preferences,
                    RoomController controller) {
@@ -671,7 +671,7 @@ public class RoomPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents(UserPreferences preferences) {
     int labelAlignment = OperatingSystem.isMacOSX() 
@@ -784,7 +784,7 @@ public class RoomPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Displays this panel in a modal dialog box. 
+   * Displays this decoratedPanel in a modal dialog box. 
    */
   public void displayView(View parentView) {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 

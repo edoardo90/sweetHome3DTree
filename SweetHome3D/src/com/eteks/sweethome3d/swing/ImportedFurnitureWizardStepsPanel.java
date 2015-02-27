@@ -107,7 +107,7 @@ import com.eteks.sweethome3d.viewcontroller.ImportedFurnitureWizardController;
 import com.eteks.sweethome3d.viewcontroller.ImportedFurnitureWizardStepsView;
 
 /**
- * Wizard panel for furniture import. 
+ * Wizard decoratedPanel for furniture import. 
  * @author Emmanuel Puybaret
  */
 public class ImportedFurnitureWizardStepsPanel extends JPanel 
@@ -190,7 +190,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
   }
 
   /**
-   * Creates components displayed by this panel.
+   * Creates components displayed by this decoratedPanel.
    */
   private void createComponents(final boolean importHomePiece, 
                                 final UserPreferences preferences,
@@ -198,7 +198,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
     // Get unit name matching current unit 
     String unitName = preferences.getLengthUnit().getName();
 
-    // Model panel components
+    // Model decoratedPanel components
     this.modelChoiceOrChangeLabel = new JLabel(); 
     this.modelChoiceOrChangeButton = new JButton();
     final FurnitureCategory defaultModelCategory = 
@@ -295,7 +295,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
       });
     this.modelPreviewComponent.setBorder(SwingTools.getDropableComponentBorder());
    
-    // Orientation panel components
+    // Orientation decoratedPanel components
     this.orientationLabel = new JLabel(preferences.getLocalizedString(
         ImportedFurnitureWizardStepsPanel.class, "orientationLabel.text"));
     this.defaultOrientationButton = new JButton(new ResourceAction(preferences, 
@@ -397,7 +397,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
         });
     this.rotationPreviewComponent = new RotationPreviewComponent(preferences, controller);
     
-    // Attributes panel components
+    // Attributes decoratedPanel components
     this.attributesLabel = new JLabel(preferences.getLocalizedString(
         ImportedFurnitureWizardStepsPanel.class, "attributesLabel.text"));
     this.nameLabel = new JLabel(SwingTools.getLocalizedLabelText(preferences, 
@@ -710,7 +710,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
     
     this.attributesPreviewComponent = new AttributesPreviewComponent(controller);
 
-    // Icon panel components
+    // Icon decoratedPanel components
     this.iconLabel = new JLabel(preferences.getLocalizedString(
         ImportedFurnitureWizardStepsPanel.class, "iconLabel.text"));
     this.iconPreviewComponent = new IconPreviewComponent(this.controller);
@@ -864,7 +864,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
   }
   
   /**
-   * Layouts components in 4 panels added to this panel as cards. 
+   * Layouts components in 4 panels added to this decoratedPanel as cards. 
    */
   private void layoutComponents() {
     this.cardLayout = new CardLayout();
@@ -903,7 +903,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
     JPanel rotationButtonsPanel = new JPanel(new GridBagLayout()) {
         @Override
         public void applyComponentOrientation(ComponentOrientation orientation) {
-          // Ignore panel orientation to ensure left button is always at left of panel
+          // Ignore decoratedPanel orientation to ensure left button is always at left of decoratedPanel
         }
       };
     rotationButtonsPanel.add(this.turnUpButton, new GridBagConstraints(
@@ -998,7 +998,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
     attributesPanel.add(this.clearColorButton, new GridBagConstraints(
         2, 13, 1, 1, 0, 0, GridBagConstraints.CENTER, 
         GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
-    // Add a dummy label to force components to be at top of panel
+    // Add a dummy label to force components to be at top of decoratedPanel
     attributesPanel.add(new JLabel(), new GridBagConstraints(
         1, 14, 1, 1, 1, 1, GridBagConstraints.CENTER, 
         GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
@@ -1401,7 +1401,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
   }
 
   /**
-   * Sets the texts of label and button of model panel with change texts. 
+   * Sets the texts of label and button of model decoratedPanel with change texts. 
    */
   private void setModelChangeTexts(UserPreferences preferences) {
     this.modelChoiceOrChangeLabel.setText(preferences.getLocalizedString(
@@ -1416,7 +1416,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
   }
 
   /**
-   * Sets the texts of label and button of model panel with choice texts. 
+   * Sets the texts of label and button of model decoratedPanel with choice texts. 
    */
   private void setModelChoiceTexts(UserPreferences preferences) {
     this.modelChoiceOrChangeLabel.setText(preferences.getLocalizedString(
@@ -1444,7 +1444,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
   /**
    * Returns the icon content of the chosen piece.
    * Icon is created once on demand of view'niceString controller, because it demands either  
-   * icon panel being displayed, or an offscreen 3D buffer that costs too much to create at each yaw change.
+   * icon decoratedPanel being displayed, or an offscreen 3D buffer that costs too much to create at each yaw change.
    */
   public Content getIcon() {
     try {
@@ -1551,7 +1551,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
     }
 
     /**
-     * Creates components displayed by this panel.
+     * Creates components displayed by this decoratedPanel.
      */
     private void createComponents(UserPreferences preferences, 
                                   ImportedFurnitureWizardController controller) {

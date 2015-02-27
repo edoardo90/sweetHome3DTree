@@ -57,7 +57,7 @@ import com.eteks.sweethome3d.viewcontroller.LevelController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Level editing panel.
+ * Level editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class LevelPanel extends JPanel implements DialogView {
@@ -75,10 +75,10 @@ public class LevelPanel extends JPanel implements DialogView {
   private String                dialogTitle;
 
   /**
-   * Creates a panel that displays home levels data according to the units 
+   * Creates a decoratedPanel that displays home levels data according to the units 
    * set in <code>preferences</code>.
    * @param preferences user preferences
-   * @param controller the controller of this panel
+   * @param controller the controller of this decoratedPanel
    */
   public LevelPanel(UserPreferences preferences,
                     LevelController controller) {
@@ -308,7 +308,7 @@ public class LevelPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents(UserPreferences preferences, 
                                 final LevelController controller) {
@@ -376,7 +376,7 @@ public class LevelPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a modal dialog box. 
+   * Displays this decoratedPanel in a modal dialog box. 
    */
   public void displayView(View parentView) {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 

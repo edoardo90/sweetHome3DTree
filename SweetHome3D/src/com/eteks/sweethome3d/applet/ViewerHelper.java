@@ -147,7 +147,7 @@ public final class ViewerHelper {
   
               public void setTaskRunning(boolean taskRunning, View executingView) {
                 if (taskRunning && !this.taskRunning) {
-                  // Display task panel directly at applet center if it'niceString empty 
+                  // Display task decoratedPanel directly at applet center if it'niceString empty 
                   this.taskRunning = taskRunning;
                   JPanel contentPane = new JPanel(new GridBagLayout());
                   contentPane.add(this, new GridBagConstraints());

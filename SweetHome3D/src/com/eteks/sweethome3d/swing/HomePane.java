@@ -207,6 +207,12 @@ import com.eteks.sweethome3d.swing.filter.JFilterButton;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatus;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatusAbstract;
 import com.eteks.sweethome3d.swing.objstatus.FrameStatusJustLife;
+import com.eteks.sweethome3d.swing.objstatus.FrameStatusPlain;
+import com.eteks.sweethome3d.swing.objstatus.JLifeStatusPanel;
+import com.eteks.sweethome3d.swing.objstatus.JPanelColor;
+import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
+import com.eteks.sweethome3d.swing.objstatus.JStatusFilePanelDec;
+import com.eteks.sweethome3d.swing.objstatus.JStatusLifePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.StatusOfObjectForView;
 import com.eteks.sweethome3d.swing.opendialog.FileIfcDialog;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
@@ -2543,7 +2549,7 @@ public class HomePane extends JRootPane implements HomeView {
    * Returns the main pane with sweetCatalogToType tree, furniture table and plan pane. 
    * 
    * Edo'niceString changes:
-   * I also add a lateral panel in which will be displayed the Reacheability Tree.
+   * I also add a lateral decoratedPanel in which will be displayed the Reacheability Tree.
    * 
    */
   private JComponent createMainPane(Home home, UserPreferences preferences, 
@@ -2564,7 +2570,7 @@ public class HomePane extends JRootPane implements HomeView {
           MAIN_PANE_DIVIDER_LOCATION_VISUAL_PROPERTY, 0.3, true, controller);
 
 
-      //The original code finished here, now We also add a lateral panel in which 
+      //The original code finished here, now We also add a lateral decoratedPanel in which 
       // will be placed the Reach Tree.
       return mainPane;
 
@@ -3443,7 +3449,7 @@ public class HomePane extends JRootPane implements HomeView {
       parent = component.getParent();
     }
 
-    // Replace component by a dummy panel to find easily where to attach back the component
+    // Replace component by a dummy decoratedPanel to find easily where to attach back the component
     final JPanel dummyPanel = new JPanel();
     dummyPanel.setMaximumSize(new Dimension());
     dummyPanel.setMinimumSize(new Dimension());
@@ -3466,7 +3472,7 @@ public class HomePane extends JRootPane implements HomeView {
         @Override
         public void componentResized(ComponentEvent ev) {
           // Force divider location even if maximum size is set to zero
-          // to ensure the dummy panel won't appear
+          // to ensure the dummy decoratedPanel won't appear
           dummyPanel.removeComponentListener(this);
           splitPane.setDividerLocation(dividerLocation);
           dummyPanel.addComponentListener(this);
@@ -3639,11 +3645,19 @@ public class HomePane extends JRootPane implements HomeView {
     }
     
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
-    FrameStatusAbstract fs = files ? new FrameStatus(statusObject, f , "Edit Status") :
-                             new FrameStatusJustLife(statusObject, f, "Edit Status");
+
+    JPanelStatusDecorator mainPanel;
+    JPanelColor panelStatus = new JPanelColor("fileStatusPanel");
+
+    mainPanel = new JStatusLifePanelDec(panelStatus, statusObject);
+    mainPanel = new JStatusFilePanelDec(mainPanel,   statusObject);
+    
+    //FrameStatusAbstract fs = new FrameStatusPlain(statusObject, mainPanel, f, "Edit Status");
+        FrameStatusAbstract fs = files ? new FrameStatus(statusObject, f , "Edit Status") :
+            new FrameStatusJustLife(statusObject, f, "Edit Status");
     fs.setLocation(400, 200);
     fs.setVisible(true);
-
+//
     StatusOfObjectForView r = fs.getRepresentation();
     return r;
   }

@@ -174,8 +174,8 @@ public class ImportedTextureWizardTest extends ComponentTestFixture {
     TextureChoiceComponent rightSideTextureComponent =
         (TextureChoiceComponent)TestUtilities.getField(wallPanel, "rightSideTextureComponent");
     // Check xStartSpinner and xEndSpinner panels aren't visible
-    assertFalse("X start spinner panel is visible", xStartSpinner.getParent().isVisible());
-    assertFalse("X end spinner panel is visible", xEndSpinner.getParent().isVisible());
+    assertFalse("X start spinner decoratedPanel is visible", xStartSpinner.getParent().isVisible());
+    assertFalse("X end spinner decoratedPanel is visible", xEndSpinner.getParent().isVisible());
     // Edit right side texture
     JDialog textureDialog = showTexturePanel(preferences, rightSideTextureComponent, false, attributesDialog, tester);
     JList availableTexturesList = (JList)new BasicFinder().find(textureDialog, 
@@ -295,8 +295,8 @@ public class ImportedTextureWizardTest extends ComponentTestFixture {
     TextureChoiceComponent leftSideTextureComponent =
         (TextureChoiceComponent)TestUtilities.getField(wallPanel, "leftSideTextureComponent");
     // Check xStartSpinner and xEndSpinner panels are visible
-    assertTrue("X start spinner panel isn't visible", xStartSpinner.getParent().isVisible());
-    assertTrue("X end spinner panel isn't visible", xEndSpinner.getParent().isVisible());
+    assertTrue("X start spinner decoratedPanel isn't visible", xStartSpinner.getParent().isVisible());
+    assertTrue("X end spinner decoratedPanel isn't visible", xEndSpinner.getParent().isVisible());
     // Edit left side texture
     textureDialog = showTexturePanel(preferences, leftSideTextureComponent, true, attributesDialog, tester);
     availableTexturesList = (JList)new BasicFinder().find(textureDialog, 
@@ -432,7 +432,7 @@ public class ImportedTextureWizardTest extends ComponentTestFixture {
   }
   
   /**
-   * Returns the dialog that displays texture panel. 
+   * Returns the dialog that displays texture decoratedPanel. 
    */
   private JDialog showTexturePanel(UserPreferences preferences,
                                    final TextureChoiceComponent textureComponent, 
@@ -444,7 +444,7 @@ public class ImportedTextureWizardTest extends ComponentTestFixture {
           // Display dialog box later in Event Dispatch Thread to avoid blocking test thread
           textureComponent.doClick();        }
       });
-    // Wait for texture panel to be shown
+    // Wait for texture decoratedPanel to be shown
     String textureTitle = preferences.getLocalizedString(
         WallController.class, leftSide ? "leftSideTextureTitle" : "rightSideTextureTitle");
     tester.waitForFrameShowing(new AWTHierarchy(), textureTitle);
@@ -520,7 +520,7 @@ public class ImportedTextureWizardTest extends ComponentTestFixture {
   }
 
   /**
-   * Asserts if each <code>panel</code> step preview component is showing or not. 
+   * Asserts if each <code>decoratedPanel</code> step preview component is showing or not. 
    */
   private void assertStepShowing(ImportedTextureWizardStepsPanel panel,
                                  boolean imageStepShwing,

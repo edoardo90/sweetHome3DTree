@@ -82,7 +82,7 @@ import com.eteks.sweethome3d.viewcontroller.PlanView;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * A panel for multiple levels plans where users can select the displayed level.
+ * A decoratedPanel for multiple levels plans where users can select the displayed level.
  * @author Emmanuel Puybaret
  */
 public class MultipleLevelsPlanPanel extends JPanel implements PlanView, Printable {
@@ -104,7 +104,7 @@ public class MultipleLevelsPlanPanel extends JPanel implements PlanView, Printab
   }
 
   /**
-   * Creates components displayed by this panel.
+   * Creates components displayed by this decoratedPanel.
    */
   private void createComponents(final Home home, 
                                 final UserPreferences preferences, final PlanController controller) {
@@ -369,7 +369,7 @@ public class MultipleLevelsPlanPanel extends JPanel implements PlanView, Printab
   }
 
   /**
-   * Layouts the components displayed by this panel.
+   * Layouts the components displayed by this decoratedPanel.
    */
   private void layoutComponents() {
     add(this.multipleLevelsTabbedPane, MULTIPLE_LEVELS_PANEL_NAME);

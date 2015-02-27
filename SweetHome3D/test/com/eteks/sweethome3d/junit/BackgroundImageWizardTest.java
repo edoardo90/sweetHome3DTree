@@ -198,7 +198,7 @@ public class BackgroundImageWizardTest extends ComponentTestFixture {
   }
 
   /**
-   * Asserts if each <code>panel</code> step preview component is showing or not. 
+   * Asserts if each <code>decoratedPanel</code> step preview component is showing or not. 
    */
   private void assertStepShowing(BackgroundImageWizardStepsPanel panel,
                                  boolean imageStepShwing,

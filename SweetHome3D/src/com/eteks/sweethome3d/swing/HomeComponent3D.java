@@ -405,10 +405,10 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
               }
               
               public void canvas3DPostRendered(Canvas3D canvas3D) {
-                // Copy reference to navigation panel image to avoid concurrency problems 
+                // Copy reference to navigation decoratedPanel image to avoid concurrency problems 
                 // if it'niceString modified in the EDT while this method draws it
                 BufferedImage navigationPanelImage = HomeComponent3D.this.navigationPanelImage;
-                // Render navigation panel upon canvas 3D if it exists
+                // Render navigation decoratedPanel upon canvas 3D if it exists
                 if (navigationPanelImage != null) {
                   J3DGraphics2D g2D = canvas3D.getGraphics2D();
                   g2D.drawImage(navigationPanelImage, null, 0, 0);
@@ -453,7 +453,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
       if (preferences != null
           && (!OperatingSystem.isMacOSX()
               || OperatingSystem.isMacOSXLeopardOrSuperior())) {
-        // No support for navigation panel under Mac OS X Tiger 
+        // No support for navigation decoratedPanel under Mac OS X Tiger 
         // (too unstable, may crash system at 3D view resizing)
         this.navigationPanel = createNavigationPanel(this.home, preferences, controller);
         setNavigationPanelVisible(preferences.isNavigationPanelVisible() && isVisible());
@@ -469,7 +469,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
   }
 
   /**
-   * A <code>JCanvas</code> canvas that displays the navigation panel of a home component 3D upon it.
+   * A <code>JCanvas</code> canvas that displays the navigation decoratedPanel of a home component 3D upon it.
    */
   private static class JCanvas3DWithNavigationPanel extends JCanvas3D {
     private final HomeComponent3D homeComponent3D;
@@ -518,7 +518,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
   }
 
   /**
-   * Returns the component displayed as navigation panel by this 3D view.
+   * Returns the component displayed as navigation decoratedPanel by this 3D view.
    */
   private JComponent createNavigationPanel(Home home, 
                                            UserPreferences preferences, 
@@ -538,7 +538,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
           if (nagivationPanelIcon != null) {
             nagivationPanelIcon.paintIcon(c, g, x, y);
           } else {
-            // Draw a surrounding oval if no navigation panel icon is defined
+            // Draw a surrounding oval if no navigation decoratedPanel icon is defined
             Graphics2D g2D = (Graphics2D)g;
             g2D.setColor(Color.BLACK);
             g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -666,14 +666,14 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
 
   /**
    * Sets the component that will be drawn upon the heavyweight 3D component shown by this component.
-   * Mouse events will targeted to the navigation panel when needed.
+   * Mouse events will targeted to the navigation decoratedPanel when needed.
    * Supports transparent components. 
    */
   private void setNavigationPanelVisible(boolean visible) {
     if (this.navigationPanel != null) {
       this.navigationPanel.setVisible(visible);
       if (visible) {
-        // Add a component listener that updates navigation panel image
+        // Add a component listener that updates navigation decoratedPanel image
         this.navigationPanelListener = new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent ev) {
@@ -686,7 +686,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
             }
           };
         this.navigationPanel.addComponentListener(this.navigationPanelListener);
-        // Add the navigation panel to this component to be able to paint it 
+        // Add the navigation decoratedPanel to this component to be able to paint it 
         // but show it behind canvas 3D
         this.component3D.getParent().add(this.navigationPanel);    
       } else {
@@ -714,7 +714,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
           componentBounds.y + componentBounds.height);
       if (!imageSize.isEmpty()) {
         BufferedImage updatedImage = this.navigationPanelImage;
-        // Consider that no navigation panel image is available 
+        // Consider that no navigation decoratedPanel image is available 
         // while it'niceString updated
         this.navigationPanelImage = null;        
         Graphics2D g2D;
@@ -734,7 +734,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
         }
         this.navigationPanel.paintAll(g2D);
         g2D.dispose();
-        // Navigation panel image ready to be displayed
+        // Navigation decoratedPanel image ready to be displayed
         this.navigationPanelImage = updatedImage;
         return;
       }
@@ -1282,7 +1282,7 @@ public class HomeComponent3D extends JComponent implements com.eteks.sweethome3d
         }
         
         /**
-         * Retargets to the first component of navigation panel able to manage the given event 
+         * Retargets to the first component of navigation decoratedPanel able to manage the given event 
          * and returns <code>true</code> if a component consumed the event 
          * or needs to be repainted (meaning its state changed).
          * This implementation doesn't cover all the possible cases (mouseEntered and mouseExited

@@ -89,7 +89,7 @@ import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Wizard panel for background image choice. 
+ * Wizard decoratedPanel for background image choice. 
  * @author Emmanuel Puybaret
  */
 public class BackgroundImageWizardStepsPanel extends JPanel implements View {
@@ -134,14 +134,14 @@ public class BackgroundImageWizardStepsPanel extends JPanel implements View {
   }
 
   /**
-   * Creates components displayed by this panel.
+   * Creates components displayed by this decoratedPanel.
    */
   private void createComponents(final UserPreferences preferences, 
                                 final BackgroundImageWizardController controller) {
     // Get unit name matching current unit 
     String unitName = preferences.getLengthUnit().getName();
 
-    // Image choice panel components
+    // Image choice decoratedPanel components
     this.imageChoiceOrChangeLabel = new JLabel(); 
     this.imageChoiceOrChangeButton = new JButton();
     this.imageChoiceOrChangeButton.addActionListener(new ActionListener() {
@@ -193,7 +193,7 @@ public class BackgroundImageWizardStepsPanel extends JPanel implements View {
       });
     this.imageChoicePreviewComponent.setBorder(SwingTools.getDropableComponentBorder());
     
-    // Image scale panel components
+    // Image scale decoratedPanel components
     this.scaleLabel = new JLabel(preferences.getLocalizedString(
         BackgroundImageWizardStepsPanel.class, "scaleLabel.text"));
     this.scaleDistanceLabel = new JLabel(SwingTools.getLocalizedLabelText(preferences,
@@ -219,7 +219,7 @@ public class BackgroundImageWizardStepsPanel extends JPanel implements View {
         });
     this.scalePreviewComponent = new ScaleImagePreviewComponent(controller);
     
-    // Image origin panel components
+    // Image origin decoratedPanel components
     this.originLabel = new JLabel(preferences.getLocalizedString(
         BackgroundImageWizardStepsPanel.class, "originLabel.text"));
     this.xOriginLabel = new JLabel(SwingTools.getLocalizedLabelText(preferences,
@@ -279,7 +279,7 @@ public class BackgroundImageWizardStepsPanel extends JPanel implements View {
   }
   
   /**
-   * Layouts components in 3 panels added to this panel as cards. 
+   * Layouts components in 3 panels added to this decoratedPanel as cards. 
    */
   private void layoutComponents(UserPreferences preferences) {
     this.cardLayout = new CardLayout();
@@ -340,7 +340,7 @@ public class BackgroundImageWizardStepsPanel extends JPanel implements View {
   }
   
   /**
-   * Returns a panel displaying the given component along with zoom in and out buttons.
+   * Returns a decoratedPanel displaying the given component along with zoom in and out buttons.
    */
   private JComponent createScalableImageComponent(final ScaledImageComponent imageComponent,
                                                   UserPreferences preferences) {
@@ -569,7 +569,7 @@ public class BackgroundImageWizardStepsPanel extends JPanel implements View {
   }
 
   /**
-   * Sets the texts of label and button of image choice panel with
+   * Sets the texts of label and button of image choice decoratedPanel with
    * change texts. 
    */
   private void setImageChangeTexts(UserPreferences preferences) {
@@ -585,7 +585,7 @@ public class BackgroundImageWizardStepsPanel extends JPanel implements View {
   }
 
   /**
-   * Sets the texts of label and button of image choice panel with
+   * Sets the texts of label and button of image choice decoratedPanel with
    * choice texts. 
    */
   private void setImageChoiceTexts(UserPreferences preferences) {

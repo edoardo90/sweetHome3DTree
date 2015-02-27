@@ -71,7 +71,7 @@ public class ThreadedTaskPanel extends JPanel implements ThreadedTaskView {
   }
     
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents() {
     add(this.taskLabel, BorderLayout.NORTH);
@@ -79,7 +79,7 @@ public class ThreadedTaskPanel extends JPanel implements ThreadedTaskView {
   }
   
   /**
-   * Sets the status of the progress bar shown by this panel as indeterminate.
+   * Sets the status of the progress bar shown by this decoratedPanel as indeterminate.
    * This method may be called from an other thread than EDT.  
    */
   public void setIndeterminateProgress() {
@@ -96,7 +96,7 @@ public class ThreadedTaskPanel extends JPanel implements ThreadedTaskView {
   }
   
   /**
-   * Sets the current value of the progress bar shown by this panel.  
+   * Sets the current value of the progress bar shown by this decoratedPanel.  
    * This method may be called from an other thread than EDT.  
    */
   public void setProgress(final int value, 

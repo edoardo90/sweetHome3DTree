@@ -70,7 +70,7 @@ import com.eteks.sweethome3d.viewcontroller.UserPreferencesController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * User preferences panel.
+ * User preferences decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class UserPreferencesPanel extends JPanel implements DialogView {
@@ -118,7 +118,7 @@ public class UserPreferencesPanel extends JPanel implements DialogView {
   private String         dialogTitle;
   
   /**
-   * Creates a preferences panel that layouts the editable properties
+   * Creates a preferences decoratedPanel that layouts the editable properties
    * of its <code>controller</code>. 
    */
   public UserPreferencesPanel(UserPreferences preferences,
@@ -267,7 +267,7 @@ public class UserPreferencesPanel extends JPanel implements DialogView {
     }
     if (controller.isPropertyEditable(UserPreferencesController.Property.NAVIGATION_PANEL_VISIBLE)
         && !no3D) {
-      // Create navigation panel label and check box bound to controller NAVIGATION_PANEL_VISIBLE property
+      // Create navigation decoratedPanel label and check box bound to controller NAVIGATION_PANEL_VISIBLE property
       this.navigationPanelLabel = new JLabel(preferences.getLocalizedString(
           UserPreferencesPanel.class, "navigationPanelLabel.text"));
       this.navigationPanelCheckBox = new JCheckBox(SwingTools.getLocalizedLabelText(preferences, 
@@ -287,7 +287,7 @@ public class UserPreferencesPanel extends JPanel implements DialogView {
               }
             });
       } else {
-        // No support for navigation panel under Mac OS X Tiger (too unstable)
+        // No support for navigation decoratedPanel under Mac OS X Tiger (too unstable)
         this.navigationPanelCheckBox.setEnabled(false);
       }
     }
@@ -668,7 +668,7 @@ public class UserPreferencesPanel extends JPanel implements DialogView {
     }
     
     public void propertyChange(PropertyChangeEvent ev) {
-      // If panel was garbage collected, remove this listener from preferences
+      // If decoratedPanel was garbage collected, remove this listener from preferences
       UserPreferencesPanel userPreferencesPanel = this.userPreferencesPanel.get();
       if (userPreferencesPanel == null) {
         ((UserPreferences)ev.getSource()).removePropertyChangeListener(
@@ -789,7 +789,7 @@ public class UserPreferencesPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents() {
     int labelAlignment = OperatingSystem.isMacOSX() 
@@ -992,7 +992,7 @@ public class UserPreferencesPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a dialog box. 
+   * Displays this decoratedPanel in a dialog box. 
    */
   public void displayView(View parentView) {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 

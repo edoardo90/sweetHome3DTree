@@ -211,16 +211,16 @@ public class ColorButton extends JButton {
       colorChooser = new JColorChooser(colorSelectionModel) {
           public void updateUI() {
             super.updateUI();
-            // Add customized color chooser panel in updateUI, because an outside call to setChooserPanels 
+            // Add customized color chooser decoratedPanel in updateUI, because an outside call to setChooserPanels 
             // might be ignored when the color chooser dialog is created
             List<AbstractColorChooserPanel> chooserPanels = new ArrayList<AbstractColorChooserPanel>(
                 Arrays.asList(getChooserPanels()));
-            // Remove swatch chooser panel
+            // Remove swatch chooser decoratedPanel
             if (chooserPanels.get(0).getClass().getName().equals("javax.swing.colorchooser.DefaultSwatchChooserPanel")) {
               chooserPanels.remove(0);
             } 
             // Remove components used to manage transparency and displayed at the fourth or fifth row 
-            // of the first panel of ColorChooserPanel instances
+            // of the first decoratedPanel of ColorChooserPanel instances
             for (AbstractColorChooserPanel chooserPanel : chooserPanels) {
               if (chooserPanel.getClass().getName().equals("javax.swing.colorchooser.ColorChooserPanel")) {
                 Component colorPanel = chooserPanel.getComponent(0);
@@ -323,7 +323,7 @@ public class ColorButton extends JButton {
   }
 
   /**
-   * Color chooser panel showing different palettes.
+   * Color chooser decoratedPanel showing different palettes.
    */
   private static class PalettesColorChooserPanel extends AbstractColorChooserPanel {
     private final UserPreferences preferences;
@@ -1234,7 +1234,7 @@ public class ColorButton extends JButton {
         if (UIManager.getLookAndFeel().getID().equals("GTK")) {
           return new Insets(5, 5, 5, 5);
         } else {
-          // Tip to ensure the preview panel isn't ignored by BasicColorChooserUI
+          // Tip to ensure the preview decoratedPanel isn't ignored by BasicColorChooserUI
           return new Insets(1, 0, 0, 0);
         }
       }

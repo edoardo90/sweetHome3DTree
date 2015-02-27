@@ -68,7 +68,7 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  *     
  *     <li><code>navigationPanel</code> specifies whether navigation arrows should be 
  *     displayed or not. By default, its value is <code>false</code>. 
- *     Use <code>true</code> to display navigation panel.</li>
+ *     Use <code>true</code> to display navigation decoratedPanel.</li>
  *
  *     <li><code>activateCameraSwitchKey</code> specifies whether the space bar should be used
  *     or not to switch between aerial view and virtual visitor view. 

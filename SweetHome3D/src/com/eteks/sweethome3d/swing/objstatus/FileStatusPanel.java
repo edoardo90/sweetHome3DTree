@@ -14,33 +14,34 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.swing.ActionCoolFactory;
 import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
 
-public class FileStatusPanel extends JPanel {
+public class FileStatusPanel extends JPanelColor {
 
   private List<String> files = new ArrayList<String>();
-  private JLabel generalTitleLab = new JLabel("These are the files stored in the device");
+  private String title = "These are the files stored in the device";
+  private JLabel generalTitleLab = new JLabel(title);
   
   private JPanel tablePanel;
   private TableFilePanel tableFilePanel;
   
-  public FileStatusPanel()
+  public FileStatusPanel(String name)
   {
+    super(name);
     BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
     
     generalTitleLab.setAlignmentY(TOP_ALIGNMENT);
     generalTitleLab.setAlignmentX(CENTER_ALIGNMENT);
     this.setLayout(box);
-    this.add(generalTitleLab);
-    this.add(Box.createRigidArea(new Dimension(0, 20)));
     
-    JPanel buttonAndTable = this.borderedPanelCenterVertical(20, Color.GREEN);
-    
-    
-    JPanel buttonPanel = this.borderedPanelCenterHorizontal(20, Color.magenta);
+     
+    JPanel buttonAndTable = this.borderedPanelCenterVertical(0, Color.GREEN);
+    JPanel buttonPanel = super.borderedPanelCenterHorizontal(10, Color.magenta);
     
     Action actionAddFile = this.getActionAddFile();
     JButton addFileBtn = new JButton(actionAddFile);
@@ -50,8 +51,7 @@ public class FileStatusPanel extends JPanel {
     buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
     buttonPanel.add(addFileBtn);
     
-    tablePanel = this.borderedPanelCenterVertical(20, Color.ORANGE);
-    
+    tablePanel = this.borderedPanelCenterVertical(10, Color.ORANGE);
     
     
     buttonAndTable.add(buttonPanel);
@@ -59,7 +59,8 @@ public class FileStatusPanel extends JPanel {
     
     
     this.add(buttonAndTable);
-    this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+    Border bspace = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+    this.setBorder(BorderFactory.createTitledBorder(bspace, title));
   }
   
   private Action getActionAddFile()
@@ -110,28 +111,8 @@ public class FileStatusPanel extends JPanel {
     else
       return null;
   }
-  
 
-  private JPanel borderedPanelCenterHorizontal(int bord, Color color)
-  {
-    JPanel jp = new JPanel();
-    jp.setBorder(BorderFactory.createEmptyBorder(bord, bord, bord, bord));
-    jp.setAlignmentX(CENTER_ALIGNMENT);
-    jp.setLayout(new BoxLayout(jp, BoxLayout.X_AXIS));
-    
-    return jp;
-  }
-  
-  
-  private JPanel borderedPanelCenterVertical(int bord, Color color)
-  {
-    JPanel jp = new JPanel();
-    jp.setBorder(BorderFactory.createEmptyBorder(bord, bord, bord, bord));
-    jp.setAlignmentX(CENTER_ALIGNMENT);
-    jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-    
-    return jp;
-  }
+
   
 
 }

@@ -64,7 +64,7 @@ import com.eteks.sweethome3d.viewcontroller.View;
 import com.eteks.sweethome3d.viewcontroller.WallController;
 
 /**
- * Wall editing panel.
+ * Wall editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class WallPanel extends JPanel implements DialogView {
@@ -113,10 +113,10 @@ public class WallPanel extends JPanel implements DialogView {
   private String         dialogTitle;
 
   /**
-   * Creates a panel that displays wall data according to the units set in
+   * Creates a decoratedPanel that displays wall data according to the units set in
    * <code>preferences</code>.
    * @param preferences user preferences
-   * @param controller the controller of this panel
+   * @param controller the controller of this decoratedPanel
    */
   public WallPanel(UserPreferences preferences,
                    WallController controller) {
@@ -851,7 +851,7 @@ public class WallPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents(UserPreferences preferences, 
                                 final WallController controller) {
@@ -953,11 +953,11 @@ public class WallPanel extends JPanel implements DialogView {
     // Fifth row
     JPanel heightPanel = SwingTools.createTitledPanel(
         preferences.getLocalizedString(WallPanel.class, "heightPanel.title"));   
-    // First row of height panel
+    // First row of height decoratedPanel
     heightPanel.add(this.rectangularWallRadioButton, new GridBagConstraints(
         0, 0, 5, 1, 0, 0, GridBagConstraints.LINE_START, 
         GridBagConstraints.HORIZONTAL, new Insets(0, 0, 2, 0), 0, 0));
-    // Second row of height panel
+    // Second row of height decoratedPanel
     // Add a dummy label to align second and fourth row on radio buttons text
     heightPanel.add(new JLabel(), new GridBagConstraints(
         0, 1, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
@@ -968,11 +968,11 @@ public class WallPanel extends JPanel implements DialogView {
     heightPanel.add(this.rectangularWallHeightSpinner, new GridBagConstraints(
         2, 1, 1, 1, 1, 0, GridBagConstraints.LINE_START, 
         GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 5), -10, 0));
-    // Third row of height panel
+    // Third row of height decoratedPanel
     heightPanel.add(this.slopingWallRadioButton, new GridBagConstraints(
         0, 2, 5, 1, 0, 0, GridBagConstraints.LINE_START, 
         GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
-    // Fourth row of height panel
+    // Fourth row of height decoratedPanel
     heightPanel.add(this.slopingWallHeightAtStartLabel, new GridBagConstraints(
         1, 3, 1, 1, 1, 0, labelAlignment, 
         GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
@@ -1064,7 +1064,7 @@ public class WallPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Displays this panel in a modal dialog box. 
+   * Displays this decoratedPanel in a modal dialog box. 
    */
   public void displayView(View parentView) {
     Component homeRoot = SwingUtilities.getRoot((Component)parentView);

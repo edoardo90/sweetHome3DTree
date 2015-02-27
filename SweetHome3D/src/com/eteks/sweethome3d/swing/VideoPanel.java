@@ -140,7 +140,7 @@ import com.eteks.sweethome3d.viewcontroller.VideoController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * A panel used for video creation. 
+ * A decoratedPanel used for video creation. 
  * @author Emmanuel Puybaret
  */
 public class VideoPanel extends JPanel implements DialogView {
@@ -200,10 +200,10 @@ public class VideoPanel extends JPanel implements DialogView {
   private JButton               saveButton;
   private JButton               closeButton;
 
-  private static VideoPanel     currentVideoPanel; // Support only one video panel opened at a time
+  private static VideoPanel     currentVideoPanel; // Support only one video decoratedPanel opened at a time
 
   /**
-   * Creates a video panel.
+   * Creates a video decoratedPanel.
    */
   public VideoPanel(Home home, 
                     UserPreferences preferences, 
@@ -841,8 +841,8 @@ public class VideoPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Preferences property listener bound to this panel with a weak reference to avoid
-   * strong link between user preferences and this panel.  
+   * Preferences property listener bound to this decoratedPanel with a weak reference to avoid
+   * strong link between user preferences and this decoratedPanel.  
    */
   public static class LanguageChangeListener implements PropertyChangeListener {
     private final WeakReference<VideoPanel> videoPanel;
@@ -852,7 +852,7 @@ public class VideoPanel extends JPanel implements DialogView {
     }
 
     public void propertyChange(PropertyChangeEvent ev) {
-      // If video panel was garbage collected, remove this listener from preferences
+      // If video decoratedPanel was garbage collected, remove this listener from preferences
       VideoPanel videoPanel = this.videoPanel.get();
       UserPreferences preferences = (UserPreferences)ev.getSource();
       if (videoPanel == null) {
@@ -866,13 +866,13 @@ public class VideoPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents() {
     int labelAlignment = OperatingSystem.isMacOSX() 
         ? GridBagConstraints.LINE_END
         : GridBagConstraints.LINE_START;
-    // Add tip and progress bar to a card panel 
+    // Add tip and progress bar to a card decoratedPanel 
     this.statusLayout = new CardLayout();
     this.statusPanel = new JPanel(this.statusLayout);
     this.statusPanel.add(this.tipLabel, TIP_CARD);
@@ -968,7 +968,7 @@ public class VideoPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a non modal dialog.
+   * Displays this decoratedPanel in a non modal dialog.
    */
   public void displayView(View parentView) {
     if (currentVideoPanel == this) {
@@ -1473,7 +1473,7 @@ public class VideoPanel extends JPanel implements DialogView {
       final Cursor defaultCursor = rootPane.getCursor();
       rootPane.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
       
-      // Disable panel actions
+      // Disable decoratedPanel actions
       ActionMap actionMap = getActionMap();
       final boolean [] actionEnabledStates = new boolean [ActionType.values().length];
       for (ActionType action : ActionType.values()) {
@@ -1514,7 +1514,7 @@ public class VideoPanel extends JPanel implements DialogView {
               } catch (IOException ex) {
                 // Ignore close exception
               }
-              // Delete saved file in case of error or if panel was closed meanwhile
+              // Delete saved file in case of error or if decoratedPanel was closed meanwhile
               if (exception != null || !isDisplayable()) {
                 new File(movFileName).delete();
                 if (!isDisplayable()) {

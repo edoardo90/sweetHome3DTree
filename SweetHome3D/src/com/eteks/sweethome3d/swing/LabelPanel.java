@@ -41,7 +41,7 @@ import com.eteks.sweethome3d.viewcontroller.LabelController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Label editing panel.
+ * Label editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class LabelPanel extends JPanel implements DialogView {
@@ -52,10 +52,10 @@ public class LabelPanel extends JPanel implements DialogView {
   private String                dialogTitle;
 
   /**
-   * Creates a panel that displays label data.
-   * @param modification specifies whether this panel edits an existing label or new one
+   * Creates a decoratedPanel that displays label data.
+   * @param modification specifies whether this decoratedPanel edits an existing label or new one
    * @param preferences user preferences
-   * @param controller the controller of this panel
+   * @param controller the controller of this decoratedPanel
    */
   public LabelPanel(boolean modification,
                     UserPreferences preferences,
@@ -126,7 +126,7 @@ public class LabelPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents(final LabelController controller) {
     int labelAlignment = OperatingSystem.isMacOSX() 
@@ -141,7 +141,7 @@ public class LabelPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a modal dialog box. 
+   * Displays this decoratedPanel in a modal dialog box. 
    */
   public void displayView(View parentView) {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 

@@ -526,7 +526,7 @@ public abstract class UserPreferences {
   }
   
   /**
-   * Returns <code>true</code> if the navigation panel should be displayed.
+   * Returns <code>true</code> if the navigation decoratedPanel should be displayed.
    * @since 2.3
    */
   public boolean isNavigationPanelVisible() {
@@ -534,7 +534,7 @@ public abstract class UserPreferences {
   }
   
   /**
-   * Sets whether the navigation panel should be displayed or not.
+   * Sets whether the navigation decoratedPanel should be displayed or not.
    * @since 2.3
    */
   public void setNavigationPanelVisible(boolean navigationPanelVisible) {

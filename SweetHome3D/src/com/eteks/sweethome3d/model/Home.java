@@ -31,9 +31,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
@@ -55,7 +57,9 @@ import com.eteks.sweethome3d.io.DefaultUserPreferences;
  */
 public class Home implements Serializable, Cloneable {
   private static final long serialVersionUID = 1L;
-
+  
+  private Set<HidebleDimensionLine> dimensionLineCyber = new HashSet<HidebleDimensionLine>();
+  
   /**
    * The current version of this home. Each time the field list is changed
    * in <code>Home</code> class or in one of the classes that it uses,
@@ -136,6 +140,8 @@ public class Home implements Serializable, Cloneable {
     // The following field is a temporary copy of furniture containing HomeFurnitureGroup instances
     // created at serialization time for backward compatibility reasons
     private List<HomePieceOfFurniture>                  furnitureWithGroups;
+    
+    private boolean connectedVisible = false;
 
     /**
      * Creates a home with no furniture, no walls, 
@@ -1741,19 +1747,29 @@ public class Home implements Serializable, Cloneable {
 
 
     }
-
-    public void addCyberLink(String id1, String id2) {
+    /**
+     * <pre>
+     * Try to add a cyber link, return true iif succeded
+     * It can fail if:  one of the 2 objects is not found
+     *                  one of the 2 objects does not allow connections
+     * @param id1
+     * @param id2
+     * @return
+     * </pre>
+     */
+    public boolean  addCyberLink(String id1, String id2) {
       try
       {
+       
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
 
         try
         {
           segraph.addCyberLink(id1, id2);
         }
-        catch(IllegalArgumentException e) {   return;   }
-        catch(IllegalStateException e1) { return ; }
-        catch(Exception e2) { e2.printStackTrace(); }
+        catch(IllegalArgumentException e) {   return false;   }
+        catch(IllegalStateException e1) { return  false; }
+        catch(Exception e2) {  e2.printStackTrace();  }
 
         BuildingObjectContained bo1 = segraph.getObjectContainedFromObj(new IdObject(id1));
         BuildingObjectContained bo2 = segraph.getObjectContainedFromObj(new IdObject(id2));
@@ -1763,13 +1779,19 @@ public class Home implements Serializable, Cloneable {
         float xEnd = (float)   bo2.getPosition().first;
         float yEnd = (float)   bo2.getPosition().second;
 
-        DimensionLine dimensionLine = new DimensionLine(xStart, yStart, xEnd, yEnd, 20);
-
-        this.addDimensionLine(dimensionLine);
+        HidebleDimensionLine dimensionLine = new HidebleDimensionLine(xStart, yStart, xEnd, yEnd, 20);
+      
+        if( ! this.connectedVisible)
+            dimensionLine.toggleVisibility(); //hide, since at start is visible
+        if(! this.getDimensionLines().contains(dimensionLine))
+        {
+          this.addDimensionLine(dimensionLine);
+          return true;
+        }
 
       }
       catch(Exception e) { e.printStackTrace(); }
-
+      return false;
 
     }
 
@@ -1805,6 +1827,42 @@ public class Home implements Serializable, Cloneable {
       }
       return null;
  }
+
+    public void toglleVisibilityConnected() {
+      
+      this.connectedVisible = ! this.connectedVisible;
+      
+      for(HomePieceOfFurniture hopf : this.getFurniture())
+      {
+         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+         BuildingObjectContained boo = segraph.getObjectContainedFromHOPF(hopf);
+         boolean connectable = boo.getType().canConnect();
+         
+         if(! connectable)
+         {
+           hopf.setVisible( !  hopf.isVisible());
+         }
+             
+      }
+      for(DimensionLine dl : this.getDimensionLines())
+      {
+           if (dl instanceof HidebleDimensionLine) {
+             HidebleDimensionLine hdl = (HidebleDimensionLine)dl;
+             hdl.toggleVisibility();     
+           }
+      }
+      
+    }
+
+    public void setConnectableVisible() {
+        
+      if (this.connectedVisible == false)
+      {
+        this.toglleVisibilityConnected();
+      }
+      this.connectedVisible = true;
+      
+    }
 
 
 }

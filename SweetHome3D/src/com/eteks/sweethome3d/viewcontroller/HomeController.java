@@ -85,6 +85,7 @@ import com.eteks.sweethome3d.model.DamagedHomeRecorderException;
 import com.eteks.sweethome3d.model.DimensionLine;
 import com.eteks.sweethome3d.model.Elevatable;
 import com.eteks.sweethome3d.model.FurnitureCatalog;
+import com.eteks.sweethome3d.model.HidebleDimensionLine;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomeApplication;
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
@@ -1531,7 +1532,7 @@ public class HomeController implements Controller {
 
   public void toggleConnectableVisibility()
   {
-    System.out.println("kjkljklsdsadsadsa");
+      home.toglleVisibilityConnected();
   }
   
   public void showGraph()
@@ -1620,6 +1621,7 @@ public class HomeController implements Controller {
 
   public void addCyberLink()
   {
+    
     List<Selectable> selected = home.getSelectedItems();
     if(selected.size() != 2)
     {
@@ -1634,7 +1636,9 @@ public class HomeController implements Controller {
       if (obj1 instanceof HomePieceOfFurniture && obj2 instanceof HomePieceOfFurniture) {
         HomePieceOfFurniture hopf1 = (HomePieceOfFurniture)obj1;
         HomePieceOfFurniture hopf2 = (HomePieceOfFurniture)obj2;
-        home.addCyberLink(hopf1.getId(), hopf2.getId());
+        boolean added = this.home.addCyberLink(hopf1.getId(), hopf2.getId());
+        if(added)
+            this.home.setConnectableVisible();
       }
       else
       {

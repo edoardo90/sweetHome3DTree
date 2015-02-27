@@ -105,7 +105,7 @@ public class ModelMaterialsComponent extends JButton implements View {
   }
   
   /**
-   * A panel that displays available textures in a list to let user make choose one. 
+   * A decoratedPanel that displays available textures in a list to let user make choose one. 
    */
   private static class ModelMaterialsPanel extends JPanel {
     private final ModelMaterialsController controller;
@@ -496,7 +496,7 @@ public class ModelMaterialsComponent extends JButton implements View {
     }
     
     /**
-     * Layouts components in panel with their labels. 
+     * Layouts components in decoratedPanel with their labels. 
      */
     private void layoutComponents() {
       // Preview
@@ -551,7 +551,7 @@ public class ModelMaterialsComponent extends JButton implements View {
     }
     
     public void displayView(View parent) {
-      // Show panel in a resizable modal dialog
+      // Show decoratedPanel in a resizable modal dialog
       final JOptionPane optionPane = new JOptionPane(this, JOptionPane.PLAIN_MESSAGE, 
           JOptionPane.OK_CANCEL_OPTION);
       JComponent parentComponent = SwingUtilities.getRootPane((JComponent)parent);
@@ -566,7 +566,7 @@ public class ModelMaterialsComponent extends JButton implements View {
       dialog.setMinimumSize(getPreferredSize());
       this.controller.getTextureController().addPropertyChangeListener(
           TextureChoiceController.Property.TEXTURE, this.textureChangeListener);
-      // Add a listener that transfer focus to focusable field of texture panel when dialog is shown
+      // Add a listener that transfer focus to focusable field of texture decoratedPanel when dialog is shown
       dialog.addComponentListener(new ComponentAdapter() {
           @Override
           public void componentShown(ComponentEvent ev) {

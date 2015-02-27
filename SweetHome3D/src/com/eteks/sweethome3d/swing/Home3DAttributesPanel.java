@@ -44,7 +44,7 @@ import com.eteks.sweethome3d.viewcontroller.Home3DAttributesController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Home 3D attributes editing panel.
+ * Home 3D attributes editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class Home3DAttributesPanel extends JPanel implements DialogView {
@@ -68,9 +68,9 @@ public class Home3DAttributesPanel extends JPanel implements DialogView {
   private String        dialogTitle;
 
   /**
-   * Creates a panel that displays home 3D attributes data.
+   * Creates a decoratedPanel that displays home 3D attributes data.
    * @param preferences user preferences
-   * @param controller the controller of this panel
+   * @param controller the controller of this decoratedPanel
    */
   public Home3DAttributesPanel(UserPreferences preferences,
                                Home3DAttributesController controller) {
@@ -290,7 +290,7 @@ public class Home3DAttributesPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents(UserPreferences preferences) {
     int labelAlignment = OperatingSystem.isMacOSX() 
@@ -378,7 +378,7 @@ public class Home3DAttributesPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a modal dialog box. 
+   * Displays this decoratedPanel in a modal dialog box. 
    */
   public void displayView(View parentView) {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 

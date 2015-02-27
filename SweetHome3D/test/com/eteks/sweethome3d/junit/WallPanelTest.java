@@ -40,7 +40,7 @@ import com.eteks.sweethome3d.viewcontroller.ViewFactory;
 import com.eteks.sweethome3d.viewcontroller.WallController;
 
 /**
- * Tests {@linkplain com.eteks.sweethome3d.swing.HomeFurniturePanel home piece of furniture panel}.
+ * Tests {@linkplain com.eteks.sweethome3d.swing.HomeFurniturePanel home piece of furniture decoratedPanel}.
  * @author Emmanuel Puybaret
  */
 public class WallPanelTest extends TestCase {
@@ -57,9 +57,9 @@ public class WallPanelTest extends TestCase {
     wall1.setRightSideColor(20);
     home.setSelectedItems(Arrays.asList(new Wall [] {wall1}));
     
-    // 2. Create a wall panel to edit the selected wall
+    // 2. Create a wall decoratedPanel to edit the selected wall
     WallController wallController = new WallController(home, preferences, viewFactory, null, null);
-    // Check values stored by wall panel components are equal to the ones set
+    // Check values stored by wall decoratedPanel components are equal to the ones set
     assertWallControllerEquals(wall1.getXStart(), wall1.getYStart(),
         wall1.getXEnd(), wall1.getYEnd(),
         (float)Point2D.distance(wall1.getXStart(), wall1.getYStart(),
@@ -97,9 +97,9 @@ public class WallPanelTest extends TestCase {
     wall2.setLeftSideColor(10);
     wall2.setRightSideColor(50);
     home.setSelectedItems(Arrays.asList(new Wall [] {wall1, wall2}));
-    // Check if wall panel edits null values if walls thickness or colors are the same
+    // Check if wall decoratedPanel edits null values if walls thickness or colors are the same
     wallController = new WallController(home, preferences, viewFactory, null, null);
-    // Check values stored by furniture panel components are equal to the ones set
+    // Check values stored by furniture decoratedPanel components are equal to the ones set
     assertWallControllerEquals(0.1f, null, null,
         null, null, null, null, null, 10, null, null, null, wallController);
   }
@@ -142,7 +142,7 @@ public class WallPanelTest extends TestCase {
   }
 
   public static void main(String [] args) {
-    // Create a selected wall in a home and display it in a wall panel
+    // Create a selected wall in a home and display it in a wall decoratedPanel
     Home home = new Home();
     Wall wall1 = new Wall(0.1f, 0.2f, 100.1f, 100.2f, 7.5f, home.getWallHeight());
     home.addWall(wall1);

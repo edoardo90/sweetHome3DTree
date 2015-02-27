@@ -113,7 +113,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   private JList                 catalogFurnitureList;
 
   /**
-   * Creates a panel that displays <code>sweetCatalogToType</code> furniture in a list with a filter combo box
+   * Creates a decoratedPanel that displays <code>sweetCatalogToType</code> furniture in a list with a filter combo box
    * and a search field.
    */
   public FurnitureCatalogListPanel(FurnitureCatalog catalog,
@@ -126,7 +126,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   }
 
   /**
-   * Creates the components displayed by this panel.
+   * Creates the components displayed by this decoratedPanel.
    */
   private void createComponents(FurnitureCatalog catalog,
                                 final UserPreferences preferences, 
@@ -312,7 +312,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
     }
 
     public void propertyChange(PropertyChangeEvent ev) {
-      // If panel was garbage collected, remove this listener from preferences
+      // If decoratedPanel was garbage collected, remove this listener from preferences
       FurnitureCatalogListPanel furnitureCatalogPanel = this.furnitureCatalogPanel.get();
       UserPreferences preferences = (UserPreferences)ev.getSource();
       if (furnitureCatalogPanel == null) {
@@ -328,7 +328,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
     }
     
     public void collectionChanged(CollectionEvent<CatalogPieceOfFurniture> ev) {
-      // If panel was garbage collected, remove this listener from sweetCatalogToType
+      // If decoratedPanel was garbage collected, remove this listener from sweetCatalogToType
       FurnitureCatalogListPanel furnitureCatalogPanel = this.furnitureCatalogPanel.get();
       FurnitureCatalog catalog = (FurnitureCatalog)ev.getSource();
       if (furnitureCatalogPanel == null) {
@@ -443,7 +443,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   }
 
   /**
-   * Layouts the components displayed by this panel.
+   * Layouts the components displayed by this decoratedPanel.
    */
   private void layoutComponents() {
     int labelAlignment = OperatingSystem.isMacOSX() 
@@ -599,7 +599,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   }
   
   /**
-   * Sets the transfer handler of the list displayed by this panel.
+   * Sets the transfer handler of the list displayed by this decoratedPanel.
    */
   @Override
   public void setTransferHandler(TransferHandler handler) {
@@ -607,7 +607,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   }
 
   /**
-   * Returns the transfer handler of the list displayed by this panel.
+   * Returns the transfer handler of the list displayed by this decoratedPanel.
    */
   @Override
   public TransferHandler getTransferHandler() {
@@ -615,7 +615,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   }
   
   /**
-   * Sets the popup menu of the list displayed by this panel.
+   * Sets the popup menu of the list displayed by this decoratedPanel.
    */
   @Override
   public void setComponentPopupMenu(JPopupMenu popup) {
@@ -623,7 +623,7 @@ class FurnitureCatalogListPanel extends JPanel implements View {
   }
   
   /**
-   * Returns the popup menu of the list displayed by this panel.
+   * Returns the popup menu of the list displayed by this decoratedPanel.
    */
   @Override
   public JPopupMenu getComponentPopupMenu() {

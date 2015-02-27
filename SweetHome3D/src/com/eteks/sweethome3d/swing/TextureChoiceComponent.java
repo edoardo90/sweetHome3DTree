@@ -190,7 +190,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
   }
 
   /**
-   * A panel that displays available textures in a list to let user make choose one. 
+   * A decoratedPanel that displays available textures in a list to let user make choose one. 
    */
   private static class TexturePanel extends JPanel {
     private static final int PREVIEW_ICON_SIZE = 128; 
@@ -438,7 +438,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
       this.recentTexturesPanel.setOpaque(false);
 
       Border border = this.texturePreviewComponent.getBorder();
-      // Update edited texture in texture panel
+      // Update edited texture in texture decoratedPanel
       HomeTexture texture = controller.getTexture();
       setPreviewTexture(texture);
       if (texture instanceof HomeTexture) {
@@ -629,7 +629,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
     }
     
     /**
-     * Layouts components in panel with their labels. 
+     * Layouts components in decoratedPanel with their labels. 
      */
     private void layoutComponents() {
       int labelAlignment = OperatingSystem.isMacOSX() 
@@ -816,7 +816,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
     }
 
     public void displayView(View textureChoiceComponent) {
-      // Show panel in a resizable modal dialog
+      // Show decoratedPanel in a resizable modal dialog
       final JOptionPane optionPane = new JOptionPane(this, JOptionPane.PLAIN_MESSAGE, 
           JOptionPane.OK_CANCEL_OPTION);
       JComponent parentComponent = SwingUtilities.getRootPane((JComponent)textureChoiceComponent);
@@ -836,7 +836,7 @@ public class TextureChoiceComponent extends JButton implements TextureChoiceView
       }
       // Initialize search field value once list preferred size is set      
       searchTextField.setText(searchFilterText);
-      // Add a listener that transfer focus to focusable field of texture panel when dialog is shown
+      // Add a listener that transfer focus to focusable field of texture decoratedPanel when dialog is shown
       dialog.addComponentListener(new ComponentAdapter() {
           @Override
           public void componentShown(ComponentEvent ev) {

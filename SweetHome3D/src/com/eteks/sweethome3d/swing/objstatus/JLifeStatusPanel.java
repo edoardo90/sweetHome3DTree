@@ -1,6 +1,7 @@
 package com.eteks.sweethome3d.swing.objstatus;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -14,30 +15,32 @@ import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LifeStatus;
 
-public class LifeStatusPanel extends JPanel implements ActionListener {
+public class JLifeStatusPanel extends JPanel implements ActionListener {
 
   private String lifeSatus = "ON";
-  private JLabel pickStatusLab = new JLabel("Select the life status of the object");
+  private String title = "Select the life status of the object";
   private JRadioButton brokenRadiob;
   private JRadioButton onRadiob;
   private JRadioButton offRadiob;
 
-  public LifeStatusPanel() 
+  public JLifeStatusPanel() 
   {
     BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
-    pickStatusLab.setAlignmentX(LEFT_ALIGNMENT);
     this.setLayout(box);
-    this.add(pickStatusLab);
-    this.add(Box.createRigidArea(new Dimension(0, 20)));
+    
     JPanel radioP = this.radioPanel();
     radioP.setAlignmentX(LEFT_ALIGNMENT);
     this.add(radioP);
     
+    radioP.setBackground(Color.CYAN);
     
-    this.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+    Border bspace = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+    this.setBorder(BorderFactory.createTitledBorder(bspace, title));
     
   }
   
@@ -78,7 +81,7 @@ public class LifeStatusPanel extends JPanel implements ActionListener {
     
     
     radioP.add(radioPanel, BorderLayout.LINE_START);
-    radioP.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+    radioP.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
     
     
     return radioP;

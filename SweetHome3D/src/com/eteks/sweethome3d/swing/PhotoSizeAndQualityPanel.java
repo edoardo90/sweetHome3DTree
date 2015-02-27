@@ -63,7 +63,7 @@ import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.viewcontroller.AbstractPhotoController;
 
 /**
- * A panel to edit photo size and quality. 
+ * A decoratedPanel to edit photo size and quality. 
  * @author Emmanuel Puybaret
  */
 public class PhotoSizeAndQualityPanel extends JPanel {
@@ -340,8 +340,8 @@ public class PhotoSizeAndQualityPanel extends JPanel {
   }
 
   /**
-   * Preferences property listener bound to this panel with a weak reference to avoid
-   * strong link between user preferences and this panel.  
+   * Preferences property listener bound to this decoratedPanel with a weak reference to avoid
+   * strong link between user preferences and this decoratedPanel.  
    */
   public static class LanguageChangeListener implements PropertyChangeListener {
     private final WeakReference<PhotoSizeAndQualityPanel> photoPanel;
@@ -351,7 +351,7 @@ public class PhotoSizeAndQualityPanel extends JPanel {
     }
 
     public void propertyChange(PropertyChangeEvent ev) {
-      // If photo panel was garbage collected, remove this listener from preferences
+      // If photo decoratedPanel was garbage collected, remove this listener from preferences
       PhotoSizeAndQualityPanel photoPanel = this.photoPanel.get();
       UserPreferences preferences = (UserPreferences)ev.getSource();
       if (photoPanel == null) {
@@ -365,7 +365,7 @@ public class PhotoSizeAndQualityPanel extends JPanel {
   }
 
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents() {
     int labelAlignment = OperatingSystem.isMacOSX()
@@ -415,7 +415,7 @@ public class PhotoSizeAndQualityPanel extends JPanel {
   }
   
   /**
-   * Enables or disables this panel and its components.
+   * Enables or disables this decoratedPanel and its components.
    */
   @Override
   public void setEnabled(boolean enabled) {

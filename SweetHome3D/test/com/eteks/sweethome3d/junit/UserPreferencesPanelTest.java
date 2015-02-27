@@ -73,12 +73,12 @@ import com.eteks.sweethome3d.viewcontroller.VideoController;
 import com.eteks.sweethome3d.viewcontroller.WallController;
 
 /**
- * Tests {@link com.eteks.sweethome3d.swing.UserPreferencesPanel user preferences panel}.
+ * Tests {@link com.eteks.sweethome3d.swing.UserPreferencesPanel user preferences decoratedPanel}.
  * @author Emmanuel Puybaret
  */
 public class UserPreferencesPanelTest extends TestCase {
   /**
-   * Tests user preferences panel.
+   * Tests user preferences decoratedPanel.
    */
   public void testUserPreferencesPanel() 
        throws RecorderException, NoSuchFieldException, IllegalAccessException {
@@ -106,7 +106,7 @@ public class UserPreferencesPanelTest extends TestCase {
     preferences.setNewWallHeight(
         defaultPreferences.getNewWallHeight());
     
-    // 2. Create a user preferences panel
+    // 2. Create a user preferences decoratedPanel
     UserPreferencesController controller = 
         new UserPreferencesController(preferences, new SwingViewFactory(), null);
     UserPreferencesPanel panel = (UserPreferencesPanel)controller.getView();
@@ -130,7 +130,7 @@ public class UserPreferencesPanelTest extends TestCase {
         (JSpinner)TestUtilities.getField(panel, "newWallThicknessSpinner");
     JSpinner newHomeWallHeightSpinner = 
         (JSpinner)TestUtilities.getField(panel, "newWallHeightSpinner");
-    // Check panel components value
+    // Check decoratedPanel components value
     assertEquals("Centimeter isn't the current unit", LengthUnit.CENTIMETER, unitComboBox.getSelectedItem());
     assertTrue("Magnestism isn't selected", magnetismCheckBox.isSelected());
     assertTrue("Rulers isn't selected", rulersCheckBox.isSelected());
@@ -145,7 +145,7 @@ public class UserPreferencesPanelTest extends TestCase {
     assertEquals("Wrong default wall height", 
         newHomeWallHeightSpinner.getValue(), defaultPreferences.getNewWallHeight());
     
-    // 3. Change panel values
+    // 3. Change decoratedPanel values
     unitComboBox.setSelectedItem(LengthUnit.INCH);
     magnetismCheckBox.setSelected(false);
     rulersCheckBox.setSelected(false);
@@ -155,7 +155,7 @@ public class UserPreferencesPanelTest extends TestCase {
     ((DefaultEditor)newWallThicknessSpinner.getEditor()).getTextField().setText("1\u215C\"");
     ((DefaultEditor)newHomeWallHeightSpinner.getEditor()).getTextField().setText("8'4,25");
     
-    // 4. Retrieve panel values into preferences
+    // 4. Retrieve decoratedPanel values into preferences
     controller.modifyUserPreferences();
     // Check preferences value
     assertPreferencesEqual(LengthUnit.INCH, false, false, false,

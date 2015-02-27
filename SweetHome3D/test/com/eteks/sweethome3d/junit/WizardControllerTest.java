@@ -225,7 +225,7 @@ public class WizardControllerTest extends TestCase {
       }
     }
     
-    // Second step view is a panel displaying a check box that enables next step
+    // Second step view is a decoratedPanel displaying a check box that enables next step
     private static class SecondStepView extends JPanel implements View {
       public SecondStepView(final SecondStep secondStepController) {
         add(new JLabel("Finish ?"));

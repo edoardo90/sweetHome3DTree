@@ -86,7 +86,7 @@ public class TableFilePanel extends JPanel {
     //Create the scroll pane and add the table to it.
     JScrollPane scrollPane = new JScrollPane(table);
 
-    //Add the scroll pane to this panel.
+    //Add the scroll pane to this decoratedPanel.
     add(scrollPane);
   }
 

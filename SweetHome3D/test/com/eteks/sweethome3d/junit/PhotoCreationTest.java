@@ -242,7 +242,7 @@ public class PhotoCreationTest extends ComponentTestFixture {
   }
   
   /**
-   * Returns the dialog that displays photo panel. 
+   * Returns the dialog that displays photo decoratedPanel. 
    */
   private JDialog showPhotoCreationPanel(UserPreferences preferences,
                                         final HomeController controller, 
@@ -263,7 +263,7 @@ public class PhotoCreationTest extends ComponentTestFixture {
   }
 
   /**
-   * Returns the dialog that displays video panel. 
+   * Returns the dialog that displays video decoratedPanel. 
    */
   private JDialog showVideoCreationPanel(UserPreferences preferences,
                                         final HomeController controller, 

@@ -4821,7 +4821,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
     toolTipPropertiesPanel.setBackground(toolTip.getBackground());
     toolTipPropertiesPanel.setForeground(toolTip.getForeground());
 
-    // Add labels and text fields to tool tip panel
+    // Add labels and text fields to tool tip decoratedPanel
     for (int i = 0; i < toolTipEditedProperties.length; i++) {
       JFormattedTextField textField = this.toolTipEditableTextFields.get(toolTipEditedProperties [i]);
       textField.setValue(toolTipPropertyValues [i]); 

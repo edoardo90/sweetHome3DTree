@@ -361,8 +361,7 @@ public class BuildingSecurityGraph {
       BuildingObjectType t1 = bo1.getType();
       BuildingObjectType t2 = bo2.getType();
       
-      if(t1.canAcceptConnections() && t2.canStartConnections()  ||
-         t2.canAcceptConnections() && t1.canStartConnections()   )
+      if(t1.canConnect() && t2.canConnect() )  
       {
         this.cyberLinkEdgeList.add( new CyberLinkEdge(id1, id2));
       }
@@ -376,6 +375,17 @@ public class BuildingSecurityGraph {
 
   public void removeCyberLink(String id1, String id2) {
       this.cyberLinkEdgeList.remove(new CyberLinkEdge(id1, id2));
+  }
+
+  public BuildingObjectContained getObjectContainedFromHOPF(HomePieceOfFurniture hopf) {
+    IdObject id =  new IdObject(hopf.getId());
+    
+    BuildingObjectContained boo = this.getObjectContainedFromObj(id);
+    if(boo == null)
+    {
+      throw new IllegalStateException("object not found");
+    }
+    return boo;
   }
   
   

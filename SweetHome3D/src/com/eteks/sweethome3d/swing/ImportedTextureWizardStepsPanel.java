@@ -85,7 +85,7 @@ import com.eteks.sweethome3d.viewcontroller.ImportedTextureWizardController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Wizard panel for background image choice. 
+ * Wizard decoratedPanel for background image choice. 
  * @author Emmanuel Puybaret
  */
 public class ImportedTextureWizardStepsPanel extends JPanel implements View {
@@ -135,14 +135,14 @@ public class ImportedTextureWizardStepsPanel extends JPanel implements View {
   }
 
   /**
-   * Creates components displayed by this panel.
+   * Creates components displayed by this decoratedPanel.
    */
   private void createComponents(final UserPreferences preferences, 
                                 final ImportedTextureWizardController controller) {
     // Get unit name matching current unit 
     String unitName = preferences.getLengthUnit().getName();
 
-    // Image choice panel components
+    // Image choice decoratedPanel components
     this.imageChoiceOrChangeLabel = new JLabel(); 
     this.imageChoiceOrChangeButton = new JButton();
     this.imageChoiceOrChangeButton.addActionListener(new ActionListener() {
@@ -233,7 +233,7 @@ public class ImportedTextureWizardStepsPanel extends JPanel implements View {
       });
     this.imageChoicePreviewComponent.setBorder(SwingTools.getDropableComponentBorder());
     
-    // Attributes panel components
+    // Attributes decoratedPanel components
     this.attributesLabel = new JLabel(preferences.getLocalizedString(
         ImportedTextureWizardStepsPanel.class, "attributesLabel.text"));
     this.nameLabel = new JLabel(SwingTools.getLocalizedLabelText(preferences, 
@@ -423,7 +423,7 @@ public class ImportedTextureWizardStepsPanel extends JPanel implements View {
   }
   
   /**
-   * Layouts components in 3 panels added to this panel as cards. 
+   * Layouts components in 3 panels added to this decoratedPanel as cards. 
    */
   private void layoutComponents() {
     this.cardLayout = new CardLayout();
@@ -487,7 +487,7 @@ public class ImportedTextureWizardStepsPanel extends JPanel implements View {
     attributesPanel.add(this.heightSpinner, new GridBagConstraints(
         2, 4, 1, 1, 0, 0, GridBagConstraints.CENTER, 
         GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
-    // Add a dummy label to force components to be at top of panel
+    // Add a dummy label to force components to be at top of decoratedPanel
     attributesPanel.add(new JLabel(), new GridBagConstraints(
         1, 5, 2, 1, 1, 1, GridBagConstraints.CENTER, 
         GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
@@ -677,7 +677,7 @@ public class ImportedTextureWizardStepsPanel extends JPanel implements View {
   }
 
   /**
-   * Sets the texts of label and button of image choice panel with
+   * Sets the texts of label and button of image choice decoratedPanel with
    * change texts. 
    */
   private void setImageChangeTexts(UserPreferences preferences) {
@@ -693,7 +693,7 @@ public class ImportedTextureWizardStepsPanel extends JPanel implements View {
   }
 
   /**
-   * Sets the texts of label and button of image choice panel with
+   * Sets the texts of label and button of image choice decoratedPanel with
    * choice texts. 
    */
   private void setImageChoiceTexts(UserPreferences preferences) {
@@ -719,7 +719,7 @@ public class ImportedTextureWizardStepsPanel extends JPanel implements View {
   }
 
   /**
-   * Updates the image shown in attributes panel.
+   * Updates the image shown in attributes decoratedPanel.
    */
   private void updateAttributesPreviewImage() {
     BufferedImage attributesPreviewImage = this.attributesPreviewComponent.getImage();

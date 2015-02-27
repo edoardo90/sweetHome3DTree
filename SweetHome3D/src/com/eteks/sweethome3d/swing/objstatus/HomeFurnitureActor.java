@@ -54,7 +54,7 @@ public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListen
     
     this.shiftDownPanels(2, this.getPanels().size(), 1);
 
-    //Role panel
+    //Role decoratedPanel
     int gridx=0, gridy=1, gridwidth=1, gridheight=1;
     int weightx=0, weighty=0;
     int anchor=GridBagConstraints.CENTER, fill=GridBagConstraints.NONE,  ipadx=0, ipady=0;
@@ -82,7 +82,7 @@ public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListen
     GridBagConstraints c = new GridBagConstraints(gridx, gridy, gridwidth, gridheight, 
         weightx, weighty, anchor, fill, insets, ipadx, ipady);
     
-    this.constraintsPanel.put(rolePanel.getName(), c);
+    this.constraintsPanelMap.put(rolePanel.getName(), c);
     
     this.add(rolePanel, c);
 
@@ -144,9 +144,9 @@ public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListen
           GridBagConstraints constrGot =  glay.getConstraints(c);
           String panelName = panel.getName();
           
-          System.out.println("panel:" + panelName 
-                 + "constr map: " + this.niceContrainsts(panelName,  this.constraintsPanel.get(panelName)));
-          System.out.println("panel " + panelName + " says : i contain");
+          System.out.println("decoratedPanel:" + panelName 
+                 + "constr map: " + this.niceContrainsts(panelName,  this.constraintsPanelMap.get(panelName)));
+          System.out.println("decoratedPanel " + panelName + " says : i contain");
           shiftDown(c, 0);
         }
      }

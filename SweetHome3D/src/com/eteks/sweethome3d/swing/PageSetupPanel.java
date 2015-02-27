@@ -66,7 +66,7 @@ import com.eteks.sweethome3d.viewcontroller.PageSetupController;
 import com.eteks.sweethome3d.viewcontroller.View;
 
 /**
- * Home page setup editing panel.
+ * Home page setup editing decoratedPanel.
  * @author Emmanuel Puybaret
  */
 public class PageSetupPanel extends JPanel implements DialogView {
@@ -90,8 +90,8 @@ public class PageSetupPanel extends JPanel implements DialogView {
   private String              dialogTitle;
 
   /**
-   * Creates a panel that displays page setup.
-   * @param controller the controller of this panel
+   * Creates a decoratedPanel that displays page setup.
+   * @param controller the controller of this decoratedPanel
    */
   public PageSetupPanel(UserPreferences preferences, 
                         PageSetupController controller) {
@@ -396,7 +396,7 @@ public class PageSetupPanel extends JPanel implements DialogView {
   }
   
   /**
-   * Layouts panel components in panel with their labels. 
+   * Layouts decoratedPanel components in decoratedPanel with their labels. 
    */
   private void layoutComponents() {
     int labelAlignment = OperatingSystem.isMacOSX() 
@@ -461,7 +461,7 @@ public class PageSetupPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Displays this panel in a modal dialog box. 
+   * Displays this decoratedPanel in a modal dialog box. 
    */
   public void displayView(View parentView) {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 
