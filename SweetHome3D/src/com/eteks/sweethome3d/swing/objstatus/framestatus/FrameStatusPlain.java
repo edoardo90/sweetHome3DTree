@@ -9,8 +9,8 @@ public class FrameStatusPlain extends FrameStatusAbstract {
   
   protected JPanelStatusDecorator statusDecorator;
   
-  public FrameStatusPlain(StatusOfObjectForView status, JPanelStatusDecorator mainPanel, JFrame parent, String name) {
-    super(status, parent, name);
+  public FrameStatusPlain(JPanelStatusDecorator mainPanel, JFrame parent, String name) {
+    super( parent, name);
     this.statusDecorator = mainPanel;
     this.getContentPane().add(this.statusDecorator);
     this.pack();

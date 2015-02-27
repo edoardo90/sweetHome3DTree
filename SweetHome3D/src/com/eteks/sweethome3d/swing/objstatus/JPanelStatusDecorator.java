@@ -12,7 +12,12 @@ public abstract class JPanelStatusDecorator extends JPanelColor {
   private List<JPanelStatusDecorator> decorated = new ArrayList<JPanelStatusDecorator>();
   
   /**
-   * Assign initialStatusPanel variable and call drawOnPanel method
+   * <pre>
+   * Assign initialStatusPanel variable, used for the view 
+   * Calls  drawOnPanel method: the method, inheredited by all sons of this class,
+   * adds components on this panel
+   * 
+   * </pre>
    * @param decoratedPanel
    * @param initialStatusPanel
    */
@@ -31,6 +36,7 @@ public abstract class JPanelStatusDecorator extends JPanelColor {
         this.decorated.addAll(panelToDecore.decorated);
       }
       this.addSpecificComponent();
+      this.revalidate();
       
   } 
   
@@ -44,8 +50,7 @@ public abstract class JPanelStatusDecorator extends JPanelColor {
 
   public StatusOfObjectForView getComplexiveStatus()
   {
-    int pippo=21;
-    pippo++;
+
     StatusOfObjectForView totalStatus = new StatusOfObjectForView(null, null);
     for(JPanelStatusDecorator dec : this.decorated)
     {

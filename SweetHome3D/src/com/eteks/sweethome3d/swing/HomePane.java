@@ -3646,17 +3646,16 @@ public class HomePane extends JRootPane implements HomeView {
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
 
     JPanelStatusDecorator mainPanel = new JStatusDumb("status");
-    mainPanel = new JStatusLifePanelDec(mainPanel, statusObject);
-    mainPanel = new JStatusFilePanelDec(mainPanel,   statusObject);
+    mainPanel = new JStatusLifePanelDec   (mainPanel,   statusObject);
+    mainPanel = new JStatusFilePanelDec   (mainPanel,   statusObject);
     mainPanel = new JStatusContainPanelDec(mainPanel,   statusObject);
     
+    
     FrameStatusAbstract fs = new FrameStatusPlain
-               (statusObject, mainPanel, f, "Edit Status");
-//        FrameStatusAbstract fs = files ? new FrameStatus(statusObject, f , "Edit Status") :
-//            new FrameStatusJustLife(statusObject, f, "Edit Status");
+               (mainPanel, f, "Edit Status");
     fs.setLocation(400, 200);
     fs.setVisible(true);
-//
+
     StatusOfObjectForView r = fs.getRepresentation();
     return r;
   }
