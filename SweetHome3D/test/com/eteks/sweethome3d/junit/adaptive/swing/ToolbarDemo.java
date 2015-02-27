@@ -1,18 +1,21 @@
 package com.eteks.sweethome3d.junit.adaptive.swing;
 
-import javax.swing.*;
-
-import com.eteks.sweethome3d.swing.ActionCoolFactory;
-import com.eteks.sweethome3d.swing.JCurtainButton;
-import com.eteks.sweethome3d.swing.filter.JFilterButton;
-import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.HashSet;
-import java.util.Set;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.JToolBar;
+
+import com.eteks.sweethome3d.swing.JCurtainButton;
+import com.eteks.sweethome3d.swing.filter.JFilterButton;
 
 public class ToolbarDemo {
 

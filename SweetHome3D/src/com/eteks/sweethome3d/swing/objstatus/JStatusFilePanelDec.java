@@ -10,15 +10,9 @@ public class JStatusFilePanelDec extends JPanelStatusDecorator {
 
   private FileStatusPanel fileStatusPanel;
 
-  public JStatusFilePanelDec(JPanelColor panel, StatusOfObjectForView status) {
+  public JStatusFilePanelDec(JPanelStatusDecorator panel, StatusOfObjectForView status) {
     super(panel, "statusFile" ,status);
     
-  }
-
-
-  @Override
-  public StatusOfObjectForView getStatus() {
-    return new StatusOfObjectForView("ON", new ArrayList<String>());
   }
 
 
@@ -26,7 +20,16 @@ public class JStatusFilePanelDec extends JPanelStatusDecorator {
   public void addSpecificComponent() {
     fileStatusPanel = new FileStatusPanel("Status Panel");
     fileStatusPanel.setFileStatus(this.initialStatusPanel.getFiles());
-    this.addPanel(fileStatusPanel, "fileStatusPanel");
+    this.addPanel(fileStatusPanel, "file_-_-StatusPanel", 5);
   }
 
+  @Override
+  protected   StatusOfObjectForView getOwnStatus()
+  {
+    return new StatusOfObjectForView(null, this.fileStatusPanel.getFiles());
+  }
+
+
+  
+  
 }

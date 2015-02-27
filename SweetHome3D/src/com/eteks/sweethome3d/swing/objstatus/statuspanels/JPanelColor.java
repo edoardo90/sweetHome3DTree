@@ -13,7 +13,6 @@ import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 
@@ -22,7 +21,7 @@ public class JPanelColor extends JPanel {
   private List<JPanelColor> panels = new LinkedList<JPanelColor>();
   protected Map<String, GridBagConstraints> constraintsPanelMap = new HashMap<String, GridBagConstraints>();
   protected String name;
-  
+  protected GridBagConstraints ownConstraint = null;
 
   /**
    * <pre>
@@ -37,7 +36,12 @@ public class JPanelColor extends JPanel {
     this.name = name;
     this.setLayout(new GridBagLayout());
   }
-
+  
+  public GridBagConstraints getConstraint()
+  {
+    return this.ownConstraint;
+  }
+  
   /**
    * Each row should be a panel containing something that can return a state
    * @return
@@ -62,9 +66,19 @@ public class JPanelColor extends JPanel {
    */
   public void addPanel(JPanelColor panel, String name)
   {
-    panel.setName(name);
-    this.addPanel(panel, this.getNumberOfRows(), name);
+    if(panel.getName() == null || panel.getName().equals(""))
+          panel.setName(name);
+    if(panel.getConstraint() == null)
+        this.addPanel(panel, this.getNumberOfRows(), name);
+    else
+        this.addPanel(panel, panel.getConstraint());
   }
+  public void addPanel(JPanelColor panel, String name, int height)
+  {
+    panel.setName(name);
+    this.addPanel(panel, this.getNumberOfRows(), 0, height);
+  }
+  
 
   @Override 
   public Component add(Component  c)
@@ -87,7 +101,7 @@ public class JPanelColor extends JPanel {
   public void addPanel(JPanelColor panel, int row, String name)
   {
     panel.setName(name);
-    this.addPanel(panel, row, 0);
+    this.addPanel(panel, row, 0, 1);
   }
 
   /**
@@ -96,7 +110,7 @@ public class JPanelColor extends JPanel {
    * @param row
    * @param column
    */
-  public void addPanel(JPanelColor panel, int row, int column)
+  public void addPanel(JPanelColor panel, int row, int column, int compHeight)
   {
     if(panel.getName() == null || panel.getName().length() == 0)
       throw new IllegalStateException("decoratedPanel must have a name");
@@ -110,19 +124,29 @@ public class JPanelColor extends JPanel {
     }
 
 
+    int fill= GridBagConstraints.HORIZONTAL;
+    double wy=0;
+    System.out.println("panel name: " + panel.getName() 
+        + " wy :    " + wy
+        + " height: " + compHeight);
+    if(compHeight == 5)
+    {
+      wy = 1;
+      fill = GridBagConstraints.BOTH;
+    }
 
     GridBagConstraints gc =  new GridBagConstraints
         (/*gridx */column,
             /*gridy*/row, 
             /*gridwidth*/1,
-            /*gridheight*/ 1,
-            /* weightx */ 0, 
-            /* weighty */0,
-            /*anchor */ GridBagConstraints.CENTER, 
-            /*fill*/ GridBagConstraints.BOTH,
+            /*gridheight*/ compHeight,
+            /* weightx */ 1, 
+            /* weighty */wy,
+            /*anchor */ GridBagConstraints.PAGE_START, 
+            /*fill*/ fill,
             getDefaultInsets(), 
-            /*ipadx*/ 0,
-            /*ipady*/0);
+            /*ipadx*/ 0 + compHeight * 20,
+            /*ipady*/0  + + compHeight * 20);
 
     this.addPanel(panel, gc);
   }
@@ -217,6 +241,7 @@ public class JPanelColor extends JPanel {
   {
     this.constraintsPanelMap.put(panel.getName(), constraint);
     this.panels.add(panel);
+    panel.ownConstraint = constraint;
     this.add(panel, constraint);
   }
 

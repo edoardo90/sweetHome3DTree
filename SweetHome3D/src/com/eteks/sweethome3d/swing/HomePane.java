@@ -206,14 +206,12 @@ import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
 import com.eteks.sweethome3d.swing.filter.JFilterButton;
 import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec;
+import com.eteks.sweethome3d.swing.objstatus.JStatusDumb;
 import com.eteks.sweethome3d.swing.objstatus.JStatusFilePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusLifePanelDec;
-import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatus;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusAbstract;
-import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusJustLife;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusPlain;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
-import com.eteks.sweethome3d.swing.objstatus.statuspanels.JLifeStatusPanel;
 import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 import com.eteks.sweethome3d.swing.opendialog.FileIfcDialog;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
@@ -3647,10 +3645,8 @@ public class HomePane extends JRootPane implements HomeView {
     
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
 
-    JPanelStatusDecorator mainPanel;
-    JPanelColor panelStatus = new JPanelColor("fileStatusPanel");
-    
-    mainPanel = new JStatusLifePanelDec(panelStatus, statusObject);
+    JPanelStatusDecorator mainPanel = new JStatusDumb("status");
+    mainPanel = new JStatusLifePanelDec(mainPanel, statusObject);
     mainPanel = new JStatusFilePanelDec(mainPanel,   statusObject);
     mainPanel = new JStatusContainPanelDec(mainPanel,   statusObject);
     

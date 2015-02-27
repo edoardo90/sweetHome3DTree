@@ -18,7 +18,7 @@ public class FrameStatusPlain extends FrameStatusAbstract {
 
   @Override
   public StatusOfObjectForView getRepresentation() {
-    return this.statusDecorator.getStatus();
+    return this.statusDecorator.getComplexiveStatus();
   }
 
 }

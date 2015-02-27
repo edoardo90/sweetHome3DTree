@@ -35,7 +35,7 @@ public class FrameStatus extends FrameStatusAbstract {
     jLifeStatusPanel.setLifeSatus(statusObject.getLifeStatus());
     
     
-    fileStatusPanel = new FileStatusPanel("fileStatusPanel");
+    fileStatusPanel = new FileStatusPanel("file__StatusPanel");
     fileStatusPanel.setFileStatus(statusObject.getFiles());
     
     container = this.getContentPane();

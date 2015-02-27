@@ -28,35 +28,21 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.Securit
  * 
  * @author Edoardo Pasi
  */
-public class TableFilePanel extends JPanel {
-  private boolean DEBUG = true;
-  private JTable table;
+public class TableFilePanel extends PanelWithTable {
+  private static boolean DEBUG = true;
+  
 
   public TableFilePanel(List<String> files) {
-    super(new GridLayout(1,0));
-
-    AbstractTableModel mod = new TableFileModel(files);
-    table = new JTable(mod);
-
-
-    table.setPreferredScrollableViewportSize(new Dimension(500, 70));
-    table.setFillsViewportHeight(true);
-
-    this.setColumnCombos();
-    this.setCancKeyboardRemove();
-
-    //Create the scroll pane and add the table to it.
-    JScrollPane scrollPane = new JScrollPane(table);
-
-    //Add the scroll pane to this decoratedPanel.
-    add(scrollPane);
+     super(new TableFileModel(files));
   }
 
   public void addRow(String s)
   {
-    try{
-      ((TableFileModel) this.table.getModel()).addRow(s);
-      this.table.repaint();
+    try
+    {
+      TableFileModel tableModel = ((TableFileModel) super.table.getModel());
+      tableModel.addRow(s);
+      super.table.repaint();
     }
     catch(Exception e)
     {
@@ -77,99 +63,47 @@ public class TableFilePanel extends JPanel {
   }
 
 
-  private void setCancKeyboardRemove() {
-    int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
-    InputMap inputMap = table.getInputMap(condition);
-    ActionMap actionMap = table.getActionMap();
-
-    // DELETE is a String constant that for me was defined as "Delete"
-    inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "Delete");
-    actionMap.put("Delete", new AbstractAction() {
-      public void actionPerformed(ActionEvent e) {
-        TableModel mod = table.getModel();
-        if (mod instanceof TableFileModel) {
-          TableFileModel mtm = (TableFileModel)mod;
-
-          int rowToDelete = table.getSelectedRow();
-          System.out.println("remove row : " + rowToDelete);
-          mtm.removeRow(rowToDelete);
-          table.repaint();
-        }
-      }
-    });
-
-  }
-
-  private void setColumnCombos()
-  {
-    JComboBox<String> securityLevelCombo = new JComboBox<String>();
-    for(SecurityLevel sl : SecurityLevel.values())
-    {
-      securityLevelCombo.addItem(sl.toString());
-    }
-    TableColumn securityLevelColumn = table.getColumnModel().getColumn(1);
-    securityLevelColumn.setCellEditor(new DefaultCellEditor(securityLevelCombo));
-
-    JComboBox<String> ndaLevelCombo = new JComboBox<String>();
-    for(NonDisclose nd : NonDisclose.values())
-    {
-      ndaLevelCombo.addItem(nd.toString());
-    }
-
-    TableColumn ndaLevelColumn = table.getColumnModel().getColumn(2);
-    ndaLevelColumn.setCellEditor(new DefaultCellEditor(ndaLevelCombo));
-
-  }
-
-  class TableFileModel extends AbstractTableModel {
+  static class TableFileModel extends TableListModel {
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
     private List<String> files = new ArrayList<String>();
-    private List<String> colsHeader = new ArrayList<String>();
-
+    
     public TableFileModel(List<String> files)
     {
-      
-      for(String fileString : files)
-      {
-        this.addRow(fileString);
-      }
-      
-
-      colsHeader.add("File absolute Path");
-      colsHeader.add("Security Level");
-      colsHeader.add("Non disclosure");
+        super(files, getFileHeaders());
+        this.files = files;
     }
-
+    
+    private static List<String> getFileHeaders()
+    {
+      List<String> colsHeaderL = new ArrayList<String>();
+      colsHeaderL.add("File absolute Path");
+      colsHeaderL.add("Security Level");
+      colsHeaderL.add("Non disclosure");
+      return colsHeaderL;
+    }
 
     public List<String> getFiles() {
       return this.files;
     }
 
-
-    public int getColumnCount() {
-      return colsHeader.size();
-    }
-
-    public int getRowCount() {
-      return files.size();
-    }
-
-    public String getColumnName(int col) {
-      return colsHeader.get(col);
-    }
-
+    @Override
     public void addRow(String s)
     {
       try
       {
           FileObject fob = new FileObject(s);
           String repr = fob.getFileRepresentationForTable();
+          if(files == null)
+            files = new ArrayList<String>();
           if(!files.contains(repr))
-              this.files.add(repr);
+          {
+            this.files.add(repr);
+            this.rows.add(repr);
+          }
       }
       catch(Exception e ){
         e.printStackTrace();
@@ -177,6 +111,7 @@ public class TableFilePanel extends JPanel {
 
     }
 
+    @Override
     public void removeRow(int row)
     {
       try
@@ -191,9 +126,7 @@ public class TableFilePanel extends JPanel {
     }
 
 
-    /**
-     * render
-     */
+    @Override
     public Object getValueAt(int row, int col) {
       String fileStr = this.files.get(row);
       String [] colss = fileStr.split(",");
@@ -218,20 +151,7 @@ public class TableFilePanel extends JPanel {
       }
     }
     
-    /*
-     * JTable uses this method to determine the default renderer/
-     * editor for each cell.  If we didn't implement this method,
-     * then the last column would contain text ("true"/"false"),
-     * rather than a check box.
-     */
-    public Class getColumnClass(int c) {
-      return getValueAt(0, c).getClass();
-    }
-
-    /*
-     * Don't need to implement this method unless your table'niceString
-     * editable.
-     */
+    @Override
     public boolean isCellEditable(int row, int col) {
       //Note that the data/cell address is constant,
       //no matter where the cell appears onscreen.
@@ -242,10 +162,7 @@ public class TableFilePanel extends JPanel {
       }
     }
 
-    /*
-     * Don't need to implement this method unless your table'niceString
-     * data can change.
-     */
+    @Override
     public void setValueAt(Object value, int row, int col) {
       if (DEBUG) {
         System.out.println("Setting value at " + row + "," + col

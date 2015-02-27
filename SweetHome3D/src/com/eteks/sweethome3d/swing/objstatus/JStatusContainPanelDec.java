@@ -7,15 +7,18 @@ import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 
 public class JStatusContainPanelDec extends JPanelStatusDecorator {
 
-  public JStatusContainPanelDec(JPanelColor panelToDecore,  StatusOfObjectForView status) {
+  public JStatusContainPanelDec(JPanelStatusDecorator panelToDecore,  StatusOfObjectForView status) {
     super(panelToDecore, "containementPanel", status);
 
   }
 
+  
   @Override
-  public StatusOfObjectForView getStatus() {
-        return new StatusOfObjectForView("", new ArrayList<String>());
+  protected   StatusOfObjectForView getOwnStatus()
+  {
+    return null;
   }
+  
 
   @Override
   public void addSpecificComponent() {
