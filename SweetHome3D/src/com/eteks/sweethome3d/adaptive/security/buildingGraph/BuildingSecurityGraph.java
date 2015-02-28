@@ -387,6 +387,15 @@ public class BuildingSecurityGraph {
     }
     return boo;
   }
+
+  public List<String> getListStrContainedObjects() {
+    List<String> lstOjbects = new ArrayList<String>();
+    for(BuildingObjectContained boc : this.objectsContained.values())
+    {
+       lstOjbects.add(boc.getStringRepresent());
+    }
+    return lstOjbects;
+  }
   
   
   

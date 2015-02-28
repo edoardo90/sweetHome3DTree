@@ -10,13 +10,16 @@ public  class StatusOfObjectForView
 {
   private final String lifeStatus;
   private final List<String> files;
+  private final List<String> objContainedInside;
   private final Map<BuildingObjectContained, BuildingObjectContained> objContains;
 
-  public StatusOfObjectForView(  final Map<BuildingObjectContained, BuildingObjectContained> objContains,
+  public StatusOfObjectForView(  final List<String> objContainedInside,
+                                 final Map<BuildingObjectContained, BuildingObjectContained> objContains,
                                  final String lifeStatus, final List<String> files)
   {
     this.lifeStatus =  lifeStatus;
     this.objContains = objContains;
+    this.objContainedInside = objContainedInside;
     if(files == null)
     {
       this.files = null;
@@ -29,7 +32,13 @@ public  class StatusOfObjectForView
 
   public StatusOfObjectForView(  final String lifeStatus, final List<String> files)
   {
-    this(null, lifeStatus, files);
+    this(null,null, lifeStatus, files);
+  }
+   
+
+  public StatusOfObjectForView(  final String lifeStatus, final List<String> files, final List<String> objectsContained)
+  {
+    this(objectsContained, null, lifeStatus, files);
   }
 
   public String getLifeStatus() {
@@ -61,10 +70,34 @@ public  class StatusOfObjectForView
     {
       s = s + "\n No files at the moment (but they could be present in the future)";
     }
+    
+    if(this.objContainedInside == null)
+    {
+      s = s + "\n the object can't contain files";
+    }
+    else if(this.objContainedInside != null && this.objContainedInside.size() == 0)
+    {
+      s = s + "\n the object does not contain objects but it could";
+    }
+    else
+    {
+      for(String oi : this.objContainedInside)
+      {
+        s = s + "\n object contained: \n" +
+              oi;
+      }
+    }
+    
+    
     return s;
 
   }
-
+  
+  public List<String> getObjectContainedLst()
+  {
+    return this.objContainedInside;
+  }
+  
   public Map<BuildingObjectContained, BuildingObjectContained> getObjContains() {
     return objContains;
   }

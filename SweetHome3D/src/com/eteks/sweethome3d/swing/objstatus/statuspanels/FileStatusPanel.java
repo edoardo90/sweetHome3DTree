@@ -108,7 +108,7 @@ public class FileStatusPanel extends JPanelColor {
   public List<String> getFiles()
   {
     if(this.tableFilePanel != null)
-        return this.tableFilePanel.getFiles();
+        return this.tableFilePanel.getRows();
     else
       return null;
   }

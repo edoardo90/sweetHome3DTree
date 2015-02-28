@@ -1,5 +1,7 @@
 package com.eteks.sweethome3d.swing.objstatus;
 
+import javax.swing.JPanel;
+
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 
 public class JStatusDumb extends JPanelStatusDecorator {
@@ -18,7 +20,7 @@ public class JStatusDumb extends JPanelStatusDecorator {
   {
     return null;
   }
-
+  
 
 
 }

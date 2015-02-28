@@ -25,7 +25,7 @@ public abstract class TableListModel extends AbstractTableModel {
   public List<String> getRows() {
     return this.rows;
   }
-
+ 
 
   public int getColumnCount() {
     return colsHeader.size();
@@ -41,7 +41,8 @@ public abstract class TableListModel extends AbstractTableModel {
 
   public  void addRow(String s)
   {
-    this.rows.add(s);
+    if(this.rows != null && !this.rows.contains(s))
+        this.rows.add(s);
   }
  
 
@@ -58,20 +59,21 @@ public abstract class TableListModel extends AbstractTableModel {
 
   }
 
-
+  public String getRowAt(int row)
+  {
+    return this.rows.get(row);
+  }
   /**
    * render
    */
   public Object getValueAt(int row, int col) {
-    String fileStr = this.rows.get(row);
+    String fileStr = this.getRowAt(row);
     String [] colss = fileStr.split(",");
     return niceString(colss[col]);
   }
-  
-  private String niceString(String s)
-  {
-    return "";
-  }
+
+  protected abstract String niceString(String s);
+
   
   /*
    * JTable uses this method to determine the default renderer/
@@ -83,24 +85,10 @@ public abstract class TableListModel extends AbstractTableModel {
     return getValueAt(0, c).getClass();
   }
 
-  /*
-   * Don't need to implement this method unless your table'niceString
-   * editable.
-   */
-  public boolean isCellEditable(int row, int col) {
-    //Note that the data/cell address is constant,
-    //no matter where the cell appears onscreen.
-    if (col == 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }
 
-  /*
-   * Don't need to implement this method unless your table'niceString
-   * data can change.
-   */
+  public  abstract boolean isCellEditable(int row, int col) ;
+  
+  
   public void setValueAt(Object value, int row, int col) {
     if (DEBUG) {
       System.out.println("Setting value at " + row + "," + col
@@ -110,13 +98,13 @@ public abstract class TableListModel extends AbstractTableModel {
     }
     try
     {
-      String rowT  = this.rows.get(row);
-      int index = this.rows.indexOf(rowT);
-      String[] colss = rowT.split(",");
-      colss[col] = (String)value;
-      rowT = colss[0] + "," + colss[1] + "," + colss[2];
-      this.rows.remove(index);
-      this.rows.add(index, rowT);
+      String interestedRow  = this.rows.get(row);
+      int indexOfInterestedColumn = this.rows.indexOf(interestedRow);
+      String[] interestedColumns = interestedRow.split(",");
+      interestedColumns[col] = (String)value;
+      interestedRow = rejoinColumnFromStrings(interestedColumns);
+      this.rows.remove(indexOfInterestedColumn);
+      this.rows.add(indexOfInterestedColumn, interestedRow);
 
       fireTableCellUpdated(row, col);
 
@@ -130,6 +118,16 @@ public abstract class TableListModel extends AbstractTableModel {
 
     }
   }
+
+  private String rejoinColumnFromStrings(String [] interestedColumns) {
+    String s = "";
+    for(int i=0; i<this.getColumnCount(); i++)
+    {
+      s = s + interestedColumns[i];
+    }
+    return s;
+  }
+
 
   private void printDebugData() {
     for(String s : this.rows)

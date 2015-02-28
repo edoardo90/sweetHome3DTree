@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -16,12 +19,14 @@ import javax.swing.KeyStroke;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
+import com.eteks.sweethome3d.swing.objstatus.tables.TableFilePanel.TableFileModel;
 
-public class PanelWithTable extends JPanel {
+
+public abstract class PanelWithTable extends JPanel {
 
   private static final long serialVersionUID = 5231836378143782925L;
   protected JTable table;
-  
+
   public PanelWithTable(AbstractTableModel tableModel)
   {
     super(new GridLayout(1,0));
@@ -35,7 +40,69 @@ public class PanelWithTable extends JPanel {
     JScrollPane scrollPane = new JScrollPane(table);
     add(scrollPane);
   }
+
+  public  void addRow(String s)
+  {
+    try
+    {
+      TableListModel tableModel = (TableListModel) this.table.getModel();
+      tableModel.addRow(s);
+      this.table.repaint();
+    }
+    catch(Exception e)
+    {
+      e.printStackTrace();
+    }
+
+  }
+  public void addAllRows(List<String> lst)
+  {
+    for(String s: lst)
+    {
+      this.addRow(s);
+    }
+  }
+
+  public String getRowAt(int row) {
+    try{
+      return ((TableListModel) this.table.getModel()).getRowAt(row);
+    }
+    catch(Exception e)
+    {
+      return null;
+    }
+  }
   
+  public List<String> getRows() {
+    try{
+      return ((TableListModel) this.table.getModel()).getRows(); 
+    }
+    catch(Exception e)
+    {
+      return null;
+    }
+  }
+  
+  public List<String> getSelectedRows() {
+    try{
+      
+      int [] selectedIndexes = this.table.getSelectedRows();
+      List<String> selectedIndexesStr = new ArrayList<String>();
+      for(int i=0; i<selectedIndexes.length; i++)
+      {
+        String selectedRowStr = this.getRowAt(selectedIndexes[i]);
+        selectedIndexesStr.add(selectedRowStr);
+      }
+      return selectedIndexesStr;
+    }
+    catch(Exception e)
+    {
+      return null;
+    }
+  }
+  
+  
+
   private void setCancKeyboardRemove() {
     int condition = JComponent.WHEN_IN_FOCUSED_WINDOW;
     InputMap inputMap = table.getInputMap(condition);
@@ -48,7 +115,7 @@ public class PanelWithTable extends JPanel {
 
       public void actionPerformed(ActionEvent e) {
         TableModel mod = table.getModel();
-        
+
         if (mod instanceof TableListModel) {
           TableListModel mtm = (TableListModel)mod;
 
@@ -62,5 +129,5 @@ public class PanelWithTable extends JPanel {
 
   }
 
-  
+
 }

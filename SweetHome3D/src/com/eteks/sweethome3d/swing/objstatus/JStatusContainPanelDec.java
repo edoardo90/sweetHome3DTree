@@ -1,6 +1,7 @@
 package com.eteks.sweethome3d.swing.objstatus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.swing.objstatus.statuspanels.ContainementStatusPanel;
@@ -9,25 +10,45 @@ import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 public class JStatusContainPanelDec extends JPanelStatusDecorator {
 
   private ContainementStatusPanel containmentPanel;
+  private ContPanelAim aim;
   
-  public JStatusContainPanelDec(JPanelStatusDecorator panelToDecore,  StatusOfObjectForView status) {
+  public enum ContPanelAim
+  {
+    PICK_OBJECTS_FROM_ALL, SHOW_JUST_CONTAINED_OBJECTS
+  }
+  
+  
+  public JStatusContainPanelDec(JPanelStatusDecorator panelToDecore,  StatusOfObjectForView status, ContPanelAim aim) {
     
        super(panelToDecore, "containementPanel", status);
-
+       this.aim = aim;
+       if(aim == ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS)
+       {
+         containmentPanel.addButtonAddObject();
+       }
   }
 
   
   @Override
   protected   StatusOfObjectForView getOwnStatus()
   {
-    return null;
+    List<String> containedObjecs = new ArrayList<String>();
+    if(this.aim == ContPanelAim.PICK_OBJECTS_FROM_ALL)
+    {
+      containedObjecs = this.containmentPanel.getSelectedContObjects();
+    }
+    else if (this.aim == ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS)
+    {
+      containedObjecs = this.containmentPanel.getAllRows();
+    }
+    return new StatusOfObjectForView(containedObjecs, null, null, null);
   }
   
 
   @Override
   public void addSpecificComponent() {
     this.containmentPanel = new ContainementStatusPanel("containmnent panel");
-    this.containmentPanel.setStatus(this.initialStatusPanel.getLifeStatus());
+    this.containmentPanel.setStatus(this.initialStatusPanel.getObjectContainedLst());
     
     this.addPanel(this.containmentPanel, "containment panel", 1);
       

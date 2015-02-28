@@ -25,15 +25,14 @@ public class ActorObject extends BuildingObjectContained {
 
   @Override
   public StatusOfObjectForView getStatusForView() {
-    StatusOfObjectForView st = new StatusOfObjectForView("", null);
-    return st;
+     return new StatusOfObjectForView(this.getObjectConainedStr(), null, null,  null);
   }
 
   @Override
   public void setStatusFromView(StatusOfObjectForView s) {
-    // TODO actor has no real state
+      this.setObjectsContainedFromView(s);
   }
-
+  
   public List<Role> getRoles() {
     return roles;
   }

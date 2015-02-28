@@ -248,10 +248,7 @@ public class JPanelColor extends JPanel {
             /*ipady*/0  );
 
      this.add(panel, gc);
-    
   }
-
-
 
   protected void changeRowToPanel(JPanelColor panel, int newRow)
   {

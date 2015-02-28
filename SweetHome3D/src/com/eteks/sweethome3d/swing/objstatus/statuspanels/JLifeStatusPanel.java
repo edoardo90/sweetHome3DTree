@@ -94,7 +94,7 @@ public class JLifeStatusPanel extends JPanelColor implements ActionListener {
     this.lifeSatus = lifeSatus;
     if(lifeSatus == null || lifeSatus == "")
       return ;
-    LifeStatus stat = LifeStatus.valueOf(lifeSatus);
+    LifeStatus stat = LifeStatus.valueOfSmarter(lifeSatus);
     switch(stat)
     {
       case BROKEN:

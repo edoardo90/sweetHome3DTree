@@ -22,14 +22,15 @@ public abstract class MaterialObject extends BuildingObjectContained {
 
   @Override
   public StatusOfObjectForView getStatusForView() {
-    return new StatusOfObjectForView("" + getLifeStatus().name(), null);
+    return new StatusOfObjectForView(this.getObjectConainedStr(), null, "" + lifeStatus, null);
   }
 
   @Override
   public void setStatusFromView( StatusOfObjectForView status) {
     String statusLife = status.getLifeStatus();
-    LifeStatus lifeSt = LifeStatus.valueOf(statusLife);
+    LifeStatus lifeSt = LifeStatus.valueOfSmarter(statusLife);
     this.setLifeStatus(lifeSt);
+    this.setObjectsContainedFromView(status);
   }
   
   @Override

@@ -36,6 +36,10 @@ public class TableFilePanel extends PanelWithTable {
      super(new TableFileModel(files));
   }
 
+/**
+ * 
+ * TODO: CHECK IF STILL WORKS ..
+  @Override
   public void addRow(String s)
   {
     try
@@ -48,21 +52,16 @@ public class TableFilePanel extends PanelWithTable {
     {
       e.printStackTrace();
     }
-  } 
-
-  public List<String> getFiles() {
-
-    try{
-      return ((TableFileModel) this.table.getModel()).getFiles();
-
-    }
-    catch(Exception e)
-    {
-      return null;
-    }
   }
-
-
+  **
+  */ 
+  
+  /*  TODO check files --- before it was  (TableFileMode) this.table...getFiles()
+  /*  @Override
+  /*  getRows()
+   * 
+   */
+  
   static class TableFileModel extends TableListModel {
     /**
      * 
@@ -125,15 +124,9 @@ public class TableFilePanel extends PanelWithTable {
 
     }
 
-
-    @Override
-    public Object getValueAt(int row, int col) {
-      String fileStr = this.files.get(row);
-      String [] colss = fileStr.split(",");
-      return niceString(colss[col]);
-    }
     
-    private String niceString(String s)
+    @Override
+    protected String niceString(String s)
     {
       try{
       try{
