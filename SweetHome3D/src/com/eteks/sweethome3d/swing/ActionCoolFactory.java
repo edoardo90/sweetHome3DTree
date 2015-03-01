@@ -7,29 +7,46 @@ import javax.swing.Action;
 import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
 
 public class ActionCoolFactory {
-
-  public Action createAction(ActionType type, Object controller, String methodName)
+  
+  /**
+   * Action with Icon only 
+   * @param type
+   * @param controller
+   * @param methodName
+   * @return
+   */
+  public Action createAction(ActionType type, Object controller, String methodName, Object ... parameters)
   {
-    return this.createAction(true, false, "", type, controller, methodName);
+    return this.createAction(true, false, "", type, controller, methodName, parameters);
+  }
+  /**
+   * Action with Icon and text, 
+   * @param label: the text associated
+   * @param type
+   * @param controller
+   * @param methodName
+   * @return
+   */
+  public Action createAction(String label, ActionType type, Object controller, String methodName, Object ... parameters)
+  {
+    return this.createAction(false, false, label, type, controller, methodName, parameters);
   }
   
-  public Action createAction(String label, ActionType type, Object controller, String methodName)
+  /**
+   * Action with icon and default text
+   * @param defaultText
+   * @param type
+   * @param controller
+   * @param methodName
+   * @return
+   */
+  public Action createAction(boolean defaultText, ActionType type, Object controller, String methodName, Object ... parameters)
   {
-    return this.createAction(false, false, label, type, controller, methodName);
+    return this.createAction(false, true, "", type, controller, methodName, parameters);
   }
   
-  public Action createAction(boolean defaultText, ActionType type, Object controller, String methodName)
-  {
-    return this.createAction(false, true, "", type, controller, methodName);
-  }
   
-  
-  public Action createActionDefaultLbl(ActionType type, Object controller, String methodName)
-  {
-    return this.createAction(true, false, "", type, controller, methodName);
-  }
-  
-  private Action createAction(boolean iconOnly, boolean defaultText, String labelText, ActionType type, Object controller, String methodName)
+  private Action createAction(boolean iconOnly, boolean defaultText, String labelText, ActionType type, Object controller, String methodName, Object ... parameters)
   {
     String  iconName = "", desc = ""; Integer mnemonic = 0;
     String defaultTxt = "";
@@ -119,7 +136,7 @@ public class ActionCoolFactory {
         textToPut = "";
     try {
       Action a = new ControllerActionIconEasy
-            (textToPut, iconName, desc, mnemonic, controller, methodName);
+            (textToPut, iconName, desc, mnemonic, controller, methodName, parameters);
       return a;
     } catch (Exception ex) {
       

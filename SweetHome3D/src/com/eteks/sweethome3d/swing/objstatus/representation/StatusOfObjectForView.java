@@ -8,15 +8,17 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObje
 
 public  class StatusOfObjectForView
 {
+  private final String objName;
   private final String lifeStatus;
   private final List<String> files;
   private final List<String> objContainedInside;
   private final Map<BuildingObjectContained, BuildingObjectContained> objContains;
 
-  public StatusOfObjectForView(  final List<String> objContainedInside,
+  public StatusOfObjectForView(  final String objName, final List<String> objContainedInside,
                                  final Map<BuildingObjectContained, BuildingObjectContained> objContains,
                                  final String lifeStatus, final List<String> files)
   {
+    this.objName = objName;
     this.lifeStatus =  lifeStatus;
     this.objContains = objContains;
     this.objContainedInside = objContainedInside;
@@ -30,15 +32,27 @@ public  class StatusOfObjectForView
     }
   }
 
-  public StatusOfObjectForView(  final String lifeStatus, final List<String> files)
+  public StatusOfObjectForView(final String lifeStatus, final List<String> files)
   {
-    this(null,null, lifeStatus, files);
+    this("", null,null, lifeStatus, files);
+  }
+  
+  public StatusOfObjectForView(final String objName,  final String lifeStatus, final List<String> files)
+  {
+    this(objName, null,null, lifeStatus, files);
   }
    
 
-  public StatusOfObjectForView(  final String lifeStatus, final List<String> files, final List<String> objectsContained)
+  public StatusOfObjectForView( final String lifeStatus, final List<String> files, final List<String> objectsContained)
   {
-    this(objectsContained, null, lifeStatus, files);
+    this("", objectsContained, null, lifeStatus, files);
+  }
+
+  
+  
+  public StatusOfObjectForView(final String objName,  final String lifeStatus, final List<String> files, final List<String> objectsContained)
+  {
+    this(objName, objectsContained, null, lifeStatus, files);
   }
 
   public String getLifeStatus() {
@@ -100,6 +114,10 @@ public  class StatusOfObjectForView
   
   public Map<BuildingObjectContained, BuildingObjectContained> getObjContains() {
     return objContains;
+  }
+
+  public String getName() {
+    return this.objName;
   }
 
 

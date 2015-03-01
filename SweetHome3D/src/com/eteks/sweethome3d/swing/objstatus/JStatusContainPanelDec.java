@@ -3,9 +3,11 @@ package com.eteks.sweethome3d.swing.objstatus;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec.ContPanelAim;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.swing.objstatus.statuspanels.ContainementStatusPanel;
 import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
+import com.eteks.sweethome3d.viewcontroller.HomeController;
 
 public class JStatusContainPanelDec extends JPanelStatusDecorator {
 
@@ -19,16 +21,22 @@ public class JStatusContainPanelDec extends JPanelStatusDecorator {
   
   
   public JStatusContainPanelDec(JPanelStatusDecorator panelToDecore,  StatusOfObjectForView status, ContPanelAim aim) {
-    
-       super(panelToDecore, "containementPanel", status);
-       this.aim = aim;
-       if(aim == ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS)
-       {
-         containmentPanel.addButtonAddObject();
-       }
+    this(panelToDecore, status, aim, null);
   }
 
   
+  public JStatusContainPanelDec(JPanelStatusDecorator panelToDecore, StatusOfObjectForView status,
+                                ContPanelAim aim, HomeController homeController) {
+    super(panelToDecore, "containementPanel", status);
+    this.aim = aim;
+    if(aim == ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS)
+    {
+      containmentPanel.addButtonAddObject();
+      containmentPanel.addController(homeController);
+    }
+  }
+
+
   @Override
   protected   StatusOfObjectForView getOwnStatus()
   {
@@ -41,7 +49,7 @@ public class JStatusContainPanelDec extends JPanelStatusDecorator {
     {
       containedObjecs = this.containmentPanel.getAllRows();
     }
-    return new StatusOfObjectForView(containedObjecs, null, null, null);
+    return new StatusOfObjectForView("", containedObjecs, null, null, null);
   }
   
 

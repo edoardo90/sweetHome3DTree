@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -28,6 +29,7 @@ import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusAbstract;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusPlain;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableContainmentPanel;
+import com.eteks.sweethome3d.viewcontroller.HomeController;
 
 public class ContainementStatusPanel extends JPanelColor implements ActionListener {
   private static final long serialVersionUID = -3380325228386416664L;
@@ -35,6 +37,8 @@ public class ContainementStatusPanel extends JPanelColor implements ActionListen
   private JButton addObjectBtn = new JButton("Add Objects Contained");
 
   private TableContainmentPanel tableOfObjectsContained;
+
+  private List<HomeController> homeControllers = new ArrayList<HomeController>();
   
   public ContainementStatusPanel(String name) {
     super(name);
@@ -52,7 +56,7 @@ public class ContainementStatusPanel extends JPanelColor implements ActionListen
   
   private void populateTable(List<String> objsCont)
   {
-    tableOfObjectsContained = new TableContainmentPanel(objsCont);   
+    tableOfObjectsContained = new TableContainmentPanel(objsCont, this.homeControllers);   
     this.add(tableOfObjectsContained);
   }
 
@@ -71,10 +75,10 @@ public class ContainementStatusPanel extends JPanelColor implements ActionListen
     
     JPanelStatusDecorator panelAllObjectContainable = new JStatusDumb("contained");
     panelAllObjectContainable = new JStatusContainPanelDec(panelAllObjectContainable,
-        new StatusOfObjectForView(lstAllPossibleObjects, null, null, null), ContPanelAim.PICK_OBJECTS_FROM_ALL);
+        new StatusOfObjectForView("", lstAllPossibleObjects, null, null, null), ContPanelAim.PICK_OBJECTS_FROM_ALL);
     
     FrameStatusAbstract fs = new FrameStatusPlain
-               (panelAllObjectContainable, f, "Edit Status");
+               (panelAllObjectContainable, f, "Select the Objects that are contained");
     fs.setLocation(400, 200);
     fs.setVisible(true);
 
@@ -101,6 +105,11 @@ public class ContainementStatusPanel extends JPanelColor implements ActionListen
 
   public List<String> getAllRows() {
     return this.tableOfObjectsContained.getRows();
+  }
+
+  public void addController(HomeController homeController) {
+    this.homeControllers .add(homeController);
+    
   }
   
   

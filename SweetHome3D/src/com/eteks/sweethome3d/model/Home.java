@@ -57,9 +57,9 @@ import com.eteks.sweethome3d.io.DefaultUserPreferences;
  */
 public class Home implements Serializable, Cloneable {
   private static final long serialVersionUID = 1L;
-  
+
   private Set<HidebleDimensionLine> dimensionLineCyber = new HashSet<HidebleDimensionLine>();
-  
+
   /**
    * The current version of this home. Each time the field list is changed
    * in <code>Home</code> class or in one of the classes that it uses,
@@ -140,7 +140,7 @@ public class Home implements Serializable, Cloneable {
     // The following field is a temporary copy of furniture containing HomeFurnitureGroup instances
     // created at serialization time for backward compatibility reasons
     private List<HomePieceOfFurniture>                  furnitureWithGroups;
-    
+
     private boolean connectedVisible = false;
 
     /**
@@ -652,7 +652,7 @@ public class Home implements Serializable, Cloneable {
       // Make a copy of the list to avoid conflicts in the list returned by getFurniture
       this.furniture = new ArrayList<HomePieceOfFurniture>(this.furniture);
       piece.setLevel(this.selectedLevel);
-      
+
       if(piece.getName() == null || piece.getOriginalName()== null)
       {
         throw new IllegalStateException("piece should have name and original name");
@@ -666,7 +666,7 @@ public class Home implements Serializable, Cloneable {
       {
         e.printStackTrace();
       }
-      
+
       if(updateBehaviour == UpdateBehaviour.UPDATE_GRAPH)
       {
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
@@ -1760,7 +1760,7 @@ public class Home implements Serializable, Cloneable {
     public boolean  addCyberLink(String id1, String id2) {
       try
       {
-       
+
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
 
         try
@@ -1780,9 +1780,9 @@ public class Home implements Serializable, Cloneable {
         float yEnd = (float)   bo2.getPosition().second;
 
         HidebleDimensionLine dimensionLine = new HidebleDimensionLine(xStart, yStart, xEnd, yEnd, 20);
-      
+
         if( ! this.connectedVisible)
-            dimensionLine.toggleVisibility(); //hide, since at start is visible
+          dimensionLine.toggleVisibility(); //hide, since at start is visible
         if(! this.getDimensionLines().contains(dimensionLine))
         {
           this.addDimensionLine(dimensionLine);
@@ -1795,8 +1795,8 @@ public class Home implements Serializable, Cloneable {
 
     }
 
-    public ActorObject getActorSelected() {
-
+    public BuildingObjectContained getObjectContainedSelected()
+    {
       List<Selectable> sell = this.getSelectedItems();
       if(sell != null && sell.size() != 1)
       {
@@ -1808,60 +1808,64 @@ public class Home implements Serializable, Cloneable {
       if (sel instanceof HomePieceOfFurniture) {
         HomePieceOfFurniture piece = (HomePieceOfFurniture)sel;
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-        ConfigLoader cfg = null;
-        BuildingObjectType type = BuildingObjectType.UNKNOWN_OBJECT;
-
-        cfg = ConfigLoader.getInstance();
-        type  = cfg.getTypeForSweetHomeName(piece.getOriginalName());
-        if(type != BuildingObjectType.ACTOR)
-             return null;
         BuildingObjectContained bo = segraph.getObjectContainedFromObj(new IdObject(piece.getId()));
-        if (bo instanceof ActorObject) {
-          ActorObject actor = (ActorObject)bo;
-          return actor;
-        }
-        else
-        {
-          throw new IllegalStateException("The type is ACTOR so the object should be actorObject");
-        }
+        return bo;
       }
       return null;
- }
+
+    }
+
+
+    public ActorObject getActorSelected() {
+      BuildingObjectContained boc = this.getObjectContainedSelected();
+      if(boc.getType() != BuildingObjectType.ACTOR)
+        return null;
+
+      if (boc instanceof ActorObject) {
+        ActorObject actor = (ActorObject)boc;
+        return actor;
+      }
+      else
+      {
+        throw new IllegalStateException("The type is ACTOR so the object should be actorObject");
+      }
+
+    }
 
     public void toglleVisibilityConnected() {
-      
+
       this.connectedVisible = ! this.connectedVisible;
-      
+
       for(HomePieceOfFurniture hopf : this.getFurniture())
       {
-         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-         BuildingObjectContained boo = segraph.getObjectContainedFromHOPF(hopf);
-         boolean connectable = boo.getType().canConnect();
-         
-         if(! connectable)
-         {
-           hopf.setVisible( !  hopf.isVisible());
-         }
-             
+        BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+        BuildingObjectContained boo = segraph.getObjectContainedFromHOPF(hopf);
+        boolean connectable = boo.getType().canConnect();
+
+        if(! connectable)
+        {
+          hopf.setVisible( !  hopf.isVisible());
+        }
+
       }
       for(DimensionLine dl : this.getDimensionLines())
       {
-           if (dl instanceof HidebleDimensionLine) {
-             HidebleDimensionLine hdl = (HidebleDimensionLine)dl;
-             hdl.toggleVisibility();     
-           }
+        if (dl instanceof HidebleDimensionLine) {
+          HidebleDimensionLine hdl = (HidebleDimensionLine)dl;
+          hdl.toggleVisibility();     
+        }
       }
-      
+
     }
 
     public void setConnectableVisible() {
-        
+
       if (this.connectedVisible == false)
       {
         this.toglleVisibilityConnected();
       }
       this.connectedVisible = true;
-      
+
     }
 
 

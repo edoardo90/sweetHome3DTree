@@ -39,6 +39,7 @@ import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.model.CollectionEvent;
 import com.eteks.sweethome3d.model.CollectionListener;
@@ -483,16 +484,22 @@ public class FurnitureController implements Controller {
                                         this.viewFactory, this.contentManager, 
                                         this.undoSupport); 
       
-      ActorObject actorSelected = home.getActorSelected(); 
-      if(actorSelected == null)
-      {
-        homeFurnitureController.displayView(getView());
+      BuildingObjectContained objectSelected = home.getObjectContainedSelected();
+      ActorObject actorObject = null;
+      if (objectSelected instanceof ActorObject) {
+         actorObject = (ActorObject)objectSelected;
+        
       }
-      else
+      if(actorObject == null)
+      {
+        
+        homeFurnitureController.displayViewObjectCont(getView(), objectSelected);
+      }
+      else if (actorObject != null)
       {
         ConfigLoader cfg = ConfigLoader.getInstance();
         Set<String> roles = cfg.getAvailableRoles();
-        homeFurnitureController.displayViewActor(roles, actorSelected, getView());
+        homeFurnitureController.displayViewActor(roles, actorObject, getView());
       }
       
     }

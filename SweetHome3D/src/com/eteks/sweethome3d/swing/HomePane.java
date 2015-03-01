@@ -276,7 +276,7 @@ public class HomePane extends JRootPane implements HomeView {
   private JTextField            txtAddVertex;
   private Graph                 homeGraph = new MultiGraph("home graph");
   private Graph                 homeTreeGraph  = new SingleGraph("home tree");
-  
+
   private JTextField            txtAddTreeVertex;
 
   /**
@@ -287,9 +287,9 @@ public class HomePane extends JRootPane implements HomeView {
     this.home = home;
     this.preferences = preferences;
     this.controller = controller;
-    
+
     ConfigLoader cfg = ConfigLoader.getInstance(preferences);
-    
+
     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
     ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);    
 
@@ -333,17 +333,17 @@ public class HomePane extends JRootPane implements HomeView {
                              final HomeController controller) {
     createAction(ActionType.NEW_HOME, preferences, controller, "newHome");
     createAction(ActionType.OPEN, preferences, controller, "open");
-    
+
     /** new action for security  **/
-    
+
     createActionSimple(ActionType.OPEN_IFC,    controller, "openIfc");
     createActionSimple(ActionType.SHOW_STATUS, controller, "showStatus");
     createActionSimple(ActionType.ADD_LINK,    controller, "addCyberLink");
     createActionSimple(ActionType.REFRESH_GRAPH,    controller, "refreshGraph");
     createActionSimple(ActionType.SHOW_GRAPH,    controller, "showGraph");
-    
+
     /**  end of new actions for security **/
-    
+
     createAction(ActionType.DELETE_RECENT_HOMES, preferences, controller, "deleteRecentHomes");
     createAction(ActionType.CLOSE, preferences, controller, "close");
     createAction(ActionType.SAVE, preferences, controller, "save");
@@ -558,7 +558,7 @@ public class HomePane extends JRootPane implements HomeView {
 
   private void createActionSimple(ActionType type, 
                                   HomeController controller, String methodName) {
-    
+
     ActionCoolFactory acf = new ActionCoolFactory();
     Action a = acf.createAction(type, controller, methodName);
     getActionMap().put(type, a);
@@ -816,13 +816,13 @@ public class HomePane extends JRootPane implements HomeView {
           BuildingSecurityGraph securityGraph = ifcSecurityExctractor.getGraph();
           home.displayGraph(securityGraph, getUserPreferences());
           GraphClean gc = new GraphClean(securityGraph);
-          
+
 
         } catch (Exception ex) { ex.printStackTrace();    }
 
       }
       if (rVal == JFileChooser.CANCEL_OPTION) {
-        
+
         BuildingSecurityGraph bsg;
         HomeSecurityExtractor extr = new HomeSecurityExtractor(home, preferences);
         try{
@@ -841,12 +841,12 @@ public class HomePane extends JRootPane implements HomeView {
 
     }
 
-    
+
   }
 
-  
-  
-  
+
+
+
   private class TreeToBuildingAL implements ActionListener
   {
     public void actionPerformed(ActionEvent e) {
@@ -2124,11 +2124,11 @@ public class HomePane extends JRootPane implements HomeView {
     addActionToToolBar(ActionType.CREATE_VIDEO, toolBar);
     toolBar.addSeparator();
     toolBar.addSeparator();
-    
+
     /***
      * security actions
      */
-    
+
     addActionToToolBarSimple(ActionType.OPEN_IFC, toolBar);
     addActionToToolBarSimple(ActionType.SHOW_STATUS, toolBar);
     addActionToToolBarSimple(ActionType.ADD_LINK, toolBar);
@@ -2202,17 +2202,17 @@ public class HomePane extends JRootPane implements HomeView {
     Action action = getActionMap().get(actionType);
     toolBar.add(new JButton(action));
   }
-  
+
   private void addFilterButton(JToolBar toolBar)
   {
     JFilterButton filterConnected = new JFilterButton();
     Action toggleConn = (new ActionCoolFactory()).createAction
-           ("Toggle Visibility of Connectable Elements" , ActionType.TOGGLE_CONNECTION, this.controller, "toggleConnectableVisibility");
+        ("Toggle Visibility of Connectable Elements" , ActionType.TOGGLE_CONNECTION, this.controller, "toggleConnectableVisibility");
     filterConnected.addMenuItemAction(toggleConn);
     toolBar.add(filterConnected);
   }
-  
-  
+
+
   /**
    * Adds to tool bar the button matching the given <code>actionType</code>. 
    */
@@ -2243,7 +2243,7 @@ public class HomePane extends JRootPane implements HomeView {
         }
       });
     } else {
-      
+
       ToolBarAction a = new ResourceAction.ToolBarAction(action);
       toolBar.add(new JButton(a));
     }
@@ -2655,11 +2655,11 @@ public class HomePane extends JRootPane implements HomeView {
 
     final JSplitPane mainRich = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
         mainPane, spTextAreaGraph);
-  
+
     return mainRich;
   }
-  
-  
+
+
 
 
   /**
@@ -3620,52 +3620,60 @@ public class HomePane extends JRootPane implements HomeView {
         this.preferences.getLocalizedString(HomePane.class, "openHomeDialog.title"), 
         ContentManager.ContentType.SWEET_HOME_3D);
   }
-  
+
   /**
    * Displays a content chooser open dialog to choose the name of a home.
    */
   public String showOpenDialogIFC() {
-    
+
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
-     FileIfcDialog ff = new FileIfcDialog(f, "Import from IFC file");
-     String fileName = ff.getFileAbsoluteName();
+    FileIfcDialog ff = new FileIfcDialog(f, "Import from IFC file");
+    String fileName = ff.getFileAbsoluteName();
     return fileName;
   }
-  
-  
-  public StatusOfObjectForView showStatusDialog
-                (StatusOfObjectForView statusObject, boolean files)
+
+
+  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject, boolean files,
+                                                HomeController homeController)
   {
     if(statusObject == null)
     {
-       return null;
+      return null;
     }
     if(files && statusObject.getFiles() == null)
     {
       throw new IllegalStateException("if files is true then initialStatusPanel should have a not null list!");
     }
-    
+
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
 
     JPanelStatusDecorator mainPanel = new JStatusDumb("status");
-    mainPanel = new JStatusLifePanelDec   (mainPanel,   statusObject);
-    if(files)
-           mainPanel = new JStatusFilePanelDec   (mainPanel,   statusObject);
-    mainPanel = new JStatusContainPanelDec(mainPanel,   statusObject, ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS);
-    
-    
+    if(statusObject.getLifeStatus() != null)
+      mainPanel = new JStatusLifePanelDec   (mainPanel,   statusObject);
+    if(statusObject.getFiles() != null)
+      mainPanel = new JStatusFilePanelDec   (mainPanel,   statusObject);
+    mainPanel = new JStatusContainPanelDec(mainPanel,   statusObject, ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS, homeController);
+
+
+
     FrameStatusAbstract fs = new FrameStatusPlain
-               (mainPanel, f, "Edit Status");
+        (mainPanel, f, "Edit Status of: " + statusObject.getName());
     fs.setLocation(400, 200);
     fs.setVisible(true);
 
     StatusOfObjectForView r = fs.getRepresentation();
     return r;
   }
-  
 
-  
-  
+
+
+  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject, boolean files)
+  {
+    return this.showStatusDialog(statusObject, files, null);
+  }
+
+
+
   /**
    * Displays a dialog that lets user choose what he wants to do with a damaged home he tries to open it.
    * @return {@link com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer#REMOVE_DAMAGED_ITEMS} 
@@ -4898,6 +4906,9 @@ public class HomePane extends JRootPane implements HomeView {
   private abstract interface SelectableFormat<T extends Selectable> {
     public abstract String format(T item);
   }
+
+
+
 
 
 }

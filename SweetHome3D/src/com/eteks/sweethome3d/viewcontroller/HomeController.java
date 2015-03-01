@@ -1577,17 +1577,7 @@ public class HomeController implements Controller {
             HomePieceOfFurniture hopf = (HomePieceOfFurniture)s;
             String id = hopf.getId();
 
-            StatusOfObjectForView representation;
-
-            StatusOfObjectForView statusForView = getStatusOfObject(id);
-            if(statusForView == null ||  statusForView.getLifeStatus() == null || statusForView.getLifeStatus() == "")
-              return;
-            if(statusForView.getFiles() != null)
-              representation =   getView().showStatusDialog( statusForView, true);
-            else
-              representation =   getView().showStatusDialog(statusForView, false);                
-            System.out.println(representation);
-            setStatusOfObject( id, representation);
+            editStatusOfOjbect(id);
 
           }
         }
@@ -1596,7 +1586,27 @@ public class HomeController implements Controller {
 
     });
   }
+  /**
+   * Display a dialog to allow the user to edit the status of a object 
+   * (e.g. setting its life status at OFF)
+   * This method also updates the object at model level
+   * @param id
+   */
+  public void editStatusOfOjbect(String id)
+  {
+    StatusOfObjectForView representation;
 
+    StatusOfObjectForView statusForView = getStatusOfObject(id);
+    if(statusForView == null)
+      return;
+    if(statusForView.getFiles() != null)
+      representation =   getView().showStatusDialog( statusForView, true, this);
+    else
+      representation =   getView().showStatusDialog(statusForView, false , this);                
+    System.out.println(representation);
+    setStatusOfObject( id, representation);
+  }
+  
 
   private void setStatusOfObject(String id, StatusOfObjectForView representation) {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();

@@ -97,7 +97,7 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
    */
   public String getStringRepresent()
   {
-    return this.getId() + "," + this.getTypeAsString();
+    return this.getId() + ","  + this.getName() + "," + this.getTypeAsString();
   }
   
   public String getTypeAsString()

@@ -35,6 +35,7 @@ import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
@@ -46,6 +47,7 @@ import com.eteks.sweethome3d.model.HomeTexture;
 import com.eteks.sweethome3d.model.Selectable;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.HomeFurnitureActor;
+import com.eteks.sweethome3d.swing.HomeFurniturePanel;
 
 /**
  * A MVC controller for home furniture view.
@@ -204,6 +206,7 @@ public class HomeFurnitureController implements Controller {
       this.homeFurnitureView = this.viewFactory.createHomeFurnitureView(
           this.preferences, this); 
     }
+    
     return this.homeFurnitureView;
   }
   
@@ -230,6 +233,15 @@ public class HomeFurnitureController implements Controller {
     getView().displayView(parentView);
   }
   
+  public void displayViewObjectCont(View parentView, BuildingObjectContained objectSelected) {
+    HomeFurniturePanel hfp = (HomeFurniturePanel)getView();
+    hfp.displayView(parentView);
+
+    String newName = hfp.getNameOfFurniture();
+    System.out.println("new name: " + hfp.getNameOfFurniture());
+    objectSelected.setName(newName);
+  }
+  
   /**
    * Displays the view controlled by this controller which allows to set
    * actors roles
@@ -243,6 +255,8 @@ public class HomeFurnitureController implements Controller {
     System.out.println("selected: " + selectedRoles);
     actorSelected.setRolesStr(selectedRoles);
     
+    String newName = hfa.getNameOfFurniture();
+    actorSelected.setName(newName);
   }
   
 

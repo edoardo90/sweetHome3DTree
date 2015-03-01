@@ -314,5 +314,8 @@ public interface HomeView extends View {
    * @return
    */
   public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView status, boolean files);
+
+  public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusForView, boolean b,
+                                                         HomeController homeController);
   
 }

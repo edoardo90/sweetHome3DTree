@@ -133,6 +133,14 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
     layoutComponents(preferences, controller);
   }
   
+  public String getNameOfFurniture()
+  {
+    if(this.nameTextField == null)
+      return "";
+    else
+      return this.nameTextField.getText();
+  }
+  
   private void paramsSetup()
   {
     labelAlignment = OperatingSystem.isMacOSX() 
@@ -1257,6 +1265,9 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   public void displayView(View parentView) {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 
             this, this.dialogTitle, this.nameTextField) == JOptionPane.OK_OPTION) {
+      
+      String furnName = this.getNameOfFurniture();
+      System.out.println("forn name:" + furnName);
       this.controller.modifyFurniture();
     }
   }
