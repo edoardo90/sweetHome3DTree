@@ -14,7 +14,12 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-
+/**
+ * JPanel that will have a color, a name, a GridBagLayout
+ * and some methods to handle the layout
+ * 
+ * @author Edoardo Pasi
+ */
 public class JPanelColor extends JPanel {
 
   private List<JPanelColor> panels = new LinkedList<JPanelColor>();

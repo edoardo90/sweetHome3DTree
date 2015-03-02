@@ -1,48 +1,68 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes;
 
+/**
+ * name || type  ||  value
+ * @author Edoardo Pasi
+ */
 public class BuildingObjectAttribute {
-  private final String name;
-  private final AttributeType type;
-  private final Object initialValue;
+  private  String name;
+  private  AttributeType type;
+  private  Object value;
   
-  public BuildingObjectAttribute(String name, AttributeType type, Object initialValue)
+  public BuildingObjectAttribute(String name, AttributeType type, Object value)
   {
     this.name = name;
     this.type = type;
-    Class<?> initialValueClazz = initialValue.getClass();
+    this.checkTypeAgainstValue(type, value);
+    this.value = value;
+    
+  }
+
+  private void checkTypeAgainstValue(AttributeType type2, Object value2) {
+    Class<?> initialValueClazz = value.getClass();
     switch (type) {
       case BOOLEAN:
            if(! initialValueClazz.equals(Boolean.class))
            {
-             throw new IllegalArgumentException("if type is BOOLEAN then initialValue class should be Booloean");
+             throw new IllegalArgumentException("if type is BOOLEAN then value class should be Booloean");
            }
            break;
       case FLOAT:
         if(! initialValueClazz.equals(Float.class))
         {
-          throw new IllegalArgumentException("if type is FLOAT then initialValue class should be Float");
+          throw new IllegalArgumentException("if type is FLOAT then value class should be Float");
         }
            break;
       case INT:
         if(! initialValueClazz.equals(Integer.class))
         {
-          throw new IllegalArgumentException("if type is INT then initialValue class should be Integer");
+          throw new IllegalArgumentException("if type is INT then value class should be Integer");
         }
            break;
       case STRING:
         if(! initialValueClazz.equals(String.class))
         {
-          throw new IllegalArgumentException("if type is STRING then initialValue class should be String");
+          throw new IllegalArgumentException("if type is STRING then value class should be String");
         }
            break;
       default:
         break;
     }
-    
-    this.initialValue = initialValue;
+
     
   }
 
+  public void setValues(BuildingObjectAttribute attr)
+  {
+    String name = attr.getName();
+    AttributeType type = attr.getType();
+    Object value = attr.getValue();
+    checkTypeAgainstValue(type, value);
+    this.name = name;
+    this.type = type;
+    this.value = value;
+  }
+  
   public String getName() {
     return name;
   }
@@ -51,8 +71,8 @@ public class BuildingObjectAttribute {
     return type;
   }
 
-  public Object getInitialValue() {
-    return initialValue;
+  public Object getValue() {
+    return value;
   }
   
 }

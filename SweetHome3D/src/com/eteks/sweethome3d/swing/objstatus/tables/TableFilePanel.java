@@ -20,36 +20,10 @@ public class TableFilePanel extends PanelWithTable<String> {
      super(new TableFileModel(files));
   }
 
-/**
- * 
- * TODO: CHECK IF STILL WORKS ..
-  @Override
-  public void addRow(String s)
-  {
-    try
-    {
-      TableFileModel tableModel = ((TableFileModel) super.table.getModel());
-      tableModel.addRow(s);
-      super.table.repaint();
-    }
-    catch(Exception e)
-    {
-      e.printStackTrace();
-    }
-  }
-  **
-  */ 
   
-  /*  TODO check files --- before it was  (TableFileMode) this.table...getFiles()
-  /*  @Override
-  /*  getRows()
-   * 
-   */
   
   static class TableFileModel extends TableListStringsModel {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 1L;
 
     private List<String> files = new ArrayList<String>();

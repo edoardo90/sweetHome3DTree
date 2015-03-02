@@ -24,11 +24,11 @@ public abstract class PanelWithTable<T> extends JPanel {
   private static final long serialVersionUID = 5231836378143782925L;
   protected JTable table;
 
-  public PanelWithTable(AbstractTableModel tableModel)
+  public PanelWithTable(TableListModel<T> tableModel)
   {
     super(new GridLayout(1,0));
 
-    AbstractTableModel mod = tableModel;
+    TableListModel<T> mod = tableModel;
     table = new JTable(mod);
     table.setPreferredScrollableViewportSize(new Dimension(500, 70));
     table.setFillsViewportHeight(true);
@@ -70,9 +70,9 @@ public abstract class PanelWithTable<T> extends JPanel {
     }
   }
   
-  public List<String> getRows() {
+  public List<T> getRows() {
     try{
-      return ((TableListModel<String>) this.table.getModel()).getRows(); 
+      return ((TableListModel<T>) this.table.getModel()).getRows(); 
     }
     catch(Exception e)
     {
