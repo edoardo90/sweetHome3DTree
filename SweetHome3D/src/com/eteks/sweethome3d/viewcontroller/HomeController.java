@@ -1576,7 +1576,8 @@ public class HomeController implements Controller {
           if (s instanceof HomePieceOfFurniture) {
             HomePieceOfFurniture hopf = (HomePieceOfFurniture)s;
             String id = hopf.getId();
-
+            String originalName = hopf.getOriginalName();
+            System.out.println("original name was:" + originalName + "now:" + hopf.getName());
             editStatusOfOjbect(id);
 
           }
@@ -1663,6 +1664,8 @@ public class HomeController implements Controller {
     try{
       BuildingSecurityGraph segraph = hse.getGraph();
       System.out.println(segraph);
+
+      
     }
     catch(Exception e)
     {

@@ -33,8 +33,7 @@ public class BuildingSecurityGraph {
   private Map<IdObject, BuildingObjectContained> objectsContained = new HashMap<IdObject, BuildingObjectContained>();
   
   private List<WrapperRect>  spaceAreasOfRooms = new ArrayList<WrapperRect>();
-  /** now inefficient in the future could be  a btree  TODO: btree **/
-  
+  /** TODO check if we can rely just on the BTREE (next line of code) **/
   private BTree<WrapperRect, String> spaceAreasTT = new BTree<WrapperRect, String>();
   
   

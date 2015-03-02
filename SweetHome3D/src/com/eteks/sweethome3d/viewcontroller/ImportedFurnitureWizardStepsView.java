@@ -23,6 +23,7 @@ import com.eteks.sweethome3d.model.Content;
 
 /**
  * A view that displays the different steps that helps the user to import a piece of furniture.
+ * Classes implementing this interface should be able to provide an Icon.
  * @author Emmanuel Puybaret
  */
 public interface ImportedFurnitureWizardStepsView extends View {

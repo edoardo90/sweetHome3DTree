@@ -107,7 +107,8 @@ import com.eteks.sweethome3d.viewcontroller.ImportedFurnitureWizardController;
 import com.eteks.sweethome3d.viewcontroller.ImportedFurnitureWizardStepsView;
 
 /**
- * Wizard decoratedPanel for furniture import. 
+ * Wizard decoratedPanel for furniture import.
+ *  
  * @author Emmanuel Puybaret
  */
 public class ImportedFurnitureWizardStepsPanel extends JPanel 

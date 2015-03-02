@@ -239,7 +239,8 @@ public class HomeFurnitureController implements Controller {
 
     String newName = hfp.getNameOfFurniture();
     System.out.println("new name: " + hfp.getNameOfFurniture());
-    objectSelected.setName(newName);
+    if(newName != null && objectSelected != null) 
+         objectSelected.setName(newName);
   }
   
   /**

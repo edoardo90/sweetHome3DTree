@@ -17,6 +17,7 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   private Vector3D position;
   private List<BuildingObjectContained> objectContained = new ArrayList<BuildingObjectContained>();
   
+  
   public BuildingObjectContained(Vector3D position) {
     this.setPosition(position);
   }

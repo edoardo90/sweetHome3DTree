@@ -1223,6 +1223,7 @@ public class HomePieceOfFurniture implements PieceOfFurniture, Serializable, Sel
     try
     {   BuildingSecurityGraph.getInstance().
              moveObject(this, new Vector3D(getX(), getY(), 0));
+      
     }
     catch(IllegalStateException e)
     {
