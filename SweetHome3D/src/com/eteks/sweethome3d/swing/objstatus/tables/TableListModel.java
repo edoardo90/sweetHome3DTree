@@ -5,16 +5,16 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public abstract class TableListModel extends AbstractTableModel {
+public abstract class TableListModel<T> extends AbstractTableModel {
   private static final long serialVersionUID = 1L;
   private static boolean DEBUG = true;
   
-  protected List<String> rows = new ArrayList<String>();
+  protected List<T> rows = new ArrayList<T>();
   private List<String> colsHeader = new ArrayList<String>();
 
-  public TableListModel(List<String> rows, List<String> header)
+  public TableListModel(List<T> rows, List<String> header)
   {
-    for(String row : rows)
+    for(T row : rows)
     {
       this.addRow(row);
     }
@@ -22,7 +22,7 @@ public abstract class TableListModel extends AbstractTableModel {
   }
 
 
-  public List<String> getRows() {
+  public List<T> getRows() {
     return this.rows;
   }
  
@@ -39,10 +39,10 @@ public abstract class TableListModel extends AbstractTableModel {
     return colsHeader.get(col);
   }
 
-  public  void addRow(String s)
+  public  void addRow(T row)
   {
-    if(this.rows != null && !this.rows.contains(s))
-        this.rows.add(s);
+    if(this.rows != null && !this.rows.contains(row))
+        this.rows.add(row);
   }
  
 
@@ -59,18 +59,15 @@ public abstract class TableListModel extends AbstractTableModel {
 
   }
 
-  public String getRowAt(int row)
+  public T getRowAt(int row)
   {
     return this.rows.get(row);
   }
   /**
    * render
    */
-  public Object getValueAt(int row, int col) {
-    String fileStr = this.getRowAt(row);
-    String [] colss = fileStr.split(",");
-    return niceString(colss[col]);
-  }
+  public abstract Object getValueAt(int row, int col);
+
 
   protected abstract String niceString(String s);
 
@@ -85,54 +82,9 @@ public abstract class TableListModel extends AbstractTableModel {
     return getValueAt(0, c).getClass();
   }
 
-
   public  abstract boolean isCellEditable(int row, int col) ;
   
-  
-  public void setValueAt(Object value, int row, int col) {
-    if (DEBUG) {
-      System.out.println("Setting value at " + row + "," + col
-          + " to " + value
-          + " (an instance of "
-          + value.getClass() + ")");
-    }
-    try
-    {
-      String interestedRow  = this.rows.get(row);
-      int indexOfInterestedColumn = this.rows.indexOf(interestedRow);
-      String[] interestedColumns = interestedRow.split(",");
-      interestedColumns[col] = (String)value;
-      interestedRow = rejoinColumnFromStrings(interestedColumns);
-      this.rows.remove(indexOfInterestedColumn);
-      this.rows.add(indexOfInterestedColumn, interestedRow);
-
-      fireTableCellUpdated(row, col);
-
-      if (DEBUG) {
-        System.out.println("New value of data:");
-        printDebugData();
-      }
-    }
-    catch(IndexOutOfBoundsException e)
-    {
-
-    }
-  }
-
-  private String rejoinColumnFromStrings(String [] interestedColumns) {
-    String s = "";
-    for(int i=0; i<this.getColumnCount(); i++)
-    {
-      s = s + interestedColumns[i];
-    }
-    return s;
-  }
+  public abstract void setValueAt(Object value, int row, int col) ;
 
 
-  private void printDebugData() {
-    for(String s : this.rows)
-    {
-      System.out.println(s);
-    }
-  }
 }

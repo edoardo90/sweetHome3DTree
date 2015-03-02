@@ -6,15 +6,12 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.Action;
 import javax.swing.JTable;
 
-import com.eteks.sweethome3d.swing.ActionCoolFactory;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
-import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
 
 
-public  class TableContainmentPanel extends PanelWithTable {
+public  class TableContainmentPanel extends PanelWithTable<String> {
 
   private static final long serialVersionUID = 2562326598955980071L;
   private List<HomeController> controllers = new ArrayList<HomeController>();
@@ -63,7 +60,7 @@ public  class TableContainmentPanel extends PanelWithTable {
   }
   
   
-  public static class TableContainmentModel extends TableListModel
+  public static class TableContainmentModel extends TableListStringsModel
   {
 
     private static final long serialVersionUID = 7802266303976780357L;
@@ -87,6 +84,8 @@ public  class TableContainmentPanel extends PanelWithTable {
     public boolean isCellEditable(int row, int col) {
          return false;
     }
+
+
     
   }
   

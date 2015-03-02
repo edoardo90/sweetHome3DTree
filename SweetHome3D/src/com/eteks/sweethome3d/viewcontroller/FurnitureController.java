@@ -476,8 +476,6 @@ public class FurnitureController implements Controller {
   public void modifySelectedFurniture() {
     if (!Home.getFurnitureSubList(this.home.getSelectedItems()).isEmpty()) {
       
-      System.out.println("edit forniture!!");
-      
       
       HomeFurnitureController homeFurnitureController =  new 
                 HomeFurnitureController(this.home, this.preferences,  

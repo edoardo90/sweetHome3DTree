@@ -3,10 +3,8 @@ package com.eteks.sweethome3d.swing.objstatus;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec.ContPanelAim;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.swing.objstatus.statuspanels.ContainementStatusPanel;
-import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 
 public class JStatusContainPanelDec extends JPanelStatusDecorator {

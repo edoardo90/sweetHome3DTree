@@ -1,7 +1,6 @@
 package com.eteks.sweethome3d.swing.objstatus.statuspanels;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -13,7 +12,6 @@ import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
@@ -117,9 +115,6 @@ public class JPanelColor extends JPanel {
 
     int fill= GridBagConstraints.HORIZONTAL;
     double wy=0;
-    System.out.println("panel name: " + panel.getName() 
-        + " wy :    " + wy
-        + " height: " + compHeight);
     if(compHeight == 5)
     {
       wy = 0;
@@ -233,17 +228,19 @@ public class JPanelColor extends JPanel {
     this.constraintsPanelMap.put(panel.getName(), constraint);
     this.panels.add(panel);
     panel.ownConstraint = constraint;
-
+    
+    
+    
     GridBagConstraints gc =  new GridBagConstraints
         (/*gridx */0,
             /*gridy*/this.getNumberOfRows(),  //TODO: check the height of each component 
             /*gridwidth*/1,
             /*gridheight*/ 1,
             /* weightx */ 1, 
-            /* weighty */0,
+            /* weighty */1,
             /*anchor */ GridBagConstraints.PAGE_START, 
-            GridBagConstraints.HORIZONTAL,
-            /*fill*/ new Insets(10, 10, 10, 10),
+            /*fill*/GridBagConstraints.BOTH,
+            /*inset*/ new Insets(10, 10, 10, 10),
             /*ipadx*/ 0 ,
             /*ipady*/0  );
 

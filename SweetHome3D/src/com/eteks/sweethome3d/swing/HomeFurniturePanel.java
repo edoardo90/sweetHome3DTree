@@ -1266,8 +1266,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
     if (SwingTools.showConfirmDialog((JComponent)parentView, 
             this, this.dialogTitle, this.nameTextField) == JOptionPane.OK_OPTION) {
       
-      String furnName = this.getNameOfFurniture();
-      System.out.println("forn name:" + furnName);
+      
       this.controller.modifyFurniture();
     }
   }

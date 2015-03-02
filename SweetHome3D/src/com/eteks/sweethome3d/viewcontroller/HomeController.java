@@ -1516,8 +1516,6 @@ public class HomeController implements Controller {
     try 
     {
       bsg = se.getGraph();
-     
-      System.out.println("open ifc : " + bsg);
       home.displayGraph(bsg, preferences);
       
     }
@@ -1541,7 +1539,7 @@ public class HomeController implements Controller {
       BuildingSecurityGraph securityGraph = BuildingSecurityGraph.getInstance();
       GraphClean gc = new GraphClean(securityGraph);
       gc.populateGraph();
-      System.out.println("woo");
+
       gc.show();
       
     }
@@ -1559,7 +1557,6 @@ public class HomeController implements Controller {
      * f = new Jframe( obje ). show()
      * 
      */
-    System.out.println("initialStatusPanel....");
 
 
     getView().invokeLater(new Runnable() {
@@ -1604,7 +1601,7 @@ public class HomeController implements Controller {
       representation =   getView().showStatusDialog( statusForView, true, this);
     else
       representation =   getView().showStatusDialog(statusForView, false , this);                
-    System.out.println(representation);
+
     setStatusOfObject( id, representation);
   }
   

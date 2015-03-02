@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.UserPreferences;
@@ -16,7 +17,7 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   protected BuildingObjectType objectType;
   private Vector3D position;
   private List<BuildingObjectContained> objectContained = new ArrayList<BuildingObjectContained>();
-  
+  private List<BuildingObjectAttribute> attributes = new ArrayList<BuildingObjectAttribute>();
   
   public BuildingObjectContained(Vector3D position) {
     this.setPosition(position);
@@ -103,6 +104,8 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   
   public String getTypeAsString()
   {
+    if(this.getType() == null)
+      return "UNKNOWN TYPE";
     return this.getType().name();
   }
   
@@ -119,6 +122,14 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     this.objectContained.add(cont);
   }
   
+  public void addAttribute(BuildingObjectAttribute attribute)
+  {
+    this.attributes.add(attribute);
+  }
+  public List<BuildingObjectAttribute> getAttributes()
+  {
+    return this.attributes;
+  }
   
   private void addObjectContained(String objectCont)
   {

@@ -1,10 +1,7 @@
 package com.eteks.sweethome3d.swing.objstatus;
 
-import java.util.ArrayList;
-
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.swing.objstatus.statuspanels.JLifeStatusPanel;
-import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 
 public class JStatusLifePanelDec extends JPanelStatusDecorator {
 

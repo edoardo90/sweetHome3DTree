@@ -55,7 +55,7 @@ public abstract class JPanelStatusDecorator extends JPanelColor {
     for(JPanelStatusDecorator dec : this.decorated)
     {
       StatusOfObjectForView st =  dec.getOwnStatus();
-      System.out.println("state : \n" + st);
+      
       if(st != null)
       {    
         if(st.getLifeStatus() != null)

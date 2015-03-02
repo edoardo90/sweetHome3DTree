@@ -1,6 +1,5 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;
 
 public enum LifeStatus {
    

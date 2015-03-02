@@ -48,8 +48,11 @@ public class FileHolder extends MaterialObject implements Iterable<FileObject> {
   
   @Override
   public StatusOfObjectForView getStatusForView() {
-    return new StatusOfObjectForView(this.getName(), this.getObjectConainedStr(), null, "" + getLifeStatus().name(), 
-                                 getActiveFilesStr() );
+    return new StatusOfObjectForView(this.getName(),
+                                     this.getObjectConainedStr(),
+                                     this.getAttributes(),
+                                     "" + getLifeStatus().name(), 
+                                     getActiveFilesStr() );
 
     
   }

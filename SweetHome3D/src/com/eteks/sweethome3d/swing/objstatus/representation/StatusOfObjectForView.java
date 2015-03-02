@@ -2,9 +2,8 @@ package com.eteks.sweethome3d.swing.objstatus.representation;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 
 public  class StatusOfObjectForView
 {
@@ -12,15 +11,15 @@ public  class StatusOfObjectForView
   private final String lifeStatus;
   private final List<String> files;
   private final List<String> objContainedInside;
-  private final Map<BuildingObjectContained, BuildingObjectContained> objContains;
+  private final List<BuildingObjectAttribute> attributes;
 
   public StatusOfObjectForView(  final String objName, final List<String> objContainedInside,
-                                 final Map<BuildingObjectContained, BuildingObjectContained> objContains,
+                                 final List<BuildingObjectAttribute> attributes,
                                  final String lifeStatus, final List<String> files)
   {
     this.objName = objName;
     this.lifeStatus =  lifeStatus;
-    this.objContains = objContains;
+    this.attributes = attributes;
     this.objContainedInside = objContainedInside;
     if(files == null)
     {
@@ -112,8 +111,8 @@ public  class StatusOfObjectForView
     return this.objContainedInside;
   }
   
-  public Map<BuildingObjectContained, BuildingObjectContained> getObjContains() {
-    return objContains;
+  public List<BuildingObjectAttribute> getObjectAttributes() {
+    return this.attributes;
   }
 
   public String getName() {

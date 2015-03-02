@@ -114,7 +114,6 @@ public class JLifeStatusPanel extends JPanelColor implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
       this.lifeSatus = e.getActionCommand();
-      System.out.println("life initialStatusPanel:" + this.lifeSatus);
   }
   
   

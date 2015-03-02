@@ -160,6 +160,8 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
   private Cursor                            defaultCursor; 
   private Executor                          modelLoader;
 
+  private JPanel                            addAttributesPanel;
+  
   /**
    * Creates a view for furniture import. 
    */

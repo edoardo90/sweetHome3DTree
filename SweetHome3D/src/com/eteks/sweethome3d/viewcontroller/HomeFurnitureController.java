@@ -238,7 +238,7 @@ public class HomeFurnitureController implements Controller {
     hfp.displayView(parentView);
 
     String newName = hfp.getNameOfFurniture();
-    System.out.println("new name: " + hfp.getNameOfFurniture());
+
     if(newName != null && objectSelected != null) 
          objectSelected.setName(newName);
   }
@@ -253,7 +253,7 @@ public class HomeFurnitureController implements Controller {
     HomeFurnitureActor hfa = getViewActor(roles,  actorSelected );
     hfa.displayView(parentView);
     Set<String> selectedRoles = hfa.getSelectedRoles();
-    System.out.println("selected: " + selectedRoles);
+    
     actorSelected.setRolesStr(selectedRoles);
     
     String newName = hfa.getNameOfFurniture();

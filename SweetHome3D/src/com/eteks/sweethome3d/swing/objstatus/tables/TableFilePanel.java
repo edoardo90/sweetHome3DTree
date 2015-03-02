@@ -1,24 +1,6 @@
 package com.eteks.sweethome3d.swing.objstatus.tables;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.DefaultCellEditor;
-import javax.swing.InputMap;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.KeyStroke;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
@@ -28,7 +10,9 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.Securit
  * 
  * @author Edoardo Pasi
  */
-public class TableFilePanel extends PanelWithTable {
+public class TableFilePanel extends PanelWithTable<String> {
+
+  private static final long serialVersionUID = 2300698587964822917L;
   private static boolean DEBUG = true;
   
 
@@ -62,7 +46,7 @@ public class TableFilePanel extends PanelWithTable {
    * 
    */
   
-  static class TableFileModel extends TableListModel {
+  static class TableFileModel extends TableListStringsModel {
     /**
      * 
      */

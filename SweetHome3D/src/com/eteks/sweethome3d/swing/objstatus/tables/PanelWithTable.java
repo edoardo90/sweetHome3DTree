@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -19,10 +18,8 @@ import javax.swing.KeyStroke;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
-import com.eteks.sweethome3d.swing.objstatus.tables.TableFilePanel.TableFileModel;
 
-
-public abstract class PanelWithTable extends JPanel {
+public abstract class PanelWithTable<T> extends JPanel {
 
   private static final long serialVersionUID = 5231836378143782925L;
   protected JTable table;
@@ -41,12 +38,12 @@ public abstract class PanelWithTable extends JPanel {
     add(scrollPane);
   }
 
-  public  void addRow(String s)
+  public  void addRow(T row)
   {
     try
     {
-      TableListModel tableModel = (TableListModel) this.table.getModel();
-      tableModel.addRow(s);
+      TableListModel<T> tableModel = (TableListModel<T>) this.table.getModel();
+      tableModel.addRow(row);
       this.table.repaint();
     }
     catch(Exception e)
@@ -55,17 +52,17 @@ public abstract class PanelWithTable extends JPanel {
     }
 
   }
-  public void addAllRows(List<String> lst)
+  public void addAllRows(List<T> lst)
   {
-    for(String s: lst)
+    for(T row: lst)
     {
-      this.addRow(s);
+      this.addRow(row);
     }
   }
 
-  public String getRowAt(int row) {
+  public T getRowAt(int row) {
     try{
-      return ((TableListModel) this.table.getModel()).getRowAt(row);
+      return ((TableListModel<T>) this.table.getModel()).getRowAt(row);
     }
     catch(Exception e)
     {
@@ -75,7 +72,7 @@ public abstract class PanelWithTable extends JPanel {
   
   public List<String> getRows() {
     try{
-      return ((TableListModel) this.table.getModel()).getRows(); 
+      return ((TableListModel<String>) this.table.getModel()).getRows(); 
     }
     catch(Exception e)
     {
@@ -83,14 +80,14 @@ public abstract class PanelWithTable extends JPanel {
     }
   }
   
-  public List<String> getSelectedRows() {
+  public List<T> getSelectedRows() {
     try{
       
       int [] selectedIndexes = this.table.getSelectedRows();
-      List<String> selectedIndexesStr = new ArrayList<String>();
+      List<T> selectedIndexesStr = new ArrayList<T>();
       for(int i=0; i<selectedIndexes.length; i++)
       {
-        String selectedRowStr = this.getRowAt(selectedIndexes[i]);
+        T selectedRowStr = this.getRowAt(selectedIndexes[i]);
         selectedIndexesStr.add(selectedRowStr);
       }
       return selectedIndexesStr;

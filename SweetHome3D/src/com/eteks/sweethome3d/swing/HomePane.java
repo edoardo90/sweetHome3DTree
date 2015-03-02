@@ -206,14 +206,13 @@ import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
 import com.eteks.sweethome3d.swing.filter.JFilterButton;
 import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec;
+import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec.ContPanelAim;
 import com.eteks.sweethome3d.swing.objstatus.JStatusDumb;
 import com.eteks.sweethome3d.swing.objstatus.JStatusFilePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusLifePanelDec;
-import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec.ContPanelAim;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusAbstract;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusPlain;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
-import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 import com.eteks.sweethome3d.swing.opendialog.FileIfcDialog;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
@@ -762,7 +761,7 @@ public class HomePane extends JRootPane implements HomeView {
   {
 
     public void actionPerformed(ActionEvent e) {
-      System.out.println(" add vertex tree");
+
 
       String vertexPath = txtAddTreeVertex.getText();
       String [] nodes = vertexPath.split("\\.");
@@ -792,7 +791,7 @@ public class HomePane extends JRootPane implements HomeView {
   private class BuildingToTreeAL implements ActionListener
   {
     public void actionPerformed(ActionEvent e) {
-      System.out.println("b2t");
+
     }
   }
 
@@ -827,9 +826,7 @@ public class HomePane extends JRootPane implements HomeView {
         HomeSecurityExtractor extr = new HomeSecurityExtractor(home, preferences);
         try{
           bsg = extr.getGraph();
-          int pippo=0;
-          pippo++;
-          System.out.println("GRAPH:\n" + bsg);
+
         }
         catch(Exception exxx) {
           exxx.printStackTrace();
@@ -850,16 +847,14 @@ public class HomePane extends JRootPane implements HomeView {
   private class TreeToBuildingAL implements ActionListener
   {
     public void actionPerformed(ActionEvent e) {
-      System.out.println("tree to build");
-
-
+      
     }
   }
 
   private class DisplayGraphAL implements ActionListener
   {
     public void actionPerformed(ActionEvent e) {
-      System.out.println("disp graph");
+      
     }
   }
 

@@ -41,7 +41,7 @@ public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListen
 
   public void itemStateChanged(ItemEvent e) {
     int state = e.getStateChange();  // 1 = ON  2 = OFF
-    System.out.println(state);
+    
     String text = ((JCheckBox) e.getItem() ).getText();
     if(state==1)
     {

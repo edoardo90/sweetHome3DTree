@@ -1,7 +1,5 @@
 package com.eteks.sweethome3d.swing.objstatus.statuspanels;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,18 +11,14 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec.ContPanelAim;
 import com.eteks.sweethome3d.swing.objstatus.JStatusDumb;
-import com.eteks.sweethome3d.swing.objstatus.JStatusFilePanelDec;
-import com.eteks.sweethome3d.swing.objstatus.JStatusLifePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusAbstract;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusPlain;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
@@ -63,7 +57,6 @@ public class ContainementStatusPanel extends JPanelColor implements ActionListen
   public void actionPerformed(ActionEvent e) {
      
     List<String> objectsContainedSelected = this.getContainedObjectsSelected();
-    System.out.println(objectsContainedSelected);
     this.tableOfObjectsContained.addAllRows(objectsContainedSelected);
   }
   
