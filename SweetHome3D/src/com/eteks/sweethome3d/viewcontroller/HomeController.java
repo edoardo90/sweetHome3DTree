@@ -1526,10 +1526,21 @@ public class HomeController implements Controller {
     }
     
   }
-
+  
   public void toggleConnectableVisibility()
   {
-      home.toglleVisibilityConnected();
+      boolean unconnectedVisible = this.home.getvisibilityOfUnconnected();
+      unconnectedVisible = ! unconnectedVisible;
+      this.setUnconnectableVisibility(unconnectedVisible);
+  }
+
+  private void setUnconnectableVisibility(boolean visibilityOfUnconnected)                                      
+  {
+      if (visibilityOfUnconnected)
+          home.setUnconnectableVisible();
+      else
+          home.setUnconnectableInvisible();
+      
   }
   
   public void showGraph()
@@ -1644,8 +1655,16 @@ public class HomeController implements Controller {
         HomePieceOfFurniture hopf1 = (HomePieceOfFurniture)obj1;
         HomePieceOfFurniture hopf2 = (HomePieceOfFurniture)obj2;
         boolean added = this.home.addCyberLink(hopf1.getId(), hopf2.getId());
+        BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+        BuildingObjectContained bo1 = segraph.getObjectContainedFromHOPF(hopf1);
         if(added)
-            this.home.setConnectableVisible();
+        {
+          this.setVisibilityOfUnconnectable(bo1);
+        }
+        else
+        {
+          System.out.println("connectio not added " + obj1 + " -- " + obj2);
+        }
       }
       else
       {
@@ -1653,6 +1672,18 @@ public class HomeController implements Controller {
       }
 
     }
+  }
+
+  private void setVisibilityOfUnconnectable(BuildingObjectContained bo1) {
+    if(bo1.getType() != null  && bo1.getType().canConnect())
+    {
+      this.home.setVisibilityOfNotConnectable(false);
+    }
+    else
+    {
+      this.home.setVisibilityOfNotConnectable(true);
+    }
+    
   }
 
   public void refreshGraph()

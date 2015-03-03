@@ -141,7 +141,7 @@ public class Home implements Serializable, Cloneable {
     // created at serialization time for backward compatibility reasons
     private List<HomePieceOfFurniture>                  furnitureWithGroups;
 
-    private boolean connectedVisible = false;
+    private boolean unconnectableInvisible = false;
 
     /**
      * Creates a home with no furniture, no walls, 
@@ -677,6 +677,12 @@ public class Home implements Serializable, Cloneable {
           String originalName = piece.getOriginalName();
 
           type  = cfg.getTypeForSweetHomeName(originalName);
+
+          if(type != null &&  type.canConnect())
+            this.setUnconnectableInvisible();
+          else
+            this.setUnconnectableVisible();
+
           segraph.addNewObject(piece.getId(), type,
               new Vector3D(piece.getX(), piece.getY(), 0));
         }
@@ -691,6 +697,8 @@ public class Home implements Serializable, Cloneable {
       }
 
     }
+
+
 
     /**
      * Deletes the <code>piece</code> in parameter from this home.
@@ -1762,36 +1770,39 @@ public class Home implements Serializable, Cloneable {
       {
 
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-
+        boolean added = false;
         try
         {
-          segraph.addCyberLink(id1, id2);
+          added = segraph.addCyberLink(id1,     id2);
         }
         catch(IllegalArgumentException e) {   return false;   }
         catch(IllegalStateException e1) { return  false; }
         catch(Exception e2) {  e2.printStackTrace();  }
-
-        BuildingObjectContained bo1 = segraph.getObjectContainedFromObj(new IdObject(id1));
-        BuildingObjectContained bo2 = segraph.getObjectContainedFromObj(new IdObject(id2));
-
-        float xStart = (float) bo1.getPosition().first;
-        float yStart = (float) bo1.getPosition().second;
-        float xEnd = (float)   bo2.getPosition().first;
-        float yEnd = (float)   bo2.getPosition().second;
-
-        HidebleDimensionLine dimensionLine = new HidebleDimensionLine(xStart, yStart, xEnd, yEnd, 20);
-
-        if( ! this.connectedVisible)
-          dimensionLine.toggleVisibility(); //hide, since at start is visible
-        if(! this.getDimensionLines().contains(dimensionLine))
+        if(added)
         {
-          this.addDimensionLine(dimensionLine);
-          return true;
-        }
+          BuildingObjectContained bo1 = segraph.getObjectContainedFromObj(new IdObject(id1));
+          BuildingObjectContained bo2 = segraph.getObjectContainedFromObj(new IdObject(id2));
 
+          float xStart = (float) bo1.getPosition().first;
+          float yStart = (float) bo1.getPosition().second;
+          float xEnd = (float)   bo2.getPosition().first;
+          float yEnd = (float)   bo2.getPosition().second;
+
+          HidebleDimensionLine dimensionLine = new HidebleDimensionLine(xStart, yStart, xEnd, yEnd, 20);
+
+          
+          if(! this.getDimensionLines().contains(dimensionLine))
+          {
+            this.addDimensionLine(dimensionLine);
+            return true;
+          }
+          return true;
+
+        }
       }
       catch(Exception e) { e.printStackTrace(); }
       return false;
+
 
     }
 
@@ -1832,40 +1843,85 @@ public class Home implements Serializable, Cloneable {
 
     }
 
-    public void toglleVisibilityConnected() {
+    public void setVisibilityOfNotConnectable(boolean visible) {
 
-      this.connectedVisible = ! this.connectedVisible;
+      this.unconnectableInvisible = ! this.unconnectableInvisible;
 
-      for(HomePieceOfFurniture hopf : this.getFurniture())
-      {
-        BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-        BuildingObjectContained boo = segraph.getObjectContainedFromHOPF(hopf);
-        boolean connectable = boo.getType().canConnect();
-
-        if(! connectable)
-        {
-          hopf.setVisible( !  hopf.isVisible());
-        }
-
-      }
       for(DimensionLine dl : this.getDimensionLines())
       {
         if (dl instanceof HidebleDimensionLine) {
           HidebleDimensionLine hdl = (HidebleDimensionLine)dl;
-          hdl.toggleVisibility();     
+          hdl.setVisibility(! visible);
+          
         }
+      }
+      
+      for(HomePieceOfFurniture hopf : this.getFurniture())
+      {
+        BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+        BuildingObjectContained boo = null;
+        
+        try
+        {
+          boo= segraph.getObjectContainedFromHOPF(hopf);
+        }
+        catch(Exception e)
+        {
+          return;
+        }
+
+        boolean connectable;
+        if(boo.getType() == null)
+          connectable = false;
+        else
+          connectable = boo.getType().canConnect();
+
+        // connectable objs are always visible
+        if(! connectable)
+        {
+          hopf.setVisible(visible);
+        }
+
       }
 
     }
 
-    public void setConnectableVisible() {
+    //like to say: show me the doors! (again)
+    public void setUnconnectableVisible() {
 
-      if (this.connectedVisible == false)
+      if(this.unconnectableInvisible == true) //just pc around
       {
-        this.toglleVisibilityConnected();
+        this.setVisibilityOfNotConnectable(true); //show me doors
+        this.unconnectableInvisible = false;      //stop segregation
       }
-      this.connectedVisible = true;
+      else   //doors are already visible
+      {
+        return;   //ok!
+      }
 
+    }
+
+    public void setUnconnectableInvisible() {  //show me just pcs!
+      if (this.unconnectableInvisible == true)  //already ok, go segregation!
+      {
+        return;
+      }
+      else
+      {
+        this.setVisibilityOfNotConnectable(false);  //don't show doors!
+        this.unconnectableInvisible = true;        //doors are  invisible
+      }
+
+    }
+
+    /**
+     * true if Unconnectable (e.g. Door) are visible
+     * false if Unconnectable (e.g. Door) are hidden
+     * @return
+     */
+    public boolean getvisibilityOfUnconnected() {
+
+      return ! this.unconnectableInvisible;
     }
 
 

@@ -3,8 +3,8 @@ package com.eteks.sweethome3d.model;
 public class HidebleDimensionLine extends DimensionLine {
 
   private boolean visible = true;
-  float xEndOriginal=0, yEndOriginal=0;
-  
+  float xEndOriginal=0, yEndOriginal=0, xStartOriginal = 0, yStartOriginal = 0;
+  final float BIG = 100000;
   
   public HidebleDimensionLine(float xStart, float yStart, float xEnd, float yEnd, float offset) {
     super(xStart, yStart, xEnd, yEnd, offset);
@@ -12,27 +12,25 @@ public class HidebleDimensionLine extends DimensionLine {
     this.yEndOriginal = yEnd;
   }
   
-  public void toggleVisibility()
+  public void setVisibility(boolean visible)
   {
-    this.visible = ! this.visible;
-    
-    if( ! this.visible)
+    this.visible = visible;
+    if(this.visible == false)
     {
-      super.setXEnd(this.getXEnd() + 300000);
-      super.setYEnd(this.getYEnd() + 300000);
-      super.setXStart(this.getXStart() + 300000);
-      super.setYStart(this.getYStart() + 300000);
-
+      this.setXEnd(BIG);
+      this.setXStart(BIG);
+      
+      this.setYEnd(BIG);
+      this.setYStart(BIG);
     }
     else
     {
+      this.setXEnd(this.xEndOriginal);
+      this.setXStart(this.xStartOriginal);
       
-      super.setXEnd(this.getXEnd() - 300000);
-      super.setYEnd(this.getYEnd() - 300000);
-      super.setXStart(this.getXStart() - 300000);
-      super.setYStart(this.getYStart() - 300000);
+      this.setYStart(this.yStartOriginal);
+      this.setYEnd(this.yEndOriginal);
     }
-    
   }
-
+ 
 }

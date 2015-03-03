@@ -224,7 +224,8 @@ public class BuildingSecurityGraph {
   }
   
   /**
-   * 
+   * This method is used to update the Graph when the user moves an object
+   * from a room to another
    * @param idObject:  the object to move
    * @param idRoom:  the room in which move it
    * Updates the map of rooms and objects
@@ -423,7 +424,7 @@ public class BuildingSecurityGraph {
     
   }
 
-  public void addCyberLink(String id1, String id2) {
+  public boolean addCyberLink(String id1, String id2) {
       BuildingObjectContained bo1 = this.getObjectContainedFromObj(new IdObject(id1));
       BuildingObjectContained bo2 = this.getObjectContainedFromObj(new IdObject(id2));
       
@@ -437,13 +438,17 @@ public class BuildingSecurityGraph {
       
       if(t1.canConnect() && t2.canConnect() )  
       {
-        this.cyberLinkEdgeList.add( new CyberLinkEdge(id1, id2));
+        if( ! this.cyberLinkEdgeList.contains(new CyberLinkEdge(id1, id2)))
+        {
+          this.cyberLinkEdgeList.add( new CyberLinkEdge(id1, id2));
+          return true;
+        }
       }
       else
       {
         throw new IllegalArgumentException("these 2 objects can't be linked");
       }
-        
+      return false;
       
   }
 
