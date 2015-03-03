@@ -11,10 +11,15 @@ import java.util.Map.Entry;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PCObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PrinterObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
+import com.eteks.sweethome3d.model.Room;
+import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.Wall;
 
 /**
@@ -23,22 +28,10 @@ import com.eteks.sweethome3d.model.Wall;
  */
 public class BuildingSecurityGraph {
     
-  private List<BuildingLinkEdge> linkEdgeList = new ArrayList<BuildingLinkEdge>();
-  private List<BuildingRoomNode> roomNodeList = new ArrayList<BuildingRoomNode>();
-  private List<Wall> notLinkingWalls = new ArrayList<Wall>();
-  private List<CyberLinkEdge> cyberLinkEdgeList = new ArrayList<CyberLinkEdge>();
-  
-  private Map<IdRoom, BuildingRoomNode>  buildingRooms = new HashMap<IdRoom, BuildingRoomNode>();
-  private Map<IdObject, BuildingRoomNode>  objectsRoomLocation = new HashMap<IdObject, BuildingRoomNode>();
-  private Map<IdObject, BuildingObjectContained> objectsContained = new HashMap<IdObject, BuildingObjectContained>();
-  
-  private List<WrapperRect>  spaceAreasOfRooms = new ArrayList<WrapperRect>();
-  /** TODO check if we can rely just on the BTREE (next line of code) **/
-  private BTree<WrapperRect, String> spaceAreasTT = new BTree<WrapperRect, String>();
-  
-  
-  private static BuildingSecurityGraph instance = null;
-  
+  /**
+   * The BuildingSecurityGraph is singleton
+   * @return
+   */
   public static BuildingSecurityGraph getInstance()
   {
     if (BuildingSecurityGraph.instance == null)
@@ -56,7 +49,20 @@ public class BuildingSecurityGraph {
   {
     
   }
-  
+  /**
+   * 
+   * @return <pre> List of BuildingLinkEdge is 
+   * a list of {@link BuildingLinkEdge}, each element of the
+   * list represent a connection between two rooms.
+   * A connection can be given by a <b> wall that does not contain any door </b>
+   * and then it will be represented as
+   * {@link BuildingLinkWall},
+   * otherwise a connection can be given by a <b> wall that contains a door </b>
+   * and then it will be represented as
+   * {@link BuildinLinkWallWithDoor}
+   * </pre>
+   * 
+   */
   public List<BuildingLinkEdge> getLinkEdgeList() {
     
     Collections.sort(this.linkEdgeList, new Comparator<BuildingLinkEdge>() {
@@ -68,9 +74,39 @@ public class BuildingSecurityGraph {
     
     return linkEdgeList;
   }
+  /**
+   * Setter for list. 
+   * <pre> List of BuildingLinkEdge is 
+   * a list of {@link BuildingLinkEdge}, each element of the
+   * list represent a connection between two rooms.
+   * A connection can be given by a <b> wall that does not contain any door </b>
+   * and then it will be represented as
+   * {@link BuildingLinkWall},
+   * otherwise a connection can be given by a <b> wall that contains a door </b>
+   * and then it will be represented as
+   * {@link BuildinLinkWallWithDoor}
+   * </pre>
+   * @param linkEdgeList
+   */
   public void setLinkEdgeList(List<BuildingLinkEdge> linkEdgeList) {
     this.linkEdgeList = linkEdgeList;
   }
+  
+  /**
+   * 
+   * @return <pre> a list of {@link BuildingRoomNode}, each of them represent
+   * a room inside the building.
+   * A BuildindRoomNode contains:
+   *    - a List of {@link BuildingObjectContained} :  the objects contained in the room
+   *    - a {@link RoomGeoSmart} : a decorated version of the {@link Room}  SW3D object
+   * Given a BuildingRoomNode it is possible to get the RoomGeosmart contained,
+   * it is possible to get a list of objects contained
+   * it is possible to get a {@link WrapperRect} of the room, that is basically a bounding box
+   * of the Room, but just more suitable for detecting containment of points   
+   * 
+   * </pre>
+   */
+  
   public List<BuildingRoomNode> getRoomNodeList() {
     return roomNodeList;
   }
@@ -90,7 +126,12 @@ public class BuildingSecurityGraph {
   }
   
   
-  
+  /**
+   * 
+   * @return the list of all {@link Wall} that are not used to link rooms,
+   * that is the list of all walls that are used for representing the building
+   * but that are not used in the Graph
+   */
   public List<Wall> getNotLinkingWalls() {
     
     
@@ -99,20 +140,44 @@ public class BuildingSecurityGraph {
   public void setNotLinkingWalls(List<Wall> notLinkingWalls) {
     this.notLinkingWalls = notLinkingWalls;
   }
-
+  
+  /**
+   * 
+   * @return <pre> a list of {@link CyberLinkEdge}.
+   * Each element of a list represent a virtual connection between 2 objects
+   * or between 2 agents.
+   * For instance a CyberLink can describe the connection between an Agent and 
+   * a Pc, or between a Pc and a Printer
+   * See: {@link PCObject}, {@link PrinterObject}, {@link ActorObject} 
+   * </pre>
+   */
   public List<CyberLinkEdge> getCyberLinkEdgeList() {
     return cyberLinkEdgeList;
   }
-
+  /**
+   * Setter
+   * @param cyberLinkEdgeList
+   */
   public void setCyberLinkEdgeList(List<CyberLinkEdge> cyberLinkEdgeList) {
     this.cyberLinkEdgeList = cyberLinkEdgeList;
   }
   
-  public void addSpaceAreaOfRoom(WrapperRect rectRoom)
-  {
-    this.spaceAreasOfRooms.add(rectRoom);
-  }
-  
+  /**
+   * <pre>
+   * When the user moves and object from a position to another, inside the
+   * coordinate space of SW3D, it is necessary to update the Graph.
+   * 
+   * For instance the user can move an HVAC from (200, 300) to (6000, 300)
+   * doing so, potentially he is changing the containment relation for that particular
+   * HVAC because the room containing it can be potentially will be different.
+   * 
+   * For this reason it necessary <b> translating a coordinate (x,y) into a roomId </b>
+   * that in turn will be translated into a BuildingRoomNode
+   * </pre> 
+   * @param position, feel free to set z = 0, in any case the z attribute of {@link Vector3D} 
+   * will be ignored
+   * @return the Id of the room that contains the position passed as parameter
+   */
   @SuppressWarnings("unused") // see the todo
   public String getRoomId(Vector3D position)
   {
@@ -137,7 +202,17 @@ public class BuildingSecurityGraph {
     return roomId;
   }
   
-  
+  /**
+   *<pre>
+   *  Clear all the lists.
+   * 
+     this.linkEdgeList.clear();
+     this.roomNodeList.clear();
+     this.notLinkingWalls.clear();
+     this.cyberLinkEdgeList.clear();
+
+     </pre>
+   */
   public void clearAll()
   {
     
@@ -396,6 +471,20 @@ public class BuildingSecurityGraph {
     return lstOjbects;
   }
   
+  private List<BuildingLinkEdge> linkEdgeList = new ArrayList<BuildingLinkEdge>();
+  private List<BuildingRoomNode> roomNodeList = new ArrayList<BuildingRoomNode>();
+  private List<Wall> notLinkingWalls = new ArrayList<Wall>();
+  private List<CyberLinkEdge> cyberLinkEdgeList = new ArrayList<CyberLinkEdge>();
   
+  private Map<IdRoom, BuildingRoomNode>  buildingRooms = new HashMap<IdRoom, BuildingRoomNode>();
+  private Map<IdObject, BuildingRoomNode>  objectsRoomLocation = new HashMap<IdObject, BuildingRoomNode>();
+  private Map<IdObject, BuildingObjectContained> objectsContained = new HashMap<IdObject, BuildingObjectContained>();
+  
+  private List<WrapperRect>  spaceAreasOfRooms = new ArrayList<WrapperRect>();
+  /** TODO check if we can rely just on the BTREE (next line of code) **/
+  private BTree<WrapperRect, String> spaceAreasTT = new BTree<WrapperRect, String>();
+  
+  
+  private static BuildingSecurityGraph instance = null;
   
 }
