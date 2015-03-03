@@ -4,12 +4,16 @@ public class HidebleDimensionLine extends DimensionLine {
 
   private boolean visible = true;
   float xEndOriginal=0, yEndOriginal=0, xStartOriginal = 0, yStartOriginal = 0;
-  final float BIG = 100000;
+  final float BIG = 1000;
   
   public HidebleDimensionLine(float xStart, float yStart, float xEnd, float yEnd, float offset) {
     super(xStart, yStart, xEnd, yEnd, offset);
+    
     this.xEndOriginal = xEnd;
     this.yEndOriginal = yEnd;
+    
+    this.xStartOriginal = xStart;
+    this.yStartOriginal = yStart;
   }
   
   public void setVisibility(boolean visible)
