@@ -205,6 +205,8 @@ import com.eteks.sweethome3d.plugin.PluginManager;
 import com.eteks.sweethome3d.swing.ResourceAction.ToolBarAction;
 import com.eteks.sweethome3d.swing.filter.JFilterButton;
 import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
+import com.eteks.sweethome3d.swing.objstatus.JStatusAttributeDec;
+import com.eteks.sweethome3d.swing.objstatus.JStatusAttributeDec.AttributePanelAim;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec.ContPanelAim;
 import com.eteks.sweethome3d.swing.objstatus.JStatusDumb;
@@ -3637,7 +3639,7 @@ public class HomePane extends JRootPane implements HomeView {
     }
     if(files && statusObject.getFiles() == null)
     {
-      throw new IllegalStateException("if files is true then initialStatusPanel should have a not null list!");
+      throw new IllegalStateException("if files is true then initialStatusObjectForView should have a not null list!");
     }
 
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
@@ -3647,8 +3649,10 @@ public class HomePane extends JRootPane implements HomeView {
       mainPanel = new JStatusLifePanelDec   (mainPanel,   statusObject);
     if(statusObject.getFiles() != null)
       mainPanel = new JStatusFilePanelDec   (mainPanel,   statusObject);
+    
     mainPanel = new JStatusContainPanelDec(mainPanel,   statusObject, ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS, homeController);
-
+    if(statusObject.getObjectAttributes() != null)
+        mainPanel = new JStatusAttributeDec(mainPanel, statusObject, AttributePanelAim.SHOW_PRESENT_ATTRIBUTES);
 
 
     FrameStatusAbstract fs = new FrameStatusPlain

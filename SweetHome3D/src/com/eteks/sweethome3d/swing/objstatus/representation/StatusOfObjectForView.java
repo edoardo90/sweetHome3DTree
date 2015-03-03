@@ -3,6 +3,7 @@ package com.eteks.sweethome3d.swing.objstatus.representation;
 import java.util.Collections;
 import java.util.List;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 
 public  class StatusOfObjectForView
@@ -47,6 +48,32 @@ public  class StatusOfObjectForView
     this("", objectsContained, null, lifeStatus, files);
   }
 
+  
+  public StatusOfObjectForView(StatusOfObjectForView basic, List<String> files, String FILES)
+  {
+    this(basic.getName(), basic.getObjectContainedLst(), basic.getObjectAttributes(), basic.getLifeStatus(), files);
+  }
+  
+  public StatusOfObjectForView(StatusOfObjectForView basic, List<String> contained, Boolean CONTAINED)
+  {
+    this(basic.getName(), contained, basic.getObjectAttributes(), basic.getLifeStatus(), basic.getFiles());
+  }
+  
+  public StatusOfObjectForView(StatusOfObjectForView basic, List<BuildingObjectAttribute> attrs, Integer ATTRS)
+  {
+    this(basic.getName(), basic.getObjectContainedLst(), attrs, basic.getLifeStatus(), basic.getFiles());
+  }
+
+  public StatusOfObjectForView(StatusOfObjectForView basic, String lifeStatus, Float LIFE)
+  {
+    this(basic.getName(), basic.getObjectContainedLst(), basic.getObjectAttributes(), lifeStatus,  basic.getFiles());
+  }
+ 
+  public StatusOfObjectForView(StatusOfObjectForView basic, String name, Double NAME)
+  {
+    this(name, basic.getObjectContainedLst(), basic.getObjectAttributes(), basic.getLifeStatus(),  basic.getFiles());
+  }
+  
   
   
   public StatusOfObjectForView(final String objName,  final String lifeStatus, final List<String> files, final List<String> objectsContained)

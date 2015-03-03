@@ -15,7 +15,7 @@ public class JStatusLifePanelDec extends JPanelStatusDecorator {
   @Override
   public void addSpecificComponent() {
     jLifeStatusPanel = new JLifeStatusPanel("lifePanel");
-    this.jLifeStatusPanel.setLifeSatus(this.initialStatusPanel.getLifeStatus());
+    this.jLifeStatusPanel.setLifeSatus(this.initialStatusObjectForView.getLifeStatus());
     this.addPanel(jLifeStatusPanel, "lifePanel", 1);
   }
 

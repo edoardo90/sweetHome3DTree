@@ -66,7 +66,7 @@ public class ActionCoolFactory {
       case SHOW_STATUS:
       {
          iconName = "edit_status";
-         desc = "Click to edit the initialStatusPanel of the object";
+         desc = "Click to edit the initialStatusObjectForView of the object";
          mnemonic = new Integer(KeyEvent.VK_E);
          break;
       }

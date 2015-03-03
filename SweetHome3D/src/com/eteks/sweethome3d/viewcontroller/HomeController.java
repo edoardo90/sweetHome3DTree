@@ -3066,7 +3066,7 @@ public class HomeController implements Controller {
 
     /**
      * Throws a <code>SAXException</code> exception initialized with a <code>InterruptedRecorderException</code> 
-     * cause if current thread is interrupted. The interrupted initialStatusPanel of the current thread 
+     * cause if current thread is interrupted. The interrupted initialStatusObjectForView of the current thread 
      * is cleared when an exception is thrown.
      */
     private void checkCurrentThreadIsntInterrupted() throws SAXException {

@@ -42,6 +42,11 @@ public abstract class PanelWithTable<T> extends JPanel {
   {
     try
     {
+      /**
+       *  It should be safe because the table is created with this model 
+       *  TableListModel<T> mod = tableModel;
+       *  table = new JTable(mod);     
+       */
       TableListModel<T> tableModel = (TableListModel<T>) this.table.getModel();
       tableModel.addRow(row);
       this.table.repaint();

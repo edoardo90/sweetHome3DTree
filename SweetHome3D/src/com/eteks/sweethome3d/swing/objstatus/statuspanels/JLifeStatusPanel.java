@@ -20,7 +20,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LifeStatus;
 public class JLifeStatusPanel extends JPanelColor implements ActionListener {
 
   private String lifeSatus = "ON";
-  private String title = "Select the life initialStatusPanel of the object";
+  private String title = "Select the life initialStatusObjectForView of the object";
   private JRadioButton brokenRadiob;
   private JRadioButton onRadiob;
   private JRadioButton offRadiob;

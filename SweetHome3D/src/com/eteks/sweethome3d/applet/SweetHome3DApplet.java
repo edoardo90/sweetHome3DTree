@@ -182,9 +182,9 @@ import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
  *     <br>By default, the value of this parameter is <code>false</code>.</li>
  *     
  *     <li><code>showMemoryStatus</code> specifies whether this applet should display
- *     each second the available memory in browser initialStatusPanel bar when it has focus. 
+ *     each second the available memory in browser initialStatusObjectForView bar when it has focus. 
  *     <br>By default, the value of this parameter is <code>false</code> and 
- *     the initialStatusPanel message won't be modified by the applet.</li>
+ *     the initialStatusObjectForView message won't be modified by the applet.</li>
  *     
  *     <li><code>userLanguage</code> specifies the ISO 639 code (fr, en...) of the 
  *     language used by the items displayed by this applet. 

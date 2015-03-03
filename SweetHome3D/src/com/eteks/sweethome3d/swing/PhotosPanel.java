@@ -333,7 +333,7 @@ public class PhotosPanel extends JPanel implements DialogView {
   }
 
   /**
-   * Toggles the selected initialStatusPanel of the given <code>camera</code>.
+   * Toggles the selected initialStatusObjectForView of the given <code>camera</code>.
    */
   private void toggleCameraSelection(Camera camera, final PhotosController controller) {
     List<Camera> selectedCameras = new ArrayList<Camera>(controller.getSelectedCameras());

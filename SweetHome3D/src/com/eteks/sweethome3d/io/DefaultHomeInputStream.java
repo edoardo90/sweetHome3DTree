@@ -106,7 +106,7 @@ public class DefaultHomeInputStream extends FilterInputStream {
 
   /**
    * Throws an <code>InterruptedRecorderException</code> exception 
-   * if current thread is interrupted. The interrupted initialStatusPanel of the current thread 
+   * if current thread is interrupted. The interrupted initialStatusObjectForView of the current thread 
    * is cleared when an exception is thrown.
    */
   private static void checkCurrentThreadIsntInterrupted() throws InterruptedIOException {

@@ -16,7 +16,7 @@ public class JStatusFilePanelDec extends JPanelStatusDecorator {
   @Override
   public void addSpecificComponent() {
     fileStatusPanel = new FileStatusPanel("Status Panel");
-    fileStatusPanel.setFileStatus(this.initialStatusPanel.getFiles());
+    fileStatusPanel.setFileStatus(this.initialStatusObjectForView.getFiles());
     this.addPanel(fileStatusPanel, "file_-_-StatusPanel", 5);
   }
 

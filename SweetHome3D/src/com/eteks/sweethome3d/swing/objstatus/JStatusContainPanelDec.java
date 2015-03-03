@@ -9,6 +9,7 @@ import com.eteks.sweethome3d.viewcontroller.HomeController;
 
 public class JStatusContainPanelDec extends JPanelStatusDecorator {
 
+  private static final long serialVersionUID = -4389972637869214433L;
   private ContainementStatusPanel containmentPanel;
   private ContPanelAim aim;
   
@@ -54,7 +55,7 @@ public class JStatusContainPanelDec extends JPanelStatusDecorator {
   @Override
   public void addSpecificComponent() {
     this.containmentPanel = new ContainementStatusPanel("containmnent panel");
-    this.containmentPanel.setStatus(this.initialStatusPanel.getObjectContainedLst());
+    this.containmentPanel.setStatus(this.initialStatusObjectForView.getObjectContainedLst());
     
     this.addPanel(this.containmentPanel, "containment panel", 1);
       

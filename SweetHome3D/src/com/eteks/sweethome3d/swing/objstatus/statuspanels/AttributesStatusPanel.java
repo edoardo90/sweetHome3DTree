@@ -2,15 +2,20 @@ package com.eteks.sweethome3d.swing.objstatus.statuspanels;
 
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.table.AbstractTableModel;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.AttributeType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.swing.objstatus.tables.PanelWithTable;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableAttributesPanel;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableListModel;
 
-public class AttributesPanel extends PanelWithTable<BuildingObjectAttribute> {
+public class AttributesStatusPanel extends JPanelColor {
 
   private static final long serialVersionUID = 5301699016077956912L;
   
@@ -18,20 +23,32 @@ public class AttributesPanel extends PanelWithTable<BuildingObjectAttribute> {
   private TableAttributesPanel tableAttributes;
   private final boolean editable ;
   
-  public AttributesPanel(TableListModel<BuildingObjectAttribute> tableModel, boolean editable) {
-    super(tableModel);
+  public AttributesStatusPanel( boolean editable) {
+    super("Attribute Panel");
+    
+    BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
+    this.setLayout(box);
     
     this.editable = editable;
-    if(this.editable)
-    {    this.addAttributeBtn = new JButton("Add Attribute");
-         this.add(addAttributeBtn);
+    if(this.editable || true /* TODO: TOGLIMI !! */)
+    {   
+        
+        this.addAttributeBtn = new JButton("Add Attribute");
+        this.add(addAttributeBtn);
     }
+    
+    Border bspace = BorderFactory.createEtchedBorder(EtchedBorder.RAISED);
+    this.setBorder(BorderFactory.createTitledBorder(bspace, "Attributes"));
     
   }
   
   public void setStatus(List<BuildingObjectAttribute> attrs )
   {
+    boolean TOGLIMI = true;
+    if(TOGLIMI)
+          attrs.add(new BuildingObjectAttribute("weight", AttributeType.FLOAT, new Float(32)));
     this.tableAttributes = new TableAttributesPanel(attrs, this.editable);
+    this.add(this.tableAttributes);
   }
   
   public List<BuildingObjectAttribute> getAttributes()

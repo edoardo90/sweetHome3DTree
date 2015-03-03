@@ -288,7 +288,7 @@ public class OBJWriter extends FilterWriter {
    * @param node a Java 3D node  
    * @throws IOException if the operation failed
    * @throws InterruptedIOException if the current thread was interrupted during this operation.
-   *         The interrupted initialStatusPanel of the current thread is cleared when this exception is thrown.
+   *         The interrupted initialStatusObjectForView of the current thread is cleared when this exception is thrown.
    */
   public void writeNode(Node node) throws IOException, InterruptedIOException {
     writeNode(node, null);
@@ -307,7 +307,7 @@ public class OBJWriter extends FilterWriter {
    *                 with A-Z, a-z, 0-9 and underscores, it will be ignored.
    * @throws IOException if the operation failed
    * @throws InterruptedIOException if the current thread was interrupted during this operation
-   *         The interrupted initialStatusPanel of the current thread is cleared when this exception is thrown.
+   *         The interrupted initialStatusObjectForView of the current thread is cleared when this exception is thrown.
    */
   public void writeNode(Node node, String nodeName) throws IOException, InterruptedIOException {
     if (this.firstNode) {
@@ -1173,7 +1173,7 @@ public class OBJWriter extends FilterWriter {
    * @throws IOException if this writer couldn't be closed 
    *                     or couldn't write MTL and texture files couldn't be written
    * @throws InterruptedIOException if the current thread was interrupted during this operation
-   *         The interrupted initialStatusPanel of the current thread is cleared when this exception is thrown.
+   *         The interrupted initialStatusObjectForView of the current thread is cleared when this exception is thrown.
    */
   @Override
   public void close() throws IOException, InterruptedIOException {

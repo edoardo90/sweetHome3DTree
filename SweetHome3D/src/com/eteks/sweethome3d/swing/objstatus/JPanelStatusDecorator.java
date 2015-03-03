@@ -8,23 +8,23 @@ import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 
 public abstract class JPanelStatusDecorator extends JPanelColor {
 
-  protected StatusOfObjectForView initialStatusPanel;
+  protected StatusOfObjectForView initialStatusObjectForView;
   private List<JPanelStatusDecorator> decorated = new ArrayList<JPanelStatusDecorator>();
 
   /**
    * <pre>
-   * Assign initialStatusPanel variable, used for the view 
+   * Assign initialStatusObjectForView variable, used for the view 
    * Calls  drawOnPanel method: the method, inheredited by all sons of this class,
    * adds components on this panel
    * 
    * </pre>
    * @param decoratedPanel
-   * @param initialStatusPanel
+   * @param initialStatusObjectForView
    */
   public JPanelStatusDecorator(JPanelStatusDecorator panelToDecore, String name, StatusOfObjectForView status) 
   {
     super(name);
-    this.initialStatusPanel = status;
+    this.initialStatusObjectForView = status;
     for(JPanelColor coloredP : panelToDecore.getPanels())
     {
       this.addPanel(coloredP, coloredP.getName());
@@ -43,7 +43,7 @@ public abstract class JPanelStatusDecorator extends JPanelColor {
   public JPanelStatusDecorator(String name)
   {
     super(name);
-    this.initialStatusPanel = null;
+    this.initialStatusObjectForView = null;
   }
 
   protected  abstract StatusOfObjectForView getOwnStatus();
@@ -59,11 +59,13 @@ public abstract class JPanelStatusDecorator extends JPanelColor {
       if(st != null)
       {    
         if(st.getLifeStatus() != null)
-          totalStatus = new StatusOfObjectForView(st.getLifeStatus(),           totalStatus.getFiles(),  totalStatus.getObjectContainedLst());
+          totalStatus = new StatusOfObjectForView(totalStatus, st.getLifeStatus(), 42.0);
         if(st.getFiles() != null)
-          totalStatus = new StatusOfObjectForView(totalStatus.getLifeStatus(),  st.getFiles(),           totalStatus.getObjectContainedLst());
+          totalStatus = new StatusOfObjectForView(totalStatus, st.getFiles(), "42");
         if(st.getObjectContainedLst() != null)
-          totalStatus = new StatusOfObjectForView(totalStatus.getLifeStatus(),  totalStatus.getFiles(),  st.getObjectContainedLst());
+          totalStatus = new StatusOfObjectForView(totalStatus, st.getObjectContainedLst(), new Boolean(true));
+        if(st.getObjectAttributes() != null)
+          totalStatus = new StatusOfObjectForView(totalStatus, st.getObjectAttributes(), 42);
       }
     }
     return totalStatus;

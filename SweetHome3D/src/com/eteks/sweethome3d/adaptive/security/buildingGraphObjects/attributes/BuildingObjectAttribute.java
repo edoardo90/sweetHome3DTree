@@ -18,7 +18,7 @@ public class BuildingObjectAttribute {
     
   }
 
-  private void checkTypeAgainstValue(AttributeType type2, Object value2) {
+  private void checkTypeAgainstValue(AttributeType type, Object value) {
     Class<?> initialValueClazz = value.getClass();
     switch (type) {
       case BOOLEAN:

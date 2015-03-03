@@ -308,8 +308,8 @@ public interface HomeView extends View {
   public abstract void invokeLater(Runnable runnable);
 
   /**
-   * show the initialStatusPanel of the object, like if it is broken or what files does it contain
-   * @param initialStatusPanel: life
+   * show the initialStatusObjectForView of the object, like if it is broken or what files does it contain
+   * @param initialStatusObjectForView: life
    * @param files:  true iif there is need to display files
    * @return
    */

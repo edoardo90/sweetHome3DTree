@@ -79,7 +79,7 @@ public class ThreadedTaskPanel extends JPanel implements ThreadedTaskView {
   }
   
   /**
-   * Sets the initialStatusPanel of the progress bar shown by this decoratedPanel as indeterminate.
+   * Sets the initialStatusObjectForView of the progress bar shown by this decoratedPanel as indeterminate.
    * This method may be called from an other thread than EDT.  
    */
   public void setIndeterminateProgress() {
@@ -126,7 +126,7 @@ public class ThreadedTaskPanel extends JPanel implements ThreadedTaskView {
   }
 
   /**
-   * Sets the running initialStatusPanel of the threaded task. 
+   * Sets the running initialStatusObjectForView of the threaded task. 
    * If <code>taskRunning</code> is <code>true</code>, a waiting dialog will be shown.
    */
   public void setTaskRunning(boolean taskRunning, View executingView) {
