@@ -683,7 +683,7 @@ public class Home implements Serializable, Cloneable {
           else
             this.setUnconnectableVisible();
           
-          segraph.addNewObject(piece.getId(), type,
+          segraph.addNewObject(piece.getId(), type, piece.getName(), piece.getOriginalName(),
               new Vector3D(piece.getX(), piece.getY(), 0));
         }
         catch(IllegalStateException e)
@@ -693,6 +693,7 @@ public class Home implements Serializable, Cloneable {
            *  It is possible that the security admin is moving objects around
            *  and has not asked the program for the graph
            */
+         
         }
       }
 

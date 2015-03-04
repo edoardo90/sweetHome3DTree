@@ -1,0 +1,1 @@
+Light,Temperature,INT,25

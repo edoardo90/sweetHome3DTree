@@ -15,15 +15,26 @@ public enum AttributeType {
   public Object getValueOfString(String s) throws Exception 
   {
     Method[] methods = inherentClass.getMethods();
+    Object valueOfS=null;
     for(Method m : methods)
     {
-      if(m.getName().equals("valueOf"))
+      if(m.getName().equals("valueOf")  )
       {
-        Object valueOfS = m.invoke(null, s);
-        return this.inherentClass.cast(valueOfS);
+        int venticinque = Integer.valueOf(s);
+        
+        try
+        {  
+           valueOfS = m.invoke(null, s);
+        }
+        catch(Exception e)
+        {
+          //it's ok
+        }
       }
     }
-    return null;
+    Object casted = this.inherentClass.cast(valueOfS); //TODO: do it better ....
+    return casted;
+    
   }
   
 }

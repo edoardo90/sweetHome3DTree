@@ -32,10 +32,11 @@ public class BuildingObjectAttribute {
     AttributeType type = null;
     try
     {
-      type = AttributeType.valueOf(attribName);
+      type = AttributeType.valueOf(attribType);
     }
     catch(Exception e )
     {
+      e.printStackTrace();
       throw new IllegalStateException(" the type : " + attribType + " is not valid ");
     }
     Object value = null;
@@ -98,6 +99,11 @@ public class BuildingObjectAttribute {
     this.name = name;
     this.type = type;
     this.value = value;
+  }
+  
+  public String toString()
+  {
+    return this.getName() + "," + this.getType().name() + ",\n\tValue:" + this.getValue();
   }
   
   public String getName() {

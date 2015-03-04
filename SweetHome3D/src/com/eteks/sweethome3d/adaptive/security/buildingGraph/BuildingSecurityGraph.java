@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
@@ -16,6 +17,8 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObje
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PCObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PrinterObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
@@ -303,7 +306,12 @@ public class BuildingSecurityGraph {
     this.objectsFather.put(IDOBJCT, father);
   }
   
-  public void addNewObject(String idObject, BuildingObjectType type, String idRoomDestination, Vector3D position )
+  public void addNewObject(String idObject,
+                           BuildingObjectType type, 
+                           String pieceName,
+                           String pieceOriginalName,
+                           String idRoomDestination,
+                           Vector3D position )
   {
     
     BuildingRoomNode broomDestination = this.getBuildingRoomFromRoom(new IdRoom(idRoomDestination));
@@ -312,8 +320,13 @@ public class BuildingSecurityGraph {
       throw new IllegalStateException("graph not updated");
     }
     BuildingObjectContained objectCont = type.getBuildingObjectOfType(position);
+
     objectCont.setId(idObject);
-    //TODO: pass name too
+    objectCont.setName(pieceName);
+    objectCont.setOriginalName(pieceOriginalName);
+    
+    setAttributes(objectCont);
+    
     broomDestination.addObjectContained(objectCont);
     
     IdObject ID = new IdObject(idObject);
@@ -326,6 +339,15 @@ public class BuildingSecurityGraph {
   
   
   
+  private void setAttributes(BuildingObjectContained objectCont) {
+      
+    ConfigLoader cfg = ConfigLoader.getInstance();
+    String originalName = objectCont.getOriginalName();
+    Set<BuildingObjectAttribute> attrs = cfg.getPossibleAttributesForObject(originalName);
+    objectCont.addAllAttributes(attrs);
+    
+  }
+
   public void putObjectCont(IdObject idObj, BuildingObjectContained cont)
   {
     this.objectsContained.put(idObj, cont);
@@ -434,14 +456,16 @@ public class BuildingSecurityGraph {
       this.moveObject(homePieceOfFurniture.getId(), position);
   }
 
-  public void addNewObject(String idObject, BuildingObjectType type, Vector3D position) {
+  public void addNewObject(String idObject, BuildingObjectType type,
+                           String pieceName, String pieceOriginalName,
+                           Vector3D position) {
     String idRoomDestination;
     idRoomDestination = this.getRoomId(position);
     if(idRoomDestination == null)
     {
       throw new IllegalStateException("getRoomId(position) failed  - as if it there was no room there");
     }
-    this.addNewObject(idObject, type, idRoomDestination, position);
+    this.addNewObject(idObject, type,  pieceName, pieceOriginalName, idRoomDestination, position);
     
   }
 

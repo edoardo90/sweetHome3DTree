@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -176,7 +177,7 @@ public class ConfigLoader {
   
   protected String getReadRolesFileName()
   {
-    return "rolesFile.txt";
+    return "roles.txt";
   }
 
   protected String getReadWordsToLookFileName()
@@ -191,7 +192,7 @@ public class ConfigLoader {
   
   protected String getAttributesFileName()
   {
-    return "attribs.txt";
+    return "attributes.txt";
   }
   
 
@@ -283,15 +284,26 @@ public class ConfigLoader {
   private void initPossibleAttributes()
   {
     List<String> possibleAttributesCont = this.getfileContent(this.attributesPossibleFile.getAbsolutePath());
+    
     for(String fileRowAttribute : possibleAttributesCont)
     {
-      //ORIGINAL_NAME,NAME,TYPE,DEFAULT_VALUE
+      //PIECE_ORIGINAL_NAME,ATTRIBUTE_NAME,ATTRIBUTE_TYPE,ATTRIBUTE_DEFAULT_VALUE
       String [] cols = fileRowAttribute.split(",");
       String originalName = cols[0];
-      String attribName = cols[1];
-      String attribType = cols[2];
-      String defaultValue  = cols[3];
+      if(this.attributesPossible == null)
+      {
+        this.attributesPossible = new HashMap<String, Set<BuildingObjectAttribute>>();
+      }
+      Set<BuildingObjectAttribute> attrForName = this.attributesPossible.get(originalName);
+      if(attrForName == null)
+      {
+        attrForName = new HashSet<BuildingObjectAttribute>();
+        this.attributesPossible.put(originalName, attrForName);
+      }
+      
       BuildingObjectAttribute boa = new BuildingObjectAttribute(fileRowAttribute);
+      
+      attrForName.add(boa);
       
     }
   }

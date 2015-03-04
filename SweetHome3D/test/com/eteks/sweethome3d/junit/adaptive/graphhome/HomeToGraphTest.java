@@ -123,8 +123,8 @@ public class HomeToGraphTest extends BasicTest {
     assertTrue("there should be wash in cubby room",
         this.containsDeep(segraph, this.cubbyRoom.getId(), "wash"));
 
-    segraph.addNewObject("light1", BuildingObjectType.LIGHT, "kitchen", 
-        new Vector3D(300, 400, 0));
+    segraph.addNewObject("light1", BuildingObjectType.LIGHT, "light", "light", "kitchen", 
+         new Vector3D(300, 400, 0));
 
 
     assertTrue("light1 should be in kitchen", 
