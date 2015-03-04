@@ -34,18 +34,23 @@ public class ConfigLoader {
 
   protected SecurityNameAndMap namesConventionsSweetHome;
   private static UserPreferences preferences;
+  
+  
+  
   private File sweetHomeLibraryObjectsFile;
   private File ifcWordsToLookForFile;
   private File rolesFile;
   private File attributesPossibleFile;
+  private File abilityFile;
   
   private String securityCategoryName = "Security";
 
-  private static ConfigLoader instance = null;
+  private static ConfigLoader instance = null;  //SINGLETON!!
   private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>();
   private SecurityNameAndMap snm = null;
   private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = new HashMap<BuildingObjectType, HomePieceOfFurniture>();
   private Map<String, Set<BuildingObjectAttribute>>  attributesPossible = null; 
+  private Map<String, Set<ObjectAbility>> objectsAbilities = null;
   private Set<String> availableRoles = new TreeSet<String>();
   
   
@@ -100,6 +105,13 @@ public class ConfigLoader {
       return instance;
     }
   }
+  
+  public static ConfigLoader getInstance() {
+    if (preferences == null)
+      throw new IllegalStateException("configLoader should have preferences set before asking it !");
+    return getInstance(preferences);
+ }
+  
 
   /***
    * es.  CCTV -> Camera surveillance N090211
@@ -126,6 +138,35 @@ public class ConfigLoader {
     
   }
   
+  public Set<ObjectAbility> getObjectAbilities(String objectOriginalName)
+  {
+    if(this.objectsAbilities == null)
+    {
+      this.objectsAbilities = new HashMap<String, Set<ObjectAbility>>();
+      initAbilities();
+    }
+    return this.objectsAbilities.get(objectOriginalName);
+  }
+  
+  private void initAbilities()
+  {
+    List<String> abilityCont = this.getfileContent(this.abilityFile.getAbsolutePath());
+    for(String abilityRow : abilityCont)
+    {
+       String[] abfields = abilityRow.split(",");
+       String originalName = abfields[0];
+       boolean storeFiles = Boolean.valueOf(abfields[1]);
+       boolean connect = Boolean.valueOf(abfields[2]);
+       Set<ObjectAbility> abilities = new TreeSet<ObjectAbility>();
+       if(storeFiles)
+          abilities.add(ObjectAbility.STORE_FILES);
+       if(connect)
+          abilities.add(ObjectAbility.CONNECT);
+       this.objectsAbilities.put(originalName, abilities);
+    }
+  }
+  
+  
   public Map<BuildingObjectType, HomePieceOfFurniture> getMapTypeToFurniture()
   {
     if(typeToFurniture == null)
@@ -142,6 +183,7 @@ public class ConfigLoader {
     this.attributesPossibleFile = this.readAttribute(); 
     this.setMapOfLibraryObjects(preferences);
     this.rolesFile = this.readRoles();
+    this.abilityFile = this.readAbilities();
   }
   
 
@@ -156,6 +198,7 @@ public class ConfigLoader {
     Map<BuildingObjectType, HomePieceOfFurniture> map =   this.getMapTypeToFurniture();
     preferences.setFornitureMap(map); 
   }
+  
   
 
 
@@ -193,6 +236,11 @@ public class ConfigLoader {
   protected String getAttributesFileName()
   {
     return "attributes.txt";
+  }
+  
+  protected String getAbilitiesFileName()
+  {
+    return "ability.txt";
   }
   
 
@@ -247,7 +295,6 @@ public class ConfigLoader {
     List<String> cachedCont = this.fileContentCache.get(filePath);
     if(cachedCont != null)
       return cachedCont;
-    if(cachedCont == null)
     {
 
       List<String> fileCont = new ArrayList<String>();
@@ -267,8 +314,6 @@ public class ConfigLoader {
       this.fileContentCache.put(filePath, fileCont);
       return fileCont;
     }
-
-    return null;
 
   }
   
@@ -351,14 +396,19 @@ public class ConfigLoader {
   }
 
   private UserPreferences getUserPreferences() {
-    return this.preferences;
+    return ConfigLoader.preferences;
   }
   
   private File readRoles()
   {
     return getFileFromName(""+  getReadRolesFileName());
   }
-
+  
+  private File readAbilities()
+  {
+    return getFileFromName("" + this.getAbilitiesFileName());
+  }
+  
   private  File readWordsToLook() {
     return getFileFromName("" + getReadWordsToLookFileName());
   }
@@ -394,15 +444,42 @@ public class ConfigLoader {
   }
 
 
-  public static ConfigLoader getInstance() {
-      if (preferences == null)
-        throw new IllegalStateException("configLoader should have preferences set before asking it !");
-      return new ConfigLoader(preferences);
-  }
+
 
 
   public boolean isARole(String roleStr) {
     return this.getAvailableRoles().contains(roleStr);
+  }
+
+
+
+
+  public void setObjectAbilityStatus(String objectOriginalName, ObjectAbility ability, boolean active) {
+    Set<ObjectAbility> abilities = this.getObjectAbilities(objectOriginalName);
+    if(abilities == null)
+    {
+      Set<ObjectAbility> abilitiesNew = new TreeSet<ObjectAbility>();
+      if(active)
+          abilitiesNew.add(ability);
+      this.objectsAbilities.put(objectOriginalName, abilitiesNew);
+    }
+    else
+    {
+      if(abilities.contains(ability))
+      {
+        if(active)
+            return;
+        else
+          abilities.remove(ability);
+      }
+      else
+      {
+        if(active)
+            abilities.add(ability);
+        else
+          return;
+      }
+    }
   }
 
 

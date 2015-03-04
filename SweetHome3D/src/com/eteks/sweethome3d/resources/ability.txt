@@ -1,0 +1,8 @@
+Pc,true,true
+Printer,true,true
+CCTV,false,true
+Light,false,true
+Actor,false,true
+HVAC,false,false
+DigitalHammer,true,true
+Hammer,false,false

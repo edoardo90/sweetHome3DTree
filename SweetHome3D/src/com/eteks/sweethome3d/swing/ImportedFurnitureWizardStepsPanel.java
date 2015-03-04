@@ -92,9 +92,13 @@ import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
+import sun.org.mozilla.javascript.internal.ast.ObjectProperty;
+
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.TemporaryURLContent;
 import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
 import com.eteks.sweethome3d.j3d.ModelManager;
 import com.eteks.sweethome3d.j3d.OBJWriter;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
@@ -150,6 +154,14 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
   private JSpinner                          elevationSpinner;
   private AttributesPreviewComponent        attributesPreviewComponent;
   private JCheckBox                         movableCheckBox;
+  
+  private JCheckBox                         filesContainerCheckBox;
+  private JCheckBox                         canConnectCheckBox;
+  
+  private  boolean                          filesContainer = true;
+  private  boolean                          canConnect = true;
+  
+  
   private JCheckBox                         doorOrWindowCheckBox;
   private JCheckBox                         staircaseCheckBox;
   private JLabel                            colorLabel;
@@ -645,7 +657,38 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
             movableCheckBox.setSelected(controller.isMovable());
           }
         });
-
+    
+    this.filesContainerCheckBox = new JCheckBox("Files Container");
+    this.canConnectCheckBox = new JCheckBox("Can connect with other objects");
+    
+    filesContainerCheckBox.setSelected(true);
+    canConnectCheckBox.setSelected(true);
+    
+    this.filesContainerCheckBox.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        filesContainer = ! filesContainer;
+        String name = nameTextField.getText();
+        ConfigLoader cfg = ConfigLoader.getInstance();
+        cfg.setObjectAbilityStatus(name, ObjectAbility.STORE_FILES, filesContainer);
+        
+        System.out.println("file container :" + filesContainer);
+        
+      }
+    });
+    
+    this.canConnectCheckBox.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        canConnect = ! canConnect;
+        String name = nameTextField.getText();
+        ConfigLoader cfg = ConfigLoader.getInstance();
+        cfg.setObjectAbilityStatus(name, ObjectAbility.CONNECT, canConnect);
+        
+        System.out.println(" connectable :  " + canConnect);
+        
+      }
+    });
+    
+    
     this.doorOrWindowCheckBox = new JCheckBox(SwingTools.getLocalizedLabelText(preferences, 
         ImportedFurnitureWizardStepsPanel.class, "doorOrWindowCheckBox.text"));
     this.doorOrWindowCheckBox.addItemListener(new ItemListener() {
@@ -998,14 +1041,27 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
     attributesPanel.add(this.colorButton, new GridBagConstraints(
         2, 12, 1, 1, 0, 0, GridBagConstraints.CENTER, 
         GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
+    
+    attributesPanel.add(this.filesContainerCheckBox, new GridBagConstraints(
+        1, 13, 1, 1, 0, 0, GridBagConstraints.CENTER, 
+        GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
+    attributesPanel.add(this.canConnectCheckBox,  new GridBagConstraints(
+        1, 14, 1, 1, 0, 0, GridBagConstraints.CENTER, 
+        GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
+    
+    
+    
     attributesPanel.add(this.clearColorButton, new GridBagConstraints(
-        2, 13, 1, 1, 0, 0, GridBagConstraints.CENTER, 
+        2, 15, 1, 1, 0, 0, GridBagConstraints.CENTER, 
         GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
     // Add a dummy label to force components to be at top of decoratedPanel
     attributesPanel.add(new JLabel(), new GridBagConstraints(
-        1, 14, 1, 1, 1, 1, GridBagConstraints.CENTER, 
+        1, 16, 1, 1, 1, 1, GridBagConstraints.CENTER, 
         GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    
 
+    
+    
     JPanel iconPanel = new JPanel(new GridBagLayout());
     iconPanel.add(this.iconLabel, new GridBagConstraints(
         0, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START, 
@@ -1017,6 +1073,8 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
     add(modelPanel, ImportedFurnitureWizardController.Step.MODEL.name());
     add(orientationPanel, ImportedFurnitureWizardController.Step.ROTATION.name());
     add(attributesPanel, ImportedFurnitureWizardController.Step.ATTRIBUTES.name());
+    
+    
     add(iconPanel, ImportedFurnitureWizardController.Step.ICON.name());
   }
   
