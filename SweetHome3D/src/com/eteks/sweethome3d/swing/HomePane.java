@@ -182,6 +182,7 @@ import com.eteks.sweethome3d.model.Compass;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.DimensionLine;
 import com.eteks.sweethome3d.model.Elevatable;
+import com.eteks.sweethome3d.model.HidebleDimensionLine;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomeEnvironment;
 import com.eteks.sweethome3d.model.HomeFurnitureGroup;
@@ -231,9 +232,6 @@ import com.eteks.sweethome3d.viewcontroller.View;
  * @author Emmanuel Puybaret
  */
 public class HomePane extends JRootPane implements HomeView {
-  /**
-   * 
-   */
   private static final long serialVersionUID = 2449408628819834955L;
 
   private enum MenuActionType {FILE_MENU, EDIT_MENU, FURNITURE_MENU, PLAN_MENU, VIEW_3D_MENU, HELP_MENU, 
@@ -3216,8 +3214,14 @@ public class HomePane extends JRootPane implements HomeView {
           });
           formatters.put(DimensionLine.class, new SelectableFormat<DimensionLine>() {
             public String format(DimensionLine dimensionLine) {
-              return preferences.getLocalizedString(HomePane.class, "selectObject.dimensionLine", 
-                  preferences.getLengthUnit().getFormatWithUnit().format(dimensionLine.getLength()));
+              
+              int pippo=123;
+              pippo = pippo + 2;
+              return "pippo";
+//              return preferences.getLocalizedString(HomePane.class, "selectObject.dimensionLine", 
+//                  preferences.getLengthUnit().getFormatWithUnit().format(dimensionLine.getLength()));
+            
+            
             }
           });
           formatters.put(Label.class, new SelectableFormat<Label>() {
@@ -3630,18 +3634,12 @@ public class HomePane extends JRootPane implements HomeView {
   }
 
 
-  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject, boolean files,
-                                                HomeController homeController)
+  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject, HomeController homeController)
   {
     if(statusObject == null)
     {
       return null;
     }
-    if(files && statusObject.getFiles() == null)
-    {
-      throw new IllegalStateException("if files is true then initialStatusObjectForView should have a not null list!");
-    }
-
     JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
 
     JPanelStatusDecorator mainPanel = new JStatusDumb("status");
@@ -3668,7 +3666,7 @@ public class HomePane extends JRootPane implements HomeView {
 
   public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject, boolean files)
   {
-    return this.showStatusDialog(statusObject, files, null);
+    return this.showStatusDialog(statusObject, null);
   }
 
 

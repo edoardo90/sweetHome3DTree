@@ -1861,6 +1861,8 @@ public class Home implements Serializable, Cloneable {
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
         BuildingObjectContained boo = null;
         
+        hopf.setVisible(true);
+        
         try
         {
           boo= segraph.getObjectContainedFromHOPF(hopf);
@@ -1922,6 +1924,28 @@ public class Home implements Serializable, Cloneable {
     public boolean getvisibilityOfUnconnected() {
 
       return ! this.unconnectableInvisible;
+    }
+
+    public void hideContainedObjects() {
+      if(this.unconnectableInvisible ) //hvac, doors, etc are hidden, we don't hide contained too!
+          return;
+      else
+      {
+        //doors, hvac etc are visible so we don't feel bad hiding contained objs
+        for(HomePieceOfFurniture hopf : this.getFurniture())
+        {
+          String idObject = hopf.getId();
+          BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+          BuildingObjectContained father = segraph.getFatherOfObject(new IdObject(idObject));
+          if(father != null)
+          {
+            hopf.setVisible(false);
+          }
+        }
+        
+        
+      }
+      
     }
 
 

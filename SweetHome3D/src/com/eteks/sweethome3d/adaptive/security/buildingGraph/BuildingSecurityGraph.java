@@ -281,6 +281,27 @@ public class BuildingSecurityGraph {
     return brn;
   }
   
+  /**
+   * <pre>
+   * The father of the object is the object that contains it, or null
+   * Mater semper certa est ... pater numquam ...
+   * </pre>
+   * @param IDOBJECT
+   * @return the {@link BuildingObjectContained} representing the container or null
+   */
+  public BuildingObjectContained getFatherOfObject(IdObject IDOBJECT)
+  {
+    return this.objectsFather.get(IDOBJECT);
+  }
+  /**
+   * 
+   * @param IDOBJCT
+   * @param father: the container of the object whose id is wrapped in {@link IdObject}
+   */
+  public void putFather(IdObject IDOBJCT, BuildingObjectContained father)
+  {
+    this.objectsFather.put(IDOBJCT, father);
+  }
   
   public void addNewObject(String idObject, BuildingObjectType type, String idRoomDestination, Vector3D position )
   {
@@ -484,6 +505,8 @@ public class BuildingSecurityGraph {
   private Map<IdRoom, BuildingRoomNode>  buildingRooms = new HashMap<IdRoom, BuildingRoomNode>();
   private Map<IdObject, BuildingRoomNode>  objectsRoomLocation = new HashMap<IdObject, BuildingRoomNode>();
   private Map<IdObject, BuildingObjectContained> objectsContained = new HashMap<IdObject, BuildingObjectContained>();
+  private Map<IdObject, BuildingObjectContained> objectsFather = new HashMap<IdObject, BuildingObjectContained>();
+  
   
   private List<WrapperRect>  spaceAreasOfRooms = new ArrayList<WrapperRect>();
   /** TODO check if we can rely just on the BTREE (next line of code) **/

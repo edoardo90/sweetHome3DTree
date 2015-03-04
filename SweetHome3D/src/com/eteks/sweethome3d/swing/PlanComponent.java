@@ -176,6 +176,7 @@ import com.eteks.sweethome3d.model.Compass;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.DimensionLine;
 import com.eteks.sweethome3d.model.Elevatable;
+import com.eteks.sweethome3d.model.HidebleDimensionLine;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
 import com.eteks.sweethome3d.model.HomeFurnitureGroup;
@@ -3727,6 +3728,13 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
             ? this.preferences.getLengthUnit().getMagnetizedLength(dimensionLineLength, getPixelLength())
             : dimensionLineLength;
         String lengthText = this.preferences.getLengthUnit().getFormat().format(displayedValue);
+        
+        if (dimensionLine instanceof HidebleDimensionLine) {
+          HidebleDimensionLine hidebleDistance = (HidebleDimensionLine)dimensionLine;
+          lengthText = hidebleDistance.getName();
+        }
+        lengthText = "pippo MIO!!!";
+        
         TextStyle lengthStyle = dimensionLine.getLengthStyle();
         if (lengthStyle == null) {
           lengthStyle = this.preferences.getDefaultTextStyle(dimensionLine.getClass());

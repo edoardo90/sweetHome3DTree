@@ -59,7 +59,7 @@ public abstract class JPanelStatusDecorator extends JPanelColor {
       if(st != null)
       {    
         if(st.getLifeStatus() != null)
-          totalStatus = new StatusOfObjectForView(totalStatus, st.getLifeStatus(), 42.0);
+          totalStatus = new StatusOfObjectForView(totalStatus, st.getLifeStatus(), new Character('c'));
         if(st.getFiles() != null)
           totalStatus = new StatusOfObjectForView(totalStatus, st.getFiles(), "42");
         if(st.getObjectContainedLst() != null)

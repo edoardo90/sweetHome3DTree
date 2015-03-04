@@ -64,7 +64,7 @@ public  class StatusOfObjectForView
     this(basic.getName(), basic.getObjectContainedLst(), attrs, basic.getLifeStatus(), basic.getFiles());
   }
 
-  public StatusOfObjectForView(StatusOfObjectForView basic, String lifeStatus, Float LIFE)
+  public StatusOfObjectForView(StatusOfObjectForView basic, String lifeStatus, Character LIFE)
   {
     this(basic.getName(), basic.getObjectContainedLst(), basic.getObjectAttributes(), lifeStatus,  basic.getFiles());
   }

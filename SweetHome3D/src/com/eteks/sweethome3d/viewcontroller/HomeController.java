@@ -69,6 +69,7 @@ import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.MaterialObject;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
@@ -1608,23 +1609,33 @@ public class HomeController implements Controller {
     StatusOfObjectForView statusForView = getStatusOfObject(id);
     if(statusForView == null)
       return;
-    if(statusForView.getFiles() != null)
-      representation =   getView().showStatusDialog( statusForView, true, this);
-    else
-      representation =   getView().showStatusDialog(statusForView, false , this);                
-
-    setStatusOfObject( id, representation);
+   
+    representation =   getView().showStatusDialog( statusForView, this);
+   
+    BuildingObjectContained objectCont = setStatusOfObject( id, representation);
+    updateFathersInGraph(objectCont);
+    home.hideContainedObjects();
   }
   
 
-  private void setStatusOfObject(String id, StatusOfObjectForView representation) {
+  private void updateFathersInGraph(BuildingObjectContained boc) {
+      List<BuildingObjectContained> sons = boc.getObjectContained();
+      BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+      for(BuildingObjectContained son : sons)
+      {
+        segraph.putFather(new IdObject(son.getId()), boc);
+      }
+  }
+
+  private BuildingObjectContained setStatusOfObject(String id, StatusOfObjectForView representation) {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
     BuildingObjectContained containedObj = segraph.getObjectContainedFromObj(new IdObject(id));
     if(containedObj == null)
     {
-      return ;
+      return null;
     }
     containedObj.setStatusFromView(representation);
+    return containedObj;
 
   }
 

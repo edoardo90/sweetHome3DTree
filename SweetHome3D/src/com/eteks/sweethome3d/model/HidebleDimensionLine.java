@@ -3,6 +3,7 @@ package com.eteks.sweethome3d.model;
 public class HidebleDimensionLine extends DimensionLine {
 
   private boolean visible = true;
+  private String name="pippomio!";
   float xEndOriginal=0, yEndOriginal=0, xStartOriginal = 0, yStartOriginal = 0;
   final float BIG = 1000;
   
@@ -35,6 +36,14 @@ public class HidebleDimensionLine extends DimensionLine {
       this.setYStart(this.yStartOriginal);
       this.setYEnd(this.yEndOriginal);
     }
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
  
 }
