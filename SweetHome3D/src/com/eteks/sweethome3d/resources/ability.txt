@@ -5,4 +5,5 @@ Light,false,true
 Actor,false,true
 HVAC,false,false
 DigitalHammer,true,true
+HammerOrange,false,true
 Hammer,false,false

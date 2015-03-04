@@ -3629,7 +3629,8 @@ public class HomePane extends JRootPane implements HomeView {
   }
 
 
-  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject, HomeController homeController)
+  public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject,
+                                                     HomeController homeController)
   {
     if(statusObject == null)
     {

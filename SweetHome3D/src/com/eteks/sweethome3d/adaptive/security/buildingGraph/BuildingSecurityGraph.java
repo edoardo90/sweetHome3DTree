@@ -19,6 +19,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PCObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PrinterObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
@@ -325,7 +326,9 @@ public class BuildingSecurityGraph {
     objectCont.setName(pieceName);
     objectCont.setOriginalName(pieceOriginalName);
     
-    setAttributes(objectCont);
+    this.setAttributes(objectCont);
+    this.setAbilities (objectCont);
+    
     
     broomDestination.addObjectContained(objectCont);
     
@@ -339,11 +342,26 @@ public class BuildingSecurityGraph {
   
   
   
+  private void setAbilities(BuildingObjectContained objectCont) {
+     
+     ConfigLoader cfg = ConfigLoader.getInstance();
+     String originalName = objectCont.getOriginalName();
+     if(originalName == null)
+         throw new IllegalStateException("original name is null!" + "objectCont : " + objectCont);
+     Set<ObjectAbility> abilities = cfg.getObjectAbilities(originalName);
+     if(abilities == null)
+       return;
+     objectCont.setAbilities(abilities);
+    
+  }
+
   private void setAttributes(BuildingObjectContained objectCont) {
       
     ConfigLoader cfg = ConfigLoader.getInstance();
     String originalName = objectCont.getOriginalName();
     Set<BuildingObjectAttribute> attrs = cfg.getPossibleAttributesForObject(originalName);
+    if(attrs == null)
+      return;
     objectCont.addAllAttributes(attrs);
     
   }

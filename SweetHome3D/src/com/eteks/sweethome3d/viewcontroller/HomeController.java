@@ -73,6 +73,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.MaterialObje
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
 import com.eteks.sweethome3d.model.AspectRatio;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.Camera;
@@ -1644,8 +1645,14 @@ public class HomeController implements Controller {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
     BuildingObjectContained containedObj = segraph.getObjectContainedFromObj(new IdObject(id));
     if(containedObj == null)
+    {
+      System.err.println("Contained object is null, maybe the graph is not updated!!!");
       return null;
-    return containedObj.getStatusForView();
+    }
+    StatusOfObjectForView status = containedObj.getStatusForView();
+    Set<ObjectAbility> abilities = containedObj.getAbilities();
+    status.setAbilities(abilities);
+    return status;
   }
 
   public void addCyberLink()

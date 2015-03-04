@@ -2,9 +2,11 @@ package com.eteks.sweethome3d.swing.objstatus.representation;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
 
 public  class StatusOfObjectForView
 {
@@ -13,6 +15,7 @@ public  class StatusOfObjectForView
   private final List<String> files;
   private final List<String> objContainedInside;
   private final List<BuildingObjectAttribute> attributes;
+  private Set<ObjectAbility> abilities;
 
   public StatusOfObjectForView(  final String objName, final List<String> objContainedInside,
                                  final List<BuildingObjectAttribute> attributes,
@@ -128,6 +131,18 @@ public  class StatusOfObjectForView
       }
     }
     
+    if(this.abilities == null)
+    {
+      s = s + "\nThis object can't have abilities - NULL -  Something is wrong indeed!!!";
+    }
+    else if (this.abilities.size() == 0)
+    {
+      s = s + "\nThis object hasen't got any ability";
+    }
+    else if (this.abilities.size() != 0)
+    {
+      s = s + "\n Abilities: \n\t " + this.abilities;
+    }
     
     return s;
 
@@ -144,6 +159,14 @@ public  class StatusOfObjectForView
 
   public String getName() {
     return this.objName;
+  }
+
+  public Set<ObjectAbility> getAbilities() {
+    return abilities;
+  }
+
+  public void setAbilities(Set<ObjectAbility> abilities) {
+    this.abilities = abilities;
   }
 
 
