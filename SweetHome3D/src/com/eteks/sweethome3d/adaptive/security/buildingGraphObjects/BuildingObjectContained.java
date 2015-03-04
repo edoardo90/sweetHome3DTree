@@ -36,6 +36,12 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     return preferences.getPieceOfForniture(objectType);
   }
   
+  protected void clearAttributes()
+  {
+    this.attributes.clear();
+    
+  }
+  
   @Override
   public String toString()
   {

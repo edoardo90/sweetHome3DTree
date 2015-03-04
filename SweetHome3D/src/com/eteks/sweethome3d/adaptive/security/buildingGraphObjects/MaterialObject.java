@@ -1,5 +1,9 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 
@@ -34,6 +38,14 @@ public abstract class MaterialObject extends BuildingObjectContained {
     LifeStatus lifeSt = LifeStatus.valueOfSmarter(statusLife);
     this.setLifeStatus(lifeSt);
     this.setObjectsContainedFromView(status);
+    this.setAttributesFromView(status);
+  }
+  
+  private void setAttributesFromView(StatusOfObjectForView status)
+  {
+    this.clearAttributes();
+    Set<BuildingObjectAttribute> attrs = new HashSet<BuildingObjectAttribute>(status.getObjectAttributes());
+    this.addAllAttributes(attrs);
   }
   
   @Override

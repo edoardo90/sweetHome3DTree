@@ -9,11 +9,12 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.B
 public class TableDefineAttributeModel extends TableListModel<BuildingObjectAttribute>
 {
   private static final long serialVersionUID = -5589968849280582764L;
-  private final boolean editable;
+  private final boolean nameAndTypeEditable;
   
-  public TableDefineAttributeModel(List<BuildingObjectAttribute> rows, List<String> header, boolean editable) {
+  public TableDefineAttributeModel(List<BuildingObjectAttribute> rows, 
+                                   List<String> header, boolean nameAndTypeEditable) {
     super(rows, header);
-    this.editable = editable;
+    this.nameAndTypeEditable = nameAndTypeEditable;
   }
 
   @Override
@@ -37,10 +38,11 @@ public class TableDefineAttributeModel extends TableListModel<BuildingObjectAttr
 
   @Override
   public boolean isCellEditable(int row, int col) {
-    if (this.editable )
-         return col == 2; //the value can be changed
-    else //not editable
-        return false; 
+    if(col == 2)   //default value  or setted value, changhable in any case
+      return true;
+    if(col == 0 || col == 1)   //name and type are changeble if the aim of table is creating
+      return this.nameAndTypeEditable;
+    return false;
   }
 
   @Override

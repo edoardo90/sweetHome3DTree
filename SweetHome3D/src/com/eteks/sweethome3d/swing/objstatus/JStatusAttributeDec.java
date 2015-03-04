@@ -32,12 +32,12 @@ public class JStatusAttributeDec extends JPanelStatusDecorator {
 
   @Override
   public void addSpecificComponent() {
-    boolean editable=false;
+    boolean nameAndTypeEditable=false; //the first 2 columns: name, type
     if(this.aim == AttributePanelAim.ADD_ATTRIBUTES)
-      editable = true;
+      nameAndTypeEditable = true;
     else if (this.aim == AttributePanelAim.SHOW_PRESENT_ATTRIBUTES)
-      editable = false;
-    attributePanel = new AttributesStatusPanel(editable);
+      nameAndTypeEditable = false;
+    attributePanel = new AttributesStatusPanel(nameAndTypeEditable);
     attributePanel.setStatus(this.initialStatusObjectForView.getObjectAttributes());
     this.addPanel(attributePanel, "Attribute Panel");
   }

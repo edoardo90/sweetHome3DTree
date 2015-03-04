@@ -26,6 +26,11 @@ public abstract class PanelWithTable<T> extends JPanel {
 
   public PanelWithTable(TableListModel<T> tableModel)
   {
+    this(tableModel, true);
+  }
+
+  public PanelWithTable(TableListModel<T> tableModel, boolean rowsDeletable) {
+    
     super(new GridLayout(1,0));
 
     TableListModel<T> mod = tableModel;
@@ -33,9 +38,11 @@ public abstract class PanelWithTable<T> extends JPanel {
     table.setPreferredScrollableViewportSize(new Dimension(500, 70));
     table.setFillsViewportHeight(true);
 
-    this.setCancKeyboardRemove();
+    if(  rowsDeletable )
+         this.setCancKeyboardRemove();
     JScrollPane scrollPane = new JScrollPane(table);
     add(scrollPane);
+    
   }
 
   public  void addRow(T row)

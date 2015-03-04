@@ -21,16 +21,16 @@ public class AttributesStatusPanel extends JPanelColor {
   
   private JButton addAttributeBtn;
   private TableAttributesPanel tableAttributes;
-  private final boolean editable ;
+  private final boolean nameAndTypeEditable ;
   
-  public AttributesStatusPanel( boolean editable) {
+  public AttributesStatusPanel( boolean nameAndTypeEditable) {
     super("Attribute Panel");
     
     BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
     this.setLayout(box);
     
-    this.editable = editable;
-    if(this.editable || true /* TODO: TOGLIMI !! */)
+    this.nameAndTypeEditable = nameAndTypeEditable;
+    if(  this.nameAndTypeEditable ) //if so the table is designed to define attributes 
     {   
         
         this.addAttributeBtn = new JButton("Add Attribute");
@@ -44,10 +44,8 @@ public class AttributesStatusPanel extends JPanelColor {
   
   public void setStatus(List<BuildingObjectAttribute> attrs )
   {
-    boolean TOGLIMI = true;
-    if(TOGLIMI)
-          attrs.add(new BuildingObjectAttribute("weight", AttributeType.FLOAT, new Float(32)));
-    this.tableAttributes = new TableAttributesPanel(attrs, this.editable);
+
+    this.tableAttributes = new TableAttributesPanel(attrs, this.nameAndTypeEditable);
     this.add(this.tableAttributes);
   }
   
