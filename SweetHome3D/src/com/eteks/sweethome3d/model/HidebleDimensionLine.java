@@ -2,6 +2,7 @@ package com.eteks.sweethome3d.model;
 
 public class HidebleDimensionLine extends DimensionLine {
 
+  private static final long serialVersionUID = 1975021907804458535L;
   private boolean visible = true;
   private String name="pippomio!";
   float xEndOriginal=0, yEndOriginal=0, xStartOriginal = 0, yStartOriginal = 0;

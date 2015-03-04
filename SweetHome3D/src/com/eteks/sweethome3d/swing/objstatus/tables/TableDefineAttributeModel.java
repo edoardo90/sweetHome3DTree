@@ -49,15 +49,15 @@ public class TableDefineAttributeModel extends TableListModel<BuildingObjectAttr
      
      if(col == 0)
      {
-       attr.setValues( new BuildingObjectAttribute((String)value, attr.getType(), attr.getValue()));
+       attr.setNameTypeValue( new BuildingObjectAttribute((String)value, attr.getType(), attr.getValue()));
      }
      else if (col == 1)
      {
-       attr.setValues( new BuildingObjectAttribute(attr.getName(), (AttributeType)value, attr.getValue()));
+       attr.setNameTypeValue( new BuildingObjectAttribute(attr.getName(), (AttributeType)value, attr.getValue()));
      }
      else if (col == 2)
      {
-       attr.setValues( new BuildingObjectAttribute(attr.getName(), attr.getType(), value));
+       attr.setNameTypeValue( new BuildingObjectAttribute(attr.getName(), attr.getType(), value));
      }
      
   }

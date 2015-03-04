@@ -15,6 +15,7 @@ import java.util.TreeSet;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -32,17 +33,21 @@ public class ConfigLoader {
 
   protected SecurityNameAndMap namesConventionsSweetHome;
   private static UserPreferences preferences;
-  private File sweetHomeLibraryObjects;
-  private File ifcWordsToLookFor;
-  private File roles;
-
+  private File sweetHomeLibraryObjectsFile;
+  private File ifcWordsToLookForFile;
+  private File rolesFile;
+  private File attributesPossibleFile;
+  
   private String securityCategoryName = "Security";
 
   private static ConfigLoader instance = null;
   private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>();
   private SecurityNameAndMap snm = null;
-  private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = null;
+  private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = new HashMap<BuildingObjectType, HomePieceOfFurniture>();
+  private Map<String, Set<BuildingObjectAttribute>>  attributesPossible = null; 
   private Set<String> availableRoles = new TreeSet<String>();
+  
+  
   
   /**
    * Map that stores the graphical representation associated to each {@link BuildingObjectType}
@@ -131,10 +136,11 @@ public class ConfigLoader {
   protected ConfigLoader(UserPreferences preferences)
   {
     ConfigLoader.preferences = preferences;
-    this.sweetHomeLibraryObjects = this.readSweetHomeLibraryObj();
-    this.ifcWordsToLookFor = this.readWordsToLook();
+    this.sweetHomeLibraryObjectsFile = this.readSweetHomeLibraryObj();
+    this.ifcWordsToLookForFile = this.readWordsToLook();
+    this.attributesPossibleFile = this.readAttribute(); 
     this.setMapOfLibraryObjects(preferences);
-    this.roles = this.readRoles();
+    this.rolesFile = this.readRoles();
   }
   
 
@@ -170,7 +176,7 @@ public class ConfigLoader {
   
   protected String getReadRolesFileName()
   {
-    return "roles.txt";
+    return "rolesFile.txt";
   }
 
   protected String getReadWordsToLookFileName()
@@ -182,6 +188,12 @@ public class ConfigLoader {
   {
     return "libsec.txt";
   }
+  
+  protected String getAttributesFileName()
+  {
+    return "attribs.txt";
+  }
+  
 
 
   /**
@@ -199,7 +211,7 @@ public class ConfigLoader {
     Map<String, BuildingObjectType> catalog = new HashMap<String, BuildingObjectType>();
     Map<BuildingObjectType, String> catalogBack = new HashMap<BuildingObjectType, String>();
     
-    List<String> fileSweetToType =  getfileContent(this.sweetHomeLibraryObjects.getAbsolutePath());
+    List<String> fileSweetToType =  getfileContent(this.sweetHomeLibraryObjectsFile.getAbsolutePath());
     String categoryName = fileSweetToType.get(0);
     for(int i = 1; i<fileSweetToType.size(); i++)
     {
@@ -259,12 +271,36 @@ public class ConfigLoader {
 
   }
   
+  public Set<BuildingObjectAttribute> getPossibleAttributesForObject(String buildingObjectOriginalName)
+  {
+    if(this.attributesPossible == null)
+    {
+      this.initPossibleAttributes();
+    }
+    return this.attributesPossible.get(buildingObjectOriginalName);
+  }
+  
+  private void initPossibleAttributes()
+  {
+    List<String> possibleAttributesCont = this.getfileContent(this.attributesPossibleFile.getAbsolutePath());
+    for(String fileRowAttribute : possibleAttributesCont)
+    {
+      //ORIGINAL_NAME,NAME,TYPE,DEFAULT_VALUE
+      String [] cols = fileRowAttribute.split(",");
+      String originalName = cols[0];
+      String attribName = cols[1];
+      String attribType = cols[2];
+      String defaultValue  = cols[3];
+      BuildingObjectAttribute boa = new BuildingObjectAttribute(fileRowAttribute);
+      
+    }
+  }
   
   public Set<String> getAvailableRoles()
   {
     if(this.availableRoles == null || this.availableRoles.size() == 0 )
     {
-      List<String> cont = this.getfileContent(this.roles.getAbsolutePath());
+      List<String> cont = this.getfileContent(this.rolesFile.getAbsolutePath());
       this.availableRoles.addAll(cont); 
     }
     return this.availableRoles;
@@ -284,7 +320,7 @@ public class ConfigLoader {
 
     List<String> words = new ArrayList<String>();
 
-    List<String> content = this.getfileContent(this.ifcWordsToLookFor.getAbsolutePath());
+    List<String> content = this.getfileContent(this.ifcWordsToLookForFile.getAbsolutePath());
     for(String line : content)
     {
      String [] parts = line.split(",");
@@ -320,7 +356,11 @@ public class ConfigLoader {
   
     return getFileFromName("" + getSweetLibFileName());
   }
-
+  
+  private File readAttribute()
+  {
+    return getFileFromName("" + this.getAttributesFileName());
+  }
 
   private String getSecurityCategoryName() {
 

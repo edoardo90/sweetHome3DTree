@@ -1,5 +1,9 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes;
 
+import java.io.Serializable;
+
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 /**
  * name || type  ||  value
  * @author Edoardo Pasi
@@ -15,6 +19,39 @@ public class BuildingObjectAttribute {
     this.type = type;
     this.checkTypeAgainstValue(type, value);
     this.value = value;
+    
+  }
+
+  public BuildingObjectAttribute(String fileRowAttribute) {
+    String [] cols = fileRowAttribute.split(",");
+
+    String attribName    = cols[1];
+    String attribType    = cols[2];
+    String defaultValue  = cols[3];
+    
+    AttributeType type = null;
+    try
+    {
+      type = AttributeType.valueOf(attribName);
+    }
+    catch(Exception e )
+    {
+      throw new IllegalStateException(" the type : " + attribType + " is not valid ");
+    }
+    Object value = null;
+    try
+    {
+      value = type.getValueOfString(defaultValue);
+    }
+    catch(Exception e)
+    {
+      e.printStackTrace();
+      throw new IllegalStateException("the value:" + defaultValue +
+          " is not convertible into the type: " + attribType);
+    }
+    this.value = value;
+    this.name = attribName;
+    this.type = type;
     
   }
 
@@ -52,7 +89,7 @@ public class BuildingObjectAttribute {
     
   }
 
-  public void setValues(BuildingObjectAttribute attr)
+  public void setNameTypeValue(BuildingObjectAttribute attr)
   {
     String name = attr.getName();
     AttributeType type = attr.getType();

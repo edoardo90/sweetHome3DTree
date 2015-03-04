@@ -3214,13 +3214,8 @@ public class HomePane extends JRootPane implements HomeView {
           });
           formatters.put(DimensionLine.class, new SelectableFormat<DimensionLine>() {
             public String format(DimensionLine dimensionLine) {
-              
-              int pippo=123;
-              pippo = pippo + 2;
-              return "pippo";
-//              return preferences.getLocalizedString(HomePane.class, "selectObject.dimensionLine", 
-//                  preferences.getLengthUnit().getFormatWithUnit().format(dimensionLine.getLength()));
-            
+              return preferences.getLocalizedString(HomePane.class, "selectObject.dimensionLine", 
+                  preferences.getLengthUnit().getFormatWithUnit().format(dimensionLine.getLength()));
             
             }
           });

@@ -682,7 +682,7 @@ public class Home implements Serializable, Cloneable {
             this.setUnconnectableInvisible();
           else
             this.setUnconnectableVisible();
-
+          
           segraph.addNewObject(piece.getId(), type,
               new Vector3D(piece.getX(), piece.getY(), 0));
         }
