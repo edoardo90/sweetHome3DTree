@@ -201,6 +201,23 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
         });
     }
     
+    this.idTextField = new JTextField();
+    this.idTextField.getDocument().addDocumentListener(new DocumentListener() {
+      public void changedUpdate(DocumentEvent e) {
+          String newId = idTextField.getText();
+          objectSelected.setId(newId);
+      }
+      public void removeUpdate(DocumentEvent e) {
+          changedUpdate(e);
+        
+      }
+      public void insertUpdate(DocumentEvent e) {
+          changedUpdate(e);
+        
+      }
+
+    });
+    
     if (controller.isPropertyEditable(HomeFurnitureController.Property.NAME_VISIBLE)) {
       // Create name visible check box bound to NAME_VISIBLE controller property
       this.nameVisibleCheckBox = new NullableCheckBox(SwingTools.getLocalizedLabelText(preferences, 
@@ -1108,8 +1125,6 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
           1, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START,
           GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 10), 0, 0));
       
-      
-      this.idTextField = new JTextField("");
       this.idLabel = new JLabel("Object ID: ");
       
       namePanel.add(this.idLabel, new GridBagConstraints(
