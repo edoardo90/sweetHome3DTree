@@ -1874,10 +1874,10 @@ public class Home implements Serializable, Cloneable {
         }
 
         boolean connectable;
-        if(boo.getType() == null)
+        if(boo.getAbilities() == null)
           connectable = false;
         else
-          connectable = boo.getType().canConnect();
+          connectable = boo.canConnect();
 
         // connectable objs are always visible
         if(! connectable)

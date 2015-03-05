@@ -186,5 +186,9 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     this.abilities = abilities;
   }
 
+  public boolean canConnect() {
+    return this.getAbilities().contains(ObjectAbility.CONNECT);
+  }
+
   
 }

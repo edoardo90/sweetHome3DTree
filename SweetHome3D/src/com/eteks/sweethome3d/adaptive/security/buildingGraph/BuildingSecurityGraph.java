@@ -503,7 +503,7 @@ public class BuildingSecurityGraph {
       BuildingObjectType t1 = bo1.getType();
       BuildingObjectType t2 = bo2.getType();
       
-      if(t1.canConnect() && t2.canConnect() )  
+      if(canConnect(bo1, bo2))  
       {
         if( ! this.cyberLinkEdgeList.contains(new CyberLinkEdge(id1, id2)))
         {
@@ -517,6 +517,14 @@ public class BuildingSecurityGraph {
       }
       return false;
       
+  }
+
+  private boolean canConnect(BuildingObjectContained bo1, BuildingObjectContained bo2) {
+    
+    boolean ablityBased1 = bo1.getAbilities().contains(ObjectAbility.CONNECT);
+    boolean ablityBased2 = bo2.getAbilities().contains(ObjectAbility.CONNECT);
+    
+    return ablityBased1 && ablityBased2;
   }
 
   public void removeCyberLink(String id1, String id2) {
