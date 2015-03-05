@@ -339,8 +339,6 @@ public class BuildingSecurityGraph {
     
   }
   
-  
-  
   private void setAbilitiesAndAttributes(BuildingObjectContained objectCont) {
     this.setAttributes(objectCont);
     this.setAbilities (objectCont);

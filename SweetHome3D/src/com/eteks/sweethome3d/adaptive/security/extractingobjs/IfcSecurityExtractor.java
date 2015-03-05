@@ -478,7 +478,10 @@ public class IfcSecurityExtractor extends SecurityExtractor{
           //scale to match length unit used in the ifc file
           furniturePosition.scale(scalePositionFactor);
           BuildingObjectContained singleFurniture = getObectContained( furniturePosition, furnitureProduct);
-
+          
+          //TODO: abilities!?
+          super.setAbilitiesAndAttributes(singleFurniture);
+          
           String furnitId = furnitureProduct.getGlobalId().getDecodedValue();
           furnitId = furnitId + "__" + furnName;
           singleFurniture.setId(furnitId);
@@ -517,7 +520,10 @@ public class IfcSecurityExtractor extends SecurityExtractor{
       {
         if(matches(nameToLookFor, actualName))
         {
-          return objType.getBuildingObjectOfType(position);
+          BuildingObjectContained boc = objType.getBuildingObjectOfType(position);
+          boc.setName(objType.name());
+          boc.setOriginalName(objType.originalName());
+          return boc;
         }
       }
     }

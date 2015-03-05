@@ -120,6 +120,11 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           BuildingObjectContained objCont = typeObj.getBuildingObjectOfType(position);
           objCont.setId(pieceOfForn.getId());
           objCont.setName(pieceOfForn.getName());
+          objCont.setOriginalName(pieceOfForn.getOriginalName());
+          
+          //TODO: abilities!?
+          super.setAbilitiesAndAttributes(objCont);
+          
           securityGraph.putObjectCont(new IdObject(pieceOfForn.getId()), objCont);
           securityGraph.putObjectRoom(new IdObject(pieceOfForn.getId()), brn);
           

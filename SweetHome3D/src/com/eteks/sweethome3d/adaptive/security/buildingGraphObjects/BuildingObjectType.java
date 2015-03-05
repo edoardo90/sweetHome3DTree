@@ -3,7 +3,16 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
 public enum BuildingObjectType {
-  ACTOR, CCTV, LIGHT, PC, PRINTER, HVAC, MAN, WOMAN, UNKNOWN_OBJECT;
+  ACTOR("Actor"), CCTV("CCTV"), LIGHT("Light"), PC("Pc"),
+   PRINTER("Printer"), HVAC("HVAC"), MAN("Man"), WOMAN("Woman"), UNKNOWN_OBJECT("");
+  
+  private String original;
+  
+  BuildingObjectType(String s)
+  {
+    original = s;
+  }
+  
   
   /**
    * 
@@ -35,6 +44,11 @@ public enum BuildingObjectType {
         break;
     }
     return null;
+  }
+  
+  public String originalName()
+  {
+    return this.original;
   }
   
   
