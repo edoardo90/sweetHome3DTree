@@ -1709,6 +1709,8 @@ public class HomeController implements Controller {
     HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
     try{
       BuildingSecurityGraph segraph = hse.getGraph();
+      segraph.refreshObjectsFeautures();
+      
       System.out.println(segraph);
 
       

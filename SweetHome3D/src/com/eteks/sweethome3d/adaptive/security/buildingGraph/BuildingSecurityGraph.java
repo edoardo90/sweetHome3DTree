@@ -326,8 +326,7 @@ public class BuildingSecurityGraph {
     objectCont.setName(pieceName);
     objectCont.setOriginalName(pieceOriginalName);
     
-    this.setAttributes(objectCont);
-    this.setAbilities (objectCont);
+     this.setAbilitiesAndAttributes(objectCont);
     
     
     broomDestination.addObjectContained(objectCont);
@@ -342,6 +341,11 @@ public class BuildingSecurityGraph {
   
   
   
+  private void setAbilitiesAndAttributes(BuildingObjectContained objectCont) {
+    this.setAttributes(objectCont);
+    this.setAbilities (objectCont);
+  }
+
   private void setAbilities(BuildingObjectContained objectCont) {
      
      ConfigLoader cfg = ConfigLoader.getInstance();
@@ -556,5 +560,15 @@ public class BuildingSecurityGraph {
   
   
   private static BuildingSecurityGraph instance = null;
+
+  /**
+   * For each object contained
+   * attributes and abilities are added if need
+   */
+  public void refreshObjectsFeautures() {
+
+    for(BuildingObjectContained objectCont : this.objectsContained.values())
+         this.setAbilitiesAndAttributes(objectCont);
+  }
   
 }

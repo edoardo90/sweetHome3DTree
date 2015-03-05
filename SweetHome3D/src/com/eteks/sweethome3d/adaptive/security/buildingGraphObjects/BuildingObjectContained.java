@@ -169,6 +169,8 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   }
 
   public String getOriginalName() {
+    if(this.originalName == null)
+        return this.name;
     return originalName;
   }
 
