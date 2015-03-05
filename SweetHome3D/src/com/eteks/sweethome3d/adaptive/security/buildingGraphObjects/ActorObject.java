@@ -25,9 +25,11 @@ public class ActorObject extends BuildingObjectContained {
 
   @Override
   public StatusOfObjectForView getStatusForView() {
-     return new StatusOfObjectForView(this.getName(),
+     StatusOfObjectForView st = new StatusOfObjectForView(this.getName(),
                                       this.getObjectConainedStr(), 
                                       this.getAttributes(), null,  null);
+     st.setAbilities(this.getAbilities());
+     return st;
   }
 
   @Override

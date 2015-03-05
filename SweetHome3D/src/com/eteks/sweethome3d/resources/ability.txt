@@ -4,6 +4,6 @@ CCTV,false,true
 Light,false,true
 Actor,false,true
 HVAC,false,false
-DigitalHammer,true,true
-HammerOrange,false,true
+DigitalHammer,false,true
+HammerOrange,true,true
 Hammer,false,false

@@ -168,6 +168,7 @@ import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
 import com.eteks.sweethome3d.j3d.Ground3D;
 import com.eteks.sweethome3d.j3d.HomePieceOfFurniture3D;
 import com.eteks.sweethome3d.j3d.OBJWriter;
@@ -3641,7 +3642,7 @@ public class HomePane extends JRootPane implements HomeView {
     JPanelStatusDecorator mainPanel = new JStatusDumb("status");
     if(statusObject.getLifeStatus() != null)
       mainPanel = new JStatusLifePanelDec   (mainPanel,   statusObject);
-    if(statusObject.getFiles() != null)
+    if(statusObject.getAbilities().contains(ObjectAbility.STORE_FILES))
       mainPanel = new JStatusFilePanelDec   (mainPanel,   statusObject);
     
     mainPanel = new JStatusContainPanelDec(mainPanel,   statusObject, ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS, homeController);

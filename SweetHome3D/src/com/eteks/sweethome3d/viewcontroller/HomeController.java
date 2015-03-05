@@ -1587,7 +1587,10 @@ public class HomeController implements Controller {
             HomePieceOfFurniture hopf = (HomePieceOfFurniture)s;
             String id = hopf.getId();
             String originalName = hopf.getOriginalName();
-            System.out.println("original name was:" + originalName + "now:" + hopf.getName());
+            System.out.println("original name was:" + originalName + "now:" + hopf.getName() +
+                 "catalog ID: " + hopf.getCatalogId() +
+                ""
+                );
             editStatusOfOjbect(id);
 
           }

@@ -91,7 +91,7 @@ public class FileStatusPanel extends JPanelColor {
    
     if(files == null)
     {
-      throw new IllegalStateException("files can't be null, at least emply list!");
+      files = new ArrayList<String>();
     }
     
     this.files = files;
