@@ -288,7 +288,7 @@ public class HomePane extends JRootPane implements HomeView {
     this.preferences = preferences;
     this.controller = controller;
 
-    ConfigLoader cfg = ConfigLoader.getInstance(preferences);
+    ConfigLoader.getInstance(preferences);
 
     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
     ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);    

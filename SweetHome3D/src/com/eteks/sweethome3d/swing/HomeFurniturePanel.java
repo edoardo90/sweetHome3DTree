@@ -49,12 +49,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.viewcontroller.DialogView;
 import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
 import com.eteks.sweethome3d.viewcontroller.ModelMaterialsController;
 import com.eteks.sweethome3d.viewcontroller.TextureChoiceController;
 import com.eteks.sweethome3d.viewcontroller.View;
+import com.lowagie.text.pdf.TextField;
 
 /**
  * Home furniture editing decoratedPanel.
@@ -64,6 +66,8 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   private final HomeFurnitureController controller;
   private JLabel                  nameLabel;
   private JTextField              nameTextField;
+  private JLabel                  idLabel;
+  private JTextField              idTextField;
   
   private JLabel                  descriptionLabel;
   private JTextField              descriptionTextField;
@@ -115,6 +119,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   protected JPanel locationPanel;
   protected JPanel sizePanel;
   protected JPanel paintPanel;
+  private BuildingObjectContained objectSelected;
   
   
   /**
@@ -195,7 +200,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
           }
         });
     }
-        
+    
     if (controller.isPropertyEditable(HomeFurnitureController.Property.NAME_VISIBLE)) {
       // Create name visible check box bound to NAME_VISIBLE controller property
       this.nameVisibleCheckBox = new NullableCheckBox(SwingTools.getLocalizedLabelText(preferences, 
@@ -1103,6 +1108,18 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
           1, 0, 1, 1, 0, 0, GridBagConstraints.LINE_START,
           GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 10), 0, 0));
       
+      
+      this.idTextField = new JTextField("");
+      this.idLabel = new JLabel("Object ID: ");
+      
+      namePanel.add(this.idLabel, new GridBagConstraints(
+          0, 1, 1, 1, 0, 0, GridBagConstraints.LINE_START,
+          GridBagConstraints.HORIZONTAL,  new Insets(5, 5, 5, 5), 0, 0));
+      
+      namePanel.add(this.idTextField, new GridBagConstraints(
+          1, 1, 1, 1, 0, 0, GridBagConstraints.LINE_START,
+          GridBagConstraints.HORIZONTAL,  new Insets(5, 5, 5, 5), 0, 0));
+      
     }
     
     if (this.nameVisibleCheckBox != null) {
@@ -1269,5 +1286,15 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
       
       this.controller.modifyFurniture();
     }
+  }
+
+  public void setBuildingObject(BuildingObjectContained objectSelected) {
+    this.objectSelected = objectSelected;
+    String id = "";
+    if(objectSelected != null)
+        id = objectSelected.getId();
+    
+    idTextField.setText(id);
+    
   }
 }

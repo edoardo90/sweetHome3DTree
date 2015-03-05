@@ -85,6 +85,7 @@ public class HomeFurnitureController implements Controller {
 
   private Content            icon;
   private String             name;
+  private String             id;
   private String             description;
   private BigDecimal         price;
   private Boolean            nameVisible;
@@ -235,6 +236,7 @@ public class HomeFurnitureController implements Controller {
   
   public void displayViewObjectCont(View parentView, BuildingObjectContained objectSelected) {
     HomeFurniturePanel hfp = (HomeFurniturePanel)getView();
+    hfp.setBuildingObject(objectSelected);
     hfp.displayView(parentView);
 
     String newName = hfp.getNameOfFurniture();
@@ -663,6 +665,17 @@ public class HomeFurnitureController implements Controller {
   public String getName() {
     return this.name;
   }
+  
+  public void setId(String id)
+  {
+    this.id = id;
+  }
+  
+  public String getId()
+  {
+    return this.id;
+  }
+  
   
   /**
    * Sets whether furniture name is visible or not.
@@ -1171,6 +1184,7 @@ public class HomeFurnitureController implements Controller {
     List<HomePieceOfFurniture> selectedFurniture = Home.getFurnitureSubList(oldSelection);
     if (!selectedFurniture.isEmpty()) {
       String name = getName();
+      String id = getId();
       Boolean nameVisible = getNameVisible();
       String description = getDescription();
       BigDecimal price = getPrice();
@@ -1225,13 +1239,13 @@ public class HomeFurnitureController implements Controller {
         }
       }
       // Apply modification
-      doModifyFurniture(modifiedFurniture, name, nameVisible, description, price, x, y, elevation, angle, basePlanItem, width, depth, height, 
+      doModifyFurniture(modifiedFurniture, name, id, nameVisible, description, price, x, y, elevation, angle, basePlanItem, width, depth, height, 
           paint, color, texture, modelMaterials, defaultShininess, shininess, visible, modelMirrored, lightPower);
       List<Selectable> newSelection = this.home.getSelectedItems(); 
       if (this.undoSupport != null) {
         UndoableEdit undoableEdit = new FurnitureModificationUndoableEdit(
             this.home, this.preferences, oldSelection, newSelection, modifiedFurniture, 
-            name, nameVisible, description, price, x, y, elevation, angle, basePlanItem, width, depth, height, 
+            name, id, nameVisible, description, price, x, y, elevation, angle, basePlanItem, width, depth, height, 
             paint, color, texture, modelMaterials, defaultShininess, shininess, visible, modelMirrored, lightPower);
         this.undoSupport.postEdit(undoableEdit);
       }
@@ -1255,6 +1269,7 @@ public class HomeFurnitureController implements Controller {
     private final List<Selectable>            oldSelection;
     private final List<Selectable>            newSelection;
     private final String                      name;
+    private final String                      id;
     private final Boolean                     nameVisible;
     private final String                      description;
     private final BigDecimal                  price;
@@ -1281,8 +1296,10 @@ public class HomeFurnitureController implements Controller {
                                               List<Selectable> oldSelection,
                                               List<Selectable> newSelection,
                                               ModifiedPieceOfFurniture [] modifiedFurniture,
-                                              String name, Boolean nameVisible, String description, BigDecimal price, 
-                                              Float x, Float y, Float elevation, Float angle, Boolean basePlanItem, 
+                                              String name, String id, Boolean nameVisible, String description,
+                                              BigDecimal price, 
+                                              Float x, Float y, Float elevation, Float angle, 
+                                              Boolean basePlanItem, 
                                               Float width, Float depth, Float height,
                                               FurniturePaint paint, Integer color, HomeTexture texture,
                                               HomeMaterial [] modelMaterials,
@@ -1296,6 +1313,7 @@ public class HomeFurnitureController implements Controller {
       this.newSelection = newSelection;
       this.modifiedFurniture = modifiedFurniture;
       this.name = name;
+      this.id = id;
       this.nameVisible = nameVisible;
       this.description = description;
       this.price = price;
@@ -1329,7 +1347,7 @@ public class HomeFurnitureController implements Controller {
     public void redo() throws CannotRedoException {
       super.redo();
       doModifyFurniture(this.modifiedFurniture, 
-          this.name, this.nameVisible, this.description, this.price, this.x, this.y, this.elevation, 
+          this.name, this.id,  this.nameVisible, this.description, this.price, this.x, this.y, this.elevation, 
           this.angle, this.basePlanItem, this.width, this.depth, this.height, 
           this.paint, this.color, this.texture, this.modelMaterials, 
           this.defaultShininess, this.shininess,
@@ -1346,9 +1364,10 @@ public class HomeFurnitureController implements Controller {
 
   /**
    * Modifies furniture properties with the values in parameter.
+   * @param id
    */
   private static void doModifyFurniture(ModifiedPieceOfFurniture [] modifiedFurniture, 
-                                        String name, Boolean nameVisible, String description, BigDecimal price, 
+                                        String name, String id, Boolean nameVisible, String description, BigDecimal price, 
                                         Float x, Float y, Float elevation, Float angle, Boolean basePlanItem, 
                                         Float width, Float depth, Float height, 
                                         FurniturePaint paint, Integer color, HomeTexture texture, 
@@ -1454,6 +1473,7 @@ public class HomeFurnitureController implements Controller {
   private static class ModifiedPieceOfFurniture {
     private final HomePieceOfFurniture piece;
     private final String               name;
+    private final String               id;
     private final boolean              nameVisible;
     private final String               description;
     private final BigDecimal           price;
@@ -1475,6 +1495,7 @@ public class HomeFurnitureController implements Controller {
     public ModifiedPieceOfFurniture(HomePieceOfFurniture piece) {
       this.piece = piece;
       this.name = piece.getName();
+      this.id = piece.getId();
       this.nameVisible = piece.isNameVisible();
       this.description = piece.getDescription();
       this.price = piece.getPrice();
@@ -1615,4 +1636,6 @@ public class HomeFurnitureController implements Controller {
       return pieces;
     }
   }
+
+
 }

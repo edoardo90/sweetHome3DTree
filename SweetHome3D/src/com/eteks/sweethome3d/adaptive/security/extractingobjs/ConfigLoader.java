@@ -48,7 +48,7 @@ public class ConfigLoader {
   private static ConfigLoader instance = null;  //SINGLETON!!
   private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>();
   private SecurityNameAndMap snm = null;
-  private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = new HashMap<BuildingObjectType, HomePieceOfFurniture>();
+  private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = null;
   private Map<String, Set<BuildingObjectAttribute>>  attributesPossible = null; 
   private Map<String, Set<ObjectAbility>> objectsAbilities = null;
   private Set<String> availableRoles = new TreeSet<String>();
