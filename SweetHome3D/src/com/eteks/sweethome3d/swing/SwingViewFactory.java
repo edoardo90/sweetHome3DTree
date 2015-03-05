@@ -23,6 +23,7 @@ import java.security.AccessControlException;
 import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.CatalogTexture;
@@ -200,9 +201,9 @@ public class SwingViewFactory implements ViewFactory {
   /**
    * Returns a new view that edits furniture values and allows to set roles for actors.
    */
-  public HomeFurnitureActor createHomeFurnitureViewActor(Set<String> roles, ActorObject actor, UserPreferences preferences,
+  public HomeFurnitureActor createHomeFurnitureViewActor(Set<String> roles, BuildingObjectContained buildingObjectContained, UserPreferences preferences,
                                HomeFurnitureController homeFurnitureController) {
-    return new HomeFurnitureActor(roles, actor, preferences, homeFurnitureController);
+    return new HomeFurnitureActor(roles, buildingObjectContained, preferences, homeFurnitureController);
   }
   
 

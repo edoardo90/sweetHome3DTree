@@ -216,12 +216,12 @@ public class HomeFurnitureController implements Controller {
    * @param roles available
    * @param actorSelected : actor selected in main pane
    */
-  public HomeFurnitureActor getViewActor(Set<String> roles, ActorObject actorSelected) {
+  public HomeFurnitureActor getViewActor(Set<String> roles, BuildingObjectContained objectContained) {
     // Create view lazily only once it'niceString needed
     if (this.homeFurnitureActorView == null) 
     {
       this.homeFurnitureActorView = this.viewFactory.createHomeFurnitureViewActor(
-          roles, actorSelected, this.preferences, this); 
+          roles, objectContained, this.preferences, this); 
     }
     return this.homeFurnitureActorView;
   }
@@ -234,34 +234,36 @@ public class HomeFurnitureController implements Controller {
     getView().displayView(parentView);
   }
   
-  public void displayViewObjectCont(View parentView, BuildingObjectContained objectSelected) {
-    HomeFurniturePanel hfp = (HomeFurniturePanel)getView();
-    hfp.setBuildingObject(objectSelected);
-    hfp.displayView(parentView);
-
-    String newName = hfp.getNameOfFurniture();
-
-    if(newName != null && objectSelected != null) 
-         objectSelected.setName(newName);
-  }
-  
   /**
    * Displays the view controlled by this controller which allows to set
-   * actors roles
+   * actors roles if any
    * @param roles available roles
    * @param actorSelected : actor selected in the HomePane
    */
-  public void displayViewActor(Set<String> roles, ActorObject actorSelected, View parentView) {
-    HomeFurnitureActor hfa = getViewActor(roles,  actorSelected );
+  public void displayViewActor(Set<String> roles, BuildingObjectContained objectContained, View parentView) {
+    HomeFurnitureActor hfa = getViewActor(roles,  objectContained );
+    hfa.setBuildingObject(objectContained);
     hfa.displayView(parentView);
-    Set<String> selectedRoles = hfa.getSelectedRoles();
-    
-    actorSelected.setRolesStr(selectedRoles);
-    
+    setRolesIntoActor(roles, objectContained, hfa);
     String newName = hfa.getNameOfFurniture();
-    actorSelected.setName(newName);
+    if(newName != null && objectContained != null) 
+        objectContained.setName(newName);
   }
   
+
+  private void setRolesIntoActor(Set<String> roles, 
+                                 BuildingObjectContained objectContained,
+                                 HomeFurnitureActor hfa) {
+    Set<String> selectedRoles = hfa.getSelectedRoles();
+    if(selectedRoles != null && selectedRoles.size() != 0)
+    {
+      if (objectContained instanceof ActorObject) 
+      {
+        ActorObject actorObj = (ActorObject)objectContained;
+        actorObj.setRolesStr(selectedRoles);
+      }
+    }
+  }
 
   /**
    * Adds the property change <code>listener</code> in parameter to this controller.

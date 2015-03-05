@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
 /**
@@ -24,14 +25,18 @@ import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
  */
 public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListener{
 
-  private final Set<String> roles;
+  private Set<String> roles;
   private Set<String> selectedRoles = new HashSet<String>();
   
-  public HomeFurnitureActor(Set<String> roles, ActorObject actor, UserPreferences preferences, HomeFurnitureController controller) {
+  public HomeFurnitureActor(Set<String> roles, BuildingObjectContained buildingObjectContained, UserPreferences preferences, HomeFurnitureController controller) {
       super(preferences, controller);
-      this.roles = roles;
-      this.selectedRoles.addAll(actor.getRolesStr());
-      this.addRolePanel(2);
+      
+      if (buildingObjectContained instanceof ActorObject) {
+        ActorObject actor = (ActorObject)buildingObjectContained;
+        this.roles = roles;
+        this.selectedRoles.addAll(actor.getRolesStr());
+        this.addRolePanel(2);
+      }
   }
   
   public Set<String> getSelectedRoles()
