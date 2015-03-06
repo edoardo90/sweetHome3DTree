@@ -10,7 +10,7 @@ public class TableAttributesPanel extends PanelWithTable<BuildingObjectAttribute
   private static final long serialVersionUID = 7302485009260274212L;
 
   public TableAttributesPanel(List<BuildingObjectAttribute> rows, boolean nameAndTypeEditable) {
-    super(new TableDefineAttributeModel(rows, getHeaders(), nameAndTypeEditable ), ( nameAndTypeEditable) );
+    super(new TableAttributeModel(rows, getHeaders(), nameAndTypeEditable ), ( nameAndTypeEditable) );
   }
   
   private static List<String> getHeaders()

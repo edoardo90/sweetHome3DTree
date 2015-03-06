@@ -15,6 +15,8 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.GeneralFileHolder;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.GeneralMaterialObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PCObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PrinterObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
@@ -321,13 +323,33 @@ public class BuildingSecurityGraph {
       throw new IllegalStateException("graph not updated");
     }
     BuildingObjectContained objectCont = type.getBuildingObjectOfType(position);
-
+    
     objectCont.setId(idObject);
     objectCont.setName(pieceName);
     objectCont.setOriginalName(pieceOriginalName);
     
-     this.setAbilitiesAndAttributes(objectCont);
+    this.setAbilitiesAndAttributes(objectCont);
+    if(type == BuildingObjectType.UNKNOWN_OBJECT)
+    {
+      if( objectCont.getAbilities().contains(ObjectAbility.STORE_FILES))
+      {
+        objectCont = new GeneralFileHolder(position);
+      }
+      else
+      {
+        objectCont = new GeneralMaterialObject(position);
+      }
+      
+
+      objectCont.setId(idObject);
+      objectCont.setName(pieceName);
+      objectCont.setOriginalName(pieceOriginalName);
+      this.setAbilitiesAndAttributes(objectCont);
+
+      
+    }
     
+
     
     broomDestination.addObjectContained(objectCont);
     

@@ -10,7 +10,7 @@ public class IdObject {
   }
   
   
-  public IdObject(String idObject)
+   public IdObject(String idObject)
   {
     this.idObject = idObject;
   }

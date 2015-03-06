@@ -43,6 +43,12 @@ public class TableFilePanel extends PanelWithTable<String> {
       return colsHeaderL;
     }
 
+    @Override
+    public List<String> getRows()
+    {
+      return this.getFiles();
+    }
+    
     public List<String> getFiles() {
       return this.files;
     }
@@ -56,6 +62,7 @@ public class TableFilePanel extends PanelWithTable<String> {
           String repr = fob.getFileRepresentationForTable();
           if(files == null)
             files = new ArrayList<String>();
+         
           if(!files.contains(repr))
           {
             this.files.add(repr);
@@ -73,7 +80,9 @@ public class TableFilePanel extends PanelWithTable<String> {
     {
       try
       {
+        super.removeRow(row);
         this.files.remove(row);
+        
       }
       catch(IndexOutOfBoundsException e)
       {
@@ -83,24 +92,7 @@ public class TableFilePanel extends PanelWithTable<String> {
     }
 
     
-    @Override
-    protected String niceString(String s)
-    {
-      try{
-      try{
-        SecurityLevel  lev = SecurityLevel.valueOf(s);
-        return lev.toString();
-      }
-      catch(Exception e)
-      {
-        NonDisclose nd = NonDisclose.valueOf(s);
-        return nd.toString();
-      }}
-      catch(Exception e)
-      {
-        return s;
-      }
-    }
+
     
     @Override
     public boolean isCellEditable(int row, int col) {
@@ -114,6 +106,37 @@ public class TableFilePanel extends PanelWithTable<String> {
     }
 
     @Override
+    public Object getValueAt(int row, int col)
+    {
+      String fileStr = this.files.get(row);
+      String [] colss = fileStr.split(",");
+      return niceString(colss[col]);
+
+    }
+    
+    @Override
+    protected String niceString(String s)
+    {
+      try{
+      try{
+        SecurityLevel  lev = SecurityLevel.valueOf(s);
+        String levS =  lev.toString();
+        return levS ;
+      }
+      catch(Exception e)
+      {
+        NonDisclose nd = NonDisclose.valueOf(s);
+        String ndS = nd.toString();
+        return ndS;
+      }}
+      catch(Exception e)
+      {
+        return s;
+      }
+    }
+    
+    
+    @Override
     public void setValueAt(Object value, int row, int col) {
       if (DEBUG) {
         System.out.println("Setting value at " + row + "," + col
@@ -126,6 +149,7 @@ public class TableFilePanel extends PanelWithTable<String> {
         String rowT  = this.files.get(row);
         int index = this.files.indexOf(rowT);
         String[] colss = rowT.split(",");
+        String strValue = (String)value;
         colss[col] = (String)value;
         rowT = colss[0] + "," + colss[1] + "," + colss[2];
         this.files.remove(index);

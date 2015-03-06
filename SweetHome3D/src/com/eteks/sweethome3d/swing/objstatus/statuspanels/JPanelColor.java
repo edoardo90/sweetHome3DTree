@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  * 
  * @author Edoardo Pasi
  */
-public class JPanelColor extends JPanel {
+public abstract class JPanelColor extends JPanel {
 
   private List<JPanelColor> panels = new LinkedList<JPanelColor>();
   protected Map<String, GridBagConstraints> constraintsPanelMap = new HashMap<String, GridBagConstraints>();
@@ -56,7 +56,6 @@ public class JPanelColor extends JPanel {
       this.panels = new LinkedList<JPanelColor>();
     return this.panels;
   }
-
 
   public int getNumberOfRows()
   {
@@ -261,25 +260,26 @@ public class JPanelColor extends JPanel {
   }
 
 
-  protected JPanelColor borderedPanelCenterHorizontal(int bord, Color color)
+  protected JPanel borderedPanelCenterHorizontal(int bord, Color color)
   {
-    JPanelColor jp = new JPanelColor("centHor");
+    JPanel jp = new JPanel();
    
+    
     jp.setBorder(BorderFactory.createEmptyBorder(bord, bord, bord, bord));
     jp.setAlignmentX(CENTER_ALIGNMENT);
     jp.setLayout(new BoxLayout(jp, BoxLayout.X_AXIS));
-    setColor(jp, color);
+    setBackground(color);
     return jp;
   }
 
 
-  protected JPanelColor borderedPanelCenterVertical(int bord, Color color)
+  protected JPanel borderedPanelCenterVertical(int bord, Color color)
   {
-    JPanelColor jp = new JPanelColor("centVer");
+    JPanel jp = new JPanel();
     jp.setBorder(BorderFactory.createEmptyBorder(bord, bord, bord, bord));
     jp.setAlignmentX(CENTER_ALIGNMENT);
     jp.setLayout(new BoxLayout(jp, BoxLayout.Y_AXIS));
-    setColor(jp, color);
+    setBackground(color);
     return jp;
   }
 

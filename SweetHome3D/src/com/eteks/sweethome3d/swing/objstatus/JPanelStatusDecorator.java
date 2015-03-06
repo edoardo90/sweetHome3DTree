@@ -8,6 +8,7 @@ import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 
 public abstract class JPanelStatusDecorator extends JPanelColor {
 
+  private static final long serialVersionUID = 8535523945483332627L;
   protected StatusOfObjectForView initialStatusObjectForView;
   private List<JPanelStatusDecorator> decorated = new ArrayList<JPanelStatusDecorator>();
 

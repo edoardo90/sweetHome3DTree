@@ -17,12 +17,16 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
+import scala.Array;
+
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;
 import com.eteks.sweethome3d.swing.ActionCoolFactory;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableFilePanel;
 import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;
 
-public class FileStatusPanel extends JPanelColor {
+public class FileStatusPanel extends JPanelColorStatefull<String> {
 
   private List<String> files = new ArrayList<String>();
   private String title = "These are the files stored in the device";
@@ -87,14 +91,17 @@ public class FileStatusPanel extends JPanelColor {
      
   }
   
-  public void setFileStatus(List<String> files) {
-   
+  @Override
+  public void setStatus(List<String> files) {
+    
     if(files == null)
     {
-      files = new ArrayList<String>();
+      this.files = new ArrayList<String>();
     }
-    
-    this.files = files;
+    else
+    {  
+       this.files = files;
+    }
    
    List<String> filesMut = new ArrayList<String>();
 
@@ -102,9 +109,18 @@ public class FileStatusPanel extends JPanelColor {
    filesMut.addAll(this.files);
    
    this.tableFilePanel = new TableFilePanel(filesMut);
+   this.setColumnFieldsEnum();
+   
    this.tablePanel.add(this.tableFilePanel);
   }
   
+  private void setColumnFieldsEnum() {
+    this.tableFilePanel.setColumnEnum(null);
+    this.tableFilePanel.setColumnEnum(SecurityLevel.class);
+    this.tableFilePanel.setColumnEnum(NonDisclose.class);
+    
+  }
+
   public List<String> getFiles()
   {
     if(this.tableFilePanel != null)

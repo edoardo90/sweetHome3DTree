@@ -15,6 +15,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec.ContPanelAim;
@@ -25,7 +26,7 @@ import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForVie
 import com.eteks.sweethome3d.swing.objstatus.tables.TableContainmentPanel;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 
-public class ContainementStatusPanel extends JPanelColor implements ActionListener {
+public class ContainementStatusPanel extends JPanelColorStatefull<String> implements ActionListener {
   private static final long serialVersionUID = -3380325228386416664L;
   
   private JButton addObjectBtn = new JButton("Add Objects Contained");
@@ -43,6 +44,7 @@ public class ContainementStatusPanel extends JPanelColor implements ActionListen
     this.setBorder(BorderFactory.createTitledBorder(bspace, "Containment"));
   }
   
+  @Override
   public void setStatus(List<String> objsContained)
   {
     this.populateTable(objsContained);

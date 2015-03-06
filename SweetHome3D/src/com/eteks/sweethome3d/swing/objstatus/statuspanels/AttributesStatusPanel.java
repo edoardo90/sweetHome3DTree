@@ -15,7 +15,7 @@ import com.eteks.sweethome3d.swing.objstatus.tables.PanelWithTable;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableAttributesPanel;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableListModel;
 
-public class AttributesStatusPanel extends JPanelColor {
+public class AttributesStatusPanel extends JPanelColorStatefull<BuildingObjectAttribute> {
 
   private static final long serialVersionUID = 5301699016077956912L;
   
@@ -41,10 +41,10 @@ public class AttributesStatusPanel extends JPanelColor {
     this.setBorder(BorderFactory.createTitledBorder(bspace, "Attributes"));
     
   }
-  
+ 
+  @Override
   public void setStatus(List<BuildingObjectAttribute> attrs )
   {
-
     this.tableAttributes = new TableAttributesPanel(attrs, this.nameAndTypeEditable);
     this.add(this.tableAttributes);
   }

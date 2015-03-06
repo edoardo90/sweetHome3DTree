@@ -6,12 +6,12 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObje
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.AttributeType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 
-public class TableDefineAttributeModel extends TableListModel<BuildingObjectAttribute>
+public class TableAttributeModel extends TableListModel<BuildingObjectAttribute>
 {
   private static final long serialVersionUID = -5589968849280582764L;
   private final boolean nameAndTypeEditable;
   
-  public TableDefineAttributeModel(List<BuildingObjectAttribute> rows, 
+  public TableAttributeModel(List<BuildingObjectAttribute> rows, 
                                    List<String> header, boolean nameAndTypeEditable) {
     super(rows, header);
     this.nameAndTypeEditable = nameAndTypeEditable;
