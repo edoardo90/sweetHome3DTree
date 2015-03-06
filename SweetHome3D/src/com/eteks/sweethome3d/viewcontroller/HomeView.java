@@ -27,6 +27,7 @@ import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.InterruptedRecorderException;
 import com.eteks.sweethome3d.model.RecorderException;
+import com.eteks.sweethome3d.swing.objstatus.representation.CyberLinkRepr;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 
 
@@ -316,5 +317,13 @@ public interface HomeView extends View {
   public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView status, boolean files);
 
   public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusForView, HomeController homeController);
+  
+  /**
+   * Status Dialog form get/set cyberlink name  (status of cyberlink in general)
+   * @param cyberRepresent
+   * @param homeController
+   * @return
+   */
+  public abstract CyberLinkRepr showStatusLinkDialog(CyberLinkRepr cyberRepresent, HomeController homeController);
   
 }

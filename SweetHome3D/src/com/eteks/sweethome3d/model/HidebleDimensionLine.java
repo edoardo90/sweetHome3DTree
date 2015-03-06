@@ -1,5 +1,7 @@
 package com.eteks.sweethome3d.model;
 
+import com.eteks.sweethome3d.swing.objstatus.representation.CyberLinkRepr;
+
 public class HidebleDimensionLine extends DimensionLine {
 
   private static final long serialVersionUID = 1975021907804458535L;
@@ -45,6 +47,12 @@ public class HidebleDimensionLine extends DimensionLine {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public void updateStatus(CyberLinkRepr cyberTransformed) {
+    this.name = cyberTransformed.getCyberName();
+    this.setXEnd(this.getXEnd()+0.0001f);
+    
   }
  
 }

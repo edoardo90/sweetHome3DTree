@@ -87,6 +87,7 @@ import com.eteks.sweethome3d.model.DamagedHomeRecorderException;
 import com.eteks.sweethome3d.model.DimensionLine;
 import com.eteks.sweethome3d.model.Elevatable;
 import com.eteks.sweethome3d.model.FurnitureCatalog;
+import com.eteks.sweethome3d.model.HidebleDimensionLine;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomeApplication;
 import com.eteks.sweethome3d.model.HomeDoorOrWindow;
@@ -110,6 +111,7 @@ import com.eteks.sweethome3d.model.TextureImage;
 import com.eteks.sweethome3d.model.TexturesCatalog;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.model.Wall;
+import com.eteks.sweethome3d.swing.objstatus.representation.CyberLinkRepr;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer;
 import com.eteks.sweethome3d.viewcontroller.PlanController.Mode;
@@ -1662,12 +1664,26 @@ public class HomeController implements Controller {
   {
     
     List<Selectable> selected = home.getSelectedItems();
-    if(selected.size() != 2)
+
+    if(selected.size() != 2 && selected.size() != 1)
     {
       System.out.println("select 2 objects that can be connected");
       return ;
     }
-    else
+    else if (selected.size() == 1)
+    {
+      Selectable obj1 = selected.get(0);
+      if (obj1 instanceof HidebleDimensionLine) {
+        HidebleDimensionLine dimLine = (HidebleDimensionLine)obj1;
+        dimLine.setOffset(20);
+        
+        CyberLinkRepr cyberRepresent = getCyberRepresent(dimLine);
+        CyberLinkRepr cyberTransformed = getView().showStatusLinkDialog(cyberRepresent, this);
+        dimLine.updateStatus(cyberTransformed);
+        
+      }
+    }
+    else if(selected.size() == 2)
     {
 
       Selectable obj1 = selected.get(0);
@@ -1693,6 +1709,10 @@ public class HomeController implements Controller {
       }
 
     }
+  }
+
+  private CyberLinkRepr getCyberRepresent(HidebleDimensionLine dimLine) {
+       return new CyberLinkRepr(dimLine.getName());
   }
 
   private void setVisibilityOfUnconnectable(BuildingObjectContained bo1) {

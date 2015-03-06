@@ -216,7 +216,10 @@ import com.eteks.sweethome3d.swing.objstatus.JStatusFilePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusLifePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusAbstract;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusPlain;
+import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusString;
+import com.eteks.sweethome3d.swing.objstatus.representation.CyberLinkRepr;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
+import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelCyberName;
 import com.eteks.sweethome3d.swing.opendialog.FileIfcDialog;
 import com.eteks.sweethome3d.viewcontroller.ContentManager;
 import com.eteks.sweethome3d.viewcontroller.FurnitureController;
@@ -3406,6 +3409,25 @@ public class HomePane extends JRootPane implements HomeView {
   }
 
 
+  public CyberLinkRepr showStatusLinkDialog(CyberLinkRepr cyberRepresent, HomeController homeController)
+  {
+    if(cyberRepresent == null)
+      return null;
+    else
+    {
+      JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
+      
+      JPanelCyberName panelCyberLink = new JPanelCyberName(cyberRepresent, "Edit Cyber Link");
+      FrameStatusString fs = new FrameStatusString(f, "Edit Cyberlink", panelCyberLink);
+      
+      fs.setStatus(cyberRepresent);
+      fs.setLocation(400, 200);
+      fs.setVisible(true);      
+      CyberLinkRepr cyberReprGOT =  fs.getStatus();
+      return cyberReprGOT;
+    }
+  }
+  
   public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject,
                                                      HomeController homeController)
   {
