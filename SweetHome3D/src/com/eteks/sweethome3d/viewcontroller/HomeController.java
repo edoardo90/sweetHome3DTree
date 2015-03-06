@@ -1735,7 +1735,7 @@ public class HomeController implements Controller {
       segraph.refreshObjectsFeautures();
       
       System.out.println(segraph);
-
+      
       
     }
     catch(Exception e)
@@ -1744,6 +1744,9 @@ public class HomeController implements Controller {
     }
   }
 
+  
+  
+  
   /**
    * Opens a home. This method displays an {@link HomeView#showOpenDialog() open dialog} 
    * in view, reads the home from the chosen name and adds it to application home list.

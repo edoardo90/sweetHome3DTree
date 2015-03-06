@@ -3733,7 +3733,7 @@ public class PlanComponent extends JComponent implements PlanView, Scrollable, P
           HidebleDimensionLine hidebleDistance = (HidebleDimensionLine)dimensionLine;
           lengthText = hidebleDistance.getName();
         }
-        lengthText = "pippo MIO!!!";
+        
         
         TextStyle lengthStyle = dimensionLine.getLengthStyle();
         if (lengthStyle == null) {
