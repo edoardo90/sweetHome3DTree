@@ -1727,9 +1727,9 @@ public class HomeController implements Controller {
     
   }
 
-  public void refreshGraph()
-  {
-    HomeSecurityExtractor hse = new HomeSecurityExtractor(home, preferences);
+  private void refreshGraph(Home openedHome) {
+    
+    HomeSecurityExtractor hse = new HomeSecurityExtractor(openedHome, preferences);
     try{
       BuildingSecurityGraph segraph = hse.getGraph();
       segraph.refreshObjectsFeautures();
@@ -1742,6 +1742,13 @@ public class HomeController implements Controller {
     {
       e.printStackTrace();
     }
+    
+  }
+
+  
+  public void refreshGraph()
+  {
+    refreshGraph(home);
   }
 
   
@@ -1757,6 +1764,7 @@ public class HomeController implements Controller {
         final String homeName = getView().showOpenDialog();
         if (homeName != null) {
           open(homeName);
+          
         }
       }
     });
@@ -1791,8 +1799,13 @@ public class HomeController implements Controller {
             }
           });
         }
+        
+        refreshGraph(openedHome);
+        
         return null;
       }
+
+      
     };
     ThreadedTaskController.ExceptionHandler exceptionHandler = 
         new ThreadedTaskController.ExceptionHandler() {
