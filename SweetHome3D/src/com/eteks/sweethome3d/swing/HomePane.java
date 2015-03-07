@@ -86,10 +86,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -164,6 +166,7 @@ import org.graphstream.graph.implementations.SingleGraph;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
@@ -216,6 +219,7 @@ import com.eteks.sweethome3d.swing.objstatus.JStatusFilePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusLifePanelDec;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusAbstract;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusPlain;
+import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusPolicy;
 import com.eteks.sweethome3d.swing.objstatus.framestatus.FrameStatusString;
 import com.eteks.sweethome3d.swing.objstatus.representation.CyberLinkRepr;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
@@ -272,15 +276,6 @@ public class HomePane extends JRootPane implements HomeView {
   private ActionMap             menuActionMap;
   private List<Action>          pluginActions;
 
-  private JPanel                jpTreePanel;
-  private JPanel                graphicalGraphPan;
-
-  private JTextField            txtAddArch;
-  private JTextField            txtAddVertex;
-  private Graph                 homeGraph = new MultiGraph("home graph");
-  private Graph                 homeTreeGraph  = new SingleGraph("home tree");
-
-  private JTextField            txtAddTreeVertex;
 
   /**
    * Creates home view associated with its controller.
@@ -344,6 +339,7 @@ public class HomePane extends JRootPane implements HomeView {
     createActionSimple(ActionType.ADD_LINK,    controller, "addCyberLink");
     createActionSimple(ActionType.REFRESH_GRAPH,    controller, "refreshGraph");
     createActionSimple(ActionType.SHOW_GRAPH,    controller, "showGraph");
+    createActionSimple(ActionType.POLICIES,    controller, "showPolicies");
 
     /**  end of new actions for security **/
 
@@ -1992,6 +1988,7 @@ public class HomePane extends JRootPane implements HomeView {
     addActionToToolBarSimple(ActionType.ADD_LINK, toolBar);
     addActionToToolBarSimple(ActionType.REFRESH_GRAPH, toolBar);
     addActionToToolBarSimple(ActionType.SHOW_GRAPH, toolBar);
+    addActionToToolBarSimple(ActionType.POLICIES, toolBar);
     addFilterButton(toolBar);
 
     // Add plugin actions buttons
@@ -2996,7 +2993,7 @@ public class HomePane extends JRootPane implements HomeView {
             public String format(DimensionLine dimensionLine) {
               return preferences.getLocalizedString(HomePane.class, "selectObject.dimensionLine", 
                   preferences.getLengthUnit().getFormatWithUnit().format(dimensionLine.getLength()));
-            
+
             }
           });
           formatters.put(Label.class, new SelectableFormat<Label>() {
@@ -3416,10 +3413,10 @@ public class HomePane extends JRootPane implements HomeView {
     else
     {
       JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
-      
+
       JPanelCyberName panelCyberLink = new JPanelCyberName(cyberRepresent, "Edit Cyber Link");
       FrameStatusString fs = new FrameStatusString(f, "Edit Cyberlink", panelCyberLink);
-      
+
       fs.setStatus(cyberRepresent);
       fs.setLocation(400, 200);
       fs.setVisible(true);      
@@ -3427,9 +3424,33 @@ public class HomePane extends JRootPane implements HomeView {
       return cyberReprGOT;
     }
   }
+
   
+  public Set<ABACPolicy> showStatusPolicies(Set<ABACPolicy> currentPolicies)
+  {
+    List<ABACPolicy> policiesToReturn=null;
+    if(currentPolicies == null)
+    {
+      return null;
+    }
+    else
+    {
+      JFrame f = (JFrame)  JOptionPane.getFrameForComponent((JComponent) this.getParent());
+      List<ABACPolicy> policies = new ArrayList<ABACPolicy>(currentPolicies);
+      FrameStatusPolicy fp = new FrameStatusPolicy(f, "Edit Policies", policies);
+      
+      fp.setLocation(400, 200);
+      fp.setVisible(true);      
+      policiesToReturn=  fp.getPolicies();
+      
+    }
+    return new HashSet<ABACPolicy>(policiesToReturn);
+  }
+
+
+
   public StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusObject,
-                                                     HomeController homeController)
+                                                HomeController homeController)
   {
     if(statusObject == null)
     {
@@ -3442,10 +3463,10 @@ public class HomePane extends JRootPane implements HomeView {
       mainPanel = new JStatusLifePanelDec   (mainPanel,   statusObject);
     if(statusObject.getAbilities().contains(ObjectAbility.STORE_FILES))
       mainPanel = new JStatusFilePanelDec   (mainPanel,   statusObject);
-    
+
     mainPanel = new JStatusContainPanelDec(mainPanel,   statusObject, ContPanelAim.SHOW_JUST_CONTAINED_OBJECTS, homeController);
     if(statusObject.getObjectAttributes() != null)
-        mainPanel = new JStatusAttributeDec(mainPanel, statusObject, AttributePanelAim.SHOW_PRESENT_ATTRIBUTES);
+      mainPanel = new JStatusAttributeDec(mainPanel, statusObject, AttributePanelAim.SHOW_PRESENT_ATTRIBUTES);
 
 
     FrameStatusAbstract fs = new FrameStatusPlain
@@ -3463,7 +3484,6 @@ public class HomePane extends JRootPane implements HomeView {
   {
     return this.showStatusDialog(statusObject, null);
   }
-
 
 
   /**
@@ -4698,6 +4718,8 @@ public class HomePane extends JRootPane implements HomeView {
   private abstract interface SelectableFormat<T extends Selectable> {
     public abstract String format(T item);
   }
+
+
 
 
 

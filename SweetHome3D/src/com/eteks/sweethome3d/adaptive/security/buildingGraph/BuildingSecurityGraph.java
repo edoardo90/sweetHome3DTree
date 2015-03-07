@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
@@ -430,6 +432,13 @@ public class BuildingSecurityGraph {
       s = s + "\t" + entry.getValue().getName() + "\n\n";
     }
     
+    s = s + "\n OBJECT ID -> OBJECT ID FATHER \n";
+    for(Entry<IdObject, BuildingObjectContained> entry : this.objectsFather.entrySet())
+    {
+      s = s + "\t" + entry.getKey() + "\n";
+      s = s + "\t" + entry.getValue().getName() + "\n\n";
+    }
+    
     s = s + "\n\n BTREE ";
     
     s = s + this.spaceAreasTT;
@@ -463,6 +472,7 @@ public class BuildingSecurityGraph {
       s = s + link + "\n\n";
     }
     
+    s = s + this.mapsToString();
     
     return s;
     
@@ -474,6 +484,11 @@ public class BuildingSecurityGraph {
     
   }
 
+  public void removeIDObjectFromIDOBJMap(IdObject id)
+  {
+    this.objectsContained.remove(id);
+  }
+  
   public void removeObject(String idObject) {
     IdObject IDOBJ = new IdObject(idObject);
     BuildingRoomNode containingRoom = this.getBuildingRoomFromObj(IDOBJ);
@@ -571,6 +586,46 @@ public class BuildingSecurityGraph {
     return lstOjbects;
   }
   
+  /**
+   * For each object contained
+   * attributes and abilities are added if need
+   */
+  public void refreshObjectsFeautures() {
+
+    for(BuildingObjectContained objectCont : this.objectsContained.values())
+    {
+        this.setAbilitiesAndAttributes(objectCont);
+    }
+  }
+
+  public Set<ABACPolicy> getPolicies() {
+    return policies;
+  }
+
+  public void setPolicies(Set<ABACPolicy> policies) {
+    this.policies = policies;
+  }
+  
+  public void addPolicy(ABACPolicy policy)
+  {
+    this.policies.add(policy);
+  }
+  
+  public void changeIDOBJ(String oldId, String newId) {
+    
+    BuildingObjectContained oldObj = this.getObjectContainedFromObj(new IdObject(oldId));
+    oldObj.setId(newId);
+    this.removeIDObjectFromIDOBJMap(new IdObject(oldId));
+    this.putObjectCont(new IdObject(newId), oldObj);
+    
+    //CHANGE ROOM AS WELL!!!
+    
+    System.out.println("segraph : "+ this);
+  }
+
+  
+  
+  
   private List<BuildingLinkEdge> linkEdgeList = new ArrayList<BuildingLinkEdge>();
   private List<BuildingRoomNode> roomNodeList = new ArrayList<BuildingRoomNode>();
   private List<Wall> notLinkingWalls = new ArrayList<Wall>();
@@ -586,17 +641,8 @@ public class BuildingSecurityGraph {
   /** TODO check if we can rely just on the BTREE (next line of code) **/
   private BTree<WrapperRect, String> spaceAreasTT = new BTree<WrapperRect, String>();
   
-  
+  private Set<ABACPolicy> policies = new HashSet<ABACPolicy>();
   private static BuildingSecurityGraph instance = null;
-
-  /**
-   * For each object contained
-   * attributes and abilities are added if need
-   */
-  public void refreshObjectsFeautures() {
-
-    for(BuildingObjectContained objectCont : this.objectsContained.values())
-         this.setAbilitiesAndAttributes(objectCont);
-  }
+    
   
 }

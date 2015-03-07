@@ -117,6 +117,14 @@ public class ActionCoolFactory {
         mnemonic = new Integer(KeyEvent.VK_T);
         break;
       }  
+      case POLICIES:
+      {
+        defaultTxt = "Handle Security Policies";
+        iconName = "policy";
+        desc = "Click To Handle policies";
+        mnemonic = new Integer(KeyEvent.VK_P);
+        break;
+      }  
       default:
       {
        

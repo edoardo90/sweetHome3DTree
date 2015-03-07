@@ -67,6 +67,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.MaterialObject;
@@ -1533,6 +1534,21 @@ public class HomeController implements Controller {
     
   }
   
+  public void showPolicies()
+  {
+    getView().invokeLater(new Runnable() {
+      public void run()
+      {
+        BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+        Set<ABACPolicy> currentPolicies = segraph.getPolicies();
+        Set<ABACPolicy> updatedPolicies =   getView().showStatusPolicies(currentPolicies);
+        segraph.setPolicies(updatedPolicies);
+        
+      }}
+      );
+  }
+  
+  
   public void toggleConnectableVisibility()
   {
       boolean unconnectedVisible = this.home.getvisibilityOfUnconnected();
@@ -1569,13 +1585,6 @@ public class HomeController implements Controller {
 
   public void showStatus()
   {
-    /**
-     * obje = home.getSelected
-     * f = new Jframe( obje ). show()
-     * 
-     */
-
-
     getView().invokeLater(new Runnable() {
       public void run()
       {
@@ -1595,7 +1604,11 @@ public class HomeController implements Controller {
                  "catalog ID: " + hopf.getCatalogId() +
                 ""
                 );
-            editStatusOfOjbect(id);
+            BuildingObjectContained bocUpdated = editStatusOfOjbect(id);
+            hopf.setId(bocUpdated.getId());
+            
+            BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+            
 
           }
         }
@@ -1610,19 +1623,21 @@ public class HomeController implements Controller {
    * This method also updates the object at model level
    * @param id
    */
-  public void editStatusOfOjbect(String id)
+  public BuildingObjectContained editStatusOfOjbect(String id)
   {
     StatusOfObjectForView representation;
 
     StatusOfObjectForView statusForView = getStatusOfObject(id);
     if(statusForView == null)
-      return;
+      return null;
    
     representation =   getView().showStatusDialog( statusForView, this);
-   
+    
     BuildingObjectContained objectCont = setStatusOfObject( id, representation);
+    
     updateFathersInGraph(objectCont);
-    home.hideContainedObjects();
+    home.hideContainedObjects(); 
+    return objectCont;
   }
   
 

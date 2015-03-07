@@ -20,8 +20,11 @@
 package com.eteks.sweethome3d.viewcontroller;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.Camera;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;
@@ -44,7 +47,7 @@ public interface HomeView extends View {
         * edoardo add
         */
       OPEN_IFC, SHOW_STATUS,ADD_FILE, ADD_LINK, REFRESH_GRAPH, SHOW_GRAPH,
-      FILTER, TOGGLE_CONNECTION,
+      FILTER, TOGGLE_CONNECTION, POLICIES,
       /**
        * already here
        */
@@ -316,6 +319,12 @@ public interface HomeView extends View {
    */
   public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView status, boolean files);
 
+  /**
+   * Show a dialog windows that allows the user to edit the status of a {@link BuildingObjectContained}
+   * @param statusForView
+   * @param homeController
+   * @return
+   */
   public abstract StatusOfObjectForView showStatusDialog(StatusOfObjectForView statusForView, HomeController homeController);
   
   /**
@@ -325,5 +334,13 @@ public interface HomeView extends View {
    * @return
    */
   public abstract CyberLinkRepr showStatusLinkDialog(CyberLinkRepr cyberRepresent, HomeController homeController);
+
+  /**
+   * Show a Dialog that allows to set Security Policies, Attribute Based Action Control. 
+   * See: {@link ABACPolicy}
+   * @param currentPolicies
+   * @return
+   */
+  public abstract Set<ABACPolicy> showStatusPolicies(Set<ABACPolicy> currentPolicies);
   
 }

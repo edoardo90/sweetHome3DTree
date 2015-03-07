@@ -49,6 +49,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.viewcontroller.DialogView;
@@ -205,7 +207,16 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
     this.idTextField.getDocument().addDocumentListener(new DocumentListener() {
       public void changedUpdate(DocumentEvent e) {
           String newId = idTextField.getText();
-          objectSelected.setId(newId);
+          String oldId = objectSelected.getId();
+          
+          BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+          if( ! oldId.equals(newId))
+          {    
+             segraph.changeIDOBJ(oldId, newId);
+             objectSelected.setId(newId);
+             System.out.println("new OBJ:\n" + segraph.getObjectContainedFromObj(new IdObject(newId)));
+          }
+          
       }
       public void removeUpdate(DocumentEvent e) {
           changedUpdate(e);

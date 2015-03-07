@@ -50,8 +50,8 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   public String toString()
   {
     String s =  (this.objectType != null ? this.objectType.toString() : "[no obj type] object")  +
-           "ID:" + this.getId() +
-           "OriginalName";
+           "ID: " + this.getId() +
+           "\n\tOriginalName: " + this.getOriginalName();
     return s;
            
   }
@@ -87,7 +87,8 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
         return ;
     
     this.objectContained.clear();
-    
+    int pippo = 123;
+    pippo ++;
     for(String objectCont : objs)
     {
       this.addObjectContained(objectCont);

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.swing.JTable;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 
 
@@ -35,18 +36,21 @@ public  class TableContainmentPanel extends PanelWithTable<String> {
               System.out.println(rowDoubleClick);
               TableContainmentModel tcm = (TableContainmentModel)table.getModel();
               String id  = tcm.getId(rowDoubleClick);
-              askAViewForChangingStatus(id);
+              BuildingObjectContained boc = askAViewForChangingStatus(id);
+              //TODO: propagete ID modification to HomePieceOfFurniture!!!!
           }
       }
   });
   }
   
-  private void askAViewForChangingStatus(String id)
+  private BuildingObjectContained askAViewForChangingStatus(String id)
   {
      for(HomeController hc : this.controllers)
      {
-       hc.editStatusOfOjbect(id);
+       BuildingObjectContained boc = hc.editStatusOfOjbect(id);
+       return boc;
      }
+     return null;
   }
   
   

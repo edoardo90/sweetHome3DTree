@@ -22,7 +22,7 @@ import javax.swing.table.TableModel;
 public abstract class PanelWithTable<T> extends JPanel {
 
   private static final long serialVersionUID = 5231836378143782925L;
-  protected JTableComboEnum table;
+  protected JTablePredefinedValues table;
 
   public PanelWithTable(TableListModel<T> tableModel)
   {
@@ -34,7 +34,7 @@ public abstract class PanelWithTable<T> extends JPanel {
     super(new GridLayout(1,0));
 
     TableListModel<T> mod = tableModel;
-    table = new JTableComboEnum(mod);
+    table = new JTablePredefinedValues(mod);
     table.setPreferredScrollableViewportSize(new Dimension(500, 70));
     table.setFillsViewportHeight(true);
 
@@ -50,6 +50,10 @@ public abstract class PanelWithTable<T> extends JPanel {
     table.setColumnEnum(enumClass);
   }
   
+  public void setColumnPredefinedValues(int column, List<String> values)
+  {
+    table.setColumnPredefinedValues(column, values);
+  }
   
 
   public  void addRow(T row)
