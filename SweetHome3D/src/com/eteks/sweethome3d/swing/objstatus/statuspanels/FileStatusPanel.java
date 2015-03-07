@@ -115,7 +115,7 @@ public class FileStatusPanel extends JPanelColorStatefull<String> {
   }
   
   private void setColumnFieldsEnum() {
-    this.tableFilePanel.setColumnEnum(null);
+    this.tableFilePanel.setColumnEnum(null); //NAME column
     this.tableFilePanel.setColumnEnum(SecurityLevel.class);
     this.tableFilePanel.setColumnEnum(NonDisclose.class);
     

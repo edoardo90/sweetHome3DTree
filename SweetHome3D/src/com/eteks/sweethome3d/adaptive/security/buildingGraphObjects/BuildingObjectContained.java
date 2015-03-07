@@ -49,8 +49,10 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   @Override
   public String toString()
   {
-    return (this.objectType != null ? this.objectType.toString() : "object")  +
-           "ID:" + this.getId();
+    String s =  (this.objectType != null ? this.objectType.toString() : "[no obj type] object")  +
+           "ID:" + this.getId() +
+           "OriginalName";
+    return s;
            
   }
   

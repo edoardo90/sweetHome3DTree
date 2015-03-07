@@ -68,5 +68,11 @@ public class ActorObject extends BuildingObjectContained {
     
   }
 
+  public String toString()
+  {
+    return super.toString() + 
+        "\n\t\t" + this.getStatusForView().toString().replace("\n", "\n\t\t");
+  }
+  
 
 }

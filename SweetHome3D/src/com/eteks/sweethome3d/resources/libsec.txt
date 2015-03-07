@@ -5,3 +5,4 @@ Printer,PRINTER
 Light,LIGHT
 HVAC,HVAC
 Actor,ACTOR
+HammerOrange,GENERAL_FILE_HOLEDER

@@ -1521,6 +1521,8 @@ public class HomeController implements Controller {
     {
       bsg = se.getGraph();
       home.displayGraph(bsg, preferences);
+      refreshGraph(); //TODO: NECESSARY? MEGLIO ABBONDARE ... [?]
+      //TODO: HARMFUL ???
       
     }
     catch (Exception ex) 

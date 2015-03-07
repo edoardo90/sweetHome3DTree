@@ -5,8 +5,9 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 public enum BuildingObjectType {
   ACTOR("Actor"), CCTV("CCTV"), LIGHT("Light"), PC("Pc"),
    PRINTER("Printer"), HVAC("HVAC"), MAN("Man"), WOMAN("Woman"), UNKNOWN_OBJECT(""),
-   GENERAL_FILE_HOLEDER("FileHolder"), GENERAL_MATERIAL_OBJ("MaterialObject");
-  
+   GENERAL_FILE_HOLEDER("FileHolder"), GENERAL_MATERIAL_OBJ("MaterialObject"),
+   DOOR("Door");
+   
   private String original;
   
   BuildingObjectType(String s)
@@ -35,14 +36,17 @@ public enum BuildingObjectType {
       case LIGHT:
         return new LightObject(position);
       case PC:
-      case GENERAL_FILE_HOLEDER:
         return new PCObject(position);
       case PRINTER:
         return new PrinterObject(position);
       case HVAC:
-      case GENERAL_MATERIAL_OBJ:
          return new HVACObject(position);
+      case GENERAL_MATERIAL_OBJ:
+         return new GeneralMaterialObject(position);
+      case GENERAL_FILE_HOLEDER:
+         return new GeneralFileHolder(position);
       case UNKNOWN_OBJECT:
+      case DOOR:
          return new UnknownObject(position);
       default:
         break;

@@ -15,7 +15,8 @@ public class JTableComboEnum extends JTable {
   private static final long serialVersionUID = 1123121312L;
   private      List<Class<? extends Enum>> enumColumns =
       new ArrayList<Class<? extends Enum>>();
-
+  
+  
   
   public JTableComboEnum(TableModel mod) {
       super(mod);
@@ -48,7 +49,7 @@ public class JTableComboEnum extends JTable {
       return super.getCellEditor(row, column);
     else
     {
-      JComboBox<String> comboColumnValues = new JComboBox<String>();
+      
       List<String> possibleValues = null;
       try
       {
@@ -59,12 +60,28 @@ public class JTableComboEnum extends JTable {
         System.err.println("it was not possible to get List<Srting> from " + enumClass);
         return super.getCellEditor(row, column);
       }
-      for(String enumV : possibleValues)
-        comboColumnValues.addItem(enumV);
-      return new DefaultCellEditor(comboColumnValues);
+      return this.createCellEditorFromList(possibleValues);
     }
   }
 
+  protected TableCellEditor createCellEditorFromList(List<String> possibleValues) {
+    
+    JComboBox<String> comboValues = this.createComboFromList(possibleValues);
+    return new DefaultCellEditor(comboValues);
+    
+  }
+
+
+  protected JComboBox<String> createComboFromList(List<String> values)
+  {
+    JComboBox<String> cb = new JComboBox<String>();
+    for(String s: values)
+    {
+      cb.addItem(s);
+    }
+    return cb;
+  }
+  
   private  <T extends Enum<T>> List<String> toStringList(Class<T> clz) {
     try {
       List<String> res = new LinkedList<String>();

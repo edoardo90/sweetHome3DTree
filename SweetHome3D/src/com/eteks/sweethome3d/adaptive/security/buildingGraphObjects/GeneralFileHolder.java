@@ -6,6 +6,7 @@ public class GeneralFileHolder extends FileHolder {
 
   public GeneralFileHolder(Vector3D position) {
     super(position);
+    this.objectType = BuildingObjectType.GENERAL_FILE_HOLEDER;
   }
 
 }
