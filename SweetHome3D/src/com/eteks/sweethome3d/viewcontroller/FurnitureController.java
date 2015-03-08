@@ -483,10 +483,11 @@ public class FurnitureController implements Controller {
               this.undoSupport); 
 
       BuildingObjectContained objectSelected = home.getObjectContainedSelected();
-
+      HomePieceOfFurniture   piece = home.getPieceSelected();
+      
       ConfigLoader cfg = ConfigLoader.getInstance();
       Set<String> roles = cfg.getAvailableRoles();
-      homeFurnitureController.displayViewActor(roles, objectSelected, getView());
+      homeFurnitureController.displayViewActor(roles, objectSelected, piece , getView());
 
     }
   }

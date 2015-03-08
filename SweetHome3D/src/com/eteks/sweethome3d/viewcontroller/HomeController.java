@@ -1636,7 +1636,7 @@ public class HomeController implements Controller {
     BuildingObjectContained objectCont = setStatusOfObject( id, representation);
     
     updateFathersInGraph(objectCont);
-    home.hideContainedObjects(); 
+    ///TODO: think again ... home.hideContainedObjects(); 
     return objectCont;
   }
   

@@ -1807,6 +1807,23 @@ public class Home implements Serializable, Cloneable {
 
     }
 
+    public HomePieceOfFurniture getPieceSelected()
+    {
+      List<Selectable> sell = this.getSelectedItems();
+      if(sell != null && sell.size() != 1)
+      {
+        return null;
+      }
+
+      Selectable sel = sell.get(0);
+
+      if (sel instanceof HomePieceOfFurniture) {
+        HomePieceOfFurniture piece = (HomePieceOfFurniture)sel;
+        return piece;
+      }
+      return null; 
+    }
+    
     public BuildingObjectContained getObjectContainedSelected()
     {
       List<Selectable> sell = this.getSelectedItems();
@@ -1828,21 +1845,6 @@ public class Home implements Serializable, Cloneable {
     }
 
 
-    public ActorObject getActorSelected() {
-      BuildingObjectContained boc = this.getObjectContainedSelected();
-      if(boc.getType() != BuildingObjectType.ACTOR)
-        return null;
-
-      if (boc instanceof ActorObject) {
-        ActorObject actor = (ActorObject)boc;
-        return actor;
-      }
-      else
-      {
-        throw new IllegalStateException("The type is ACTOR so the object should be actorObject");
-      }
-
-    }
 
     public void setVisibilityOfNotConnectable(boolean visible) {
 

@@ -148,6 +148,14 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
       return this.nameTextField.getText();
   }
   
+  public String getIdOfFurniture()
+  {
+    if(this.idTextField  == null)
+      return "";
+    else
+      return this.idTextField.getText();
+  }
+  
   private void paramsSetup()
   {
     labelAlignment = OperatingSystem.isMacOSX() 
@@ -206,16 +214,16 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
     this.idTextField = new JTextField();
     this.idTextField.getDocument().addDocumentListener(new DocumentListener() {
       public void changedUpdate(DocumentEvent e) {
-          String newId = idTextField.getText();
-          String oldId = objectSelected.getId();
-          
-          BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-          if( ! oldId.equals(newId))
-          {    
-             segraph.changeIDOBJ(oldId, newId);
-             objectSelected.setId(newId);
-             System.out.println("new OBJ:\n" + segraph.getObjectContainedFromObj(new IdObject(newId)));
-          }
+//          String newId = idTextField.getText();
+//          String oldId = objectSelected.getId();
+//          
+//          BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+//          if( ! oldId.equals(newId))
+//          {    
+//             segraph.changeIDOBJ(oldId, newId);
+//             objectSelected.setId(newId);
+//             System.out.println("new OBJ:\n" + segraph.getObjectContainedFromObj(new IdObject(newId)));
+//          }
           
       }
       public void removeUpdate(DocumentEvent e) {

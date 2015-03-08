@@ -34,6 +34,8 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.Content;
@@ -240,14 +242,35 @@ public class HomeFurnitureController implements Controller {
    * @param roles available roles
    * @param actorSelected : actor selected in the HomePane
    */
-  public void displayViewActor(Set<String> roles, BuildingObjectContained objectContained, View parentView) {
+  public void displayViewActor(Set<String> roles, BuildingObjectContained objectContained,
+                               HomePieceOfFurniture piece,
+                               View parentView) {
     HomeFurnitureActor hfa = getViewActor(roles,  objectContained );
     hfa.setBuildingObject(objectContained);
     hfa.displayView(parentView);
     setRolesIntoActor(roles, objectContained, hfa);
     String newName = hfa.getNameOfFurniture();
+    String newId = hfa.getIdOfFurniture();
+    if(newId.equals(""))
+        return;
+    updateIdObj(objectContained, objectContained.getId(), newId, piece);
     if(newName != null && objectContained != null) 
         objectContained.setName(newName);
+    System.out.println(BuildingSecurityGraph.getInstance());
+  }
+  
+  private void updateIdObj(BuildingObjectContained objectContained, String oldId, String newId, HomePieceOfFurniture piece)
+  {
+    
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    if( ! oldId.equals(newId))
+    {    
+       segraph.changeIDOBJ(oldId, newId);
+       objectContained.setId(newId);
+       piece.setId(newId);
+       System.out.println("new OBJ:\n" + segraph.getObjectContainedFromObj(new IdObject(newId)));
+    }
+    
   }
   
 
