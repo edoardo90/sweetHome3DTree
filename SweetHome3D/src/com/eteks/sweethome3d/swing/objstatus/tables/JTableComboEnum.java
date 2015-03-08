@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.CellEditor;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -60,7 +61,9 @@ public class JTableComboEnum extends JTable {
         System.err.println("it was not possible to get List<Srting> from " + enumClass);
         return super.getCellEditor(row, column);
       }
-      return this.createCellEditorFromList(possibleValues);
+      TableCellEditor cell =  this.createCellEditorFromList(possibleValues);
+      System.out.println("cell editor : " + cell);
+      return  cell;
     }
   }
 

@@ -18,6 +18,7 @@ public class FrameStatusPolicy extends FrameStatusAbstractStateLess{
     super(parent, name);
     this.policies = policies;
     this.addComps();
+    this.pack();
     
   }
   private void addComps()

@@ -1,7 +1,12 @@
 package com.eteks.sweethome3d.swing.objstatus.statuspanels;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.swing.objstatus.tables.JTablePredefinedValues;
@@ -10,17 +15,33 @@ import com.eteks.sweethome3d.swing.objstatus.tables.TableListModel;
 
 public class JPanelPolicy extends PanelWithTable<ABACPolicy> {
 
-  public JPanelPolicy(List<ABACPolicy> policies) {
-    super( new TablePolicyModel(policies));
-  }
-
-
-
   private static final long serialVersionUID = 6975346991912795050L;
 
-  private ABACPolicy policy;
-  private JTablePredefinedValues table;
+  private JButton btnAddRow;
 
+  public JPanelPolicy(List<ABACPolicy> policies) {
+    super( new TablePolicyModel(policies));
+    addComps();
+  }
+
+  private void addComps()
+  {
+
+    BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
+    this.setLayout(box);
+
+
+    this.btnAddRow = new JButton("Add a new Policy");
+    this.btnAddRow.setAlignmentX(CENTER_ALIGNMENT);
+    this.btnAddRow.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        TablePolicyModel tpm = (TablePolicyModel) table.getModel();
+        tpm.addRow(new ABACPolicy());
+        table.repaint();
+      }
+    });
+    this.add(btnAddRow);
+  }
 
 
   public void setIdAgents(List<String> idAgents)
@@ -81,7 +102,15 @@ public class JPanelPolicy extends PanelWithTable<ABACPolicy> {
 
     @Override
     public void setValueAt(Object value, int row, int col) {
+      boolean DEBUG = true;
+      if (DEBUG) {
+        System.out.println("Setting value at " + row + "," + col
+            + " to " + value
+            + " (an instance of "
+            + value.getClass() + ")");
+      }
       ABACPolicy policyRow = this.getRowAt(row); 
+      
       switch (col) {
         case 0:
           policyRow.setIdAgent((String)value);
@@ -95,7 +124,7 @@ public class JPanelPolicy extends PanelWithTable<ABACPolicy> {
         case 3:
           policyRow.setEnvironment((String)value);
           break;          
-          
+
         default:
           break;
       }

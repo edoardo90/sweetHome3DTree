@@ -13,6 +13,7 @@ public class FrameStatusString extends FrameStatusAbstractStateLess {
   public FrameStatusString(JFrame parent, String name, JPanelCyberName panel) {
     super(parent, name);
     this.add(panel);
+    this.pack();
   }
   
   public CyberLinkRepr getStatus()

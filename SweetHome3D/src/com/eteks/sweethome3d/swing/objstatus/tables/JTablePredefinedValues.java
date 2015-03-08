@@ -24,16 +24,18 @@ public class JTablePredefinedValues extends JTableComboEnum {
   @Override
   public TableCellEditor getCellEditor(int row, int column)
   {
-     TableCellEditor ed = super.getCellEditor();
+     TableCellEditor ed = super.getCellEditor(row, column);
      if(ed == null)
      {
        List<String> possibleValues = predefinedValuesCol.get(new Integer(column));
        if(possibleValues != null && possibleValues.size() > 1)
        {
-           return super.createCellEditorFromList(possibleValues);
+           TableCellEditor cellEdit =  super.createCellEditorFromList(possibleValues);
+           System.out.println("cell editor : " + cellEdit);
        }
      }
-     return super.getCellEditor();
+     
+     return ed;
   }
   
 }

@@ -39,7 +39,10 @@ public abstract class PanelWithTable<T> extends JPanel {
     table.setFillsViewportHeight(true);
 
     if(  rowsDeletable )
-         this.setCancKeyboardRemove();
+    {
+      System.out.println("add remove listnere");
+      this.setCancKeyboardRemove();
+    }
     JScrollPane scrollPane = new JScrollPane(table);
     add(scrollPane);
     
@@ -134,6 +137,7 @@ public abstract class PanelWithTable<T> extends JPanel {
       private static final long serialVersionUID = -2998813927043726560L;
 
       public void actionPerformed(ActionEvent e) {
+        System.out.println("REMOVE!!");
         TableModel mod = table.getModel();
 
         if (mod instanceof TableListModel) {

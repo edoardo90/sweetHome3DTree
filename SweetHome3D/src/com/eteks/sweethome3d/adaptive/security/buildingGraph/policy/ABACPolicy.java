@@ -8,7 +8,10 @@ public class ABACPolicy {
   private String environment;
   
   public ABACPolicy() {
-    
+    this.idAgent = "";
+    this.action = "";
+    this.idResource = "";
+    this.environment = "";
   }
 
   public String getIdAgent() {

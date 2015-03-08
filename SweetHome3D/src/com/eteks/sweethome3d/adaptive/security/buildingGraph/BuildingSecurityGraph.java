@@ -618,9 +618,8 @@ public class BuildingSecurityGraph {
     this.removeIDObjectFromIDOBJMap(new IdObject(oldId));
     this.putObjectCont(new IdObject(newId), oldObj);
     
-    //CHANGE ROOM AS WELL!!!
-    
-    System.out.println("segraph : "+ this);
+    //TODO: CHANGE ROOM AS WELL!!!
+ 
   }
 
   
