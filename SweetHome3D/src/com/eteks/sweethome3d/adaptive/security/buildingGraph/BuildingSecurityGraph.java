@@ -1,5 +1,6 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,7 +37,7 @@ import com.google.gson.GsonBuilder;
  * Data Structure used to represent the graph associated to the building
  * @author Edoardo Pasi
  */
-public class BuildingSecurityGraph {
+public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   /**
    * The BuildingSecurityGraph is singleton
@@ -666,6 +667,16 @@ public class BuildingSecurityGraph {
     this.spaceAreasTT = segraphInit.spaceAreasTT;
     this.policies = segraphInit.policies;
   }
+  
+  @Override
+  public BuildingSecurityGraph clone()
+  {
+    BuildingSecurityGraph bs = new BuildingSecurityGraph();
+    bs.become(this);
+    return bs;
+    
+  }
+  
 
   public String getFullRepresentation()
   {

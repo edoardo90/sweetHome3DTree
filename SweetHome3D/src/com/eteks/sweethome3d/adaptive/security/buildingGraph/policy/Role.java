@@ -1,9 +1,11 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.policy;
 
+import java.io.Serializable;
+
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 
 
-public class Role {
+public class Role implements Serializable {
   private String role;
 
   public Role(String roleStr) {

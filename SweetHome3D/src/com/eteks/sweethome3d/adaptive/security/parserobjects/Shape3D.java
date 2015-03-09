@@ -1,10 +1,11 @@
 package com.eteks.sweethome3d.adaptive.security.parserobjects;
+import java.io.Serializable;
 import java.util.List;
 
 import com.eteks.sweethome3d.model.Room;
 
 
-public abstract class Shape3D {
+public abstract class Shape3D implements Serializable {
   
   /**
    * Counter-clockwise points

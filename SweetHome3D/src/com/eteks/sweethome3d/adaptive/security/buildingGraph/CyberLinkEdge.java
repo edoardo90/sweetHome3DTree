@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 import com.google.gson.InstanceCreator;
 
-public class CyberLinkEdge {
+public class CyberLinkEdge implements Serializable {
 
   
   private SortedSet<String> ids = new TreeSet<String>();

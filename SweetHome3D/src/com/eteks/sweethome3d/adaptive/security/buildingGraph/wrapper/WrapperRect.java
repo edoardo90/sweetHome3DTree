@@ -1,10 +1,12 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper;
 
+import java.io.Serializable;
+
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
-public class WrapperRect implements Comparable<WrapperRect> {
+public class WrapperRect implements Comparable<WrapperRect>, Serializable {
   
   private final Rectangle3D rect;
   private String roomID;

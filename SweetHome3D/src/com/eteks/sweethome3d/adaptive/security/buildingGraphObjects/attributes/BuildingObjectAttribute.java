@@ -8,7 +8,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
  * name || type  ||  value
  * @author Edoardo Pasi
  */
-public class BuildingObjectAttribute {
+public class BuildingObjectAttribute implements Serializable {
   private  String name;
   private  AttributeType type;
   private  Object value;

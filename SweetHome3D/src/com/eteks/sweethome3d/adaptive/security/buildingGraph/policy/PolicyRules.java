@@ -1,9 +1,10 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.policy;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PolicyRules {
+public class PolicyRules implements Serializable {
     private List<PolicyRule> rules;
     
     public PolicyRules()

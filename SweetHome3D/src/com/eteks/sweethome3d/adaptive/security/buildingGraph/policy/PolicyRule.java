@@ -1,8 +1,10 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.policy;
 
+import java.io.Serializable;
+
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.MaterialObject;
 
-public class PolicyRule {
+public class PolicyRule implements Serializable {
   
   private MaterialObject materialObject;
   private Role role;

@@ -2,7 +2,7 @@ package com.eteks.sweethome3d.adaptive.security.parserobjects;
 
 import Jama.Matrix;
 
-public class Axis3DNice
+public class Axis3DNice 
 {
 
   public Vector3D xVector = this.getDefaultVector(1),

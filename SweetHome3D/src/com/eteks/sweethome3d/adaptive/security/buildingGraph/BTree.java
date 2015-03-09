@@ -1,5 +1,7 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.io.Serializable;
+
 
 /*************************************************************************
  *  Compilation:  javac BTree.java
@@ -16,7 +18,7 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph;
  *************************************************************************/
 
 
-public class BTree<Key extends Comparable<Key>, Value>  {
+public class BTree<Key extends Comparable<Key>, Value> implements Serializable  {
     private static final int M = 4;    // max children per B-tree node = M-1
 
     private Node root;             // root of the B-tree
@@ -24,7 +26,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
     private int N;                 // number of key-value pairs in the B-tree
 
     // helper B-tree node data type
-    private static final class Node {
+    private static final class Node implements Serializable {
         private int m;                             // number of children
         private Entry[] children = new Entry[M];   // the array of children
         private Node(int k) { m = k; }             // create a node with k children
@@ -32,7 +34,7 @@ public class BTree<Key extends Comparable<Key>, Value>  {
 
     // internal nodes: only use key and next
     // external nodes: only use key and value
-    private static class Entry {
+    private static class Entry implements Serializable {
         private Comparable key;
         private Object value;
         private Node next;     // helper field to iterate over array entries

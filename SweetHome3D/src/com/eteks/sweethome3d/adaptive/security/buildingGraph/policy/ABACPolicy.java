@@ -1,6 +1,8 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.policy;
 
-public class ABACPolicy {
+import java.io.Serializable;
+
+public class ABACPolicy implements Serializable {
 
   private String idAgent;
   private String action;

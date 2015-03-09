@@ -146,7 +146,7 @@ public class Home implements Serializable, Cloneable {
     // created at serialization time for backward compatibility reasons
     private List<HomePieceOfFurniture>                  furnitureWithGroups;
     
-    private String                                      securityGraphRepresentation;
+    private BuildingSecurityGraph                       securityGraph;
     
 
     private boolean unconnectableInvisible = false;
@@ -189,29 +189,20 @@ public class Home implements Serializable, Cloneable {
       addModelListeners();
     }
     
-    public void setRepresentation(String representaion)
+    public void setRepresentation(BuildingSecurityGraph representaion)
     {
-      this.securityGraphRepresentation = representaion;
+      this.securityGraph = representaion;
     }
     
-    public String getRepresentation()
+    public BuildingSecurityGraph getRepresentation()
     {
-      return this.securityGraphRepresentation;
+      return this.securityGraph;
     }
     
     public void initSecurityGraph()
     {
-      ObjectMapper mapper = new ObjectMapper();
-      BuildingSecurityGraph segraphInit = null;
-      try {
-        segraphInit = mapper.readValue(this.securityGraphRepresentation, BuildingSecurityGraph.class);
-      } catch (Exception e) 
-      {
-        e.printStackTrace();
-      }
       BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-      
-      segraph.become(segraphInit);
+      segraph.become(this.securityGraph);
     }
     
 

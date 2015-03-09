@@ -1,9 +1,10 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file;
 
 import java.io.File;
+import java.io.Serializable;
 
 
-public class FileObject  {
+public class FileObject implements Serializable  {
   
   private File actualFile;
   private SecurityLevel securityLevel;

@@ -1,8 +1,10 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.io.Serializable;
+
 import com.eteks.sweethome3d.model.Wall;
 
-public class BuildingLinkWall extends BuildingLinkEdge {
+public class BuildingLinkWall extends BuildingLinkEdge implements Serializable {
 
    private final Wall wall;
    

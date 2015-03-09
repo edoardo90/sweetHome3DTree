@@ -1,5 +1,7 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.io.Serializable;
+
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingGraphPart;
 
 /**
@@ -10,7 +12,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingGrap
  * @author Edoardo Pasi
  */
 
-public abstract class BuildingLinkEdge extends BuildingGraphPart{
+public abstract class BuildingLinkEdge extends BuildingGraphPart implements Serializable{
 
   protected String firstRoom;
   protected String secondRoom;

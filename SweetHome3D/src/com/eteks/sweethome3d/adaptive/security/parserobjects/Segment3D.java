@@ -1,5 +1,7 @@
 package com.eteks.sweethome3d.adaptive.security.parserobjects;
 
+import java.io.Serializable;
+
 /**
  * <pre>
  * 
@@ -18,7 +20,7 @@ package com.eteks.sweethome3d.adaptive.security.parserobjects;
 *  </pre>
 * @author Edoardo Pasi
 */
-public class Segment3D {
+public class Segment3D implements Serializable{
   
   private Vector3D row, tail;
   

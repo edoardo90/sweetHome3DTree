@@ -1,6 +1,8 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper;
 
-public class IdRoom {
+import java.io.Serializable;
+
+public class IdRoom implements Serializable {
   private String idRoom;
 
   @Override

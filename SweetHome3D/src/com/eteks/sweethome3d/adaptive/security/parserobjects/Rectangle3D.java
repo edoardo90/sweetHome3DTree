@@ -2,6 +2,7 @@ package com.eteks.sweethome3d.adaptive.security.parserobjects;
 
 import java.awt.Polygon;
 import java.awt.geom.Area;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ import com.eteks.sweethome3d.model.Wall;
  * @author Edoardo Pasi
  */
 
-public class Rectangle3D extends Shape3D
+public class Rectangle3D extends Shape3D implements Serializable
 {
 
   private Vector3D  pointNorthWest, pointSouthEast;

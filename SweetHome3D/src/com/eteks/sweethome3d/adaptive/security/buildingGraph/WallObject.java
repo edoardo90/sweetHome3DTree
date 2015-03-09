@@ -6,7 +6,7 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Wall;
 
-public class WallObject extends BuildingGraphPart {
+public class WallObject extends BuildingGraphPart  {
 
   private Vector3D startPoint;
   private Vector3D endPoint;

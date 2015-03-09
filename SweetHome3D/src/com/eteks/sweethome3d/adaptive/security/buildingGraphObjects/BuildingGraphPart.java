@@ -1,7 +1,9 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
+import java.io.Serializable;
 
-public abstract class BuildingGraphPart {
+
+public abstract class BuildingGraphPart implements Serializable {
 
 	protected String id;
 	protected String name;

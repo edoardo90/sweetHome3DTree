@@ -1,5 +1,6 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
@@ -13,7 +14,7 @@ import com.eteks.sweethome3d.model.RoomGeoSmart;
  * This class represent a room node inside a graph
  * @author Edoardo Pasi
  */
-public class BuildingRoomNode extends BuildingGraphPart {
+public class BuildingRoomNode extends BuildingGraphPart implements Serializable {
   private Room room;
   
   private List<BuildingObjectContained> objectsInside; 

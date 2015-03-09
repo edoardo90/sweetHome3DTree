@@ -1,5 +1,7 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.io.Serializable;
+
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
 import com.eteks.sweethome3d.model.Wall;
 
@@ -8,7 +10,7 @@ import com.eteks.sweethome3d.model.Wall;
  * @author Edoardo Pasi
  */
 
-public class BuildinLinkWallWithDoor extends BuildingLinkWall {
+public class BuildinLinkWallWithDoor extends BuildingLinkWall implements Serializable {
 
   private DoorObject door;
   
