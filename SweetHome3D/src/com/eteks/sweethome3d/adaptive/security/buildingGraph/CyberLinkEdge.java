@@ -1,7 +1,11 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
+import com.google.gson.InstanceCreator;
 
 public class CyberLinkEdge {
 
@@ -9,10 +13,14 @@ public class CyberLinkEdge {
   private SortedSet<String> ids = new TreeSet<String>();
   
   private String name = "";
+
+
+  
   public CyberLinkEdge(String id1, String id2) {
     this.setIdObject1(id1);
     this.setIdObject2(id2);
   }
+
   public String getIdObject1() {
     return this.ids.first();
   }
@@ -74,6 +82,10 @@ public class CyberLinkEdge {
       this.ids.remove(oldId);
       this.ids.add(newId);
     
+  }
+
+  public CyberLinkEdge createInstance(Type arg0) {
+    return new CyberLinkEdge("", "");
   }
 
   

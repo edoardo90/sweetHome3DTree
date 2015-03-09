@@ -37,6 +37,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
@@ -50,6 +54,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
+import com.google.gson.Gson;
 
 /**
  * The home managed by the application with its furniture and walls.
@@ -140,6 +145,9 @@ public class Home implements Serializable, Cloneable {
     // The following field is a temporary copy of furniture containing HomeFurnitureGroup instances
     // created at serialization time for backward compatibility reasons
     private List<HomePieceOfFurniture>                  furnitureWithGroups;
+    
+    private String                                      securityGraphRepresentation;
+    
 
     private boolean unconnectableInvisible = false;
 
@@ -180,6 +188,32 @@ public class Home implements Serializable, Cloneable {
       init(true);
       addModelListeners();
     }
+    
+    public void setRepresentation(String representaion)
+    {
+      this.securityGraphRepresentation = representaion;
+    }
+    
+    public String getRepresentation()
+    {
+      return this.securityGraphRepresentation;
+    }
+    
+    public void initSecurityGraph()
+    {
+      ObjectMapper mapper = new ObjectMapper();
+      BuildingSecurityGraph segraphInit = null;
+      try {
+        segraphInit = mapper.readValue(this.securityGraphRepresentation, BuildingSecurityGraph.class);
+      } catch (Exception e) 
+      {
+        e.printStackTrace();
+      }
+      BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+      
+      segraph.become(segraphInit);
+    }
+    
 
     /**
      * Initializes new and transient home fields to their default values 

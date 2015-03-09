@@ -46,7 +46,7 @@ public class JSonGraph {
     private BuildingObjectType type;
     private Set<BuildingObjectAttribute> additionalAttributes;
     private Boolean connectable;
-    private Set<BuildingObjSimple> sons;
+    private Set<String> sons;
 
     public BuildingObjSimple(BuildingObjectContained boc)
     {
@@ -58,26 +58,14 @@ public class JSonGraph {
       Boolean connectable = boc.canConnect();
       
       //CONTAINED
-      List<BuildingObjectContained> containedLst = boc.getObjectContained();
-      Set<BuildingObjectContained> contained ;
-      if(containedLst == null)
-            contained = new HashSet<BuildingObjectContained>();
-      else
-            contained = new HashSet<BuildingObjectContained>(containedLst);
-    
-      //RECURSION ON CONTAINED
-      Set<BuildingObjSimple> sonsSimple = new HashSet<BuildingObjSimple>();
-      for(BuildingObjectContained bocSon : contained)
-      {
-        BuildingObjSimple bocSonSimple = new BuildingObjSimple(bocSon);
-        sonsSimple.add(bocSonSimple);
-      }
+      List<String> containedLst = boc.getObjectConainedStr();
+      
       
       this.id = id;
       this.type = type;
       this.additionalAttributes = additionalAttributes;
       this.connectable = connectable;
-      this.sons = sonsSimple;
+      this.sons = new HashSet<String>(containedLst);
       
     }
     

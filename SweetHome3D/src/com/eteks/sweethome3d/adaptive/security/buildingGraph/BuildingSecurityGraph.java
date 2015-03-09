@@ -29,6 +29,8 @@ import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.Wall;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Data Structure used to represent the graph associated to the building
@@ -648,7 +650,29 @@ public class BuildingSecurityGraph {
     this.cyberLinkEdgeList.add(cyberNew);
   }
 
+  public void become(BuildingSecurityGraph segraphInit) {
 
+    if(segraphInit == null)
+      throw new IllegalStateException("open didn't work!");
+    this.linkEdgeList = segraphInit.linkEdgeList;
+    this.roomNodeList = segraphInit.roomNodeList;
+    this.notLinkingWalls = segraphInit.notLinkingWalls;
+    this.cyberLinkEdgeList = segraphInit.cyberLinkEdgeList;
+    this.buildingRooms = segraphInit.buildingRooms;
+    this.objectsRoomLocation = segraphInit.objectsRoomLocation;
+    this.objectsContained = segraphInit.objectsContained;
+    this.objectsFather = segraphInit.objectsFather;
+    this.spaceAreasOfRooms = segraphInit.spaceAreasOfRooms;
+    this.spaceAreasTT = segraphInit.spaceAreasTT;
+    this.policies = segraphInit.policies;
+  }
+
+  public String getFullRepresentation()
+  {
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    String full =  gson.toJson(this);
+    return full;
+  }
 
 
 

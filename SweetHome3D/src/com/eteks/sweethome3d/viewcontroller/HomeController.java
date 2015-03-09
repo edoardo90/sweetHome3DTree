@@ -1824,9 +1824,9 @@ public class HomeController implements Controller {
             }
           });
         }
-
-        refreshGraph(openedHome);
-
+      
+       
+       // openedHome.initSecurityGraph();
         return null;
       }
 
@@ -2207,6 +2207,12 @@ public class HomeController implements Controller {
    * this method will act as {@link #saveAs() saveAs} method.
    */
   public void save() {
+    
+    String representaion = "";
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    representaion = segraph.getFullRepresentation();
+    home.setRepresentation(representaion);
+
     save(HomeRecorder.Type.DEFAULT, null);
   }
 
