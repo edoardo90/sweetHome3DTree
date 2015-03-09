@@ -586,6 +586,16 @@ public class BuildingSecurityGraph {
     return lstOjbects;
   }
   
+  public Set<BuildingObjectContained> getSetOfBuildingObjects()
+  {
+    Set<BuildingObjectContained> bobs = 
+        new HashSet<BuildingObjectContained>(this.objectsContained.values());
+    return bobs;
+    
+  }
+  
+  
+  
   /**
    * For each object contained
    * attributes and abilities are added if need

@@ -67,6 +67,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.json.JSonGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
@@ -1510,12 +1511,12 @@ public class HomeController implements Controller {
 
   }
 
-  
+
   public void openIfc(String homeName)
   {
     if(homeName == null)
       return ;
-    
+
     IfcSecurityExtractor se = new IfcSecurityExtractor(homeName, this.preferences);
     BuildingSecurityGraph bsg = BuildingSecurityGraph.getInstance();
     try 
@@ -1524,16 +1525,16 @@ public class HomeController implements Controller {
       home.displayGraph(bsg, preferences);
       refreshGraph(); //TODO: NECESSARY? MEGLIO ABBONDARE ... [?]
       //TODO: HARMFUL ???
-      
+
     }
     catch (Exception ex) 
     {
       ex.printStackTrace();
-     
+
     }
-    
+
   }
-  
+
   public void showPolicies()
   {
     getView().invokeLater(new Runnable() {
@@ -1543,28 +1544,28 @@ public class HomeController implements Controller {
         Set<ABACPolicy> currentPolicies = segraph.getPolicies();
         Set<ABACPolicy> updatedPolicies =   getView().showStatusPolicies(currentPolicies);
         segraph.setPolicies(updatedPolicies);
-        
+
       }}
-      );
+        );
   }
-  
-  
+
+
   public void toggleConnectableVisibility()
   {
-      boolean unconnectedVisible = this.home.getvisibilityOfUnconnected();
-      unconnectedVisible = ! unconnectedVisible;
-      this.setUnconnectableVisibility(unconnectedVisible);
+    boolean unconnectedVisible = this.home.getvisibilityOfUnconnected();
+    unconnectedVisible = ! unconnectedVisible;
+    this.setUnconnectableVisibility(unconnectedVisible);
   }
 
   private void setUnconnectableVisibility(boolean visibilityOfUnconnected)                                      
   {
-      if (visibilityOfUnconnected)
-          home.setUnconnectableVisible();
-      else
-          home.setUnconnectableInvisible();
-      
+    if (visibilityOfUnconnected)
+      home.setUnconnectableVisible();
+    else
+      home.setUnconnectableInvisible();
+
   }
-  
+
   public void showGraph()
   {
     try
@@ -1574,7 +1575,7 @@ public class HomeController implements Controller {
       gc.populateGraph();
 
       gc.show();
-      
+
     }
     catch(Exception e)
     {
@@ -1601,14 +1602,14 @@ public class HomeController implements Controller {
             String id = hopf.getId();
             String originalName = hopf.getOriginalName();
             System.out.println("original name was:" + originalName + "now:" + hopf.getName() +
-                 "catalog ID: " + hopf.getCatalogId() +
+                "catalog ID: " + hopf.getCatalogId() +
                 ""
                 );
             BuildingObjectContained bocUpdated = editStatusOfOjbect(id);
             hopf.setId(bocUpdated.getId());
-            
+
             BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-            
+
 
           }
         }
@@ -1630,24 +1631,24 @@ public class HomeController implements Controller {
     StatusOfObjectForView statusForView = getStatusOfObject(id);
     if(statusForView == null)
       return null;
-   
+
     representation =   getView().showStatusDialog( statusForView, this);
-    
+
     BuildingObjectContained objectCont = setStatusOfObject( id, representation);
-    
+
     updateFathersInGraph(objectCont);
     ///TODO: think again ... home.hideContainedObjects(); 
     return objectCont;
   }
-  
+
 
   private void updateFathersInGraph(BuildingObjectContained boc) {
-      List<BuildingObjectContained> sons = boc.getObjectContained();
-      BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-      for(BuildingObjectContained son : sons)
-      {
-        segraph.putFather(new IdObject(son.getId()), boc);
-      }
+    List<BuildingObjectContained> sons = boc.getObjectContained();
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    for(BuildingObjectContained son : sons)
+    {
+      segraph.putFather(new IdObject(son.getId()), boc);
+    }
   }
 
   private BuildingObjectContained setStatusOfObject(String id, StatusOfObjectForView representation) {
@@ -1679,7 +1680,7 @@ public class HomeController implements Controller {
 
   public void addCyberLink()
   {
-    
+
     List<Selectable> selected = home.getSelectedItems();
 
     if(selected.size() != 2 && selected.size() != 1)
@@ -1693,11 +1694,11 @@ public class HomeController implements Controller {
       if (obj1 instanceof HidebleDimensionLine) {
         HidebleDimensionLine dimLine = (HidebleDimensionLine)obj1;
         dimLine.setOffset(20);
-        
+
         CyberLinkRepr cyberRepresent = getCyberRepresent(dimLine);
         CyberLinkRepr cyberTransformed = getView().showStatusLinkDialog(cyberRepresent, this);
         dimLine.updateStatus(cyberTransformed);
-        
+
       }
     }
     else if(selected.size() == 2)
@@ -1729,7 +1730,7 @@ public class HomeController implements Controller {
   }
 
   private CyberLinkRepr getCyberRepresent(HidebleDimensionLine dimLine) {
-       return new CyberLinkRepr(dimLine.getName());
+    return new CyberLinkRepr(dimLine.getName());
   }
 
   private void setVisibilityOfUnconnectable(BuildingObjectContained bo1) {
@@ -1741,36 +1742,41 @@ public class HomeController implements Controller {
     {
       this.home.setVisibilityOfNotConnectable(true);
     }
-    
+
   }
 
   private void refreshGraph(Home openedHome) {
-    
+
     HomeSecurityExtractor hse = new HomeSecurityExtractor(openedHome, preferences);
     try{
+
       BuildingSecurityGraph segraph = hse.getGraph();
       segraph.refreshObjectsFeautures();
-      
       System.out.println(segraph);
-      
-      
     }
     catch(Exception e)
     {
       e.printStackTrace();
     }
-    
+
   }
 
-  
+
   public void refreshGraph()
   {
     refreshGraph(home);
   }
 
+  public void json()
+  {
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    JSonGraph jsonGrapher = new JSonGraph(segraph);
+    String sons = jsonGrapher.getContainmentStr();
+    System.out.println("CONTAINMENT SONS : " + sons);
+  }
+
   
-  
-  
+
   /**
    * Opens a home. This method displays an {@link HomeView#showOpenDialog() open dialog} 
    * in view, reads the home from the chosen name and adds it to application home list.
@@ -1781,7 +1787,7 @@ public class HomeController implements Controller {
         final String homeName = getView().showOpenDialog();
         if (homeName != null) {
           open(homeName);
-          
+
         }
       }
     });
@@ -1816,13 +1822,13 @@ public class HomeController implements Controller {
             }
           });
         }
-        
+
         refreshGraph(openedHome);
-        
+
         return null;
       }
 
-      
+
     };
     ThreadedTaskController.ExceptionHandler exceptionHandler = 
         new ThreadedTaskController.ExceptionHandler() {

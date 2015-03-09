@@ -340,6 +340,7 @@ public class HomePane extends JRootPane implements HomeView {
     createActionSimple(ActionType.REFRESH_GRAPH,    controller, "refreshGraph");
     createActionSimple(ActionType.SHOW_GRAPH,    controller, "showGraph");
     createActionSimple(ActionType.POLICIES,    controller, "showPolicies");
+    createActionSimple(ActionType.JSON,    controller, "json");
 
     /**  end of new actions for security **/
 
@@ -1989,6 +1990,7 @@ public class HomePane extends JRootPane implements HomeView {
     addActionToToolBarSimple(ActionType.REFRESH_GRAPH, toolBar);
     addActionToToolBarSimple(ActionType.SHOW_GRAPH, toolBar);
     addActionToToolBarSimple(ActionType.POLICIES, toolBar);
+    addActionToToolBarSimple(ActionType.JSON, toolBar);
     addFilterButton(toolBar);
 
     // Add plugin actions buttons

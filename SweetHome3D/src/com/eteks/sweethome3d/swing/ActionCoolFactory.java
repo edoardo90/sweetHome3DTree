@@ -125,6 +125,14 @@ public class ActionCoolFactory {
         mnemonic = new Integer(KeyEvent.VK_P);
         break;
       }  
+      case JSON:
+      {
+        defaultTxt = "Json graph sons";
+        iconName = "policy";
+        desc = "JSON sons graph";
+        mnemonic = new Integer(KeyEvent.VK_P);
+        break;
+      }  
       default:
       {
        
