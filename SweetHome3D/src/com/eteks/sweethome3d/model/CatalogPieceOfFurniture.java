@@ -876,8 +876,9 @@ public class CatalogPieceOfFurniture implements Comparable<CatalogPieceOfFurnitu
     return false;
   }
 
+  //NEVER CALLED!! 
   public String getOriginalName() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.originalName;
   }
+
 }

@@ -2,8 +2,11 @@ package com.eteks.sweethome3d.swing.objstatus.statuspanels;
 
 import java.awt.GridBagConstraints;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -21,7 +24,6 @@ public class JPanelCyberName extends JPanelColor {
   public JPanelCyberName(CyberLinkRepr cyberLinkRepr, String name) {
     super("Edit Cyber Link");
     this.cyberLink = cyberLinkRepr;
-    
     this.addComponents();
     
   }
@@ -30,8 +32,9 @@ public class JPanelCyberName extends JPanelColor {
   {
     this.add(cyberNameLabel);
     
-    this.cyberNameText = new JTextField();
+    this.cyberNameText = new JTextField(15);
     
+    this.add(new JLabel("  "));
     
     this.cyberNameText.setText(this.cyberLink.getCyberName());
     this.add(cyberNameText);
@@ -53,6 +56,9 @@ public class JPanelCyberName extends JPanelColor {
           cyberLink.setCyberName(cyb);
       }
     });
+    
+    Border border = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+    this.setBorder(border);
     
   }
   

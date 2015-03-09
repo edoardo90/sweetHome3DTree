@@ -91,7 +91,6 @@ public class JPanelPolicy extends PanelWithTable<ABACPolicy> {
 
     @Override
     protected String niceString(String s) {
-      // TODO Auto-generated method stub
       return null;
     }
 

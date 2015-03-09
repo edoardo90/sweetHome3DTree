@@ -194,7 +194,7 @@ public class RoomGeoSmart extends Room {
   }
 
   /**
-   * TODO: this is bad... 
+   * TODO: rectangle not smart enough to understand which one is N, S, W, E: this is bad... 
    * Rectangle 3D should be smarter enough to understand given 4 points
    * which of them is the NE, NW, SE, SW
    * @return

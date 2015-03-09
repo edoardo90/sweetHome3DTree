@@ -1790,7 +1790,9 @@ public class Home implements Serializable, Cloneable {
           float yEnd = (float)   bo2.getPosition().second;
 
           HidebleDimensionLine dimensionLine = new HidebleDimensionLine(xStart, yStart, xEnd, yEnd, 20);
-
+          
+          dimensionLine.setId1(id1);
+          dimensionLine.setId2(id2);
           
           if(! this.getDimensionLines().contains(dimensionLine))
           {

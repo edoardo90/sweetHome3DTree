@@ -36,8 +36,8 @@ public  class TableContainmentPanel extends PanelWithTable<String> {
               System.out.println(rowDoubleClick);
               TableContainmentModel tcm = (TableContainmentModel)table.getModel();
               String id  = tcm.getId(rowDoubleClick);
-              BuildingObjectContained boc = askAViewForChangingStatus(id);
-              //TODO: propagete ID modification to HomePieceOfFurniture!!!!
+              askAViewForChangingStatus(id);
+              
           }
       }
   });

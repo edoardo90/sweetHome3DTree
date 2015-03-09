@@ -1,58 +1,95 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 public class CyberLinkEdge {
+
   
-  private String idObject1;
-  private String idObject2;
+  private SortedSet<String> ids = new TreeSet<String>();
+  
+  private String name = "";
   public CyberLinkEdge(String id1, String id2) {
-    this.idObject1 = id1;
-    this.idObject2 = id2;
+    this.setIdObject1(id1);
+    this.setIdObject2(id2);
   }
   public String getIdObject1() {
-    return idObject1;
-  }
-  public void setIdObject1(String idObject1) {
-    this.idObject1 = idObject1;
+    return this.ids.first();
   }
   public String getIdObject2() {
-    return idObject2;
+    return this.ids.last();
   }
+  
+  public void setIdObject1(String idObject1) {
+    this.ids.add(idObject1);
+  }
+
   public void setIdObject2(String idObject2) {
-    this.idObject2 = idObject2;
+    this.ids.add(idObject2);
   }
+  
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+  
 
   @Override
   public String toString()
   {
-    return this.idObject1 + "<::::::::::::>" + this.idObject2 + "\n";
+    return this.getIdObject1() + "<::::::::::::>" + this.getIdObject2() + "\n";
   }
 
   
-  @Override 
-  public boolean equals(Object o)
-  {
-    
-    if (o instanceof CyberLinkEdge) {
-      CyberLinkEdge oc = (CyberLinkEdge)o;
-      
-      String id1 = this.idObject1;
-      String id2 = this.idObject2;
-      
-      String other1 = oc.idObject1;
-      String other2 = oc.idObject2;
-      
-      boolean oneAndOne = id1.equals(other1);
-      boolean oneAndTwo = id1.equals(other2);
-      boolean twoAndOne = id2.equals(other1);
-      boolean twoAndtwo = id2.equals(other2);
-      
-      return (oneAndOne  && twoAndtwo) ||  (oneAndTwo && twoAndOne);
-      
-             
-    }
-    
-    return false;
+  
+//  @Override 
+//  public boolean equals(Object other)
+//  {
+//    if(other == null)
+//       return false;
+//    if (other instanceof CyberLinkEdge) {
+//      CyberLinkEdge otherC = (CyberLinkEdge)other;
+//      return this.ids.equals(otherC.ids); 
+//    }
+//    return false;
+//      
+//  }
+  
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((this.ids == null)
+        ? 0
+        : this.ids.hashCode());
+    return result;
   }
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    CyberLinkEdge other = (CyberLinkEdge)obj;
+    if (this.ids == null) {
+      if (other.ids != null)
+        return false;
+    } else if (!this.ids.equals(other.ids))
+      return false;
+    return true;
+  }
+  public void replaceId(String oldId, String newId) {
+      this.ids.remove(oldId);
+      this.ids.add(newId);
+    
+  }
+
+  
   
   
 }

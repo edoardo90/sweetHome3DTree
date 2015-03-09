@@ -1608,8 +1608,7 @@ public class HomeController implements Controller {
             BuildingObjectContained bocUpdated = editStatusOfOjbect(id);
             hopf.setId(bocUpdated.getId());
 
-            BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-
+            
 
           }
         }
@@ -1698,7 +1697,10 @@ public class HomeController implements Controller {
         CyberLinkRepr cyberRepresent = getCyberRepresent(dimLine);
         CyberLinkRepr cyberTransformed = getView().showStatusLinkDialog(cyberRepresent, this);
         dimLine.updateStatus(cyberTransformed);
-
+        BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+        String id1 = dimLine.getId1();
+        String id2 = dimLine.getId2();
+        segraph.updateLink(id1, id2, cyberTransformed.getCyberName());
       }
     }
     else if(selected.size() == 2)

@@ -479,7 +479,6 @@ public class IfcSecurityExtractor extends SecurityExtractor{
           furniturePosition.scale(scalePositionFactor);
           BuildingObjectContained singleFurniture = getObectContained( furniturePosition, furnitureProduct);
           
-          //TODO: abilities!?
           super.setAbilitiesAndAttributes(singleFurniture);
           
           String furnitId = furnitureProduct.getGlobalId().getDecodedValue();

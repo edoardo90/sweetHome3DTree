@@ -27,7 +27,7 @@ public class DemoSplash {
     try {
       Thread.sleep(2000);
     } catch (InterruptedException ex) {
-      // TODO Auto-generated catch block
+     
       ex.printStackTrace();
     }
     ds.closeSplash();

@@ -12,5 +12,10 @@ public class CyberLinkRepr {
   public void setCyberName(String cyberName) {
     this.cyberName = cyberName;
   }
+  
+  public String toString()
+  {
+    return "CYBERLINK:" + cyberName;
+  }
 
 }

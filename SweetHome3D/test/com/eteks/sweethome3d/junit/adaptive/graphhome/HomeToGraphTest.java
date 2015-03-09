@@ -1,6 +1,7 @@
 package com.eteks.sweethome3d.junit.adaptive.graphhome;
 
 import java.util.List;
+import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
@@ -211,7 +212,7 @@ public class HomeToGraphTest extends BasicTest {
   
   private boolean isThereLink(BuildingSecurityGraph segraph, String id1, String id2)
   {
-    List<CyberLinkEdge> cyberLinks = segraph.getCyberLinkEdgeList();
+    Set<CyberLinkEdge> cyberLinks = segraph.getCyberLinks();
     for(CyberLinkEdge cle : cyberLinks)
     {
       boolean eq = cle.equals(new CyberLinkEdge(id1, id2));

@@ -20,8 +20,6 @@ public enum AttributeType {
     {
       if(m.getName().equals("valueOf")  )
       {
-        int venticinque = Integer.valueOf(s);
-        
         try
         {  
            valueOfS = m.invoke(null, s);
@@ -32,7 +30,7 @@ public enum AttributeType {
         }
       }
     }
-    Object casted = this.inherentClass.cast(valueOfS); //TODO: do it better ....
+    Object casted = this.inherentClass.cast(valueOfS); //TODO: reflection - do it better ....
     return casted;
     
   }
