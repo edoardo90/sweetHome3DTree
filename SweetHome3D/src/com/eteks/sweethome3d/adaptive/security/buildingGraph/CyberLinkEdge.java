@@ -44,19 +44,6 @@ public class CyberLinkEdge {
 
   
   
-//  @Override 
-//  public boolean equals(Object other)
-//  {
-//    if(other == null)
-//       return false;
-//    if (other instanceof CyberLinkEdge) {
-//      CyberLinkEdge otherC = (CyberLinkEdge)other;
-//      return this.ids.equals(otherC.ids); 
-//    }
-//    return false;
-//      
-//  }
-  
   
   @Override
   public int hashCode() {

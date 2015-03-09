@@ -978,6 +978,17 @@ public class Home implements Serializable, Cloneable {
         this.dimensionLines = new ArrayList<DimensionLine>(this.dimensionLines);
         this.dimensionLines.remove(index);
         this.dimensionLinesChangeSupport.fireCollectionChanged(dimensionLine, CollectionEvent.Type.DELETE);
+        
+        if (dimensionLine instanceof HidebleDimensionLine) {
+          HidebleDimensionLine hidebleDim = (HidebleDimensionLine)dimensionLine;
+          
+          String id1 = hidebleDim.getId1();
+          String id2 = hidebleDim.getId2();
+          BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+          segraph.removeCyberLink(id1, id2);
+          
+        }
+        
       }
     }
 

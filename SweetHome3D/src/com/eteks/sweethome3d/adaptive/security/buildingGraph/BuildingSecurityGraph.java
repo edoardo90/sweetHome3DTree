@@ -438,17 +438,17 @@ public class BuildingSecurityGraph {
       s = s + "\t" + entry.getKey() + "\n";
       s = s + "\t" + entry.getValue().getName() + "\n\n";
     }
-    
+
     s = s + "\n CYBER LINKS  \n";
     for(CyberLinkEdge cyberLink : this.cyberLinkEdgeList)
     {
       s = s + "\t" + "ID1 : " +  cyberLink.getIdObject1() + "\n";
       s = s + "\t" + "LINK NAME : " + cyberLink.getName() + "\n";
       s = s + "\t" + "ID2 : " +  cyberLink.getIdObject2() + "\n\n";
-      
+
     }
-    
-    
+
+
     s = s + "\n\n BTREE ";
 
     s = s + this.spaceAreasTT;
@@ -547,8 +547,8 @@ public class BuildingSecurityGraph {
 
     if(canConnect(bo1, bo2))  
     {
-        this.cyberLinkEdgeList.add( new CyberLinkEdge(id1, id2));
-        return true;
+      this.cyberLinkEdgeList.add( new CyberLinkEdge(id1, id2));
+      return true;
     }
     else
     {
@@ -633,7 +633,7 @@ public class BuildingSecurityGraph {
     BuildingRoomNode room = this.objectsRoomLocation.get(new IdObject(oldId));
     this.objectsRoomLocation.remove(room);
     this.objectsRoomLocation.put(new IdObject(newId), room);
-    
+
     for(CyberLinkEdge cyber : this.cyberLinkEdgeList)
     {
       cyber.replaceId(oldId, newId);
@@ -642,11 +642,10 @@ public class BuildingSecurityGraph {
   }
 
   public void updateLink(String id1, String id2, String cyberName) {
-
     CyberLinkEdge cyberNew = new CyberLinkEdge(id1, id2);
     cyberNew.setName(cyberName);
-      this.cyberLinkEdgeList.remove(cyberNew); //REMOVE THE FIRST EQUAL
-      this.cyberLinkEdgeList.add(cyberNew);
+    this.cyberLinkEdgeList.remove(cyberNew); 
+    this.cyberLinkEdgeList.add(cyberNew);
   }
 
 

@@ -128,7 +128,7 @@ public class ActionCoolFactory {
       case JSON:
       {
         defaultTxt = "Json graph sons";
-        iconName = "policy";
+        iconName = "json";
         desc = "JSON sons graph";
         mnemonic = new Integer(KeyEvent.VK_P);
         break;
