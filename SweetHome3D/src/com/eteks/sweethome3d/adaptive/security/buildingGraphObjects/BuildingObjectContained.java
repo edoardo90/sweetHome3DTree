@@ -24,12 +24,12 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   private List<BuildingObjectAttribute> attributes = new ArrayList<BuildingObjectAttribute>();
   private Set<ObjectAbility> abilities = new TreeSet<ObjectAbility>();
   private String originalName;
-  
-  
+
+
   public BuildingObjectContained(Vector3D position) {
     this.setPosition(position);
   }
- 
+
   /**
    * The 3D representation of the object wrapped inside the SweetHome HomePiece object
    * @param preferences
@@ -39,29 +39,29 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   {
     return preferences.getPieceOfForniture(objectType);
   }
-  
+
   protected void clearAttributes()
   {
     this.attributes.clear();
-    
+
   }
-  
+
   @Override
   public String toString()
   {
     String s =  (this.objectType != null ? this.objectType.toString() : "[no obj type] object")  +
-           "ID: " + this.getId() +
-           "\n\tOriginalName: " + this.getOriginalName();
+        "ID: " + this.getId() +
+        "\n\tOriginalName: " + this.getOriginalName();
     return s;
-           
+
   }
-  
+
   //TODO: generalize with custom objs
   public String typeString()
   {
     return "" + this.objectType;
   }
-  
+
 
   public Vector3D getPosition() {
     return position;
@@ -71,21 +71,21 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   {
     return this.objectType;
   }
-  
+
   public void setPosition(Vector3D position) {
     this.position = position;
   }
-  
+
   public  abstract StatusOfObjectForView getStatusForView();
-  
+
   public  abstract void  setStatusFromView(StatusOfObjectForView status);
 
   public void setObjectsContainedFromView(StatusOfObjectForView status)
   {
     List<String> objs =  status.getObjectContainedLst();
     if(objs == null)
-        return ;
-    
+      return ;
+
     this.objectContained.clear();
     int pippo = 123;
     pippo ++;
@@ -93,12 +93,12 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     {
       this.addObjectContained(objectCont);
     }
- 
+
   }
 
 
   public List<String> getObjectConainedStr() {
-    
+
     List<String> objsContained = new ArrayList<String>();
     for(BuildingObjectContained boc : this.getObjectContained())
     {
@@ -107,7 +107,18 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     }
     return objsContained;
   }
-  
+
+  public List<String> getObjectConainedIDStr() {
+    List<String> ids = new ArrayList<String>();  
+    for(BuildingObjectContained boc : this.getObjectContained())
+    {
+      String id = boc.getId();
+      ids.add(id);
+    }
+    return ids;
+  }
+
+
   /**
    * Returns representaion suitable for table  (CSV like)
    * this.getId() + "," + this.getTypeAsString()
@@ -117,14 +128,14 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   {
     return this.getId() + ","  + this.getName() + "," + this.getTypeAsString();
   }
-  
+
   public String getTypeAsString()
   {
     if(this.getType() == null)
       return "UNKNOWN TYPE";
     return this.getType().name();
   }
-  
+
   public List<BuildingObjectContained> getObjectContained() {
     return objectContained;
   }
@@ -132,27 +143,27 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   public void setObjectContained(List<BuildingObjectContained> objectContained) {
     this.objectContained = objectContained;
   }
-  
+
   public void addObjectContained(BuildingObjectContained cont)
   {
     this.objectContained.add(cont);
   }
-  
+
   public void addAttribute(BuildingObjectAttribute attribute)
   {
     this.attributes.add(attribute);
   }
-  
+
   public void addAllAttributes(Set<BuildingObjectAttribute> attrs) {
-   this.attributes.addAll(attrs);
-    
+    this.attributes.addAll(attrs);
+
   }
-  
+
   public List<BuildingObjectAttribute> getAttributes()
   {
     return this.attributes;
   }
-  
+
   private void addObjectContained(String objectCont)
   {
     BuildingSecurityGraph segrapg = BuildingSecurityGraph.getInstance();
@@ -173,7 +184,7 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
 
   public String getOriginalName() {
     if(this.originalName == null)
-        return this.name;
+      return this.name;
     return originalName;
   }
 
@@ -193,5 +204,7 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     return this.getAbilities().contains(ObjectAbility.CONNECT);
   }
 
-  
+
+
+
 }

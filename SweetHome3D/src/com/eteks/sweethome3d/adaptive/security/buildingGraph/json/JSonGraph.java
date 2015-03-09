@@ -58,7 +58,7 @@ public class JSonGraph {
       Boolean connectable = boc.canConnect();
       
       //CONTAINED
-      List<String> containedLst = boc.getObjectConainedStr();
+      List<String> containedLst = boc.getObjectConainedIDStr();
       
       
       this.id = id;

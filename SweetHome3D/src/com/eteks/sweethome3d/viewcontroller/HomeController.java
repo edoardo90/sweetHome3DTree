@@ -1826,7 +1826,7 @@ public class HomeController implements Controller {
         }
       
        
-      openedHome.initSecurityGraph();
+     openedHome.initSecurityGraph();
         return null;
       }
 
