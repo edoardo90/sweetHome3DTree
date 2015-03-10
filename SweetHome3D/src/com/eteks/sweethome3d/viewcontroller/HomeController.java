@@ -1789,7 +1789,15 @@ public class HomeController implements Controller {
       if(boss instanceof LinkedTreeMap)
       {
         LinkedTreeMap bosm = (LinkedTreeMap) boss;
-        String id = (String) bosm.get(0);
+        for(Object o : bosm.keySet())
+        {
+          System.out.println("o.class:" + o.getClass() + "o.string() :" +  o.toString()); //String
+          Object o2 =  bosm.get(o);
+          System.out.println("o2 :" + o2);
+          System.out.println("o2.class :" + o2.getClass()); //String or ArrayList
+          System.out.println(o.getClass());
+        }
+        
 //        Set<String> attrs = bos.getAdditionalAttributes();
 //      
 //      String connectable =  bos.getConnectable();
