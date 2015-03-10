@@ -1611,7 +1611,7 @@ public class HomeController implements Controller {
             BuildingObjectContained bocUpdated = editStatusOfOjbect(id);
             hopf.setId(bocUpdated.getId());
 
-            
+
 
           }
         }
@@ -1775,42 +1775,24 @@ public class HomeController implements Controller {
   public void json()
   {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-    JSonGraph jsonGrapher = new JSonGraph(segraph);
+    JSonGraph jsonGrapher = new JSonGraph(segraph, this);
     String sons = jsonGrapher.getContainmentStr();
-    
-    System.out.println("CONTAINMENT SONS : " + sons);
-    
-    Gson g = new Gson();
-    HashSet<BuildingObjSimple> objectSimpless = g.fromJson(sons, HashSet.class);
-    objectSimpless.contains(null);
-    Class<?> cls = objectSimpless.getClass();
-    for(Object boss : objectSimpless)
-    {
-      if(boss instanceof LinkedTreeMap)
-      {
-        LinkedTreeMap bosm = (LinkedTreeMap) boss;
-        for(Object o : bosm.keySet())
-        {
-          System.out.println("o.class:" + o.getClass() + "o.string() :" +  o.toString()); //String
-          Object o2 =  bosm.get(o);
-          System.out.println("o2 :" + o2);
-          System.out.println("o2.class :" + o2.getClass()); //String or ArrayList
-          System.out.println(o.getClass());
-        }
-        
-//        Set<String> attrs = bos.getAdditionalAttributes();
-//      
-//      String connectable =  bos.getConnectable();
-//      String type = bos.getType();
-//      Set<String>  bosSons = bos.getSons();
-      int pluto=32;
-      pluto++;
-      }
-    }
+    String links = jsonGrapher.getLinks();
+
+    System.out.println("CONTAINMENT SONS : " + sons + "\n");
+    System.out.println("CYBER LINKS : " + links);
+
+    jsonGrapher.simulateNewContainment();
+    jsonGrapher.simulateNewLinks();
+
+  }
+
+  public void moveObject(String agentID, String agentIDRoom) {
+    //TODO: do it
+    System.out.println("move obj:" +  agentID + " from room actual to room of id:" + agentIDRoom);
     
   }
 
-  
 
   /**
    * Opens a home. This method displays an {@link HomeView#showOpenDialog() open dialog} 
@@ -1857,9 +1839,9 @@ public class HomeController implements Controller {
             }
           });
         }
-      
-       
-     openedHome.initSecurityGraph();
+
+
+        openedHome.initSecurityGraph();
         return null;
       }
 
@@ -2240,7 +2222,7 @@ public class HomeController implements Controller {
    * this method will act as {@link #saveAs() saveAs} method.
    */
   public void save() {
-    
+
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
     home.setRepresentation(segraph);
 
@@ -3473,4 +3455,6 @@ public class HomeController implements Controller {
       }
     }
   }
+
+
 }

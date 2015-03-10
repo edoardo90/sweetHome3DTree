@@ -678,14 +678,6 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
   }
   
 
-  public String getFullRepresentation()
-  {
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    String full =  gson.toJson(this);
-    return full;
-  }
-
-
 
   private List<BuildingLinkEdge> linkEdgeList = new ArrayList<BuildingLinkEdge>();
   private List<BuildingRoomNode> roomNodeList = new ArrayList<BuildingRoomNode>();
