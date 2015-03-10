@@ -87,8 +87,8 @@ public class JSonGraph {
   
   private String getSimulateSons()
   {
-    BuildingObjSimple bos0 = new BuildingObjSimple("bob", "1thh"); //safe-room
-    BuildingObjSimple bos1 = new BuildingObjSimple("pc-cb", "koed"); //kitchen
+    BuildingObjSimple bos0 = new BuildingObjSimple("bob", "vure"); //safe-room
+    BuildingObjSimple bos1 = new BuildingObjSimple("pc-cb", "p1an"); //kitchen
     Set<BuildingObjSimple> boss = new HashSet<BuildingObjSimple>();
     
     boss.add(bos0);
