@@ -11,10 +11,10 @@ import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
-public class WrapperRect implements Comparable<WrapperRect>, Serializable {
-  
+public class WrapperRect implements Comparable<WrapperRect>, Serializable, ExpressiveStrings {
   private final Rectangle3D rect;
   private String roomID;
+  private String roomName;
   private Map<String, Vector3D> positions = new HashMap<String, Vector3D>();
   private Map<Vector3D, String> positionsRev = new HashMap<Vector3D, String>();
   
@@ -95,7 +95,7 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
   public String toString()
   {
     
-    return this.getRoomId()  + this.rect.getTopSegment().shortToString();
+      return this.roomName + "positions:" + this.positions;
     
   }
 
@@ -136,6 +136,23 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
       while(roomIdAtProposedPosition != null);
       return proposedCoord;
       
+  }
+
+  public String getContainStirng() {
+   String s = "";
+   s = s + "[" + this.getName() + "]  NW: " + this.rect.getPointNorthWest() + 
+       " " + this.positions;  
+   return s;
+  }
+
+  public String getName()
+  {
+    return this.roomName;
+  }
+  
+  public void setRoomName(String name) {
+     this.roomName = name;
+    
   }
   
   

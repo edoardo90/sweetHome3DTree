@@ -268,6 +268,8 @@ public class HomeFurnitureController implements Controller {
        objectContained.setId(newId);
        piece.setId(newId);
        System.out.println("new OBJ:\n" + segraph.getObjectContainedFromObj(new IdObject(newId)));
+       
+       System.out.println("\n UPDATED GRAPH: \n " + segraph);
     }
     
   }

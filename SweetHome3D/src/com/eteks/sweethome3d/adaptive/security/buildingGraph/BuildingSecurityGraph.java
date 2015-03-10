@@ -126,6 +126,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
       WrapperRect r = brn.getWrappedRect();
 
       r.setRoomId(brn.getId());
+      r.setRoomName(brn.getName());
       if( ! this.spaceAreasOfRooms.contains(r))
       { 
         this.spaceAreasTT.put(r, brn.getId());
@@ -251,7 +252,6 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
    */
   public void moveObject(String idObject, String idRoomDestination)
   {
-    //TODO: update the position of the object
 
     IdRoom IDDEST = new IdRoom(idRoomDestination);
     IdObject IDOBJ = new IdObject(idObject);
@@ -498,6 +498,10 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   public void moveObject(String idObject, Vector3D position) {
     String roomId = this.getRoomId(position);
+    BuildingObjectContained boc = this.getObjectContainedFromObj(new IdObject(idObject));
+    if(boc == null)
+      return;
+    boc.setPosition(position);
     moveObject(idObject, roomId);
 
   }
@@ -666,7 +670,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
   public void become(BuildingSecurityGraph segraphInit) {
 
     if(segraphInit == null)
-      throw new IllegalStateException("open didn't work!");
+      return ;
     this.linkEdgeList = segraphInit.linkEdgeList;
     this.roomNodeList = segraphInit.roomNodeList;
     this.notLinkingWalls = segraphInit.notLinkingWalls;
