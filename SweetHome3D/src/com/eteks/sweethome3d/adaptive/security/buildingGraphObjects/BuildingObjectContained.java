@@ -1,6 +1,8 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -202,6 +204,15 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
 
   public boolean canConnect() {
     return this.getAbilities().contains(ObjectAbility.CONNECT);
+  }
+
+  public Set<String> getAttributesStr() {
+    Set<String> strs = new HashSet<String>();
+    for(BuildingObjectAttribute attribute : this.attributes)
+    {
+      attribute.toStringTable(); 
+    }
+    return strs;
   }
 
 

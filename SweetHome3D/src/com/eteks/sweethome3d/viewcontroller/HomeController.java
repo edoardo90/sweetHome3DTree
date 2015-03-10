@@ -68,6 +68,7 @@ import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.json.JSonGraph;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.json.JSonGraph.BuildingObjSimple;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
@@ -117,6 +118,8 @@ import com.eteks.sweethome3d.swing.objstatus.representation.CyberLinkRepr;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer;
 import com.eteks.sweethome3d.viewcontroller.PlanController.Mode;
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * A MVC controller for the home view.
@@ -1774,7 +1777,29 @@ public class HomeController implements Controller {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
     JSonGraph jsonGrapher = new JSonGraph(segraph);
     String sons = jsonGrapher.getContainmentStr();
+    
     System.out.println("CONTAINMENT SONS : " + sons);
+    
+    Gson g = new Gson();
+    HashSet<BuildingObjSimple> objectSimpless = g.fromJson(sons, HashSet.class);
+    objectSimpless.contains(null);
+    Class<?> cls = objectSimpless.getClass();
+    for(Object boss : objectSimpless)
+    {
+      if(boss instanceof LinkedTreeMap)
+      {
+        LinkedTreeMap bosm = (LinkedTreeMap) boss;
+        String id = (String) bosm.get(0);
+//        Set<String> attrs = bos.getAdditionalAttributes();
+//      
+//      String connectable =  bos.getConnectable();
+//      String type = bos.getType();
+//      Set<String>  bosSons = bos.getSons();
+      int pluto=32;
+      pluto++;
+      }
+    }
+    
   }
 
   

@@ -43,9 +43,9 @@ public class JSonGraph {
   public static class BuildingObjSimple
   {
     private String id;
-    private BuildingObjectType type;
-    private Set<BuildingObjectAttribute> additionalAttributes;
-    private Boolean connectable;
+    private String type;
+    private Set<String> additionalAttributes;
+    private String connectable;
     private Set<String> sons;
 
     public BuildingObjSimple(BuildingObjectContained boc)
@@ -53,20 +53,59 @@ public class JSonGraph {
       //BASIC
       String id = boc.getId();
       BuildingObjectType type = boc.getType();
-      Set<BuildingObjectAttribute> additionalAttributes = 
-          new  HashSet<BuildingObjectAttribute>(boc.getAttributes());
-      Boolean connectable = boc.canConnect();
+      Set<String> additionalAttributes = boc.getAttributesStr(); 
+      String  connectable = String.valueOf( boc.canConnect());
       
       //CONTAINED
       List<String> containedLst = boc.getObjectConainedIDStr();
       
       
-      this.id = id;
-      this.type = type;
-      this.additionalAttributes = additionalAttributes;
-      this.connectable = connectable;
-      this.sons = new HashSet<String>(containedLst);
+      this.setId(id);
+      this.setType("" + type);
+      this.setAdditionalAttributes(additionalAttributes);
+      this.setConnectable(connectable);
+      this.setSons(new HashSet<String>(containedLst));
       
+    }
+
+    public String getId() {
+      return id;
+    }
+
+    public void setId(String id) {
+      this.id = id;
+    }
+
+    public String getType() {
+      return type;
+    }
+
+    public void setType(String type) {
+      this.type = type;
+    }
+
+    public Set<String> getAdditionalAttributes() {
+      return additionalAttributes;
+    }
+
+    public void setAdditionalAttributes(Set<String> additionalAttributes) {
+      this.additionalAttributes = additionalAttributes;
+    }
+
+    public String getConnectable() {
+      return connectable;
+    }
+
+    public void setConnectable(String connectable) {
+      this.connectable = connectable;
+    }
+
+    public Set<String> getSons() {
+      return sons;
+    }
+
+    public void setSons(Set<String> sons) {
+      this.sons = sons;
     }
     
 

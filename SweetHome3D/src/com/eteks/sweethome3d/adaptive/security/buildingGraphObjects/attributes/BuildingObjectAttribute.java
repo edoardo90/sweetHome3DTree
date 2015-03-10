@@ -101,6 +101,12 @@ public class BuildingObjectAttribute implements Serializable {
     this.value = value;
   }
   
+  public String toStringTable()
+  {
+    return this.getName() + "," + this.getType().name() + "," + this.getValue();
+  }
+  
+  
   public String toString()
   {
     return this.getName() + "," + this.getType().name() + ",\n\tValue:" + this.getValue();
