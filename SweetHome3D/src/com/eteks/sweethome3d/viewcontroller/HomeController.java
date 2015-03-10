@@ -1775,10 +1775,12 @@ public class HomeController implements Controller {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
     JSonGraph jsonGrapher = new JSonGraph(segraph, this);
     String sons = jsonGrapher.getContainmentStr();
-    String links = jsonGrapher.getLinks();
-
+    String links = jsonGrapher.getLinksCoupleFormat();
+    String linksBigraphishFormat = jsonGrapher.getLinksBigraphishFormat();
+    
     System.out.println("CONTAINMENT SONS : " + sons + "\n");
-    System.out.println("CYBER LINKS : " + links);
+    System.out.println("CYBER LINKS couples format : " + links);
+    System.out.println("CYBER LINKS bigraph format : " + linksBigraphishFormat);
 
     jsonGrapher.simulateNewContainment();
     jsonGrapher.simulateNewLinks();
@@ -1789,6 +1791,10 @@ public class HomeController implements Controller {
     //TODO: ask
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
     Vector3D objectNewLocation =  segraph.getFreeCoordinateInRoom(new IdRoom(objectIDRoom));
+    if(objectNewLocation == null)
+    {
+      return ;
+    }
     for (HomePieceOfFurniture hopf : home.getFurniture())
     {
       if(hopf.getId().equals(objectID))

@@ -1,12 +1,15 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.json;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import javax.swing.event.ListSelectionEvent;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
@@ -18,6 +21,7 @@ import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 public class JSonGraph {
 
@@ -83,19 +87,18 @@ public class JSonGraph {
   
   private String getSimulateSons()
   {
-    BuildingObjSimple bos0 = new BuildingObjSimple("Pc-01", "kitchen");
-    BuildingObjSimple bos1 = new BuildingObjSimple("Printer-01", "kitchen");
-    BuildingObjSimple bos2 = new BuildingObjSimple("Printer-02", "livingRoom");
+    BuildingObjSimple bos0 = new BuildingObjSimple("bob", "1thh"); //safe-room
+    BuildingObjSimple bos1 = new BuildingObjSimple("pc-cb", "koed"); //kitchen
     Set<BuildingObjSimple> boss = new HashSet<BuildingObjSimple>();
     
     boss.add(bos0);
     boss.add(bos1);
-    boss.add(bos2);
     
     Gson g = new GsonBuilder().setPrettyPrinting().create();
     return g.toJson(boss);
     
   }
+  
   
   public void simulateNewLinks()
   {
@@ -142,8 +145,84 @@ public class JSonGraph {
     return g.toJson(cans);
   }
   
+  public String getLinksBigraphishFormat()
+  {
+    
+    Gson g = new GsonBuilder().setPrettyPrinting().create();
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    Set<CyberLinkEdge> cyberLinks = segraph.getCyberLinks();
+    Set<CyberLinkAnalysis> cyberLinkAn = new HashSet<CyberLinkAnalysis>();
+    
+    Map<String, List<String>> followers = new HashMap<String, List<String>>();
+    for(CyberLinkEdge cl : cyberLinks)
+    {
+      String id1 = cl.getIdObject1();
+      String id2 = cl.getIdObject2();
+      String name = cl.getName();
+      List<String> ids= null;
+      ids = followers.get(name);
+      if(ids == null)
+          ids = new ArrayList<String>();
+      ids.add(id1);
+      ids.add(id2);
+      followers.put(name, ids);
+    }
+    Set<CyberLinkAnalysis> cas = new HashSet<CyberLinkAnalysis>();
+    for(Entry<String, List<String>> idNF : followers.entrySet())
+    {
+      String label = idNF.getKey();
+      List<String> followerss = idNF.getValue();
+      String source = mostCommon(followerss);
+      List<String> targets = removeString(source, followerss);
+      
+      CyberLinkAnalysis ca = new CyberLinkAnalysis(label, source, targets)  ;
+      cas.add(ca);
+    }
+    String cyberLinksAnalisis = g.toJson(cas);
+    
+    return cyberLinksAnalisis;
+  }
   
-  public String getLinks() {
+  private List<String> removeString(String x, List<String> lst)
+  {
+    while(lst.contains(x))
+    {
+      lst.remove(x);
+    }
+    return lst;
+  }
+  
+  private String mostCommon(List<String> lst)
+  {
+    int frequency = 0;
+    int fmax =  0;
+    for(String s : lst)
+    {
+       frequency = java.util.Collections.frequency(lst, s);
+       if(frequency > fmax)
+       {
+         fmax = frequency;
+         
+       }
+    }
+    for(String s : lst)
+    {
+       frequency = java.util.Collections.frequency(lst, s);
+       if(frequency == fmax)
+       {
+         return s;
+         
+       }
+    }
+    
+    
+    
+    
+    return "";
+  }
+  
+  
+  public String getLinksCoupleFormat() {
     Gson g = new GsonBuilder().setPrettyPrinting().create();
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
     Set<CyberLinkEdge> cyberLinks = segraph.getCyberLinks();
@@ -160,6 +239,17 @@ public class JSonGraph {
     private String label = "";
     private String source = "";
     private Set<String> targets = new HashSet<String>();
+    
+    public CyberLinkAnalysis(String label, String source, List<String> targets)
+    {
+      this.label = label;
+      this.source = source;
+      for(String target : targets)
+      {
+        this.targets.add(target);
+      }
+      
+    }
     
     public CyberLinkAnalysis(String label, String source, String ... targets)
     {

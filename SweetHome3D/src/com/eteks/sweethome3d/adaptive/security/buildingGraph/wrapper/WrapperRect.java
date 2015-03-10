@@ -122,12 +122,14 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
 
   public Vector3D getFreeCoordinate() {
     List<Vector3D> points = this.rect.getListOfPoints();
+    
+    double BORDER = 40;
+    
+    double xmax = points.get(0).first - BORDER;
+    double xmin = points.get(1).first + BORDER;
 
-    double xmax = points.get(0).first;
-    double xmin = points.get(1).first;
-
-    double ymax = points.get(0).second;
-    double ymin = points.get(2).second;
+    double ymax = points.get(0).second - BORDER ; 
+    double ymin = points.get(2).second + BORDER;
 
     Vector3D proposedCoord = null;
     String roomIdAtProposedPosition = null;

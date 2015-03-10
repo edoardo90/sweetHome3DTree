@@ -536,6 +536,8 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   public Vector3D getFreeCoordinateInRoom(IdRoom idRoom) {
     WrapperRect rectAreaRoom = this.spaceAreasRev.get(idRoom.getIdRoom());
+    if(rectAreaRoom == null)
+        return null;
     Vector3D positionFree = rectAreaRoom.getFreeCoordinate();
     return positionFree;
   }
