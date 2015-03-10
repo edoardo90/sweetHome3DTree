@@ -251,7 +251,7 @@ public class HomeFurnitureController implements Controller {
     String newName = hfa.getNameOfFurniture();
     String newId = hfa.getIdOfFurniture();
     if(newId.equals(""))
-        return;
+      return;
     updateIdObj(objectContained, objectContained.getId(), newId, piece);
     if(newName != null && objectContained != null) 
         objectContained.setName(newName);
