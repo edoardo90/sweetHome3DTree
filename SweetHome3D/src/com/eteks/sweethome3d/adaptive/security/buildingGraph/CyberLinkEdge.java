@@ -77,9 +77,11 @@ public class CyberLinkEdge implements Serializable {
     return true;
   }
   public void replaceId(String oldId, String newId) {
+    if(this.ids.contains(oldId)) 
+    {
       this.ids.remove(oldId);
       this.ids.add(newId);
-    
+    }
   }
 
   public CyberLinkEdge createInstance(Type arg0) {

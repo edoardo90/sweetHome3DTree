@@ -360,7 +360,6 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     broomDestination.addObjectContained(objectCont);
 
     WrapperRect rectOfRoomDest = this.spaceAreasRev.get(broomDestination.getId());
-    rectOfRoomDest.add(objectCont, position);
     
     IdObject ID = new IdObject(idObject);
     this.objectsRoomLocation.put(ID , broomDestination);
@@ -650,9 +649,10 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     this.putObjectCont(new IdObject(newId), oldObj);
 
     BuildingRoomNode room = this.objectsRoomLocation.get(new IdObject(oldId));
+    
     this.objectsRoomLocation.remove(new IdObject(oldId));
     this.objectsRoomLocation.put(new IdObject(newId), room);
-
+    
     for(CyberLinkEdge cyber : this.cyberLinkEdgeList)
     {
       cyber.replaceId(oldId, newId);

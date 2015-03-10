@@ -104,7 +104,7 @@ public class Vector3D implements Serializable
   @Override
   public String toString()
   {
-    return "[ " +  this.first + ", " + this.second + ", " + this.third  + " ]";
+    return this.toStringShortXY(1);
   }
 
   public void scale(float scaleFactor) {
