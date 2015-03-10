@@ -14,7 +14,6 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.CyberLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -59,7 +58,7 @@ public class JSonGraph {
     
     HashSet<BuildingObjSimple> objectSimpless = g.fromJson(sons, HashSet.class);
     objectSimpless.contains(null);
-    Map<String, String> agentsPosition = new HashMap<String, String>();
+    Map<String, String> objectsPosition = new HashMap<String, String>();
     for(Object boss : objectSimpless)
     {
       if(boss instanceof LinkedTreeMap)
@@ -68,16 +67,16 @@ public class JSonGraph {
         List<Object> keyset = new ArrayList(bosm.values());
         String id =(String)      keyset.get(0);
         String idRoom = (String) keyset.get(2);
-        agentsPosition.put(id, idRoom);
+        objectsPosition.put(id, idRoom);
       }
     }
     
-    for(Entry<String, String> entry : agentsPosition.entrySet())
+    for(Entry<String, String> entry : objectsPosition.entrySet())
     {
-      String agentID = entry.getKey();
-      String agentIDRoom = entry.getValue();
+      String objectID = entry.getKey();
+      String objectIDRoom = entry.getValue();
       //segraph.moveObject(agentID, agentIDRoom);
-      controller.moveObject(agentID, agentIDRoom);
+      controller.moveObject(objectID, objectIDRoom);
     }
    
   }
@@ -133,8 +132,8 @@ public class JSonGraph {
   
   private String getSimulateLinks()
   {
-    CyberLinkAnalysis ca1 = new CyberLinkAnalysis("wifi", "alice", "VM1", "VM2");
-    CyberLinkAnalysis ca2 = new CyberLinkAnalysis("eth0", "mallory", "VM3", "VM4");
+    CyberLinkAnalysis ca1 = new CyberLinkAnalysis("wifi", "bob", "printer-1", "cctv_kitch");
+    CyberLinkAnalysis ca2 = new CyberLinkAnalysis("wifi", "bob", "VM3", "VM4");
     Set<CyberLinkAnalysis> cans = new HashSet<CyberLinkAnalysis>();
     cans.add(ca1);
     cans.add(ca2);

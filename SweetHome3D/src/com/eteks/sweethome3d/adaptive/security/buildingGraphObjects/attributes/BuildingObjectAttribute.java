@@ -2,8 +2,6 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes;
 
 import java.io.Serializable;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 /**
  * name || type  ||  value
  * @author Edoardo Pasi

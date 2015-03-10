@@ -1,13 +1,9 @@
 package com.eteks.sweethome3d.swing.objstatus.tables;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellEditor;
 
 public abstract class TableListModel<T> extends AbstractTableModel {
   private static final long serialVersionUID = 1L;

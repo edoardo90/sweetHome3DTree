@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
-import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelColor;
 import com.eteks.sweethome3d.swing.objstatus.statuspanels.JPanelPolicy;
 
 public class FrameStatusPolicy extends FrameStatusAbstractStateLess{

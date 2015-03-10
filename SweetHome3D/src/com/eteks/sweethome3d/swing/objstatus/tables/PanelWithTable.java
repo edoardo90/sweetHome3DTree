@@ -13,9 +13,7 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.KeyStroke;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
 

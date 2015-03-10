@@ -17,8 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-import scala.Array;
-
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;

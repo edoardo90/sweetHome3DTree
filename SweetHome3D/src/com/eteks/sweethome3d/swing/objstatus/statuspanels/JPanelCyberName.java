@@ -1,9 +1,6 @@
 package com.eteks.sweethome3d.swing.objstatus.statuspanels;
 
-import java.awt.GridBagConstraints;
-
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;

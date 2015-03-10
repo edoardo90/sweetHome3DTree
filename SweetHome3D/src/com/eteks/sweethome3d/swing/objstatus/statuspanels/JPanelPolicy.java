@@ -9,7 +9,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
-import com.eteks.sweethome3d.swing.objstatus.tables.JTablePredefinedValues;
 import com.eteks.sweethome3d.swing.objstatus.tables.PanelWithTable;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableListModel;
 

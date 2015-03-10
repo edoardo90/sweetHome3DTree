@@ -1,7 +1,6 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,7 +9,6 @@ import java.util.TreeSet;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;

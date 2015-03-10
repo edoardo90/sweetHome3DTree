@@ -15,7 +15,6 @@ import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.swing.objstatus.JPanelStatusDecorator;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec;
 import com.eteks.sweethome3d.swing.objstatus.JStatusContainPanelDec.ContPanelAim;

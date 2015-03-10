@@ -1,7 +1,12 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
+import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
@@ -10,6 +15,8 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
   
   private final Rectangle3D rect;
   private String roomID;
+  private Map<String, Vector3D> positions = new HashMap<String, Vector3D>();
+  private Map<Vector3D, String> positionsRev = new HashMap<Vector3D, String>();
   
   public  WrapperRect(Rectangle3D rect) {
     this.rect = rect;
@@ -98,6 +105,37 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
 
   public void setRoomId(String roomId) {
     this.roomID = roomId;
+  }
+
+  public void add(BuildingObjectContained objectCont, Vector3D position) {
+    this.positions.put(objectCont.getId(), position);
+    this.positionsRev.put(position, objectCont.getId());
+    
+  }
+
+  public Vector3D getFreeCoordinate() {
+      List<Vector3D> points = this.rect.getListOfPoints();
+      
+      double xmax = points.get(0).first;
+      double xmin = points.get(1).first;
+      
+      double ymax = points.get(0).second;
+      double ymin = points.get(2).second;
+     
+      Vector3D proposedCoord = null;
+      String roomIdAtProposedPosition = null;
+      do
+      {
+        Random rand = new Random();
+        double x = (Double) ( rand.nextInt((int)((xmax - xmin) + 1)) + xmin );
+        double y = (Double) ( rand.nextInt((int)((ymax - ymin) + 1)) + ymin );
+        
+        proposedCoord = new Vector3D(x, y, 0);
+        roomIdAtProposedPosition = this.positionsRev.get(proposedCoord);
+      }
+      while(roomIdAtProposedPosition != null);
+      return proposedCoord;
+      
   }
   
   

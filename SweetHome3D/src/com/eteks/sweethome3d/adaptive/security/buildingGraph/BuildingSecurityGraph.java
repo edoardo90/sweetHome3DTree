@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
@@ -30,8 +30,6 @@ import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
 import com.eteks.sweethome3d.model.Wall;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Data Structure used to represent the graph associated to the building
@@ -131,6 +129,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
       if( ! this.spaceAreasOfRooms.contains(r))
       { 
         this.spaceAreasTT.put(r, brn.getId());
+        this.spaceAreasRev.put( brn.getId(), r);
         this.spaceAreasOfRooms.add(r);
       }
     }
@@ -231,6 +230,14 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     this.roomNodeList.clear();
     this.notLinkingWalls.clear();
     this.cyberLinkEdgeList.clear();
+    
+    this.buildingRooms.clear();
+    this.objectsContained.clear();
+    this.objectsFather.clear();
+    this.objectsRoomLocation.clear();
+    this.spaceAreasOfRooms.clear();
+    this.spaceAreasRev = new BTree<String, WrapperRect>();
+    this.spaceAreasTT = new BTree<WrapperRect, String>();
 
   }
 
@@ -344,20 +351,17 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
       {
         objectCont = new GeneralMaterialObject(position);
       }
-
-
       objectCont.setId(idObject);
       objectCont.setName(pieceName);
       objectCont.setOriginalName(pieceOriginalName);
       this.setAbilitiesAndAttributes(objectCont);
-
-
     }
-
-
 
     broomDestination.addObjectContained(objectCont);
 
+    WrapperRect rectOfRoomDest = this.spaceAreasRev.get(broomDestination.getId());
+    rectOfRoomDest.add(objectCont, position);
+    
     IdObject ID = new IdObject(idObject);
     this.objectsRoomLocation.put(ID , broomDestination);
     this.objectsContained.put(ID, objectCont);
@@ -455,6 +459,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     s = s + "\n\n BTREE ";
 
     s = s + this.spaceAreasTT;
+    s = s + this.spaceAreasRev;
 
     return s;
 
@@ -525,6 +530,13 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
   public void moveObject(HomePieceOfFurniture homePieceOfFurniture, Vector3D position) {
     this.moveObject(homePieceOfFurniture.getId(), position);
   }
+
+  public Vector3D getFreeCoordinateInRoom(IdRoom idRoom) {
+    WrapperRect rectAreaRoom = this.spaceAreasRev.get(idRoom.getIdRoom());
+    Vector3D positionFree = rectAreaRoom.getFreeCoordinate();
+    return positionFree;
+  }
+
 
   public void addNewObject(String idObject, BuildingObjectType type,
                            String pieceName, String pieceOriginalName,
@@ -634,7 +646,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     this.putObjectCont(new IdObject(newId), oldObj);
 
     BuildingRoomNode room = this.objectsRoomLocation.get(new IdObject(oldId));
-    this.objectsRoomLocation.remove(room);
+    this.objectsRoomLocation.remove(new IdObject(oldId));
     this.objectsRoomLocation.put(new IdObject(newId), room);
 
     for(CyberLinkEdge cyber : this.cyberLinkEdgeList)
@@ -665,18 +677,19 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     this.objectsFather = segraphInit.objectsFather;
     this.spaceAreasOfRooms = segraphInit.spaceAreasOfRooms;
     this.spaceAreasTT = segraphInit.spaceAreasTT;
+    this.spaceAreasRev = segraphInit.spaceAreasRev;
     this.policies = segraphInit.policies;
   }
-  
+
   @Override
   public BuildingSecurityGraph clone()
   {
     BuildingSecurityGraph bs = new BuildingSecurityGraph();
     bs.become(this);
     return bs;
-    
+
   }
-  
+
 
 
   private List<BuildingLinkEdge> linkEdgeList = new ArrayList<BuildingLinkEdge>();
@@ -691,11 +704,18 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
 
   private List<WrapperRect>  spaceAreasOfRooms = new ArrayList<WrapperRect>();
-  /** TODO check if we can rely just on the BTREE (next line of code) **/
+  /** TODO <pre>
+   *   check if we can rely just on the BTREE (next line of code) 
+   *   from wrapping rectangle : room area  to idroom
+   *   </pre> 
+   */
   private BTree<WrapperRect, String> spaceAreasTT = new BTree<WrapperRect, String>();
+  /** from string: id room to wrapp rectangle of its shape **/ 
+  private BTree<String, WrapperRect> spaceAreasRev = new BTree<String, WrapperRect>();
 
   private Set<ABACPolicy> policies = new HashSet<ABACPolicy>();
   private static BuildingSecurityGraph instance = null;
+
 
 
 }

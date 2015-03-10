@@ -3,8 +3,6 @@ package com.eteks.sweethome3d.swing.objstatus.framestatus;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
-
 
 /**
  * Intermediate class of frame that can return a representation of state 

@@ -282,13 +282,18 @@ public class Rectangle3D extends Shape3D implements Serializable
     
   }
   
-  @Override
-  /**
+  /***
+   * 
+   * <pre>
    * Counterclock
    * It relies on getPointNorthEast() and so on
+   * lst[0] = NE
+   * lst[1] = NW
+   * lst[2] = SW
+   * lst[3] = SE
    * 
+   * </pre>
    */
-  
   public List<Vector3D> getListOfPoints()
   {
     //get copies of vectors: new 3d vectors

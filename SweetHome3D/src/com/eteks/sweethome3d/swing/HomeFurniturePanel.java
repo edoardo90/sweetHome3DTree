@@ -49,8 +49,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.viewcontroller.DialogView;
@@ -58,7 +56,6 @@ import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
 import com.eteks.sweethome3d.viewcontroller.ModelMaterialsController;
 import com.eteks.sweethome3d.viewcontroller.TextureChoiceController;
 import com.eteks.sweethome3d.viewcontroller.View;
-import com.lowagie.text.pdf.TextField;
 
 /**
  * Home furniture editing decoratedPanel.

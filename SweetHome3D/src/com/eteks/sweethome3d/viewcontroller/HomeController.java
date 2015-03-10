@@ -68,15 +68,15 @@ import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.ResourceURLContent;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.json.JSonGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.json.JSonGraph.BuildingObjSimple;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
+import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.MaterialObject;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.AspectRatio;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.Camera;
@@ -118,8 +118,6 @@ import com.eteks.sweethome3d.swing.objstatus.representation.CyberLinkRepr;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 import com.eteks.sweethome3d.viewcontroller.HomeView.OpenDamagedHomeAnswer;
 import com.eteks.sweethome3d.viewcontroller.PlanController.Mode;
-import com.google.gson.Gson;
-import com.google.gson.internal.LinkedTreeMap;
 
 /**
  * A MVC controller for the home view.
@@ -1787,9 +1785,18 @@ public class HomeController implements Controller {
 
   }
 
-  public void moveObject(String agentID, String agentIDRoom) {
-    //TODO: do it
-    System.out.println("move obj:" +  agentID + " from room actual to room of id:" + agentIDRoom);
+  public void moveObject(String objectID, String objectIDRoom) {
+    //TODO: ask
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    Vector3D objectNewLocation =  segraph.getFreeCoordinateInRoom(new IdRoom(objectIDRoom));
+    for (HomePieceOfFurniture hopf : home.getFurniture())
+    {
+      if(hopf.getId().equals(objectID))
+      {
+        hopf.setPosition(objectNewLocation);
+      }
+    }
+    System.out.println("move obj:" +  objectID + " from room actual to room of id:" + objectIDRoom);
     
   }
 

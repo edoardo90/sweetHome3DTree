@@ -7,13 +7,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
-import javax.swing.table.AbstractTableModel;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.AttributeType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
-import com.eteks.sweethome3d.swing.objstatus.tables.PanelWithTable;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableAttributesPanel;
-import com.eteks.sweethome3d.swing.objstatus.tables.TableListModel;
 
 public class AttributesStatusPanel extends JPanelColorStatefull<BuildingObjectAttribute> {
 

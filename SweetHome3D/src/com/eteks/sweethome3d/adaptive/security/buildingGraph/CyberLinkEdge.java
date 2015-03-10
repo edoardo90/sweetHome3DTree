@@ -5,8 +5,6 @@ import java.lang.reflect.Type;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import com.google.gson.InstanceCreator;
-
 public class CyberLinkEdge implements Serializable {
 
   

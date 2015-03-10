@@ -92,8 +92,6 @@ import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
-import sun.org.mozilla.javascript.internal.ast.ObjectProperty;
-
 import com.eteks.sweethome3d.adaptive.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.TemporaryURLContent;
 import com.eteks.sweethome3d.adaptive.URLContent;

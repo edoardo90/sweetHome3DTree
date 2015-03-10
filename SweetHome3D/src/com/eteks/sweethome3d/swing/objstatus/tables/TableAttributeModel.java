@@ -2,7 +2,6 @@ package com.eteks.sweethome3d.swing.objstatus.tables;
 
 import java.util.List;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.AttributeType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 
