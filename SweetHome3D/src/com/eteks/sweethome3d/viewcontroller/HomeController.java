@@ -1678,11 +1678,18 @@ public class HomeController implements Controller {
     return status;
   }
 
+
+  public void clearLinks() {
+    BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
+    segraph.clearLinks();
+    for(DimensionLine d : home.getDimensionLines())
+        this.home.deleteDimensionLine(d);
+  }
+
+
   public void addCyberLink()
   {
-
     List<Selectable> selected = home.getSelectedItems();
-
     if(selected.size() != 2 && selected.size() != 1)
     {
       System.out.println("select 2 objects that can be connected");
@@ -1716,21 +1723,20 @@ public class HomeController implements Controller {
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
         BuildingObjectContained bo1 = segraph.getObjectContainedFromHOPF(hopf1);
         if(added)
-        {
           this.setVisibilityOfUnconnectable(bo1);
-        }
         else
-        {
           System.out.println("connectio not added " + obj1 + " -- " + obj2);
-        }
       }
       else
-      {
         return;
-      }
-
     }
   }
+  
+  public void addCyberLink(String id1, String id2, String name) {
+    this.home.addCyberLink(id1, id2, name);
+  }
+
+  
 
   private CyberLinkRepr getCyberRepresent(HidebleDimensionLine dimLine) {
     return new CyberLinkRepr(dimLine.getName());
@@ -1777,7 +1783,7 @@ public class HomeController implements Controller {
     String sons = jsonGrapher.getContainmentStr();
     String links = jsonGrapher.getLinksCoupleFormat();
     String linksBigraphishFormat = jsonGrapher.getLinksBigraphishFormat();
-    
+
     System.out.println("CONTAINMENT SONS : " + sons + "\n");
     System.out.println("CYBER LINKS couples format : " + links);
     System.out.println("CYBER LINKS bigraph format : " + linksBigraphishFormat);
@@ -1803,7 +1809,7 @@ public class HomeController implements Controller {
       }
     }
     System.out.println("move obj:" +  objectID + " from room actual to room of id:" + objectIDRoom);
-    
+
   }
 
 
@@ -1853,8 +1859,6 @@ public class HomeController implements Controller {
           });
         }
 
-
-        openedHome.initSecurityGraph();
         return null;
       }
 
@@ -1868,6 +1872,7 @@ public class HomeController implements Controller {
             DamagedHomeRecorderException ex2 = (DamagedHomeRecorderException)ex;
             openDamagedHome(homeName, ex2.getDamagedHome(), ex2.getInvalidContent());
           } else if (ex instanceof RecorderException) {
+            ex.printStackTrace();
             String message = preferences.getLocalizedString(HomeController.class, "openError", homeName);
             getView().showError(message);
           } else {
@@ -2237,8 +2242,6 @@ public class HomeController implements Controller {
   public void save() {
 
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-    home.setRepresentation(segraph);
-
     save(HomeRecorder.Type.DEFAULT, null);
   }
 
@@ -3468,6 +3471,9 @@ public class HomeController implements Controller {
       }
     }
   }
+
+
+
 
 
 }

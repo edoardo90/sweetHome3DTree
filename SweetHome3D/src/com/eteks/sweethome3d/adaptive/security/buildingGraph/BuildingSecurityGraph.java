@@ -221,6 +221,14 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
      this.roomNodeList.clear();
      this.notLinkingWalls.clear();
      this.cyberLinkEdgeList.clear();
+     
+    this.buildingRooms.clear();
+    this.objectsContained.clear();
+    this.objectsFather.clear();
+    this.objectsRoomLocation.clear();
+    this.spaceAreasOfRooms.clear();
+    this.spaceAreasRev = new BTree<String, WrapperRect>();
+    this.spaceAreasTT = new BTree<WrapperRect, String>();
 
      </pre>
    */
@@ -241,6 +249,12 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     this.spaceAreasTT = new BTree<WrapperRect, String>();
 
   }
+  
+  public void clearLinks() {
+   this.cyberLinkEdgeList.clear();
+  }
+
+  
 
   /**
    * This method is used to update the Graph when the user moves an object
@@ -556,7 +570,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   }
 
-  public boolean addCyberLink(String id1, String id2) {
+  public boolean addCyberLink(String id1, String id2, String name) {
     BuildingObjectContained bo1 = this.getObjectContainedFromObj(new IdObject(id1));
     BuildingObjectContained bo2 = this.getObjectContainedFromObj(new IdObject(id2));
 
@@ -567,7 +581,9 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
     if(canConnect(bo1, bo2))  
     {
-      this.cyberLinkEdgeList.add( new CyberLinkEdge(id1, id2));
+      CyberLinkEdge cl = new CyberLinkEdge(id1, id2);
+      cl.setName(name);
+      this.cyberLinkEdgeList.add(cl);
       return true;
     }
     else
@@ -575,6 +591,11 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
       throw new IllegalArgumentException("these 2 objects can't be linked");
     }
   }
+  
+  public boolean addCyberLink(String id1, String id2) {
+      return this.addCyberLink(id1, id2, "");
+  }
+  
 
   private boolean canConnect(BuildingObjectContained bo1, BuildingObjectContained bo2) {
 
@@ -721,6 +742,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   private Set<ABACPolicy> policies = new HashSet<ABACPolicy>();
   private static BuildingSecurityGraph instance = null;
+
 
 
 

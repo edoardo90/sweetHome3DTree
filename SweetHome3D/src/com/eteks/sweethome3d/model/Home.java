@@ -140,7 +140,8 @@ public class Home implements Serializable, Cloneable {
     // created at serialization time for backward compatibility reasons
     private List<HomePieceOfFurniture>                  furnitureWithGroups;
     
-    private BuildingSecurityGraph                       securityGraph;
+   //TODO: DOES NOT WORK !!!! GRGRGRGRGR
+    ///// !!! private BuildingSecurityGraph                       securityGraph;
     
 
     private boolean unconnectableInvisible = false;
@@ -183,23 +184,6 @@ public class Home implements Serializable, Cloneable {
       addModelListeners();
     }
     
-    public void setRepresentation(BuildingSecurityGraph representaion)
-    {
-      this.securityGraph = representaion;
-    }
-    
-    public BuildingSecurityGraph getRepresentation()
-    {
-      return this.securityGraph;
-    }
-    
-    public void initSecurityGraph()
-    {
-      BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-      segraph.become(this.securityGraph);
-    }
-    
-
     /**
      * Initializes new and transient home fields to their default values 
      * and reads home from <code>in</code> stream with default reading method.
@@ -1796,7 +1780,7 @@ public class Home implements Serializable, Cloneable {
      * @return
      * </pre>
      */
-    public boolean  addCyberLink(String id1, String id2) {
+    public boolean  addCyberLink(String id1, String id2, String name) {
       try
       {
 
@@ -1804,7 +1788,7 @@ public class Home implements Serializable, Cloneable {
         boolean added = false;
         try
         {
-          added = segraph.addCyberLink(id1,     id2);
+          added = segraph.addCyberLink(id1,     id2, name);
         }
         catch(IllegalArgumentException e) {   return false;   }
         catch(IllegalStateException e1) { return  false; }
@@ -1823,6 +1807,7 @@ public class Home implements Serializable, Cloneable {
           
           dimensionLine.setId1(id1);
           dimensionLine.setId2(id2);
+          dimensionLine.setName(name);
           
           if(! this.getDimensionLines().contains(dimensionLine))
           {
@@ -1839,6 +1824,10 @@ public class Home implements Serializable, Cloneable {
 
     }
 
+    public boolean addCyberLink(String id1, String id2) {
+      return this.addCyberLink(id1, id2, "");
+    }
+    
     public HomePieceOfFurniture getPieceSelected()
     {
       List<Selectable> sell = this.getSelectedItems();
@@ -1982,6 +1971,8 @@ public class Home implements Serializable, Cloneable {
       }
       
     }
+
+
 
 
 }

@@ -79,7 +79,7 @@ public class JSonGraph {
     {
       String objectID = entry.getKey();
       String objectIDRoom = entry.getValue();
-      //segraph.moveObject(agentID, agentIDRoom);
+      segraph.moveObject(objectID, objectIDRoom);
       controller.moveObject(objectID, objectIDRoom);
     }
    
@@ -99,12 +99,28 @@ public class JSonGraph {
     
   }
   
+  private String getSimulateLinks()
+  {
+    CyberLinkAnalysis ca1 = new CyberLinkAnalysis("wifi", "bob", "pc-cb", "pc-0");
+    CyberLinkAnalysis ca2 = new CyberLinkAnalysis("eth0", "bob", "light-0", "cctv-0");
+    Set<CyberLinkAnalysis> cans = new HashSet<CyberLinkAnalysis>();
+    cans.add(ca1);
+    cans.add(ca2);
+    
+    Gson g = new GsonBuilder().setPrettyPrinting().create();
+    return g.toJson(cans);
+  }
+  
+  
+  
   
   public void simulateNewLinks()
   {
     String links = getSimulateLinks();
     Gson g = new Gson();
     HashSet<CyberLinkAnalysis> analysisLinks = g.fromJson(links, HashSet.class);
+    
+    List<CyberLinkSimple>  allTotalSimplesLinks = new ArrayList<CyberLinkSimple>();
     
     for(Object link : analysisLinks)
     {
@@ -117,9 +133,20 @@ public class JSonGraph {
         ArrayList<String> targets = (ArrayList<String>) keyset.get(2);
         
         List<CyberLinkSimple> linksSimple = getCybersSimple(label, source, targets);
-        System.out.println("Cyber Links Simple:" + linksSimple);
+        allTotalSimplesLinks.addAll(linksSimple);
       }
     }
+    System.out.println("Cyber Links Simple:" + allTotalSimplesLinks);
+    this.controller.clearLinks();
+    for(CyberLinkSimple cls : allTotalSimplesLinks)
+    {
+      String id1 = cls.getId1();
+      String id2 = cls.getId2();
+      String name = cls.getNameLink();
+      
+      controller.addCyberLink(id1, id2, name);
+    }
+    
   }
   
   private List<CyberLinkSimple> getCybersSimple(String label, String source, List<String> targets)
@@ -133,18 +160,7 @@ public class JSonGraph {
     return cyberLinksSimple;
   }
   
-  private String getSimulateLinks()
-  {
-    CyberLinkAnalysis ca1 = new CyberLinkAnalysis("wifi", "bob", "printer-1", "cctv_kitch");
-    CyberLinkAnalysis ca2 = new CyberLinkAnalysis("wifi", "bob", "VM3", "VM4");
-    Set<CyberLinkAnalysis> cans = new HashSet<CyberLinkAnalysis>();
-    cans.add(ca1);
-    cans.add(ca2);
-    
-    Gson g = new GsonBuilder().setPrettyPrinting().create();
-    return g.toJson(cans);
-  }
-  
+
   public String getLinksBigraphishFormat()
   {
     
