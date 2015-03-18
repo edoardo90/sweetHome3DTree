@@ -1,0 +1,9 @@
+Dishwasher,true,true
+Fridge,true,true
+Cooker,false,true
+Light,false,true
+Sink,false,true
+Clothes washer,false,false
+DigitalHammer,false,true
+HammerOrange,true,true
+Hammer,false,false

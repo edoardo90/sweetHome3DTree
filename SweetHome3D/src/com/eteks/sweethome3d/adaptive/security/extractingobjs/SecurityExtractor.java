@@ -2,7 +2,7 @@ package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 
 import java.util.Set;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
 import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
@@ -22,12 +22,12 @@ public abstract class SecurityExtractor {
     this.preferences = preferences;
   }
   
-  protected void setAbilitiesAndAttributes(BuildingObjectContained objectCont) {
+  protected void setAbilitiesAndAttributes(Asset objectCont) {
     this.setAttributes(objectCont);
     this.setAbilities (objectCont);
   }
 
-  private void setAbilities(BuildingObjectContained objectCont) {
+  private void setAbilities(Asset objectCont) {
      
      SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
      String originalName = objectCont.getOriginalName();
@@ -40,7 +40,7 @@ public abstract class SecurityExtractor {
     
   }
 
-  private void setAttributes(BuildingObjectContained objectCont) {
+  private void setAttributes(Asset objectCont) {
       
     SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
     String originalName = objectCont.getOriginalName();

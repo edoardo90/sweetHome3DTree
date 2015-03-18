@@ -37,8 +37,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
@@ -674,7 +674,7 @@ public class Home implements Serializable, Cloneable {
       {
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
         SavedConfigurationsLoader cfg = null;
-        BuildingObjectType type = BuildingObjectType.UNKNOWN_OBJECT;
+        AssetType type = AssetType.UNKNOWN_OBJECT;
         try { 
           cfg = SavedConfigurationsLoader.getInstance();
           String originalName = piece.getOriginalName();
@@ -1611,8 +1611,8 @@ public class Home implements Serializable, Cloneable {
       for(BuildingRoomNode rib : roomsInBuilding)
       {
         Room r = rib.getRoomSmart();
-        List<BuildingObjectContained> objectsInside = rib.getObjectsInside();
-        for(BuildingObjectContained objectContained : objectsInside )
+        List<Asset> objectsInside = rib.getObjectsInside();
+        for(Asset objectContained : objectsInside )
         {
           Vector3D objPosition =  objectContained.getPosition();
           HomePieceOfFurniture hopf = objectContained.getPieceOfForniture(preferences);
@@ -1795,8 +1795,8 @@ public class Home implements Serializable, Cloneable {
         catch(Exception e2) {  e2.printStackTrace();  }
         if(added)
         {
-          BuildingObjectContained bo1 = segraph.getObjectContainedFromObj(new IdObject(id1));
-          BuildingObjectContained bo2 = segraph.getObjectContainedFromObj(new IdObject(id2));
+          Asset bo1 = segraph.getObjectContainedFromObj(new IdObject(id1));
+          Asset bo2 = segraph.getObjectContainedFromObj(new IdObject(id2));
 
           float xStart = (float) bo1.getPosition().first;
           float yStart = (float) bo1.getPosition().second;
@@ -1845,7 +1845,7 @@ public class Home implements Serializable, Cloneable {
       return null; 
     }
     
-    public BuildingObjectContained getObjectContainedSelected()
+    public Asset getObjectContainedSelected()
     {
       List<Selectable> sell = this.getSelectedItems();
       if(sell != null && sell.size() != 1)
@@ -1858,7 +1858,7 @@ public class Home implements Serializable, Cloneable {
       if (sel instanceof HomePieceOfFurniture) {
         HomePieceOfFurniture piece = (HomePieceOfFurniture)sel;
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-        BuildingObjectContained bo = segraph.getObjectContainedFromObj(new IdObject(piece.getId()));
+        Asset bo = segraph.getObjectContainedFromObj(new IdObject(piece.getId()));
         return bo;
       }
       return null;
@@ -1883,7 +1883,7 @@ public class Home implements Serializable, Cloneable {
       for(HomePieceOfFurniture hopf : this.getFurniture())
       {
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-        BuildingObjectContained boo = null;
+        Asset boo = null;
         
         hopf.setVisible(true);
         
@@ -1960,7 +1960,7 @@ public class Home implements Serializable, Cloneable {
         {
           String idObject = hopf.getId();
           BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-          BuildingObjectContained father = segraph.getFatherOfObject(new IdObject(idObject));
+          Asset father = segraph.getFatherOfObject(new IdObject(idObject));
           if(father != null)
           {
             hopf.setVisible(false);

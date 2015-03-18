@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
 import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
@@ -49,7 +49,7 @@ public class SavedConfigurationsLoader {
   private static SavedConfigurationsLoader instance = null;  //SINGLETON!!
   private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>();
   private SecurityNameAndMap snm = null;
-  private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = null;
+  private Map<AssetType, HomePieceOfFurniture> typeToFurniture = null;
   private Map<String, Set<BuildingObjectAttribute>>  attributesPossible = null; 
   private Map<String, Set<ObjectAbility>> objectsAbilities = null;
   private Set<String> availableRoles = new TreeSet<String>();
@@ -57,19 +57,19 @@ public class SavedConfigurationsLoader {
   
   
   /**
-   * Map that stores the graphical representation associated to each {@link BuildingObjectType}
+   * Map that stores the graphical representation associated to each {@link AssetType}
    * 
    * @return
    */
-  private Map<BuildingObjectType, HomePieceOfFurniture> createTypeToFurnitureMap()
+  private Map<AssetType, HomePieceOfFurniture> createTypeToFurnitureMap()
   {
-    Map<BuildingObjectType, HomePieceOfFurniture> catalogFurniture =
-        new HashMap<BuildingObjectType, HomePieceOfFurniture>();
+    Map<AssetType, HomePieceOfFurniture> catalogFurniture =
+        new HashMap<AssetType, HomePieceOfFurniture>();
   
     List<FurnitureCategory> categories= getUserPreferences().getFurnitureCatalog().getCategories();
   
     SecurityNameAndMap namesConventionsSweetHome = this.getCatalogNamesFromFile();
-    Map<String, BuildingObjectType> catalog = namesConventionsSweetHome.sweetCatalogToType;
+    Map<String, AssetType> catalog = namesConventionsSweetHome.sweetCatalogToType;
     this.securityCategoryName = namesConventionsSweetHome.securityCategoryName;
   
     for(FurnitureCategory category : categories )
@@ -84,7 +84,7 @@ public class SavedConfigurationsLoader {
   
           String pieceName = hopf.getOriginalName();
   
-          BuildingObjectType typeOBJ = catalog.get(pieceName);
+          AssetType typeOBJ = catalog.get(pieceName);
           catalogFurniture.put(typeOBJ, hopf);
         }
       }
@@ -119,7 +119,7 @@ public class SavedConfigurationsLoader {
    * @param type
    * @return
    */
-  public String getSweetHomeNameForType(BuildingObjectType type)
+  public String getSweetHomeNameForType(AssetType type)
   {
     if(this.namesConventionsSweetHome != null)
         return this.namesConventionsSweetHome.TypeToSweetName.get(type);
@@ -130,11 +130,11 @@ public class SavedConfigurationsLoader {
     }
   }
   
-  public BuildingObjectType getTypeForSweetHomeName(String sweethomeName)
+  public AssetType getTypeForSweetHomeName(String sweethomeName)
   {
-    BuildingObjectType type = this.getNamesConventions().sweetCatalogToType.get(sweethomeName);
+    AssetType type = this.getNamesConventions().sweetCatalogToType.get(sweethomeName);
     if (type == null)
-       type = BuildingObjectType.UNKNOWN_OBJECT;
+       type = AssetType.UNKNOWN_OBJECT;
     return type;
     
   }
@@ -168,7 +168,7 @@ public class SavedConfigurationsLoader {
   }
   
   
-  public Map<BuildingObjectType, HomePieceOfFurniture> getMapTypeToFurniture()
+  public Map<AssetType, HomePieceOfFurniture> getMapTypeToFurniture()
   {
     if(typeToFurniture == null)
         typeToFurniture = this.createTypeToFurnitureMap();
@@ -191,12 +191,12 @@ public class SavedConfigurationsLoader {
 
   /**
    * Create a map from object type to homePieceOfFurniture, this map is used by the objects
-   * This is used by objects of the class {@link BuildingObjectContained} to call getPieceOfForniture
+   * This is used by objects of the class {@link Asset} to call getPieceOfForniture
    * @param preferences
    */
   private void setMapOfLibraryObjects(UserPreferences preferences)
   {
-    Map<BuildingObjectType, HomePieceOfFurniture> map =   this.getMapTypeToFurniture();
+    Map<AssetType, HomePieceOfFurniture> map =   this.getMapTypeToFurniture();
     preferences.setFornitureMap(map); 
   }
   
@@ -258,8 +258,8 @@ public class SavedConfigurationsLoader {
     if(snm != null)
         return snm;
     
-    Map<String, BuildingObjectType> catalog = new HashMap<String, BuildingObjectType>();
-    Map<BuildingObjectType, String> catalogBack = new HashMap<BuildingObjectType, String>();
+    Map<String, AssetType> catalog = new HashMap<String, AssetType>();
+    Map<AssetType, String> catalogBack = new HashMap<AssetType, String>();
     
     List<String> fileSweetToType =  getfileContent(this.sweetHomeLibraryObjectsFile.getAbsolutePath());
     String categoryName = fileSweetToType.get(0);
@@ -269,7 +269,7 @@ public class SavedConfigurationsLoader {
       String[] coupleObjectNameType = line.split(",");
       String objectName = coupleObjectNameType[0];
       String objectType = coupleObjectNameType[1];
-      BuildingObjectType buildingObjType = BuildingObjectType.valueOf(objectType);
+      AssetType buildingObjType = AssetType.valueOf(objectType);
       catalog.put(objectName, buildingObjType);
       catalogBack.put(buildingObjType, objectName);
 
@@ -284,8 +284,8 @@ public class SavedConfigurationsLoader {
 
   public class SecurityNameAndMap
   {
-    public Map<String, BuildingObjectType> sweetCatalogToType;
-    public Map<BuildingObjectType, String> TypeToSweetName;
+    public Map<String, AssetType> sweetCatalogToType;
+    public Map<AssetType, String> TypeToSweetName;
     public String securityCategoryName;
 
   }
@@ -373,7 +373,7 @@ public class SavedConfigurationsLoader {
    * @param objectType
    * @return
    */
-  protected  List<String> stringToLookFor(BuildingObjectType objectType)
+  protected  List<String> stringToLookFor(AssetType objectType)
   {
 
     List<String> words = new ArrayList<String>();
@@ -383,7 +383,7 @@ public class SavedConfigurationsLoader {
     {
      String [] parts = line.split(",");
       String object = parts[0];
-      BuildingObjectType type = BuildingObjectType.valueOf(object);
+      AssetType type = AssetType.valueOf(object);
       if(objectType.equals(type))
       {
         for(int i=1; i<parts.length; i++)
@@ -447,14 +447,6 @@ public class SavedConfigurationsLoader {
 
 
 
-
-  public boolean isARole(String roleStr) {
-    return this.getAvailableRoles().contains(roleStr);
-  }
-
-
-
-
   public void setObjectAbilityStatus(String objectOriginalName, ObjectAbility ability, boolean active) {
     Set<ObjectAbility> abilities = this.getObjectAbilities(objectOriginalName);
     if(abilities == null)
@@ -484,9 +476,9 @@ public class SavedConfigurationsLoader {
   }
 
 
-
-
-
+  public boolean isARole(String roleStr) {
+    return this.getAvailableRoles().contains(roleStr);
+  }
 
 
 

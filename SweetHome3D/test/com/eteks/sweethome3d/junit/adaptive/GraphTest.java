@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
@@ -64,7 +64,7 @@ public class GraphTest extends BasicTest {
       System.out.println("sec:\n"  + securityGraph);
       
       this.displayGraph(home, securityGraph, this.preferences);
-      //HomePieceOfFurniture hopf = this.getHomePieceOfForniture(preferences, BuildingObjectType.CCTV, new Vector3D());
+      //HomePieceOfFurniture hopf = this.getHomePieceOfForniture(preferences, AssetType.CCTV, new Vector3D());
       //home.addPieceOfFurniture(hopf);
       
     } 
@@ -81,8 +81,8 @@ public class GraphTest extends BasicTest {
     for(BuildingRoomNode rib : roomsInBuilding)
     {
       Room r = rib.getRoomSmart();
-      List<BuildingObjectContained> objectsInside = rib.getObjectsInside();
-      for(BuildingObjectContained objectContained : objectsInside )
+      List<Asset> objectsInside = rib.getObjectsInside();
+      for(Asset objectContained : objectsInside )
       {
          Vector3D objPosition =  objectContained.getPosition();
          HomePieceOfFurniture hopf = this.getHomePieceOfForniture(preferences, objectContained.getType(), new Vector3D());

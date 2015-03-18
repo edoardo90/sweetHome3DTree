@@ -31,7 +31,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
@@ -164,14 +164,14 @@ public abstract  class BasicTest extends TestCase {
 
   }
 
-  public BuildingObjectType getTypeFromSweetName(String name)
+  public AssetType getTypeFromSweetName(String name)
   {
     ConfigFileEvilTest cfg = ConfigFileEvilTest.getInstance(preferences);
-    BuildingObjectType typeOfObject = cfg.getTypeForSweetHomeName(name);
+    AssetType typeOfObject = cfg.getTypeForSweetHomeName(name);
     return typeOfObject; 
   }
   
-  public String getSweetNameFromType(BuildingObjectType type)
+  public String getSweetNameFromType(AssetType type)
   {
     ConfigFileEvilTest  cfg = ConfigFileEvilTest.getInstance(preferences);
     String sweetName =  cfg.getSweetHomeNameForType(type);
@@ -200,10 +200,10 @@ public abstract  class BasicTest extends TestCase {
     home.addWall(w4);
     home.addWall(w5);
 
-    pc = getHomePieceOfForniture(preferences, BuildingObjectType.PC, new Vector3D(100, 100, 0));
-    cctv = getHomePieceOfForniture(preferences, BuildingObjectType.CCTV, new Vector3D(500, 100, 0));
-    printer = getHomePieceOfForniture(preferences, BuildingObjectType.PRINTER, new Vector3D(300, 500, 0));
-    actor = getHomePieceOfForniture(preferences, BuildingObjectType.ACTOR, new Vector3D(500, 500, 0));
+    pc = getHomePieceOfForniture(preferences, AssetType.PC, new Vector3D(100, 100, 0));
+    cctv = getHomePieceOfForniture(preferences, AssetType.CCTV, new Vector3D(500, 100, 0));
+    printer = getHomePieceOfForniture(preferences, AssetType.PRINTER, new Vector3D(300, 500, 0));
+    actor = getHomePieceOfForniture(preferences, AssetType.ACTOR, new Vector3D(500, 500, 0));
     
     home.addPieceOfFurniture(pc);
     home.addPieceOfFurniture(cctv);
@@ -212,10 +212,10 @@ public abstract  class BasicTest extends TestCase {
 
   }
 
-  protected HomePieceOfFurniture getHomePieceOfForniture(UserPreferences preferences, BuildingObjectType type, Vector3D position)
+  protected HomePieceOfFurniture getHomePieceOfForniture(UserPreferences preferences, AssetType type, Vector3D position)
   {
     ConfigFileEvilTest cfg = ConfigFileEvilTest.getInstance(preferences);
-    Map<BuildingObjectType, HomePieceOfFurniture> map =   cfg.getMapTypeToFurniture();
+    Map<AssetType, HomePieceOfFurniture> map =   cfg.getMapTypeToFurniture();
     preferences.setFornitureMap(map); 
     
     HomePieceOfFurniture hopf = preferences.getPieceOfForniture(type);

@@ -7,7 +7,7 @@ public class PCObject extends FileHolder {
   public PCObject(Vector3D position)
   {
     super(position);
-    this.objectType = BuildingObjectType.PC;
+    this.objectType = AssetType.PC;
   }
   
 }

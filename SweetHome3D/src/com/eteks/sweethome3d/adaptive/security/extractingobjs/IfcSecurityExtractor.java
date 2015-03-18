@@ -48,8 +48,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.assets.UnknownObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
@@ -418,14 +418,14 @@ public class IfcSecurityExtractor extends SecurityExtractor{
 
 
         //containement
-        List<BuildingObjectContained> objects = getObjectsOfRoom(space, scaleFactor);
+        List<Asset> objects = getObjectsOfRoom(space, scaleFactor);
         
         BuildingRoomNode buildingRoomNode = new
             BuildingRoomNode(roomName, roomShape, objects);
         buildingRoomNode.setId(idRoom);
         securityGraph.putBuildingRoom(new IdRoom(idRoom), buildingRoomNode);
         
-        for(BuildingObjectContained objCont : objects)
+        for(Asset objCont : objects)
         {
           securityGraph.putObjectRoom(new IdObject(objCont.getId()), buildingRoomNode);
         }
@@ -454,9 +454,9 @@ public class IfcSecurityExtractor extends SecurityExtractor{
   }
 
 
-  private List<BuildingObjectContained> getObjectsOfRoom(IfcSpace space, float scalePositionFactor) {
+  private List<Asset> getObjectsOfRoom(IfcSpace space, float scalePositionFactor) {
 
-    List<BuildingObjectContained> contained = new ArrayList<BuildingObjectContained>();
+    List<Asset> contained = new ArrayList<Asset>();
     SET<IfcRelContainedInSpatialStructure> ifcRelContainedInSpatialStructure =  space.getContainsElements_Inverse();
     if(ifcRelContainedInSpatialStructure != null)
     {
@@ -477,7 +477,7 @@ public class IfcSecurityExtractor extends SecurityExtractor{
 
           //scale to match length unit used in the ifc file
           furniturePosition.scale(scalePositionFactor);
-          BuildingObjectContained singleFurniture = getObectContained( furniturePosition, furnitureProduct);
+          Asset singleFurniture = getObectContained( furniturePosition, furnitureProduct);
           
           super.setAbilitiesAndAttributes(singleFurniture);
           
@@ -507,11 +507,11 @@ public class IfcSecurityExtractor extends SecurityExtractor{
    * @param product
    * @return
    */
-  private BuildingObjectContained getObectContained(Vector3D position, IfcProduct product)
+  private Asset getObectContained(Vector3D position, IfcProduct product)
   {
     String actualName = product.getName().getDecodedValue(); /** IFC name of the product **/
 
-    for(BuildingObjectType objType : BuildingObjectType.values())
+    for(AssetType objType : AssetType.values())
     {
 
       List<String> toLookStrings = this.savedConfigurationsLoader.stringToLookFor(objType);
@@ -519,7 +519,7 @@ public class IfcSecurityExtractor extends SecurityExtractor{
       {
         if(matches(nameToLookFor, actualName))
         {
-          BuildingObjectContained boc = objType.getBuildingObjectOfType(position);
+          Asset boc = objType.getBuildingObjectOfType(position);
           boc.setName(objType.name());
           boc.setOriginalName(objType.originalName());
           return boc;

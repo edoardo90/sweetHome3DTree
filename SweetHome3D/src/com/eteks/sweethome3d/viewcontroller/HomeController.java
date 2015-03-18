@@ -64,7 +64,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
@@ -1606,7 +1606,7 @@ public class HomeController implements Controller {
                 "catalog ID: " + hopf.getCatalogId() +
                 ""
                 );
-            BuildingObjectContained bocUpdated = editStatusOfOjbect(id);
+            Asset bocUpdated = editStatusOfOjbect(id);
             hopf.setId(bocUpdated.getId());
 
 
@@ -1624,7 +1624,7 @@ public class HomeController implements Controller {
    * This method also updates the object at model level
    * @param id
    */
-  public BuildingObjectContained editStatusOfOjbect(String id)
+  public Asset editStatusOfOjbect(String id)
   {
     StatusOfObjectForView representation;
 
@@ -1634,7 +1634,7 @@ public class HomeController implements Controller {
 
     representation =   getView().showStatusDialog( statusForView, this);
 
-    BuildingObjectContained objectCont = setStatusOfObject( id, representation);
+    Asset objectCont = setStatusOfObject( id, representation);
 
     updateFathersInGraph(objectCont);
     ///TODO: think again ... home.hideContainedObjects(); 
@@ -1642,18 +1642,18 @@ public class HomeController implements Controller {
   }
 
 
-  private void updateFathersInGraph(BuildingObjectContained boc) {
-    List<BuildingObjectContained> sons = boc.getObjectContained();
+  private void updateFathersInGraph(Asset boc) {
+    List<Asset> sons = boc.getObjectContained();
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-    for(BuildingObjectContained son : sons)
+    for(Asset son : sons)
     {
       segraph.putFather(new IdObject(son.getId()), boc);
     }
   }
 
-  private BuildingObjectContained setStatusOfObject(String id, StatusOfObjectForView representation) {
+  private Asset setStatusOfObject(String id, StatusOfObjectForView representation) {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-    BuildingObjectContained containedObj = segraph.getObjectContainedFromObj(new IdObject(id));
+    Asset containedObj = segraph.getObjectContainedFromObj(new IdObject(id));
     if(containedObj == null)
     {
       return null;
@@ -1666,7 +1666,7 @@ public class HomeController implements Controller {
   private StatusOfObjectForView getStatusOfObject(String id)
   {
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-    BuildingObjectContained containedObj = segraph.getObjectContainedFromObj(new IdObject(id));
+    Asset containedObj = segraph.getObjectContainedFromObj(new IdObject(id));
     if(containedObj == null)
     {
       System.err.println("Contained object is null, maybe the graph is not updated!!!");
@@ -1721,7 +1721,7 @@ public class HomeController implements Controller {
         HomePieceOfFurniture hopf2 = (HomePieceOfFurniture)obj2;
         boolean added = this.home.addCyberLink(hopf1.getId(), hopf2.getId());
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-        BuildingObjectContained bo1 = segraph.getObjectContainedFromHOPF(hopf1);
+        Asset bo1 = segraph.getObjectContainedFromHOPF(hopf1);
         if(added)
           this.setVisibilityOfUnconnectable(bo1);
         else
@@ -1742,7 +1742,7 @@ public class HomeController implements Controller {
     return new CyberLinkRepr(dimLine.getName());
   }
 
-  private void setVisibilityOfUnconnectable(BuildingObjectContained bo1) {
+  private void setVisibilityOfUnconnectable(Asset bo1) {
     if(bo1.getType() != null  && bo1.getType().canConnect())
     {
       this.home.setVisibilityOfNotConnectable(false);

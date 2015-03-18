@@ -12,8 +12,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.eteks.sweethome3d.adaptive.security.assets.ActorObject;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.assets.GeneralFileHolder;
 import com.eteks.sweethome3d.adaptive.security.assets.GeneralMaterialObject;
 import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
@@ -107,7 +107,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
    * @return <pre> a list of {@link BuildingRoomNode}, each of them represent
    * a room inside the building.
    * A BuildindRoomNode contains:
-   *    - a List of {@link BuildingObjectContained} :  the objects contained in the room
+   *    - a List of {@link Asset} :  the objects contained in the room
    *    - a {@link RoomGeoSmart} : a decorated version of the {@link Room}  SW3D object
    * Given a BuildingRoomNode it is possible to get the RoomGeosmart contained,
    * it is possible to get a list of objects contained
@@ -273,7 +273,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
     BuildingRoomNode broomDestination = this.getBuildingRoomFromRoom(IDDEST);
     BuildingRoomNode  broomSource = this.getBuildingRoomFromObj(IDOBJ);
-    BuildingObjectContained objectCont = this.getObjectContainedFromObj(IDOBJ);
+    Asset objectCont = this.getObjectContainedFromObj(IDOBJ);
 
     if(broomDestination == null || broomSource == null || objectCont == null)
     {
@@ -296,9 +296,9 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   }
 
-  public BuildingObjectContained getObjectContainedFromObj(IdObject IDOBJ)
+  public Asset getObjectContainedFromObj(IdObject IDOBJ)
   {
-    BuildingObjectContained boc = this.objectsContained.get(IDOBJ);
+    Asset boc = this.objectsContained.get(IDOBJ);
 
     return boc;
   }
@@ -320,9 +320,9 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
    * Mater semper certa est ... pater numquam ...
    * </pre>
    * @param IDOBJECT
-   * @return the {@link BuildingObjectContained} representing the container or null
+   * @return the {@link Asset} representing the container or null
    */
-  public BuildingObjectContained getFatherOfObject(IdObject IDOBJECT)
+  public Asset getFatherOfObject(IdObject IDOBJECT)
   {
     return this.objectsFather.get(IDOBJECT);
   }
@@ -331,13 +331,13 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
    * @param IDOBJCT
    * @param father: the container of the object whose id is wrapped in {@link IdObject}
    */
-  public void putFather(IdObject IDOBJCT, BuildingObjectContained father)
+  public void putFather(IdObject IDOBJCT, Asset father)
   {
     this.objectsFather.put(IDOBJCT, father);
   }
 
   public void addNewObject(String idObject,
-                           BuildingObjectType type, 
+                           AssetType type, 
                            String pieceName,
                            String pieceOriginalName,
                            String idRoomDestination,
@@ -349,14 +349,14 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     {
       throw new IllegalStateException("graph not updated");
     }
-    BuildingObjectContained objectCont = type.getBuildingObjectOfType(position);
+    Asset objectCont = type.getBuildingObjectOfType(position);
 
     objectCont.setId(idObject);
     objectCont.setName(pieceName);
     objectCont.setOriginalName(pieceOriginalName);
 
     this.setAbilitiesAndAttributes(objectCont);
-    if(type == BuildingObjectType.UNKNOWN_OBJECT)
+    if(type == AssetType.UNKNOWN_OBJECT)
     {
       if( objectCont.getAbilities().contains(ObjectAbility.STORE_FILES))
       {
@@ -384,12 +384,12 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   }
 
-  private void setAbilitiesAndAttributes(BuildingObjectContained objectCont) {
+  private void setAbilitiesAndAttributes(Asset objectCont) {
     this.setAttributes(objectCont);
     this.setAbilities (objectCont);
   }
 
-  private void setAbilities(BuildingObjectContained objectCont) {
+  private void setAbilities(Asset objectCont) {
 
     SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
     String originalName = objectCont.getOriginalName();
@@ -402,7 +402,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   }
 
-  private void setAttributes(BuildingObjectContained objectCont) {
+  private void setAttributes(Asset objectCont) {
 
     SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
     String originalName = objectCont.getOriginalName();
@@ -413,7 +413,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   }
 
-  public void putObjectCont(IdObject idObj, BuildingObjectContained cont)
+  public void putObjectCont(IdObject idObj, Asset cont)
   {
     this.objectsContained.put(idObj, cont);
   }
@@ -433,7 +433,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
     String  s = "OBJECTS ID --- security model --> OBJ CONT: \n";
 
-    for(Entry<IdObject, BuildingObjectContained> entry : this.objectsContained.entrySet())
+    for(Entry<IdObject, Asset> entry : this.objectsContained.entrySet())
     {
       s = s + "\t" +  entry.getKey() + "\n";
       s = s + "\t" +  entry.getValue().typeString()  + "\n\n";
@@ -454,7 +454,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     }
 
     s = s + "\n OBJECT ID ----who is his father---> OBJECT ID FATHER \n";
-    for(Entry<IdObject, BuildingObjectContained> entry : this.objectsFather.entrySet())
+    for(Entry<IdObject, Asset> entry : this.objectsFather.entrySet())
     {
       s = s + "\t" + entry.getKey() + "\n";
       s = s + "\t" + entry.getValue().getName() + "\n\n";
@@ -487,7 +487,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     for(BuildingRoomNode roomNode : this.roomNodeList )
     {
       s = s + "\nROOM: \n" + roomNode;
-      for(BuildingObjectContained bojc : roomNode.getObjectsInside())
+      for(Asset bojc : roomNode.getObjectsInside())
       {
         s = s + "\n\t" + bojc ;
       }
@@ -512,7 +512,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   public void moveObject(String idObject, Vector3D position) {
     String roomId = this.getRoomId(position);
-    BuildingObjectContained boc = this.getObjectContainedFromObj(new IdObject(idObject));
+    Asset boc = this.getObjectContainedFromObj(new IdObject(idObject));
     if(boc == null)
       return;
     boc.setPosition(position);
@@ -528,7 +528,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
   public void removeObject(String idObject) {
     IdObject IDOBJ = new IdObject(idObject);
     BuildingRoomNode containingRoom = this.getBuildingRoomFromObj(IDOBJ);
-    BuildingObjectContained contained = this.getObjectContainedFromObj(IDOBJ);
+    Asset contained = this.getObjectContainedFromObj(IDOBJ);
 
     if(containingRoom == null || contained == null)
     {
@@ -558,7 +558,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
   }
 
 
-  public void addNewObject(String idObject, BuildingObjectType type,
+  public void addNewObject(String idObject, AssetType type,
                            String pieceName, String pieceOriginalName,
                            Vector3D position) {
     String idRoomDestination;
@@ -572,8 +572,8 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
   }
 
   public boolean addCyberLink(String id1, String id2, String name) {
-    BuildingObjectContained bo1 = this.getObjectContainedFromObj(new IdObject(id1));
-    BuildingObjectContained bo2 = this.getObjectContainedFromObj(new IdObject(id2));
+    Asset bo1 = this.getObjectContainedFromObj(new IdObject(id1));
+    Asset bo2 = this.getObjectContainedFromObj(new IdObject(id2));
 
     if(bo1 == null || bo2 == null)
     {
@@ -598,7 +598,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
   }
   
 
-  private boolean canConnect(BuildingObjectContained bo1, BuildingObjectContained bo2) {
+  private boolean canConnect(Asset bo1, Asset bo2) {
 
     boolean ablityBased1 = bo1.getAbilities().contains(ObjectAbility.CONNECT);
     boolean ablityBased2 = bo2.getAbilities().contains(ObjectAbility.CONNECT);
@@ -610,10 +610,10 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     this.cyberLinkEdgeList.remove(new CyberLinkEdge(id1, id2));
   }
 
-  public BuildingObjectContained getObjectContainedFromHOPF(HomePieceOfFurniture hopf) {
+  public Asset getObjectContainedFromHOPF(HomePieceOfFurniture hopf) {
     IdObject id =  new IdObject(hopf.getId());
 
-    BuildingObjectContained boo = this.getObjectContainedFromObj(id);
+    Asset boo = this.getObjectContainedFromObj(id);
     if(boo == null)
     {
       throw new IllegalStateException("object not found");
@@ -623,17 +623,17 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   public List<String> getListStrContainedObjects() {
     List<String> lstOjbects = new ArrayList<String>();
-    for(BuildingObjectContained boc : this.objectsContained.values())
+    for(Asset boc : this.objectsContained.values())
     {
       lstOjbects.add(boc.getStringRepresent());
     }
     return lstOjbects;
   }
 
-  public Set<BuildingObjectContained> getSetOfBuildingObjects()
+  public Set<Asset> getSetOfBuildingObjects()
   {
-    Set<BuildingObjectContained> bobs = 
-        new HashSet<BuildingObjectContained>(this.objectsContained.values());
+    Set<Asset> bobs = 
+        new HashSet<Asset>(this.objectsContained.values());
     return bobs;
 
   }
@@ -646,7 +646,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
    */
   public void refreshObjectsFeautures() {
 
-    for(BuildingObjectContained objectCont : this.objectsContained.values())
+    for(Asset objectCont : this.objectsContained.values())
     {
       this.setAbilitiesAndAttributes(objectCont);
     }
@@ -667,7 +667,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   public void changeIDOBJ(String oldId, String newId) {
 
-    BuildingObjectContained oldObj = this.getObjectContainedFromObj(new IdObject(oldId));
+    Asset oldObj = this.getObjectContainedFromObj(new IdObject(oldId));
     oldObj.setId(newId);
     this.removeIDObjectFromIDOBJMap(new IdObject(oldId));
     this.putObjectCont(new IdObject(newId), oldObj);
@@ -727,8 +727,8 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   private Map<IdRoom, BuildingRoomNode>  buildingRooms = new HashMap<IdRoom, BuildingRoomNode>();
   private Map<IdObject, BuildingRoomNode>  objectsRoomLocation = new HashMap<IdObject, BuildingRoomNode>();
-  private Map<IdObject, BuildingObjectContained> objectsContained = new HashMap<IdObject, BuildingObjectContained>();
-  private Map<IdObject, BuildingObjectContained> objectsFather = new HashMap<IdObject, BuildingObjectContained>();
+  private Map<IdObject, Asset> objectsContained = new HashMap<IdObject, Asset>();
+  private Map<IdObject, Asset> objectsFather = new HashMap<IdObject, Asset>();
 
 
   private List<WrapperRect>  spaceAreasOfRooms = new ArrayList<WrapperRect>();

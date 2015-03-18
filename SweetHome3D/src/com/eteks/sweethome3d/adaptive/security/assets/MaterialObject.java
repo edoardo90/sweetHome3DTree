@@ -7,7 +7,7 @@ import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectA
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 
-public abstract class MaterialObject extends BuildingObjectContained {
+public abstract class MaterialObject extends Asset {
 
   private LifeStatus lifeStatus = LifeStatus.ON;
   

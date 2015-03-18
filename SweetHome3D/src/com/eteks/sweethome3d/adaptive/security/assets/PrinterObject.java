@@ -8,7 +8,7 @@ public class PrinterObject extends FileHolder {
   public PrinterObject(Vector3D position)
   {
     super(position);
-    this.objectType  = BuildingObjectType.PRINTER;
+    this.objectType  = AssetType.PRINTER;
   }
   
   

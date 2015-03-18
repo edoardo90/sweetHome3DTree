@@ -8,7 +8,7 @@ public class GeneralFileHolder extends FileHolder implements Serializable {
 
   public GeneralFileHolder(Vector3D position) {
     super(position);
-    this.objectType = BuildingObjectType.GENERAL_FILE_HOLEDER;
+    this.objectType = AssetType.GENERAL_FILE_HOLEDER;
   }
 
 }

@@ -2,7 +2,7 @@ package com.eteks.sweethome3d.adaptive.security.assets;
 
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 
-public enum BuildingObjectType {
+public enum AssetType {
   ACTOR("Actor"), CCTV("CCTV"), LIGHT("Light"), PC("Pc"),
    PRINTER("Printer"), HVAC("HVAC"), MAN("Man"), WOMAN("Woman"), UNKNOWN_OBJECT(""),
    GENERAL_FILE_HOLEDER("FileHolder"), GENERAL_MATERIAL_OBJ("MaterialObject"),
@@ -10,7 +10,7 @@ public enum BuildingObjectType {
    
   private String original;
   
-  BuildingObjectType(String s)
+  AssetType(String s)
   {
     original = s;
     
@@ -23,7 +23,7 @@ public enum BuildingObjectType {
    * @return <pre>  An Appropriate object that stores the type and the position
    *       e.g   ActorObject(position)  ==>   Actor (  (200, 500),  TYPE.ACTOR) )  </pre>
    */
-  public  BuildingObjectContained getBuildingObjectOfType(Vector3D position)
+  public  Asset getBuildingObjectOfType(Vector3D position)
   {
     switch(this)
     {

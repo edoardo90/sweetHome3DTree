@@ -38,7 +38,7 @@ import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 import com.eteks.sweethome3d.model.CollectionEvent;
 import com.eteks.sweethome3d.model.CollectionListener;
@@ -481,7 +481,7 @@ public class FurnitureController implements Controller {
               this.viewFactory, this.contentManager, 
               this.undoSupport); 
 
-      BuildingObjectContained objectSelected = home.getObjectContainedSelected();
+      Asset objectSelected = home.getObjectContainedSelected();
       HomePieceOfFurniture   piece = home.getPieceSelected();
       
       SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();

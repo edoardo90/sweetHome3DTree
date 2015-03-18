@@ -41,6 +41,11 @@ private static ConfigFileEvilTest instance = null;
     URL url = classe.getResource(name);
     URI uri=null;
     try {
+      if(url == null)
+      {
+        int pippo=0;
+        pippo++;
+      }
       uri = url.toURI();
     } catch (URISyntaxException ex) {
 

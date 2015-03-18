@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
@@ -73,7 +73,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     for (Room r : rooms)
     {
       RoomGeoSmart rg = new RoomGeoSmart(r);
-      List<BuildingObjectContained> objectsInside = new ArrayList<BuildingObjectContained>();
+      List<Asset> objectsInside = new ArrayList<Asset>();
       BuildingRoomNode brn = new BuildingRoomNode(rg.getName(), 
           rg.getShape(), objectsInside);  
       
@@ -100,16 +100,16 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           
           SavedConfigurationsLoader cfg = this.getConfig(preferences);
           SecurityNameAndMap namesConv = cfg.getNamesConventions();
-          Map<String, BuildingObjectType> catalog = namesConv.sweetCatalogToType;
+          Map<String, AssetType> catalog = namesConv.sweetCatalogToType;
           String name = pieceOfForn.getOriginalName();
           if(name == null)
           {
             throw new IllegalStateException("tha name should be not null!!!");
           }
-          BuildingObjectType typeObj = catalog.get(name);
+          AssetType typeObj = catalog.get(name);
           if(typeObj == null)
           {
-            typeObj = BuildingObjectType.UNKNOWN_OBJECT;
+            typeObj = AssetType.UNKNOWN_OBJECT;
           }
           if(typeObj == null)
           {
@@ -117,7 +117,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
             pippo++;
           }
           
-          BuildingObjectContained objCont = typeObj.getBuildingObjectOfType(position);
+          Asset objCont = typeObj.getBuildingObjectOfType(position);
           objCont.setId(pieceOfForn.getId());
           objCont.setName(pieceOfForn.getName());
           objCont.setOriginalName(pieceOfForn.getOriginalName());

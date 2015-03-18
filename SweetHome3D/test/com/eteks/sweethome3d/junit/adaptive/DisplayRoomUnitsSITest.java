@@ -1,6 +1,6 @@
 package com.eteks.sweethome3d.junit.adaptive;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.FurnitureAddTest.ControllerTest;
@@ -50,10 +50,10 @@ public class DisplayRoomUnitsSITest extends BasicTest {
 
      
     ConfigFileEvilTest cfg = ConfigFileEvilTest.getInstance(preferences);
-    String nameOfCCTV =  cfg.getSweetHomeNameForType(BuildingObjectType.CCTV);
+    String nameOfCCTV =  cfg.getSweetHomeNameForType(AssetType.CCTV);
     System.out.println("cctv : " + nameOfCCTV);   //Doccia
     String objectName = "Doccia";
-    BuildingObjectType typeOfObject = cfg.getTypeForSweetHomeName(objectName);
+    AssetType typeOfObject = cfg.getTypeForSweetHomeName(objectName);
     System.out.println(" type  :" + typeOfObject);
     
   }

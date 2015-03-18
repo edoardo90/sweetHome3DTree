@@ -21,7 +21,7 @@ package com.eteks.sweethome3d.viewcontroller;
 
 import java.util.Set;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.CatalogTexture;
@@ -129,7 +129,7 @@ public interface ViewFactory {
    * @param roles 
    * @param actorSelected : actor selected in main pane
    */
-  public abstract HomeFurnitureActor createHomeFurnitureViewActor(Set<String> roles, BuildingObjectContained buildingObjectContained, UserPreferences preferences,
+  public abstract HomeFurnitureActor createHomeFurnitureViewActor(Set<String> roles, Asset asset, UserPreferences preferences,
                                                  HomeFurnitureController homeFurnitureController);
   
   /**

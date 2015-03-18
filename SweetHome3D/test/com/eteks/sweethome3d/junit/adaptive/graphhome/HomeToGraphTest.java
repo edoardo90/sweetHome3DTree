@@ -3,8 +3,8 @@ package com.eteks.sweethome3d.junit.adaptive.graphhome;
 import java.util.List;
 import java.util.Set;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.CyberLinkEdge;
@@ -79,9 +79,15 @@ public class HomeToGraphTest extends BasicTest {
     }
     assertTrue("can't link CCTV and PC because CCTV can't accept connections", illegalArg);
 
-    
-    segraph.addCyberLink(this.printer.getId(), this.pc.getId());
-    
+    try
+    {
+      segraph.addCyberLink(this.printer.getId(), this.pc.getId());
+    }
+    catch(IllegalArgumentException e)
+    {
+      
+    }
+    //does not work because of evil config loader not set properly ... 
     assertTrue("printer and pc should be linked",
                     this.isThereLink(segraph, printer.getId(),  pc.getId()));
     
@@ -124,7 +130,7 @@ public class HomeToGraphTest extends BasicTest {
     assertTrue("there should be wash in cubby room",
         this.containsDeep(segraph, this.cubbyRoom.getId(), "wash"));
 
-    segraph.addNewObject("light1", BuildingObjectType.LIGHT, "light", "light", "kitchen", 
+    segraph.addNewObject("light1", AssetType.LIGHT, "light", "light", "kitchen", 
          new Vector3D(300, 400, 0));
 
 
@@ -231,8 +237,8 @@ public class HomeToGraphTest extends BasicTest {
 
     for(BuildingRoomNode roomNode : roomNodes)
     {
-      List<BuildingObjectContained> contained = roomNode.getObjectsInside();
-      for(BuildingObjectContained obj : contained)
+      List<Asset> contained = roomNode.getObjectsInside();
+      for(Asset obj : contained)
       {
         if(obj.getId().equals(objectId) && roomNode.getId().equals(roomId))
         {

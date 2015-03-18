@@ -115,9 +115,8 @@
       <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained" 
-    project="SweetHome3D" 
-    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/assets/BuildingObjectContained.java" binary="false" 
+  <class id="12" language="java" name="com.eteks.sweethome3d.adaptive.security.assets.Asset" project="SweetHome3D" 
+    file="/SweetHome3D/src/com/eteks/sweethome3d/adaptive/security/assets/Asset.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="58" width="240" x="677" y="749"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 

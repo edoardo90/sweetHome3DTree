@@ -48,7 +48,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.viewcontroller.DialogView;
@@ -118,7 +118,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
   protected JPanel locationPanel;
   protected JPanel sizePanel;
   protected JPanel paintPanel;
-  private BuildingObjectContained objectSelected;
+  private Asset objectSelected;
   
   
   /**
@@ -1319,7 +1319,7 @@ public class HomeFurniturePanel extends JPanel implements DialogView {
     }
   }
 
-  public void setBuildingObject(BuildingObjectContained objectSelected) {
+  public void setBuildingObject(Asset objectSelected) {
     this.objectSelected = objectSelected;
     String id = "";
     if(objectSelected != null)

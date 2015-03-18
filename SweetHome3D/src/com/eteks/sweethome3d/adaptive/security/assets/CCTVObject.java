@@ -7,7 +7,7 @@ public class CCTVObject extends MaterialObject {
   public CCTVObject(Vector3D position)
   {
       super(position);
-      this.objectType = BuildingObjectType.CCTV; 
+      this.objectType = AssetType.CCTV; 
   }
 
  

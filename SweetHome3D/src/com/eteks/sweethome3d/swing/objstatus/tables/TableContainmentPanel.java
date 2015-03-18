@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.swing.JTable;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 
 
@@ -43,11 +43,11 @@ public  class TableContainmentPanel extends PanelWithTable<String> {
   });
   }
   
-  private BuildingObjectContained askAViewForChangingStatus(String id)
+  private Asset askAViewForChangingStatus(String id)
   {
      for(HomeController hc : this.controllers)
      {
-       BuildingObjectContained boc = hc.editStatusOfOjbect(id);
+       Asset boc = hc.editStatusOfOjbect(id);
        return boc;
      }
      return null;

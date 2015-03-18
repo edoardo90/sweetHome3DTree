@@ -13,14 +13,14 @@ import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForVie
 
 
 
-public class ActorObject extends BuildingObjectContained {
+public class ActorObject extends Asset {
   
   private List<Role> roles = new ArrayList<Role>();
   
   public ActorObject(Vector3D position)
   {
     super(position);
-    this.objectType = BuildingObjectType.ACTOR;
+    this.objectType = AssetType.ACTOR;
   }
 
   @Override

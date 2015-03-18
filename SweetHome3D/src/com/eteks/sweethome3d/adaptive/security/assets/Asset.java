@@ -15,17 +15,17 @@ import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 
 
-public abstract class BuildingObjectContained extends BuildingGraphPart {
+public abstract class Asset extends BuildingGraphPart {
 
-  protected BuildingObjectType objectType;
+  protected AssetType objectType;
   private Vector3D position;
-  private List<BuildingObjectContained> objectContained = new ArrayList<BuildingObjectContained>();
+  private List<Asset> objectContained = new ArrayList<Asset>();
   private List<BuildingObjectAttribute> attributes = new ArrayList<BuildingObjectAttribute>();
   private Set<ObjectAbility> abilities = new TreeSet<ObjectAbility>();
   private String originalName;
 
 
-  public BuildingObjectContained(Vector3D position) {
+  public Asset(Vector3D position) {
     this.setPosition(position);
   }
 
@@ -58,24 +58,24 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     this.position = position;
   }
   
-  public BuildingObjectType getType()
+  public AssetType getType()
   {
     return this.objectType;
   }
 
 
 
-  public List<BuildingObjectContained> getObjectContained() {
+  public List<Asset> getObjectContained() {
     return objectContained;
   }
 
 
 
-  public void setObjectContained(List<BuildingObjectContained> objectContained) {
+  public void setObjectContained(List<Asset> objectContained) {
     this.objectContained = objectContained;
   }
 
-  public void addObjectContained(BuildingObjectContained cont)
+  public void addObjectContained(Asset cont)
   {
     this.objectContained.add(cont);
   }
@@ -90,7 +90,7 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   {
     BuildingSecurityGraph segrapg = BuildingSecurityGraph.getInstance();
     String id = this.getIdFromTableString(objectCont);
-    BuildingObjectContained boc = segrapg.getObjectContainedFromObj(new IdObject(id));
+    Asset boc = segrapg.getObjectContainedFromObj(new IdObject(id));
     this.addObjectContained(boc);
   }
   /**
@@ -134,7 +134,7 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
   public List<String> getObjectConainedStr() {
 
     List<String> objsContained = new ArrayList<String>();
-    for(BuildingObjectContained boc : this.getObjectContained())
+    for(Asset boc : this.getObjectContained())
     {
       String bocStr = boc.getStringRepresent();
       objsContained.add(bocStr);
@@ -144,7 +144,7 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
 
   public List<String> getObjectConainedIDStr() {
     List<String> ids = new ArrayList<String>();  
-    for(BuildingObjectContained boc : this.getObjectContained())
+    for(Asset boc : this.getObjectContained())
     {
       String id = boc.getId();
       ids.add(id);

@@ -11,8 +11,8 @@ import java.util.Set;
 
 import javax.swing.event.ListSelectionEvent;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.CyberLinkEdge;
@@ -36,11 +36,11 @@ public class JSonGraph {
   {
     Gson g = new GsonBuilder().setPrettyPrinting().create();
     
-    Set<BuildingObjectContained> objects = segraph.getSetOfBuildingObjects();
+    Set<Asset> objects = segraph.getSetOfBuildingObjects();
     
     Set<BuildingObjSimple> objectSimples =  new HashSet<BuildingObjSimple>();
     
-    for(BuildingObjectContained boc : objects)
+    for(Asset boc : objects)
     {
       BuildingRoomNode broom = segraph.getBuildingRoomFromObj(new IdObject(boc.getId()));
       
@@ -356,11 +356,11 @@ public class JSonGraph {
         
     }
     
-    public BuildingObjSimple(BuildingObjectContained boc, String bRoomId)
+    public BuildingObjSimple(Asset boc, String bRoomId)
     {
       //BASIC
       String id = boc.getId();
-      BuildingObjectType type = boc.getType();
+      AssetType type = boc.getType();
       Set<String> additionalAttributes = boc.getAttributesStr(); 
       String  connectable = String.valueOf( boc.canConnect());
       

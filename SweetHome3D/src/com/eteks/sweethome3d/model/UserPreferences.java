@@ -39,7 +39,7 @@ import java.util.PropertyPermission;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.AssetType;
 
 /**
  * User preferences.
@@ -68,8 +68,8 @@ public abstract class UserPreferences {
   private static final TextStyle DEFAULT_TEXT_STYLE = new TextStyle(18f);
   private static final TextStyle DEFAULT_ROOM_TEXT_STYLE = new TextStyle(24f);
   
-  private static Map<BuildingObjectType, HomePieceOfFurniture> pieceOfFornitureForBuilding
-    = new HashMap<BuildingObjectType, HomePieceOfFurniture>();
+  private static Map<AssetType, HomePieceOfFurniture> pieceOfFornitureForBuilding
+    = new HashMap<AssetType, HomePieceOfFurniture>();
 
   static {
     Properties supportedLanguagesProperties = new Properties();
@@ -175,7 +175,7 @@ public abstract class UserPreferences {
     }
   }
 
-  public HomePieceOfFurniture getPieceOfForniture(BuildingObjectType type)
+  public HomePieceOfFurniture getPieceOfForniture(AssetType type)
   {
     HomePieceOfFurniture o = UserPreferences.pieceOfFornitureForBuilding.get(type);
     if(o == null)
@@ -186,7 +186,7 @@ public abstract class UserPreferences {
     return o.clone();
   }
   
-  public void setFornitureMap(Map<BuildingObjectType, HomePieceOfFurniture> map)
+  public void setFornitureMap(Map<AssetType, HomePieceOfFurniture> map)
   {
     UserPreferences.pieceOfFornitureForBuilding = map;
   }

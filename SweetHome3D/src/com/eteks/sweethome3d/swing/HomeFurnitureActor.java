@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.eteks.sweethome3d.adaptive.security.assets.ActorObject;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
 /**
@@ -28,11 +28,11 @@ public class HomeFurnitureActor extends HomeFurniturePanel implements ItemListen
   private Set<String> roles;
   private Set<String> selectedRoles = new HashSet<String>();
   
-  public HomeFurnitureActor(Set<String> roles, BuildingObjectContained buildingObjectContained, UserPreferences preferences, HomeFurnitureController controller) {
+  public HomeFurnitureActor(Set<String> roles, Asset asset, UserPreferences preferences, HomeFurnitureController controller) {
       super(preferences, controller);
       
-      if (buildingObjectContained instanceof ActorObject) {
-        ActorObject actor = (ActorObject)buildingObjectContained;
+      if (asset instanceof ActorObject) {
+        ActorObject actor = (ActorObject)asset;
         this.roles = roles;
         this.selectedRoles.addAll(actor.getRolesStr());
         this.addRolePanel(2);

@@ -35,7 +35,7 @@ import javax.swing.undo.UndoableEdit;
 import javax.swing.undo.UndoableEditSupport;
 
 import com.eteks.sweethome3d.adaptive.security.assets.ActorObject;
-import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.Asset;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.model.Content;
@@ -217,7 +217,7 @@ public class HomeFurnitureController implements Controller {
    * @param roles available
    * @param actorSelected : actor selected in main pane
    */
-  public HomeFurnitureActor getViewActor(Set<String> roles, BuildingObjectContained objectContained) {
+  public HomeFurnitureActor getViewActor(Set<String> roles, Asset objectContained) {
     // Create view lazily only once it'niceString needed
     if (this.homeFurnitureActorView == null) 
     {
@@ -241,7 +241,7 @@ public class HomeFurnitureController implements Controller {
    * @param roles available roles
    * @param actorSelected : actor selected in the HomePane
    */
-  public void displayViewActor(Set<String> roles, BuildingObjectContained objectContained,
+  public void displayViewActor(Set<String> roles, Asset objectContained,
                                HomePieceOfFurniture piece,
                                View parentView) {
     HomeFurnitureActor hfa = getViewActor(roles,  objectContained );
@@ -258,7 +258,7 @@ public class HomeFurnitureController implements Controller {
     System.out.println(BuildingSecurityGraph.getInstance());
   }
   
-  private void updateIdObj(BuildingObjectContained objectContained, String oldId, String newId, HomePieceOfFurniture piece)
+  private void updateIdObj(Asset objectContained, String oldId, String newId, HomePieceOfFurniture piece)
   {
     
     BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
@@ -276,7 +276,7 @@ public class HomeFurnitureController implements Controller {
   
 
   private void setRolesIntoActor(Set<String> roles, 
-                                 BuildingObjectContained objectContained,
+                                 Asset objectContained,
                                  HomeFurnitureActor hfa) {
     Set<String> selectedRoles = hfa.getSelectedRoles();
     if(selectedRoles != null && selectedRoles.size() != 0)
