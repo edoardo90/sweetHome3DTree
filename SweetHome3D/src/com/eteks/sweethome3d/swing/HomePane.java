@@ -233,7 +233,7 @@ public class HomePane extends JRootPane implements HomeView {
     OPEN_RECENT_HOME_MENU, ALIGN_OR_DISTRIBUTE_MENU, SORT_HOME_FURNITURE_MENU, DISPLAY_HOME_FURNITURE_PROPERTY_MENU, 
     MODIFY_TEXT_STYLE, GO_TO_POINT_OF_VIEW, SELECT_OBJECT_MENU, TOGGLE_SELECTION_MENU}
 
-  private static final String MAIN_PANE_DIVIDER_LOCATION_VISUAL_PROPERTY     = "com.eteks.sweethome3d.SweetHome3D.MainPaneDividerLocation";
+  protected static final String MAIN_PANE_DIVIDER_LOCATION_VISUAL_PROPERTY     = "com.eteks.sweethome3d.SweetHome3D.MainPaneDividerLocation";
   private static final String CATALOG_PANE_DIVIDER_LOCATION_VISUAL_PROPERTY  = "com.eteks.sweethome3d.SweetHome3D.CatalogPaneDividerLocation";
   private static final String PLAN_PANE_DIVIDER_LOCATION_VISUAL_PROPERTY     = "com.eteks.sweethome3d.SweetHome3D.PlanPaneDividerLocation";
   private static final String PLAN_VIEWPORT_X_VISUAL_PROPERTY                = "com.eteks.sweethome3d.SweetHome3D.PlanViewportX";
@@ -2390,13 +2390,11 @@ public class HomePane extends JRootPane implements HomeView {
   }
 
   /**
-   * Returns the main pane with sweetCatalogToType tree, furniture table and plan pane. 
+   * Returns the main pane with Catalog, furniture table and plan pane. 
    * 
-   * Edo'niceString changes:
-   * I also add a lateral decoratedPanel in which will be displayed the Reacheability Tree.
    * 
    */
-  private JComponent createMainPane(Home home, UserPreferences preferences, 
+  protected JComponent createMainPane(Home home, UserPreferences preferences, 
                                     HomeController controller) {
     final JComponent catalogFurniturePane = createCatalogFurniturePane(home, preferences, controller);
     final JComponent planView3DPane = createPlanView3DPane(home, preferences, controller);
@@ -2414,8 +2412,6 @@ public class HomePane extends JRootPane implements HomeView {
           MAIN_PANE_DIVIDER_LOCATION_VISUAL_PROPERTY, 0.3, true, controller);
 
 
-      //The original code finished here, now We also add a lateral decoratedPanel in which 
-      // will be placed the Reach Tree.
       return mainPane;
 
     }
@@ -2428,7 +2424,7 @@ public class HomePane extends JRootPane implements HomeView {
    * If <code>dividerLocationProperty</code> visual property exists in <code>home</code>,
    * its value will be used, otherwise the given resize weight will be used.
    */
-  private void configureSplitPane(final JSplitPane splitPane,
+  protected void configureSplitPane(final JSplitPane splitPane,
                                   Home home,
                                   final String dividerLocationProperty,
                                   final double defaultResizeWeight,
@@ -2505,7 +2501,7 @@ public class HomePane extends JRootPane implements HomeView {
   /**
    * Returns the sweetCatalogToType tree and furniture table pane. 
    */
-  private JComponent createCatalogFurniturePane(Home home,
+  protected JComponent createCatalogFurniturePane(Home home,
                                                 UserPreferences preferences,
                                                 final HomeController controller) {
     JComponent catalogView = (JComponent)controller.getFurnitureCatalogController().getView();
@@ -2652,7 +2648,7 @@ public class HomePane extends JRootPane implements HomeView {
   /**
    * Returns the plan view and 3D view pane. 
    */
-  private JComponent createPlanView3DPane(final Home home, UserPreferences preferences, 
+  protected JComponent createPlanView3DPane(final Home home, UserPreferences preferences, 
                                           final HomeController controller) {
     JComponent planView = (JComponent)controller.getPlanController().getView();
     if (planView != null) {

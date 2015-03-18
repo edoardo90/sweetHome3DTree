@@ -141,7 +141,7 @@ public class WizardControllerTest extends TestCase {
   }
   
   public static void main(String [] args) {
-    // Display the wizard controlled by ControllerTest
+    // Display the wizard controlled by ControllerSimpler
     new ControllerTest(new DefaultUserPreferences(), new SwingViewFactory()).displayView(null);
   }
 
