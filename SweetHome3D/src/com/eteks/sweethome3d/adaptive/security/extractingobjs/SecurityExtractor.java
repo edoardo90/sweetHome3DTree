@@ -2,22 +2,23 @@ package com.eteks.sweethome3d.adaptive.security.extractingobjs;
 
 import java.util.Set;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 public abstract class SecurityExtractor {
 
   protected BuildingSecurityGraph securityGraph = BuildingSecurityGraph.getInstance();
   
-  protected ConfigLoader configLoader;
+  protected SavedConfigurationsLoader savedConfigurationsLoader;
   protected UserPreferences preferences;
   
   public SecurityExtractor( UserPreferences preferences)
   {
     this.securityGraph.clearAll();
-    this.configLoader = this.getConfig(preferences); 
+    this.savedConfigurationsLoader = this.getConfig(preferences); 
     this.preferences = preferences;
   }
   
@@ -28,7 +29,7 @@ public abstract class SecurityExtractor {
 
   private void setAbilities(BuildingObjectContained objectCont) {
      
-     ConfigLoader cfg = ConfigLoader.getInstance();
+     SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
      String originalName = objectCont.getOriginalName();
      if(originalName == null)
          throw new IllegalStateException("original name is null!" + "objectCont : " + objectCont);
@@ -41,7 +42,7 @@ public abstract class SecurityExtractor {
 
   private void setAttributes(BuildingObjectContained objectCont) {
       
-    ConfigLoader cfg = ConfigLoader.getInstance();
+    SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
     String originalName = objectCont.getOriginalName();
     Set<BuildingObjectAttribute> attrs = cfg.getPossibleAttributesForObject(originalName);
     if(attrs == null)
@@ -51,7 +52,7 @@ public abstract class SecurityExtractor {
   }
   
   
-  protected abstract  ConfigLoader getConfig(UserPreferences preferences);
+  protected abstract  SavedConfigurationsLoader getConfig(UserPreferences preferences);
   public abstract BuildingSecurityGraph getGraph() throws Exception ;
   
   

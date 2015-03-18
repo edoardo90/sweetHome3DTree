@@ -37,16 +37,16 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 
@@ -673,10 +673,10 @@ public class Home implements Serializable, Cloneable {
       if(updateBehaviour == UpdateBehaviour.UPDATE_GRAPH)
       {
         BuildingSecurityGraph segraph = BuildingSecurityGraph.getInstance();
-        ConfigLoader cfg = null;
+        SavedConfigurationsLoader cfg = null;
         BuildingObjectType type = BuildingObjectType.UNKNOWN_OBJECT;
         try { 
-          cfg = ConfigLoader.getInstance();
+          cfg = SavedConfigurationsLoader.getInstance();
           String originalName = piece.getOriginalName();
 
           type  = cfg.getTypeForSweetHomeName(originalName);

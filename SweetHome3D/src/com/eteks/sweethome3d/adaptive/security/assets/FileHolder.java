@@ -1,10 +1,10 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
+package com.eteks.sweethome3d.adaptive.security.assets;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
+import com.eteks.sweethome3d.adaptive.security.assets.file.FileObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 

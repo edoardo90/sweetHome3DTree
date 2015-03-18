@@ -31,8 +31,8 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;

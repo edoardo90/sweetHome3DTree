@@ -48,6 +48,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
+import com.eteks.sweethome3d.adaptive.security.assets.UnknownObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
@@ -55,10 +59,6 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.UnknownObject;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Axis3DNice;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Placement3DNice;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.ProfileShape3D;
@@ -514,7 +514,7 @@ public class IfcSecurityExtractor extends SecurityExtractor{
     for(BuildingObjectType objType : BuildingObjectType.values())
     {
 
-      List<String> toLookStrings = this.configLoader.stringToLookFor(objType);
+      List<String> toLookStrings = this.savedConfigurationsLoader.stringToLookFor(objType);
       for(String nameToLookFor : toLookStrings)
       {
         if(matches(nameToLookFor, actualName))
@@ -910,8 +910,8 @@ public class IfcSecurityExtractor extends SecurityExtractor{
 
   
   @Override
-  protected ConfigLoader getConfig(UserPreferences preferences) {
-    return ConfigLoader.getInstance();
+  protected SavedConfigurationsLoader getConfig(UserPreferences preferences) {
+    return SavedConfigurationsLoader.getInstance();
   }
 
 

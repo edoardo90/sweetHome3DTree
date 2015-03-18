@@ -11,12 +11,12 @@ import java.util.Set;
 
 import javax.swing.event.ListSelectionEvent;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.CyberLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

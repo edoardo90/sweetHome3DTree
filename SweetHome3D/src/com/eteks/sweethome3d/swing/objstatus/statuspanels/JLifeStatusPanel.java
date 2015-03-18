@@ -15,7 +15,7 @@ import javax.swing.JRadioButton;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LifeStatus;
+import com.eteks.sweethome3d.adaptive.security.assets.LifeStatus;
 
 public class JLifeStatusPanel extends JPanelColor implements ActionListener {
 

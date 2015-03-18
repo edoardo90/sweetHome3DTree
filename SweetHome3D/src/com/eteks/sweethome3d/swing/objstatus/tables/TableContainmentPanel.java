@@ -8,7 +8,7 @@ import java.util.List;
 
 import javax.swing.JTable;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
 import com.eteks.sweethome3d.viewcontroller.HomeController;
 
 

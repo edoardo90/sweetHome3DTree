@@ -14,8 +14,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.ActorObject;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
 import com.eteks.sweethome3d.model.UserPreferences;
 import com.eteks.sweethome3d.viewcontroller.HomeFurnitureController;
 /**

@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 
 public  class StatusOfObjectForView
 {

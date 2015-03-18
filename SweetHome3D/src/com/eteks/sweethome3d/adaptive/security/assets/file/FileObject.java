@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file;
+package com.eteks.sweethome3d.adaptive.security.assets.file;
 
 import java.io.File;
 import java.io.Serializable;

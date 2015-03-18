@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
+package com.eteks.sweethome3d.adaptive.security.assets;
 
 
 public enum LifeStatus {

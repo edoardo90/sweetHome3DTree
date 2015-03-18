@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes;
+package com.eteks.sweethome3d.adaptive.security.assets.attributes;
 
 import java.lang.reflect.Method;
 

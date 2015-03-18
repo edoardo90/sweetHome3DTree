@@ -39,7 +39,7 @@ import java.util.PropertyPermission;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
 
 /**
  * User preferences.

@@ -2,8 +2,8 @@ package com.eteks.sweethome3d.swing.objstatus.tables;
 
 import java.util.List;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.AttributeType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
+import com.eteks.sweethome3d.adaptive.security.assets.attributes.AttributeType;
+import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 
 public class TableAttributeModel extends TableListModel<BuildingObjectAttribute>
 {

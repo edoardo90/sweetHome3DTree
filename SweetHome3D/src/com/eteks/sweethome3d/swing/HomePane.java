@@ -156,9 +156,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.JTextComponent;
 
+import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 import com.eteks.sweethome3d.j3d.Ground3D;
 import com.eteks.sweethome3d.j3d.HomePieceOfFurniture3D;
@@ -273,7 +273,7 @@ public class HomePane extends JRootPane implements HomeView {
     this.preferences = preferences;
     this.controller = controller;
 
-    ConfigLoader.getInstance(preferences);
+    SavedConfigurationsLoader.getInstance(preferences);
 
     JPopupMenu.setDefaultLightWeightPopupEnabled(false);
     ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);    

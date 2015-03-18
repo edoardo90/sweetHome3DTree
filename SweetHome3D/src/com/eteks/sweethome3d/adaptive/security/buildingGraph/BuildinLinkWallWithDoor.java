@@ -2,7 +2,7 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
 import java.io.Serializable;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
+import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
 import com.eteks.sweethome3d.model.Wall;
 
 /**

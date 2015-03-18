@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
@@ -13,10 +16,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader.SecurityNameAndMap;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader.SecurityNameAndMap;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.model.Home;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -98,7 +98,7 @@ public class HomeSecurityExtractor extends SecurityExtractor {
           Vector3D position = pieceOfForn.getPosition();
           
           
-          ConfigLoader cfg = this.getConfig(preferences);
+          SavedConfigurationsLoader cfg = this.getConfig(preferences);
           SecurityNameAndMap namesConv = cfg.getNamesConventions();
           Map<String, BuildingObjectType> catalog = namesConv.sweetCatalogToType;
           String name = pieceOfForn.getOriginalName();
@@ -229,8 +229,8 @@ public class HomeSecurityExtractor extends SecurityExtractor {
     return inters2;
   }
 
-  protected ConfigLoader getConfig(UserPreferences preferences) {
-    return ConfigLoader.getInstance(preferences);
+  protected SavedConfigurationsLoader getConfig(UserPreferences preferences) {
+    return SavedConfigurationsLoader.getInstance(preferences);
   }
 
   private boolean areLinkedRoomsAndDoor(Room r1, Room r2, HomePieceOfFurniture d)

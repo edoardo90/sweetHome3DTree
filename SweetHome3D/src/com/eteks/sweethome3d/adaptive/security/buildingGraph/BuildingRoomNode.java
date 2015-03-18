@@ -3,9 +3,9 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 import java.io.Serializable;
 import java.util.List;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingGraphPart;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingGraphPart;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Shape3D;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.RoomGeoSmart;

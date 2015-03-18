@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file;
+package com.eteks.sweethome3d.adaptive.security.assets.file;
 
 public enum NonDisclose {
   NDA_PROTECTED("Protected by NDA"), NOT_NDA_PROTECTED("Not protected by NDA");

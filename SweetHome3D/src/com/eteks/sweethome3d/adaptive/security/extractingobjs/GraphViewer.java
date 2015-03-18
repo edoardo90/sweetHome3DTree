@@ -17,13 +17,13 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 
 
-public class GraphClean {
+public class GraphViewer {
 
   private Graph homeGraph;
 
   private List<BuildingLinkEdge> links;
 
-  public GraphClean(BuildingSecurityGraph securityGraph)
+  public GraphViewer(BuildingSecurityGraph securityGraph)
   {
     this.homeGraph = new MultiGraph("my");
     links = securityGraph.getLinkEdgeList();

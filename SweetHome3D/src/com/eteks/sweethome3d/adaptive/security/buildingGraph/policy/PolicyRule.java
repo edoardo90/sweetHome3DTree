@@ -2,7 +2,7 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph.policy;
 
 import java.io.Serializable;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.MaterialObject;
+import com.eteks.sweethome3d.adaptive.security.assets.MaterialObject;
 
 public class PolicyRule implements Serializable {
   

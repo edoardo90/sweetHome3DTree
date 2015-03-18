@@ -92,8 +92,8 @@ import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.tools.TemporaryURLContent;
 import com.eteks.sweethome3d.adaptive.tools.URLContent;
@@ -666,7 +666,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
       public void actionPerformed(ActionEvent e) {
         filesContainer = ! filesContainer;
         String name = nameTextField.getText();
-        ConfigLoader cfg = ConfigLoader.getInstance();
+        SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
         cfg.setObjectAbilityStatus(name, ObjectAbility.STORE_FILES, filesContainer);
         
         System.out.println("file container :" + filesContainer);
@@ -678,7 +678,7 @@ public class ImportedFurnitureWizardStepsPanel extends JPanel
       public void actionPerformed(ActionEvent e) {
         canConnect = ! canConnect;
         String name = nameTextField.getText();
-        ConfigLoader cfg = ConfigLoader.getInstance();
+        SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
         cfg.setObjectAbilityStatus(name, ObjectAbility.CONNECT, canConnect);
         
         System.out.println(" connectable :  " + canConnect);

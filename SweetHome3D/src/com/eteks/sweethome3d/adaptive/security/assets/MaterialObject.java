@@ -1,9 +1,9 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects;
+package com.eteks.sweethome3d.adaptive.security.assets;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
+import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.swing.objstatus.representation.StatusOfObjectForView;
 

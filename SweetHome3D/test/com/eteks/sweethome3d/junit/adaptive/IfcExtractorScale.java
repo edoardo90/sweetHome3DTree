@@ -1,6 +1,6 @@
 package com.eteks.sweethome3d.junit.adaptive;
 
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
 import com.eteks.sweethome3d.model.UserPreferences;
 
@@ -17,7 +17,7 @@ public class IfcExtractorScale extends IfcSecurityExtractor{
   }
   
   @Override
-  protected ConfigLoader getConfig(UserPreferences preferences) {
+  protected SavedConfigurationsLoader getConfig(UserPreferences preferences) {
     return ConfigFileEvilTest.getInstance(preferences);
   }
   

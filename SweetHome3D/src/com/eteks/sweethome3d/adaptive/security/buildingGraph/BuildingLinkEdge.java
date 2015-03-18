@@ -2,7 +2,7 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph;
 
 import java.io.Serializable;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingGraphPart;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingGraphPart;
 
 /**
  * This class generically define a link in the graph

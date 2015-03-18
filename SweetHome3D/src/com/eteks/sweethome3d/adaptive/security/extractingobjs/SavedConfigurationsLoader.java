@@ -14,9 +14,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.FurnitureCategory;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -28,7 +29,7 @@ import com.eteks.sweethome3d.resources.Res;
  * 
  * @author Edoardo Pasi
  */
-public class ConfigLoader {
+public class SavedConfigurationsLoader {
 
 
 
@@ -45,7 +46,7 @@ public class ConfigLoader {
   
   private String securityCategoryName = "Security";
 
-  private static ConfigLoader instance = null;  //SINGLETON!!
+  private static SavedConfigurationsLoader instance = null;  //SINGLETON!!
   private Map<String, List<String>>  fileContentCache = new HashMap<String, List<String>>();
   private SecurityNameAndMap snm = null;
   private Map<BuildingObjectType, HomePieceOfFurniture> typeToFurniture = null;
@@ -92,12 +93,12 @@ public class ConfigLoader {
   }
 
 
-  public static ConfigLoader getInstance(UserPreferences preferences)
+  public static SavedConfigurationsLoader getInstance(UserPreferences preferences)
   {
 
     if(instance == null)
     {
-      instance = new ConfigLoader(preferences);
+      instance = new SavedConfigurationsLoader(preferences);
       return instance;
     }
     else
@@ -106,9 +107,9 @@ public class ConfigLoader {
     }
   }
   
-  public static ConfigLoader getInstance() {
+  public static SavedConfigurationsLoader getInstance() {
     if (preferences == null)
-      throw new IllegalStateException("configLoader should have preferences set before asking it !");
+      throw new IllegalStateException("savedConfigurationsLoader should have preferences set before asking it !");
     return getInstance(preferences);
  }
   
@@ -175,9 +176,9 @@ public class ConfigLoader {
   }
   
 
-  protected ConfigLoader(UserPreferences preferences)
+  protected SavedConfigurationsLoader(UserPreferences preferences)
   {
-    ConfigLoader.preferences = preferences;
+    SavedConfigurationsLoader.preferences = preferences;
     this.sweetHomeLibraryObjectsFile = this.readSweetHomeLibraryObj();
     this.ifcWordsToLookForFile = this.readWordsToLook();
     this.attributesPossibleFile = this.readAttribute(); 
@@ -396,7 +397,7 @@ public class ConfigLoader {
   }
 
   private UserPreferences getUserPreferences() {
-    return ConfigLoader.preferences;
+    return SavedConfigurationsLoader.preferences;
   }
   
   private File readRoles()

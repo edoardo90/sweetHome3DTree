@@ -2,14 +2,14 @@ package com.eteks.sweethome3d.adaptive.security.buildingGraph.policy;
 
 import java.io.Serializable;
 
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 
 
 public class Role implements Serializable {
   private String role;
 
   public Role(String roleStr) {
-    if(ConfigLoader.getInstance().isARole(roleStr))
+    if(SavedConfigurationsLoader.getInstance().isARole(roleStr))
     {
       this.role = roleStr;
     }

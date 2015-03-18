@@ -21,7 +21,7 @@ package com.eteks.sweethome3d.viewcontroller;
 
 import java.util.Set;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.CatalogTexture;

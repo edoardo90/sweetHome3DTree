@@ -11,20 +11,20 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.eteks.sweethome3d.adaptive.security.assets.ActorObject;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectType;
+import com.eteks.sweethome3d.adaptive.security.assets.GeneralFileHolder;
+import com.eteks.sweethome3d.adaptive.security.assets.GeneralMaterialObject;
+import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.assets.PCObject;
+import com.eteks.sweethome3d.adaptive.security.assets.PrinterObject;
+import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.ActorObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectType;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.GeneralFileHolder;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.GeneralMaterialObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PCObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PrinterObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.adaptive.tools.BTree;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
@@ -391,7 +391,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   private void setAbilities(BuildingObjectContained objectCont) {
 
-    ConfigLoader cfg = ConfigLoader.getInstance();
+    SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
     String originalName = objectCont.getOriginalName();
     if(originalName == null)
       throw new IllegalStateException("original name is null!" + "objectCont : " + objectCont);
@@ -404,7 +404,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
 
   private void setAttributes(BuildingObjectContained objectCont) {
 
-    ConfigLoader cfg = ConfigLoader.getInstance();
+    SavedConfigurationsLoader cfg = SavedConfigurationsLoader.getInstance();
     String originalName = objectCont.getOriginalName();
     Set<BuildingObjectAttribute> attrs = cfg.getPossibleAttributesForObject(originalName);
     if(attrs == null)

@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.LifeStatus;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PCObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.PrinterObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;
+import com.eteks.sweethome3d.adaptive.security.assets.LifeStatus;
+import com.eteks.sweethome3d.adaptive.security.assets.PCObject;
+import com.eteks.sweethome3d.adaptive.security.assets.PrinterObject;
+import com.eteks.sweethome3d.adaptive.security.assets.file.FileObject;
+import com.eteks.sweethome3d.adaptive.security.assets.file.NonDisclose;
+import com.eteks.sweethome3d.adaptive.security.assets.file.SecurityLevel;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.BasicTest;

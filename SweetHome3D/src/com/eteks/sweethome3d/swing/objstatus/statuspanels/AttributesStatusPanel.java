@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.attributes.BuildingObjectAttribute;
+import com.eteks.sweethome3d.adaptive.security.assets.attributes.BuildingObjectAttribute;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableAttributesPanel;
 
 public class AttributesStatusPanel extends JPanelColorStatefull<BuildingObjectAttribute> {

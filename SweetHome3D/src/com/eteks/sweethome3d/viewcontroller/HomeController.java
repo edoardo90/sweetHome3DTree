@@ -64,15 +64,15 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.ObjectAbility;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphViewer;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
 import com.eteks.sweethome3d.adaptive.security.integration.JSonGraph;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
@@ -1572,7 +1572,7 @@ public class HomeController implements Controller {
     try
     {
       BuildingSecurityGraph securityGraph = BuildingSecurityGraph.getInstance();
-      GraphClean gc = new GraphClean(securityGraph);
+      GraphViewer gc = new GraphViewer(securityGraph);
       gc.populateGraph();
 
       gc.show();

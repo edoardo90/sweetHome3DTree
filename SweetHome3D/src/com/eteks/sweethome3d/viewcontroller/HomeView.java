@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
 import com.eteks.sweethome3d.model.Camera;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;

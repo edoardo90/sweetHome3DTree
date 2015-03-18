@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;
+import com.eteks.sweethome3d.adaptive.security.assets.file.FileObject;
+import com.eteks.sweethome3d.adaptive.security.assets.file.NonDisclose;
+import com.eteks.sweethome3d.adaptive.security.assets.file.SecurityLevel;
 import com.eteks.sweethome3d.swing.ActionCoolFactory;
 import com.eteks.sweethome3d.swing.objstatus.tables.TableFilePanel;
 import com.eteks.sweethome3d.viewcontroller.HomeView.ActionType;

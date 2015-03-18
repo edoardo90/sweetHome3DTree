@@ -1,6 +1,6 @@
 package com.eteks.sweethome3d.junit;
 
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.junit.adaptive.ConfigFileEvilTest;
 import com.eteks.sweethome3d.model.Home;
@@ -14,7 +14,7 @@ public class HomeExtractorEvil extends HomeSecurityExtractor {
   }
   
   @Override
-  protected ConfigLoader getConfig(UserPreferences preferences) {
+  protected SavedConfigurationsLoader getConfig(UserPreferences preferences) {
     return ConfigFileEvilTest.getInstance(preferences);
   }
 

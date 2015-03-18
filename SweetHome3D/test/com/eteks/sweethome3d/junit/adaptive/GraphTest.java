@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.eteks.sweethome3d.adaptive.security.assets.BuildingObjectContained;
+import com.eteks.sweethome3d.adaptive.security.assets.DoorObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildinLinkWallWithDoor;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkEdge;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingLinkWall;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingRoomNode;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.BuildingObjectContained;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.DoorObject;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphClean;
+import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphViewer;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.FurnitureAddTest.ControllerTest;
@@ -56,7 +56,7 @@ public class GraphTest extends BasicTest {
       BuildingSecurityGraph  securityGraph = 
           super.openIfcAndReadIt(home, this.preferences, "5 rooms with objects.ifc");
       
-      GraphClean gc = new GraphClean(securityGraph);
+      GraphViewer gc = new GraphViewer(securityGraph);
       gc.populateGraph();
       System.out.println("woo");
       gc.show();

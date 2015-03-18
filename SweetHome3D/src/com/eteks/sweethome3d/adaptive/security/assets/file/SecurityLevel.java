@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file;
+package com.eteks.sweethome3d.adaptive.security.assets.file;
 
 public enum SecurityLevel {
   UNCLASSIFIED("Unclussified"), CONFIDENTIAL("Confidential"), SECRET("Secret"),

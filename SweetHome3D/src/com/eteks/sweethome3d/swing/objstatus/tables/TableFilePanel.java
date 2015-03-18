@@ -2,9 +2,9 @@ package com.eteks.sweethome3d.swing.objstatus.tables;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.FileObject;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.NonDisclose;
-import com.eteks.sweethome3d.adaptive.security.buildingGraphObjects.file.SecurityLevel;
+import com.eteks.sweethome3d.adaptive.security.assets.file.FileObject;
+import com.eteks.sweethome3d.adaptive.security.assets.file.NonDisclose;
+import com.eteks.sweethome3d.adaptive.security.assets.file.SecurityLevel;
 /**
  * This class provide a panel containing a table of files
  * 
