@@ -70,11 +70,11 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGra
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.policy.ABACPolicy;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdObject;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
-import com.eteks.sweethome3d.adaptive.security.extractingobjs.GraphViewer;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.HomeSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.IfcSecurityExtractor;
 import com.eteks.sweethome3d.adaptive.security.integration.JSonGraph;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.adaptive.tools.GraphViewer;
 import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 import com.eteks.sweethome3d.adaptive.tools.ResourceURLContent;
 import com.eteks.sweethome3d.model.AspectRatio;
