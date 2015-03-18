@@ -36,7 +36,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import com.eteks.sweethome3d.adaptive.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.tools.ResourceURLContent;
 import com.eteks.sweethome3d.model.Content;
 
 /**

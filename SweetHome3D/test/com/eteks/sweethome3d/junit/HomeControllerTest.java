@@ -43,7 +43,7 @@ import javax.swing.JTable;
 
 import junit.framework.TestCase;
 
-import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.io.HomeFileRecorder;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;

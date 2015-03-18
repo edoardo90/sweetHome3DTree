@@ -30,7 +30,7 @@ import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JToolBar;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 
 /**
  * A tool bar where all components are maintained unfocusable.

@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraph.json;
+package com.eteks.sweethome3d.adaptive.security.integration;
 
 import java.util.ArrayList;
 import java.util.Collection;

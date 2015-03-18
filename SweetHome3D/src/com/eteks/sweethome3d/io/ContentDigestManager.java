@@ -36,8 +36,8 @@ import java.util.WeakHashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import com.eteks.sweethome3d.adaptive.ResourceURLContent;
-import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.tools.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.model.Content;
 
 /**

@@ -39,8 +39,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGraph;
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.SessionIdentifierGenerator;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.adaptive.tools.SessionIdentifierGenerator;
 
 /**
  * A piece of furniture in {@linkplain Home home}.

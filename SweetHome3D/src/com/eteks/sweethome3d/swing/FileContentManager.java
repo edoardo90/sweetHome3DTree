@@ -62,8 +62,8 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
-import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.RecorderException;
 import com.eteks.sweethome3d.model.UserPreferences;

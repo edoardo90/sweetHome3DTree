@@ -62,8 +62,8 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.TableCellRenderer;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
-import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.io.ContentRecording;
 import com.eteks.sweethome3d.j3d.Component3DManager;
 import com.eteks.sweethome3d.j3d.ModelManager;

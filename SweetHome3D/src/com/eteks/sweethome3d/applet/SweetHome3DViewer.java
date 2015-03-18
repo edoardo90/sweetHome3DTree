@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 import javax.swing.JApplet;
 import javax.swing.JLabel;
 
-import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
+import com.eteks.sweethome3d.adaptive.tools.ExtensionsClassLoader;
 
 /**
  * This applet class displays the 3D view of a Sweet Home 3D file from its URL.

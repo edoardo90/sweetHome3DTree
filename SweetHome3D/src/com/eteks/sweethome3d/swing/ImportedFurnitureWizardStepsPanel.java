@@ -92,11 +92,11 @@ import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
-import com.eteks.sweethome3d.adaptive.TemporaryURLContent;
-import com.eteks.sweethome3d.adaptive.URLContent;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ConfigLoader;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.ObjectAbility;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.TemporaryURLContent;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.j3d.ModelManager;
 import com.eteks.sweethome3d.j3d.OBJWriter;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;

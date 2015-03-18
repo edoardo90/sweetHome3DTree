@@ -44,7 +44,7 @@ import abbot.finder.ComponentSearchException;
 import abbot.finder.matchers.ClassMatcher;
 import abbot.tester.JComponentTester;
 
-import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.io.FileUserPreferences;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.CollectionEvent;

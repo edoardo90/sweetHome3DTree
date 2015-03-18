@@ -47,7 +47,7 @@ import javax.swing.text.html.HTML.Tag;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
-import com.eteks.sweethome3d.adaptive.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.tools.ResourceURLContent;
 import com.eteks.sweethome3d.model.UserPreferences;
 
 /**

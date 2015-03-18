@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.SessionIdentifierGenerator;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.adaptive.tools.SessionIdentifierGenerator;
 
 /**
  * A room or a polygon in a home plan. 

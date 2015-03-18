@@ -21,7 +21,7 @@ package com.eteks.sweethome3d.junit;
 
 import junit.framework.TestCase;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 
 /**
  * Tests operating system utilities.

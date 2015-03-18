@@ -41,7 +41,7 @@ import junit.extensions.abbot.ComponentTestFixture;
 import abbot.tester.ComponentLocation;
 import abbot.tester.JComponentTester;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.model.CollectionEvent;
 import com.eteks.sweethome3d.model.CollectionListener;

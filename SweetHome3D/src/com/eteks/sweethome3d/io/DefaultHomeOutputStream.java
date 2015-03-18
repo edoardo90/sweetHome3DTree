@@ -37,9 +37,9 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import com.eteks.sweethome3d.adaptive.ResourceURLContent;
-import com.eteks.sweethome3d.adaptive.TemporaryURLContent;
-import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.tools.ResourceURLContent;
+import com.eteks.sweethome3d.adaptive.tools.TemporaryURLContent;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.model.Content;
 import com.eteks.sweethome3d.model.Home;
 

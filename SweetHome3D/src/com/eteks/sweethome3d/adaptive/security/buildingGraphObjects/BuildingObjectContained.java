@@ -45,40 +45,75 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     this.attributes.clear();
 
   }
-
-  @Override
-  public String toString()
-  {
-    String s =  (this.objectType != null ? this.objectType.toString() : "[no obj type] object")  +
-        "ID: " + this.getId() +
-        "\n\tOriginalName: " + this.getOriginalName();
-    return s;
-
+  
+  public boolean canConnect() {
+    return this.getAbilities().contains(ObjectAbility.CONNECT);
   }
-
-  //TODO: generalize with custom objs
-  public String typeString()
-  {
-    return "" + this.objectType;
-  }
-
+  
 
   public Vector3D getPosition() {
     return position;
   }
 
+  public void setPosition(Vector3D position) {
+    this.position = position;
+  }
+  
   public BuildingObjectType getType()
   {
     return this.objectType;
   }
 
-  public void setPosition(Vector3D position) {
-    this.position = position;
+
+
+  public List<BuildingObjectContained> getObjectContained() {
+    return objectContained;
   }
 
-  public  abstract StatusOfObjectForView getStatusForView();
 
-  public  abstract void  setStatusFromView(StatusOfObjectForView status);
+
+  public void setObjectContained(List<BuildingObjectContained> objectContained) {
+    this.objectContained = objectContained;
+  }
+
+  public void addObjectContained(BuildingObjectContained cont)
+  {
+    this.objectContained.add(cont);
+  }
+
+
+  public List<BuildingObjectAttribute> getAttributes()
+  {
+    return this.attributes;
+  }
+
+  private void addObjectContained(String objectCont)
+  {
+    BuildingSecurityGraph segrapg = BuildingSecurityGraph.getInstance();
+    String id = this.getIdFromTableString(objectCont);
+    BuildingObjectContained boc = segrapg.getObjectContainedFromObj(new IdObject(id));
+    this.addObjectContained(boc);
+  }
+  /**
+   * Assuming that the string is the form:  ID,TYPE
+   * It returns  (s.split(","))[0];
+   * @param s: the table string
+   * @return the id
+   */
+  private String getIdFromTableString(String s)
+  {
+    return   (s.split(","))[0];
+  }
+
+  
+  public Set<ObjectAbility> getAbilities() {
+    return abilities;
+  }
+
+  public void setAbilities(Set<ObjectAbility> abilities) {
+    this.abilities = abilities;
+  }
+
 
   public void setObjectsContainedFromView(StatusOfObjectForView status)
   {
@@ -136,50 +171,38 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     return this.getType().name();
   }
 
-  public List<BuildingObjectContained> getObjectContained() {
-    return objectContained;
+  
+
+  
+  public Set<String> getAttributesStr() {
+    Set<String> strs = new HashSet<String>();
+    for(BuildingObjectAttribute attribute : this.attributes)
+    {
+      attribute.toStringTable(); 
+    }
+    return strs;
   }
 
-  public void setObjectContained(List<BuildingObjectContained> objectContained) {
-    this.objectContained = objectContained;
-  }
+  public  abstract StatusOfObjectForView getStatusForView();
 
-  public void addObjectContained(BuildingObjectContained cont)
+  public  abstract void  setStatusFromView(StatusOfObjectForView status);
+
+  
+  //TODO: generalize with custom objs
+  public String typeString()
   {
-    this.objectContained.add(cont);
+    return "" + this.objectType;
   }
+  
 
-  public void addAttribute(BuildingObjectAttribute attribute)
+  @Override
+  public String toString()
   {
-    this.attributes.add(attribute);
-  }
+    String s =  (this.objectType != null ? this.objectType.toString() : "[no obj type] object")  +
+        "ID: " + this.getId() +
+        "\n\tOriginalName: " + this.getOriginalName();
+    return s;
 
-  public void addAllAttributes(Set<BuildingObjectAttribute> attrs) {
-    this.attributes.addAll(attrs);
-
-  }
-
-  public List<BuildingObjectAttribute> getAttributes()
-  {
-    return this.attributes;
-  }
-
-  private void addObjectContained(String objectCont)
-  {
-    BuildingSecurityGraph segrapg = BuildingSecurityGraph.getInstance();
-    String id = this.getIdFromTableString(objectCont);
-    BuildingObjectContained boc = segrapg.getObjectContainedFromObj(new IdObject(id));
-    this.addObjectContained(boc);
-  }
-  /**
-   * Assuming that the string is the form:  ID,TYPE
-   * It returns  (s.split(","))[0];
-   * @param s: the table string
-   * @return the id
-   */
-  private String getIdFromTableString(String s)
-  {
-    return   (s.split(","))[0];
   }
 
   public String getOriginalName() {
@@ -192,28 +215,12 @@ public abstract class BuildingObjectContained extends BuildingGraphPart {
     this.originalName = originalName;
   }
 
-  public Set<ObjectAbility> getAbilities() {
-    return abilities;
+  public void addAllAttributes(Set<BuildingObjectAttribute> attrs) {
+    this.attributes.addAll(attrs);
+
   }
 
-  public void setAbilities(Set<ObjectAbility> abilities) {
-    this.abilities = abilities;
-  }
-
-  public boolean canConnect() {
-    return this.getAbilities().contains(ObjectAbility.CONNECT);
-  }
-
-  public Set<String> getAttributesStr() {
-    Set<String> strs = new HashSet<String>();
-    for(BuildingObjectAttribute attribute : this.attributes)
-    {
-      attribute.toStringTable(); 
-    }
-    return strs;
-  }
-
-
+  
 
 
 }

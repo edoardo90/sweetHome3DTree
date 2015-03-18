@@ -49,7 +49,7 @@ import abbot.finder.matchers.ClassMatcher;
 import abbot.finder.matchers.WindowMatcher;
 import abbot.tester.JComponentTester;
 
-import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.io.FileUserPreferences;
 import com.eteks.sweethome3d.model.CatalogTexture;
 import com.eteks.sweethome3d.model.Content;

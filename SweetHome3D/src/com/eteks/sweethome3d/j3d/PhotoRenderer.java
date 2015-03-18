@@ -96,7 +96,7 @@ import org.sunflow.math.Vector3;
 import org.sunflow.system.UI;
 import org.sunflow.system.ui.SilentInterface;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 import com.eteks.sweethome3d.model.Camera;
 import com.eteks.sweethome3d.model.Compass;
 import com.eteks.sweethome3d.model.Home;

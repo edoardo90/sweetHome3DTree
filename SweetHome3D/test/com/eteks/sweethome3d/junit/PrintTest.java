@@ -45,7 +45,7 @@ import abbot.finder.matchers.ClassMatcher;
 import abbot.tester.JComponentTester;
 import abbot.tester.JFileChooserTester;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.model.CatalogPieceOfFurniture;
 import com.eteks.sweethome3d.model.Home;

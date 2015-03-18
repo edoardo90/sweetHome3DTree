@@ -49,7 +49,7 @@ import abbot.tester.JComponentTester;
 import abbot.tester.JFileChooserTester;
 import abbot.tester.JSliderTester;
 
-import com.eteks.sweethome3d.adaptive.OperatingSystem;
+import com.eteks.sweethome3d.adaptive.tools.OperatingSystem;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.io.HomeFileRecorder;
 import com.eteks.sweethome3d.model.AspectRatio;

@@ -35,7 +35,7 @@ import abbot.finder.AWTHierarchy;
 import abbot.finder.ComponentSearchException;
 import abbot.tester.JComponentTester;
 
-import com.eteks.sweethome3d.adaptive.URLContent;
+import com.eteks.sweethome3d.adaptive.tools.URLContent;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.model.BackgroundImage;
 import com.eteks.sweethome3d.model.Content;

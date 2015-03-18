@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive;
+package com.eteks.sweethome3d.adaptive.tools;
 
 public class Couple<T, S> {
     private T first;

@@ -40,7 +40,7 @@ import java.util.zip.ZipInputStream;
 import javax.swing.JApplet;
 import javax.swing.JLabel;
 
-import com.eteks.sweethome3d.adaptive.ExtensionsClassLoader;
+import com.eteks.sweethome3d.adaptive.tools.ExtensionsClassLoader;
 
 /**
  * This applet class loads Sweet Home 3D classes from jars in classpath or from extension 

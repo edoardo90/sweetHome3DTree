@@ -1,4 +1,4 @@
-package com.eteks.sweethome3d.adaptive.security.buildingGraph;
+package com.eteks.sweethome3d.adaptive.tools;
 
 import java.io.Serializable;
 

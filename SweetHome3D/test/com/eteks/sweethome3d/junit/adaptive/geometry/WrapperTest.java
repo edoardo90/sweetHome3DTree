@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import com.eteks.sweethome3d.adaptive.security.buildingGraph.BTree;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.adaptive.tools.BTree;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.BasicTest;
 import com.eteks.sweethome3d.junit.adaptive.ControllerTest;
