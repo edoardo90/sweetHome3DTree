@@ -1,0 +1,9 @@
+Give the possibility to give nice id for rooms as well.
+In room toString sucks because of uggly id.
+
+File save should save also: 
+	contained files
+	contained objects
+	cyber-links
+	
+Integration with analysis

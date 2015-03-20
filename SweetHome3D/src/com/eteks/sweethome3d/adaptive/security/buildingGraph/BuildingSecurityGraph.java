@@ -26,7 +26,7 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.IdRoom;
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.extractingobjs.SavedConfigurationsLoader;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
-import com.eteks.sweethome3d.adaptive.tools.BTree;
+import com.eteks.sweethome3d.adaptive.tools.btree.BTree;
 import com.eteks.sweethome3d.model.HomePieceOfFurniture;
 import com.eteks.sweethome3d.model.Room;
 import com.eteks.sweethome3d.model.RoomGeoSmart;
@@ -130,7 +130,7 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
       r.setRoomName(brn.getName());
       if( ! this.spaceAreasOfRooms.contains(r))
       { 
-        this.spaceAreasTT.put(r, brn.getId());
+        this.spaceAreasTT.insert(r);
         this.spaceAreasRev.put( brn.getId(), r);
         this.spaceAreasOfRooms.add(r);
       }
@@ -204,8 +204,10 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     }
 
     String roomId_btree; 
-    roomId_btree = this.spaceAreasTT.get(new WrapperRect(position));
-
+    WrapperRect rectOfRoom = this.spaceAreasTT.getNode(new WrapperRect(position));
+    if(rectOfRoom != null)
+      roomId = rectOfRoom.getRoomId();
+    
     if(false) //TODO: try more and maybe keep just the btree
       System.out.println(" room id old way : " + roomId + 
           "\n room id new way :  "  + roomId_btree);
@@ -246,8 +248,8 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
     this.objectsFather.clear();
     this.objectsRoomLocation.clear();
     this.spaceAreasOfRooms.clear();
-    this.spaceAreasRev = new BTree<String, WrapperRect>();
-    this.spaceAreasTT = new BTree<WrapperRect, String>();
+    this.spaceAreasRev = new HashMap<String, WrapperRect>();
+    this.spaceAreasTT = new BTree<WrapperRect>();
 
   }
   
@@ -737,9 +739,9 @@ public class BuildingSecurityGraph implements Cloneable, Serializable{
    *   from wrapping rectangle : room area  to idroom
    *   </pre> 
    */
-  private BTree<WrapperRect, String> spaceAreasTT = new BTree<WrapperRect, String>();
+  private BTree<WrapperRect> spaceAreasTT = new BTree<WrapperRect>();
   /** from string: id room to wrapp rectangle of its shape **/ 
-  private BTree<String, WrapperRect> spaceAreasRev = new BTree<String, WrapperRect>();
+  private Map<String, WrapperRect> spaceAreasRev = new HashMap<String, WrapperRect>();
 
   private Set<ABACPolicy> policies = new HashSet<ABACPolicy>();
   private static BuildingSecurityGraph instance = null;

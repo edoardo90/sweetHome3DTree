@@ -7,7 +7,7 @@ import java.util.TreeSet;
 
 import com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper.WrapperRect;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
-import com.eteks.sweethome3d.adaptive.tools.BTree;
+import com.eteks.sweethome3d.adaptive.tools.btree.BTree;
 import com.eteks.sweethome3d.io.DefaultUserPreferences;
 import com.eteks.sweethome3d.junit.adaptive.BasicTest;
 import com.eteks.sweethome3d.junit.adaptive.ControllerTest;
@@ -22,32 +22,34 @@ public class WrapperTest extends BasicTest {
   public void testBT()
   {
     String s;
-    BTree<WrapperRect, String>  wts;
+    BTree<WrapperRect>  wts;
     
-    WrapperRect  cubbyW  = new WrapperRect( cubbyRoom.getBoundingRoomRect3D());
-    WrapperRect  livingW  = new WrapperRect( livingRoom.getBoundingRoomRect3D());
-    WrapperRect  diningW  = new WrapperRect( diningRoom.getBoundingRoomRect3D());
-    WrapperRect  kitchenW  = new WrapperRect( kitchen.getBoundingRoomRect3D());
+    WrapperRect  cubbyW  = new WrapperRect( cubbyRoom);
+    WrapperRect  livingW  = new WrapperRect( livingRoom);
+    WrapperRect  diningW  = new WrapperRect( diningRoom);
+    WrapperRect  kitchenW  = new WrapperRect( kitchen);
     
-     wts = new BTree<WrapperRect, String>();
+     wts = new BTree<WrapperRect>();
     
-    wts.put(cubbyW, "cubby");
-    wts.put(livingW, "living");
-    wts.put(diningW, "dining");
-    wts.put(kitchenW, "kitchen");
+    wts.insert(cubbyW);
+    wts.insert(livingW);
+    wts.insert(diningW);
+    wts.insert(kitchenW);
     
     WrapperRect p = new WrapperRect(100, 100);
     
-    s = wts.get(p);
-    assertEquals("cubby", s);
+    WrapperRect rectOfRoom = wts.getNode(p);
+    s = rectOfRoom.getRoomName();
+    assertEquals("cubbyRoom", s);
     
     
-    wts.put(cubbyW, "cubby");
-    wts.put(diningW, "dining");
-    wts.put(cubbyW, "cubby");
+    wts.insert(cubbyW);
+    wts.insert(diningW);
+    wts.insert(cubbyW);
     
-    s = wts.get(p);
-    assertEquals("cubby", s);
+    WrapperRect rectRoom2  = wts.getNode(p);
+    s = rectRoom2.getRoomId();
+    assertEquals("cubbyRoom", s);
     
     
     

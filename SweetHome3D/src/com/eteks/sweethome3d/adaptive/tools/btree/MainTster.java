@@ -23,6 +23,19 @@ public class MainTster {
     Dog rex = dogs.getNode(new Dog("REX"));
     System.out.println(rex);
     
+    Dog nodob = dogs.getNode(new Dog("Lassie"));
+   
+    System.out.println(nodob);
+    
+    dogs.delete(new Dog("REX"));
+    
+    System.out.println(" All dogs: \n" + dogs);
+    
+    System.out.println(" Now I add ReX\n");
+    dogs.insert(new Dog("ReX"));
+    
+    System.out.println(" All dogs: \n" + dogs);
+    
     
   }
   

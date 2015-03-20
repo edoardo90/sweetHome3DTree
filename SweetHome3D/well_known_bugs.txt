@@ -1,0 +1,13 @@
+	1) NEED FOR REFRESH
+	
+	file -> open recent -> *filename*.sh3d
+	there is need to refresh before using objects
+	
+	if I open a sw3d file from recent files (or even normally from file -> open)
+	and I do NOT refresh then if I double click an object the id field is blank cause
+	the graph is not updated.
+
+		Way out:
+		after opening a file press Refresh button (the one with blue arrows)
+
+    

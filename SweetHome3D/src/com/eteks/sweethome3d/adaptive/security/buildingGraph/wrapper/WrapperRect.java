@@ -1,9 +1,7 @@
 package com.eteks.sweethome3d.adaptive.security.buildingGraph.wrapper;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import com.eteks.sweethome3d.adaptive.security.assets.Asset;
@@ -12,8 +10,13 @@ import com.eteks.sweethome3d.adaptive.security.buildingGraph.BuildingSecurityGra
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Rectangle3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Segment3D;
 import com.eteks.sweethome3d.adaptive.security.parserobjects.Vector3D;
+import com.eteks.sweethome3d.model.RoomGeoSmart;
 
 public class WrapperRect implements Comparable<WrapperRect>, Serializable {
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1055898185719637845L;
   private final Rectangle3D rect;
   private String roomID;
   private String roomName;
@@ -24,10 +27,17 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
 
   public WrapperRect(float x, float y) {
     this.rect = new Rectangle3D(new Vector3D(x, y, 0), 10, 10);
+    this.roomName = "empty rect";
   }
 
   public WrapperRect(Vector3D position) {
     this((float)position.first, (float)position.second);
+  }
+
+  public WrapperRect(RoomGeoSmart room) {
+    this.rect = room.getBoundingRoomRect3D();
+    this.roomName = room.getName();
+    this.roomID = room.getId();
   }
 
   @Override
@@ -67,7 +77,6 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
     Segment3D topSeg1 = rect.getTopSegment();
     Segment3D topSeg2 = o.rect.getTopSegment();
 
-    Rectangle3D myRect = this.rect;
     Rectangle3D otherRect = o.rect;
 
     if(this.rect.contains(otherRect) || otherRect.contains(this.rect))
@@ -132,7 +141,6 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
     double ymin = points.get(2).second + BORDER;
 
     Vector3D proposedCoord = null;
-    String roomIdAtProposedPosition = null;
     Random rand = new Random();
     double x = (Double) ( rand.nextInt((int)((xmax - xmin) + 1)) + xmin );
     double y = (Double) ( rand.nextInt((int)((ymax - ymin) + 1)) + ymin );
@@ -143,8 +151,11 @@ public class WrapperRect implements Comparable<WrapperRect>, Serializable {
     return proposedCoord;
 
   }
-
-  public String getName()
+/**
+ * 
+ * @return room name
+ */
+  public String getRoomName()
   {
     return this.roomName;
   }
