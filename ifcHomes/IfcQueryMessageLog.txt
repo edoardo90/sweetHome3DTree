@@ -1,0 +1,25 @@
+<Message>Clearing model...</Message>
+<Message>Loading file: C:/Users/pippoInzaghi/Documents/Tesi/IFC/ifc elements to try/ifc buildings/villa ortensia.ifc</Message>
+<Message>Detected IFC version: FILE_SCHEMA(('IFC2X3'))</Message>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #16818=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #16906=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #17002=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #17051=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #17226=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #17465=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #17586=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #68988=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #69076=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #69172=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #69221=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #69396=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #69635=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #69756=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #106921=IfcFace</Warning>
+<Warning>Sweeper::createFace, carve::triangulate::incorporateHolesIntoPolygon failed , IFC entity: #106944=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #106969=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #202133=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #205568=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #209003=IfcFace</Warning>
+<Warning>ItemShapeInputData::addClosedPolyhedron: Meshset is not closed, IFC entity: #212438=IfcFace</Warning>
+<Message>File loaded (2.79 sec)</Message>
